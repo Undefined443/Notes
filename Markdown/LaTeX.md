@@ -366,6 +366,8 @@ $\begin{array}{c|cccc}
 1 & m_4 & m_5 & m_7 & m_6 
 \end{array}$
 
+*array 和 matrix 的区别在于 array 有一个列对齐参数*
+
 ### 下括号
 
 $\begin{matrix}
