@@ -1,0 +1,3 @@
+- [ ] emplace_back()
+- [ ] cbegin()
+- [x] range-for
