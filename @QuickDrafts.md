@@ -1,7 +1,5 @@
-What does fatch mean?
+## The Academic Qualification in Job Hunting
 
-And what does pull mean?
+There are many qualifications that are considered during job hunting. Various qualifications will have various influences on the result. But the academic qualification is weighted most during job hunting.
 
-Modified from dev.
-
-What's next?
+First of all, academic qualification stands for the base of your ability. Those who entered top universities usually have some outstanding skills, and that will be beneficial for the company. What's more, with higher educational experience comes with wider horizons. Students in top universities have higher chance to reach qualified resources, which means that they will be more experienced in some professional areas. Thirdly, students from better college have better learning skills, therefore they will accept new concepts quicker than others, and that reduces the cost for company for training employees. Finally, higher academic qualification also has some extra benefits beyond the profession. For example, students from better 

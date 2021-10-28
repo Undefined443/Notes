@@ -100,7 +100,7 @@ e849d38 (HEAD -> master) HEAD@{2}: commit: modified self-introduction
 1a0ec02 HEAD@{3}: commit (initial): added a self-introduction
 
 $ git reset --hard 188d
-#commit_id 不用输全，只要通过前几位能确定版本就行
+# commit_id 不用输全，只要通过前几位能确定版本就行
 HEAD is now at 188d795 appended a new line
 ```
 
@@ -206,9 +206,9 @@ Git 将把远程库拷贝到当前目录。注意，在当前目录下不能有 
 
 创建分支：`git branch <name>`
 
-切换分支：`git switch <name>` 或者 `git checkout <name>`
+切换分支：`git checkout <name>` 或者 `git switch <name>`
 
-创建并切换分支：`git switch -c <name>` 或 `git checkout -b <name>`
+创建并切换分支：`git checkout -b <name>` 或 `git switch -c <name>`
 
 合并到当前分支：`git merge <name>`
 
@@ -252,7 +252,7 @@ Git 将把远程库拷贝到当前目录。注意，在当前目录下不能有 
 
 运行 `git stash pop` 命令恢复工作现场并删除 stash。或者是使用 `git stash apply <name>` 恢复，再用 `git stash drop` 删除。
 
-我们通过一个 commit 修复主分支的 Bug 后，想要把修改的内容同样 commit 到 dev 分支上。此时可通过 `git cherry-pick <name>` 命令复制该 commit 到当前分支。
+我们通过一个 commit 修复主分支的 Bug 后，想要把修改的内容同样 commit 到 dev 分支上。此时可通过 `git cherry-pick <name>` 命令复制该 commit 到当前分支。cherry-pick 就好像是把其他分支的几个结点摘取到当前分支。
 
 ### 多人协作
 
@@ -271,6 +271,8 @@ Git 将把远程库拷贝到当前目录。注意，在当前目录下不能有 
 #### Rebase
 
 我们和别人同时对同一分支做出修改，提交，然后 push。这时后 push 的那个人需要先从远程库抓取最新的提交，在本地合并，然后再 push。但是这样就会在分支历史上留下两个分支合并的记录，会变得比较乱。我们可以在
+
+rebase 就是把当前分支摘下来，放到目标分支上。
 
 > 注意，一开始远程的 origin/dev 分支与本地的 dev 分支是没有链接的。需要使用 `git branch --set-upstream-to=<origin/branch> <branch>` 命令创建 dev 和 origin/dev 的链接。
 
