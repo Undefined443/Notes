@@ -4,6 +4,8 @@
 
 `rm <file>` 删除文件
 
+`vi` 使用 vim 编辑文件
+
 ## 安装与配置 Git
 
 [Git 详细安装教程](https://blog.csdn.net/mukes/article/details/115693833)
