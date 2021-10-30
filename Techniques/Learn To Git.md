@@ -11,8 +11,8 @@
 ### 自报家门
 
 ```shell
-$ git config --global user.name "xiao"
-$ git config --global user.email "iphone4s2008@icloud.com"
+git config --global user.name "xiao"
+git config --global user.email "iphone4s2008@icloud.com"
 ```
 
 ### 创建版本库 Repository
@@ -20,27 +20,27 @@ $ git config --global user.email "iphone4s2008@icloud.com"
 1. 创建并进入一个空目录
 
 ```shell
-$ mkdir Demo
-$ cd Demo
-$ pwd
-```
-
-*`pwd` 命令用于显示当前目录*
-
-2. 通过 git init 命令将当前目录变成仓库
-
-```shell
-$ git init
+mkdir Demo
+cd Demo
+# 显示当前目录
+pwd
+# 将当前目录设置成仓库
+git init
+# 可以更改默认主分支名：
+git config --global init.defaultBranch <name>
+# 或者更改当前分支名：
+git branch -m <name>
 ```
 
 ### 把文件添加到版本库
 
-1. 使用 `git add <file>` 命令更新待提交文件列表
-2. 使用 `git commit -m <message>` 命令提交改动
-
 ```shell
-$ git add readme.md 
-$ git commit -m "added a readme file"
+# 更新待提交文件列表
+git add readme.md
+# 提交改动
+git commit -m "added a readme file"
+# 修改 HEAD 的 commit message
+git commit --amend
 ```
 
 *`git` 命令必须在仓库内执行*
@@ -77,11 +77,13 @@ $ git commit -m "added a readme file"
 
 在 Git 中，用 `HEAD` 表示当前版本，上一个版本是 `HEAD^`，上上个版本是 `HEAD^^`，或者写成 `HEAD~2`
 
-使用 `git reset --hard commit_id` 命令：
-
 ```shell
-$ git reset --hard HEAD^
+git reset --hard HEAD^
 ```
+
+当某结点有两个父结点时，HEAD^ 指向第一个父结点，而 HEAD^2 指向第二个父结点。
+
+这些操作符支持链式操作：`HEAD~^2~2`
 
 `cat <file>` 查看文件内容
 
@@ -163,7 +165,7 @@ $ ssh-keygen -t rsa -C "iphone4s2008@icloud.com"
 git remote add origin git@github.com:Straining5/Projects.git
 # 修改当前分支的名字为 main
 git branch -M main
-# 将本地库的所有内容推送到远程库
+# 将 main 的所有内容推送到远程库
 git push -u origin main
 ```
 
@@ -171,13 +173,11 @@ git push -u origin main
 
 > 当我们第一次使用 Git 的 `push` 或者 `clone` 命令连接 GitHub 时，会得到一个警告，该警告要求我们确认 GitHub 的 Key 的指纹信息确实来自 GitHub 的服务器。我们只需输入 yes 回车即可。
 
-*把本地库的内容推送到远程，用 `git push` 命令，实际上是把当前分支 master 推送到远程。*
-
-*由于远程库是空的，我们第一次推送 master 分支时，加上了 `-u` 参数。Git 不但会把本地的 master 分支内容推送到远程的 master 分支，还会把本地的 master 分支和远程的 master 分支关联起来，在以后的推送或者拉取时就可以简化命令。*
+*由于远程库是空的，我们第一次推送 main 分支时，加上了 `-u` 参数。Git 不但会把本地的 main 分支内容推送到远程的 main 分支，还会把本地的 main 分支和远程的 main 分支关联起来，在以后的推送或者拉取时就可以简化命令。*
 
 此时可以看到 GitHub 中的远程库已经和本地同步。
 
-从现在起，只要本地作了提交，就可以通过命令 `git push origin master` 把本地库的 master 分支的最新修改推送至 GitHub。现在我们就有了真正的分布式版本库。
+从现在起，只要本地作了提交，就可以通过命令 `git push origin main` 把本地库的 main 分支的最新修改推送至 GitHub。现在我们就有了真正的分布式版本库。
 
 #### 删除远程库
 
@@ -244,38 +244,116 @@ Git 将把远程库拷贝到当前目录。注意，在当前目录下不能有 
 
 ![pic](https://static.liaoxuefeng.com/files/attachments/919023260793600/0)
 
-### Bug 分支
+### stash
 
-运行 `git stash` 命令将当前工作现场在当前分支上暂存起来。这时，我们就可以切换到其它分支而不必担心当前分支未 commit 的部分会被覆盖。
+```shell
+git stash # 将当前工作现场在当前分支上暂存起来
 
-可以使用 `git stash list` 命令查看暂存的工作现场。
+git stash list # 查看暂存的工作现场
 
-运行 `git stash pop` 命令恢复工作现场并删除 stash。或者是使用 `git stash apply <name>` 恢复，再用 `git stash drop` 删除。
+git stash pop # 命令恢复工作现场并删除 stash
+# 等价于下面两条命令
+git stash apply <name> # 恢复
+git stash drop <name> # 删除
+```
 
-我们通过一个 commit 修复主分支的 Bug 后，想要把修改的内容同样 commit 到 dev 分支上。此时可通过 `git cherry-pick <name>` 命令复制该 commit 到当前分支。cherry-pick 就好像是把其他分支的几个结点摘取到当前分支。
+### cherry-pick
 
-### 多人协作
+```shell
+git cherry-pick <node> # 摘取一个或几个提交到 HEAD
+```
 
-#### 推送分支
+### push
 
-运行 `git push <remote_repo> <branch>` 命令将 branch 分支推送到远程库。
+```shell
+git push <remote_repo> <branch> # 将本地的 branch 推送到远程库的 branch
+git push <remote_repo> <source>:<destination> # 将 source 指向的位置推送到 destination。source 可以是分支，也可以是结点。如果 destination 不存在，则会自动创建一个
+```
 
-#### 抓取分支
+> 需要注意一点，远程分支 origin/branch 也是存储在本地的，它用来和远程库同步
+>
+> 如果不提供参数的话，Git 会将 HEAD 推送到 HEAD 跟踪的分支（如果 HEAD 指向的是一个没有跟踪任何分支的分支或某个结点的话 push 会失败）
+>
+> 如果不提供 source 的话，git 会删除远程库的 destination
 
-当我们从远程库 clone 时，默认情况下，我们只能看到本地的 master 分支。如果我们要在其他分支上开发，需要使用命令 `git branck -c dev origin/dev` 或 `git checkout -b dev origin/dev` 创建远程 origin 的 dev 分支到本地。
+### fetch
 
-现在我们可以在 dev 上继续修改，然后通过命令 `git push <remote_repo> <branch>` 将 dev 分支推送到远程。
+```shell
+git fetch # 将远程库所有更新下载到本地
+git fetch <remote_repo> <branch> # 将远程仓库上的 branch 下载到本地的 <remote_repo>/<branch>
 
-如果有人和你同时在 dev 分支上做了修改并且他的修改已经提交，那么此时无法继续推送，需要先用 `git pull` 命令把最新的提交从 origin/dev 上抓取下来，然后在本地合并，然后才能提交。
+# 和 git push 一样，git fetch 也可以使用这样的命令：
+git fetch <remote_repo> <source>:<destination> # 将远程的 source 下载到本地的 destination（当前不能在 destination 上工作）
+# 但是很少有人这样用
+```
 
-#### Rebase
+> 如果不提供 source，git 会在本地创建一个新分支
 
-我们和别人同时对同一分支做出修改，提交，然后 push。这时后 push 的那个人需要先从远程库抓取最新的提交，在本地合并，然后再 push。但是这样就会在分支历史上留下两个分支合并的记录，会变得比较乱。我们可以在
+### pull
 
-rebase 就是把当前分支摘下来，放到目标分支上。
+`git pull` 相当于两个命令：`git fetch; git merge <remote_name>/<branch_name>`。pull 的参数和 fetch 是一样的。
 
-> 注意，一开始远程的 origin/dev 分支与本地的 dev 分支是没有链接的。需要使用 `git branch --set-upstream-to=<origin/branch> <branch>` 命令创建 dev 和 origin/dev 的链接。
+  `git pull --rebase`：将本地分支的冲突部分挪到远程最新提交的下面
+
+`git pull origin main` 等价于：`git fetch origin main; git merge origin/main`。注意如果你当前不在 main 分支上，pull 会把当前分支和 main 合并。
+
+> 不要忘了 pull 里面还带一个 merge 操作
+
+### 分离的 HEAD
+
+一般 HEAD 都是指向某个分支，并随分支一起移动。但当我们 checkout 到某个具体的 commit 时，这种绑定状态被解除，成为分离头指针状态。在这种情况下，我们可以对文件进行修改并提交，但在我们 checkout 到其他地方之前，必须创建一个新的分支来保留做的修改。
+
+### tag
+
+```shell
+git tag “name” # 为 HEAD 创建一个标签
+git tag “name” <node> # 为 node 创建一个标签
+```
+
+标签相当于一个锚点，可以用它来为一些里程碑式的修改进行标记。
+
+###  describe
+
+```shell
+$ git describe <ref> # ref 可以是任何能被 Git 识别成提交记录的引用，缺省值为 HEAD
+<tag>_<numCommits>_g<hash> #tag 是离 ref 最近的标签，numCommits 是 tag 与 ref 相差的提交数，hash 是 ref 的哈希值的前几位
+```
+
+如果 ref 本身就有一个标签，则只输出该标签名。
+
+### 关联分支
+
+```shell
+# 创建一个跟踪远程分支的本地分支
+git checkout -b <local_branch> <remote_repo>/<tracked_branch>
+git branch -c <local_branch> <remote_repo>/<remote/branch>
+
+git branch -u <remote_repo>/<remote_branch> <local_branch> # 设置 local_branch 同步 remote_branch。也可以省略 local_branch 以将当前分支与 remote_branch 同步。
+
+git branch --set-upstream-to=<remote_repo>/<remote_branch> <local_branch> # 创建 local_branch 和 remote_repo/remote_branch 的链接。
+```
+
+### rebase
+
+```shell
+git rebase <destination> # 把当前分支摘下来，放到 destination 上。
+```
+
+rebase 是从当前分支与 destination 所在分支分离的地方开始，把属于当前分支的那一段挪到 destination 下面
+
+### pull request
+
+当远程分支被锁定时，不允许你直接 push 修改到远程分支。你应该 新建一个分支，推送这个分支并申请 pull request。
+
+```shell
+git branch -f main c6 # 将 main 分支强制指向 c6
+git rebase -i c2      # 将当前分支以 c2 为根，重新整理中间的结点
+```
 
 > 参考 [廖雪峰：Git 教程](https://www.liaoxuefeng.com/wiki/896043488029600)
->
+
 > [Git 简明指南](http://rogerdudler.github.io/git-guide/index.zh.html)
+>
+> [图形化 git 学习网站](https://learngitbranching.js.org/?locale=zh_CN)
+>
+> [php 中文网：git 常用命令大全](https://www.php.cn/tool/git/469391.html)
