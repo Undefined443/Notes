@@ -6,6 +6,8 @@
 
 `vi` 使用 vim 编辑文件
 
+`q` 退出
+
 ## 安装与配置 Git
 
 [Git 详细安装教程](https://blog.csdn.net/mukes/article/details/115693833)
@@ -24,10 +26,9 @@ git config --global user.email "iphone4s2008@icloud.com"
 ```shell
 mkdir Demo
 cd Demo
-# 显示当前目录
-pwd
-# 将当前目录设置成仓库
-git init
+pwd # 显示当前目录
+git init # 将当前目录设置成仓库
+
 # 可以更改默认主分支名：
 git config --global init.defaultBranch <name>
 # 或者更改当前分支名：
@@ -41,6 +42,7 @@ git branch -m <name>
 git add readme.md
 # 提交改动
 git commit -m "added a readme file"
+
 # 修改 HEAD 的 commit message
 git commit --amend
 ```
@@ -51,37 +53,48 @@ git commit --amend
 
 *使用 `git add .* 命令添加所有文件
 
-> Git 只能管理文本文件，不能管理二进制文件
-
-> 不要使用 Windows 自带的记事本编辑文本文件
+> 1. Git 只能管理文本文件，不能管理二进制文件
+> 2. 不要使用 Windows 自带的记事本编辑文本文件
 
 ## 时光机穿梭
 
-运行 `git status` 命令查看当前仓库状态
+`git status`：查看当前仓库状态
 
-运行 `git diff <file>` 命令查看文件的改动情况
+`git diff <file>`：查看文件的改动情况
 
-*`git diff HEAD -- <file>`：命令查看工作区版本和版本库最新版本的区别*
+`git diff HEAD -- <file>`：查看工作区版本和版本库最新版本的区别
 
 ### 版本回退
 
 #### 提交日志
 
-运行 `git log` 命令显示从最近到最久的提交日志
+`git log`：显示从最近到最久的提交日志
 
-运行 `--pretty=oneline` 参数显示简化的提交日志
+添加 `--pretty=oneline` 参数显示简化的提交日志
 
 *输出中一大串的东西是 commit id (版本号)，这是一个 SHA1 计算出来的十六进制数字*
 
 **每提交一个新版本，Git 就会把它们自动串成一条时间线**
 
-#### 回退
+#### reset
 
 在 Git 中，用 `HEAD` 表示当前版本，上一个版本是 `HEAD^`，上上个版本是 `HEAD^^`，或者写成 `HEAD~2`
 
 ```shell
 git reset --hard HEAD^
 ```
+
+reset 的三种模式：
+
+![图片](https://upload-images.jianshu.io/upload_images/4428238-fcad08ebe26933a6.png)
+
+--hard：重置位置的同时，直接将 Working Tree 工作目录、 Index 暂存区及 Repository 都重置成目标 reset 结点的內容，所以效果看起来等同于清空暂存区和工作区。
+
+--soft：重置位置的同时，保留 Working Tree 工作目录和Index 暂存区的内容，只让 Repository 中的内容和 reset 目标结点保持一致，因此原结点和 reset 节点之间的【差异变更集】会放入 Index 暂存区中 (Staged Files)。所以效果看起来就是工作目录的内容不变，暂存区原有的内容也不变，只是原节点和 reset 节点之间的所有差异都会放到暂存区中。
+
+--mixed（默认）：重置位置的同时，只保留 Working Tree 工作目录的內容，但会将 Index 暂存区 和 Repository 中的內容更改和 reset 目标结点一致，因此原结点和 reset 结点之间的【差异变更集】会放入 Working Tree 工作目录中。所以效果看起来就是原结点和 reset 结点之间的所有差异都会放到工作目录中。
+
+##### 操作符 \^ 与 \~
 
 当某结点有两个父结点时，HEAD^ 指向第一个父结点，而 HEAD^2 指向第二个父结点。
 
@@ -91,7 +104,7 @@ git reset --hard HEAD^
 
 `cat -n <file>` 显示行号
 
-#### 反悔
+#### 取消 reset
 
 1. 使用 `git reflog` 命令显示参考日志（命令日志）
 2. 找到要恢复的版本的 commit id，再次使用 `git reset --hard commit_id` 命令
@@ -293,13 +306,30 @@ git fetch <remote_repo> <source>:<destination> # 将远程的 source 下载到�
 
 ### pull
 
-`git pull` 相当于两个命令：`git fetch; git merge <remote_name>/<branch_name>`。pull 的参数和 fetch 是一样的。
+`git pull` 相当于两个命令：
 
-  `git pull --rebase`：将本地分支的冲突部分挪到远程最新提交的下面
+```shell
+git fetch
+git merge <remote_name>/<branch_name>
+```
 
-`git pull origin main` 等价于：`git fetch origin main; git merge origin/main`。注意如果你当前不在 main 分支上，pull 会把当前分支和 main 合并。
+pull 的参数和 fetch 是一样的。
 
-> 不要忘了 pull 里面还带一个 merge 操作
+`git pull origin main` 等价于：
+
+```shell
+git fetch origin main
+git merge origin/main # 注意如果你当前不在 main 分支上，pull 会把当前分支和 main 合并。
+```
+
+> 不要忘记 pull 里面还带一个 merge 操作
+
+
+`git pull --rebase`：以 rebase 的方式进行合并
+
+```shell
+git config 
+```
 
 ### 分离的 HEAD
 
