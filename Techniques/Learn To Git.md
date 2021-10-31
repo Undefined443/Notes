@@ -171,7 +171,7 @@ $ ssh-keygen -t rsa -C "iphone4s2008@icloud.com"
 
 > 公钥相当于锁，私钥相当于钥匙，如果版本库上有你的锁，那么你就可以用钥匙打开版本库。
 
-登录 GitHub，点击头像，打开 Settings->SSH and GPG keys，点击 New SSH key，填写任意 Title，在 Key 中粘贴 `id_rsa.pub` 文件的内容，完成添加。
+登录 GitHub，点击头像，打开 Settings -> SSH and GPG keys，点击 New SSH key，填写任意 Title，在 Key 中粘贴 `id_rsa.pub` 文件的内容，完成添加。
 
 > SSH 用于实现安全远程登陆
 >
