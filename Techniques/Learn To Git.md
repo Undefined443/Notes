@@ -91,14 +91,14 @@ reset 的三种模式：
 
 `HEAD^^`或 `HEAD~2`：HEAD 的上上个结点
 
-当某结点有两个父结点时，HEAD^ 指向第一个父结点，而 HEAD^2 指向第二个父结点。
+当某结点有两个父结点时，`HEAD^` 指向第一个父结点，而 `HEAD^2` 指向第二个父结点。
 
 这些操作符支持链式操作：`HEAD~^2~2`
 
 #### 取消 reset
 
 1. 使用 `git reflog` 命令显示参考日志（命令日志）
-2. 找到要恢复的版本的 commit id，再次使用 `git reset --hard <commit_id>` 命令
+2. 找到要恢复的版本的 commit-id，再次使用 `git reset --hard <commit_id>` 命令
 
 ```shell
 $ git reflog
@@ -108,7 +108,7 @@ e849d38 (HEAD -> master) HEAD@{2}: commit: modified self-introduction
 1a0ec02 HEAD@{3}: commit (initial): added a self-introduction
 
 $ git reset --hard 188d
-# commit_id 不用输全，只要通过前几位能确定版本就行
+# commit-id 不用输全，只要通过前几位能确定版本就行
 HEAD is now at 188d795 appended a new line
 ```
 

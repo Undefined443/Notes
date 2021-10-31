@@ -264,6 +264,8 @@ GitHub Flavored Markdown
 
 :joy:
 
+:) :(
+
 > 更多表情符号请参考：<http://www.webpagefx.com/tools/emoji-cheat-sheet/>
 
 ## 自动链接
