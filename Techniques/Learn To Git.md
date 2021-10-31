@@ -328,7 +328,14 @@ git merge origin/main # 注意如果你当前不在 main 分支上，pull 会把
 
 > 不要忘记 pull 里面还带一个 merge 操作
 
-`git pull --rebase`：以 rebase 的方式进行合并
+```shell
+# 设置默认合并方式
+git config pull.rebase false  # merge (the default strategy)
+git config pull.rebase true   # rebase
+git config pull.ff only       # fast-forward only
+# 可以用 "git config --global" 替换 "git config" 来设置针对所有库的默认合并方式
+# 也可以添加 --rebase, --no-rebase, 或 --ff-only 参数在一次 pull 时忽略默认设置
+```
 
 ### 分离的 HEAD
 
