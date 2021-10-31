@@ -3,6 +3,8 @@
 ```shell
 clear # 清屏
 
+ls -ah # 查看当前目录文件（包括隐藏文件）
+
 rm <file> # 删除文件
 
 vi # 使用 vim 编辑文件

@@ -2,6 +2,8 @@
 
 ## 安装与配置 Git
 
+Mac 自带 Git :)
+
 [Git 详细安装教程](https://blog.csdn.net/mukes/article/details/115693833)
 
 ### 自报家门
@@ -16,8 +18,8 @@ git config --global user.email "iphone4s2008@icloud.com"
 1. 创建并进入一个空目录
 
 ```shell
-mkdir Demo
-cd Demo
+mkdir repo
+cd repo
 pwd # 显示当前目录
 git init # 将当前目录设置成仓库
 
@@ -30,9 +32,12 @@ git branch -m <name>
 ### 把文件添加到版本库
 
 ```shell
-# 更新待提交文件列表
+# 提交到暂存区
 git add <file>
-# 提交改动
+git add . # 提交所有文件，包括 .gitignore
+git add * # 提交所有文件，不包括 .gitignore，并且会提示 ignored 文件
+
+# 暂存区提交到版本库
 git commit -m "added a readme file"
 
 # 修改 HEAD 的 commit message
@@ -41,40 +46,30 @@ git commit --amend
 
 *`git` 命令必须在仓库内执行*
 
-*使用 `ls -ah` 命令查看当前目录文件（包括隐藏文件）*
-
-*使用 `git add .* 命令添加所有文件
+*我觉得 `git add *` 更好*
 
 > 1. Git 只能管理文本文件，不能管理二进制文件
 > 2. 不要使用 Windows 自带的记事本编辑文本文件
 
 ## 时光机穿梭
 
-`git status`：查看当前仓库状态
+```shell
+git status # 查看当前暂存区状态
 
-`git diff <file>`：查看文件的改动情况
+git diff <file> # 查看文件的改动情况
 
-`git diff HEAD -- <file>`：查看工作区版本和版本库最新版本的区别
+git diff HEAD -- <file> # 查看工作区版本和版本库最新版本的区别
+
+git log # 显示从最近到最久的提交日志
+
+# 添加 --pretty=oneline 参数显示简化的提交日志
+```
 
 ### 版本回退
-
-#### 提交日志
-
-`git log`：显示从最近到最久的提交日志
-
-添加 `--pretty=oneline` 参数显示简化的提交日志
-
-*输出中一大串的东西是 commit id (版本号)，这是一个 SHA1 计算出来的十六进制数字*
-
-**每提交一个新版本，Git 就会把它们自动串成一条时间线**
 
 #### reset
 
 将当前分支回退到指定状态，之后的日志记录被删除（但是 commit-id）依然存在。
-
-`HEAD^`：HEAD 的上一个结点
-
-`HEAD^^`或 `HEAD~2`：HEAD 的上上个结点
 
 ```shell
 git reset --hard HEAD^
@@ -86,11 +81,15 @@ reset 的三种模式：
 
 --hard：直接将工作区置为目标结点的状态，丢弃所有未提交的修改
 
---soft：被回退的修改保留到暂存区，可以再次提交
+--soft：被回退的修改保留到工作区且被 add 到暂存区，可以再次提交
 
 --mixed（默认）：被回退的修改保留到工作区，可以再次提交
 
 ##### 操作符 \^ 与 \~
+
+`HEAD^`：HEAD 的上一个结点
+
+`HEAD^^`或 `HEAD~2`：HEAD 的上上个结点
 
 当某结点有两个父结点时，HEAD^ 指向第一个父结点，而 HEAD^2 指向第二个父结点。
 
@@ -99,7 +98,7 @@ reset 的三种模式：
 #### 取消 reset
 
 1. 使用 `git reflog` 命令显示参考日志（命令日志）
-2. 找到要恢复的版本的 commit id，再次使用 `git reset --hard commit_id` 命令
+2. 找到要恢复的版本的 commit id，再次使用 `git reset --hard <commit_id>` 命令
 
 ```shell
 $ git reflog
@@ -117,6 +116,10 @@ HEAD is now at 188d795 appended a new line
 
 可以理解为对某次提交进行反向修改，如果要回退已经上传到版本库的提交，则只能用这个命令。
 
+```shell
+git revert HEAD
+```
+
 #### 工作区与暂存区
 
 工作区就是我们在电脑里能看到的目录
@@ -133,17 +136,17 @@ HEAD is now at 188d795 appended a new line
 
 > Git 管理的是修改，而不是文件。
 
-#### 撤销修改
+##### 撤销修改
 
 ```shell
-git reset HEAD <file> # 撤销暂存区的修改，重新放回工作区。
+git reset HEAD <file> # 撤销提交到暂存区的修改
 git checkout -- <file> # 将工作区恢复到版本库或暂存区的最新版本
 
 # 在 Git 2.23 版本开始引入了 git restore
-git restore --staged <file> # 将文件修改从暂存区撤回
+git restore --staged <file> # 撤销提交到暂存区的修改
 ```
 
-#### 删除文件
+##### 删除文件
 
 ```shell
 git rm <file> # 从工作区中删除 file 并将修改提交到暂存区
@@ -198,13 +201,37 @@ git push -u origin main
 
 从现在起，只要本地作了提交，就可以通过命令 `git push origin main` 把本地库的 main 分支的最新修改推送至 GitHub。现在我们就有了真正的分布式版本库。
 
+##### 关联分支
+
+```shell
+# 创建一个跟踪远程分支的本地分支
+git checkout -b <local_branch> <remote_repo>/<tracked_branch>
+git branch -c <local_branch> <remote_repo>/<remote/branch>
+
+git branch -u <remote_repo>/<remote_branch> <local_branch> # 设置 local_branch 同步 remote_branch。也可以省略 local_branch 以将当前分支与 remote_branch 同步。
+
+git branch --set-upstream-to=<remote_repo>/<remote_branch> <local_branch> # 创建 local_branch 和 remote_repo/remote_branch 的链接。
+```
+
+##### 关联多个远程库
+
+###### 同步推送
+
+```shell
+git remote set-url --add <remote_repo> <url> # 为现有的远程库添加额外的 URL
+```
+
+###### 分别推送
+
+再添加一个远程库，以后在 push，pull 时都需指定 remote_repo
+
 #### 删除远程库
 
 可以先用 `git remote -v` 命令查看远程库的详细信息。
 
 > 详细信息中 fetch 表示可以抓取的地址，push 表示可以推送的地址。
 
-然后运行 `git remote rm <name>` 命令删除远程库。
+然后运行 `git remote rm <remote_repo>` 命令删除远程库。
 
 > 此处的删除只是解除本地库和远程库的绑定关系
 
@@ -221,19 +248,24 @@ Git 将把远程库拷贝到当前目录。注意，当前目录下不能有 `.g
 
 ## 分支管理
 
-查看分支：`git branch`
 
-创建分支：`git branch <name>`
+```shell
+git branch             # 查看分支
 
-切换分支：`git checkout <name>` 或者 `git switch <name>`
+git branch <name>      # 创建分支
 
-创建并切换分支：`git checkout -b <name>` 或 `git switch -c <name>`
+git checkout <name>
+git switch <name>      # 切换分支
 
-合并到当前分支：`git merge <name>`
+git checkout -b <name>
+git switch -c <name>   # 创建并切换分支
 
-删除分支：`git branch -d <name>`
+git merge <name>       # 合并到当前分支
 
-删除一个尚未被合并的分支：`git branch -D <name>`
+git branch -d <name>   # 删除分支
+
+git branch -D <name>   # 删除一个尚未被合并的分支
+```
 
 ### 解决冲突
 
@@ -273,7 +305,7 @@ git stash list # 查看暂存的工作现场
 git stash pop # 命令恢复工作现场并删除 stash
 # 等价于下面两条命令
 git stash apply <name> # 恢复
-git stash drop <name> # 删除
+git stash drop <name>  # 删除
 ```
 
 ### cherry-pick
@@ -349,9 +381,16 @@ git tag "tag_name" # 为 HEAD 创建一个标签
 git tag "tag_name" <node> # 为 node 创建一个标签
 git tag -a "tag_name" -m "message" <node> # 为 node 创建带说明的标签
 git show <tag_name> # 查看标签信息
+
+# 默认情况下，git push 并不会把标签推送到远程库，必须通过显式命令才会推送标签
+git push origin <tag_name> # 推送一个标签
+git push [origin] --tags # 推送所有标签
+
+git tag -d <tag_name> # 删除本地标签
+git push origin :refs/tags/<tag_name> # 删除远程标签
 ```
 
-标签相当于一个锚点，可以用它来为一些里程碑式的修改进行标记。
+> 标签相当于一个锚点，可以用它来为一些里程碑式的修改进行标记。
 
 ###  describe
 
@@ -361,18 +400,6 @@ $ git describe <ref> # ref 可以是任何能被 Git 识别成提交记录的引
 ```
 
 如果 ref 本身就有一个标签，则只输出该标签名。
-
-### 关联分支
-
-```shell
-# 创建一个跟踪远程分支的本地分支
-git checkout -b <local_branch> <remote_repo>/<tracked_branch>
-git branch -c <local_branch> <remote_repo>/<remote/branch>
-
-git branch -u <remote_repo>/<remote_branch> <local_branch> # 设置 local_branch 同步 remote_branch。也可以省略 local_branch 以将当前分支与 remote_branch 同步。
-
-git branch --set-upstream-to=<remote_repo>/<remote_branch> <local_branch> # 创建 local_branch 和 remote_repo/remote_branch 的链接。
-```
 
 ### rebase
 
@@ -384,7 +411,7 @@ rebase 是从当前分支与 destination 所在分支分离的地方开始，把
 
 ### pull request
 
-当远程分支被锁定时，不允许你直接 push 修改到远程分支。你应该 新建一个分支，推送这个分支并申请 pull request。
+当远程分支被锁定时，不允许你直接 push 修改到远程分支。你应该新建一个分支，推送这个分支并申请 pull request。
 
 ```shell
 git branch -f main c6 # 将 main 分支强制指向 c6
