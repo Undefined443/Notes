@@ -1,13 +1,5 @@
 # Git
 
-`clear` 清屏
-
-`rm <file>` 删除文件
-
-`vi` 使用 vim 编辑文件
-
-`q` 退出
-
 ## 安装与配置 Git
 
 [Git 详细安装教程](https://blog.csdn.net/mukes/article/details/115693833)
@@ -39,7 +31,7 @@ git branch -m <name>
 
 ```shell
 # 更新待提交文件列表
-git add readme.md
+git add <file>
 # 提交改动
 git commit -m "added a readme file"
 
@@ -78,7 +70,11 @@ git commit --amend
 
 #### reset
 
-在 Git 中，用 `HEAD` 表示当前版本，上一个版本是 `HEAD^`，上上个版本是 `HEAD^^`，或者写成 `HEAD~2`
+将当前分支回退到指定状态，之后的日志记录被删除（但是 commit-id）依然存在。
+
+`HEAD^`：HEAD 的上一个结点
+
+`HEAD^^`或 `HEAD~2`：HEAD 的上上个结点
 
 ```shell
 git reset --hard HEAD^
@@ -88,21 +84,17 @@ reset 的三种模式：
 
 ![图片](https://upload-images.jianshu.io/upload_images/4428238-fcad08ebe26933a6.png)
 
---hard：重置位置的同时，直接将 Working Tree 工作目录、 Index 暂存区及 Repository 都重置成目标 reset 结点的內容，所以效果看起来等同于清空暂存区和工作区。
+--hard：直接将工作区置为目标结点的状态，丢弃所有未提交的修改
 
---soft：重置位置的同时，保留 Working Tree 工作目录和Index 暂存区的内容，只让 Repository 中的内容和 reset 目标结点保持一致，因此原结点和 reset 节点之间的【差异变更集】会放入 Index 暂存区中 (Staged Files)。所以效果看起来就是工作目录的内容不变，暂存区原有的内容也不变，只是原节点和 reset 节点之间的所有差异都会放到暂存区中。
+--soft：被回退的修改保留到暂存区，可以再次提交
 
---mixed（默认）：重置位置的同时，只保留 Working Tree 工作目录的內容，但会将 Index 暂存区 和 Repository 中的內容更改和 reset 目标结点一致，因此原结点和 reset 结点之间的【差异变更集】会放入 Working Tree 工作目录中。所以效果看起来就是原结点和 reset 结点之间的所有差异都会放到工作目录中。
+--mixed（默认）：被回退的修改保留到工作区，可以再次提交
 
 ##### 操作符 \^ 与 \~
 
 当某结点有两个父结点时，HEAD^ 指向第一个父结点，而 HEAD^2 指向第二个父结点。
 
 这些操作符支持链式操作：`HEAD~^2~2`
-
-`cat <file>` 查看文件内容
-
-`cat -n <file>` 显示行号
 
 #### 取消 reset
 
@@ -120,6 +112,10 @@ $ git reset --hard 188d
 # commit_id 不用输全，只要通过前几位能确定版本就行
 HEAD is now at 188d795 appended a new line
 ```
+
+#### revert
+
+可以理解为对某次提交进行反向修改，如果要回退已经上传到版本库的提交，则只能用这个命令。
 
 #### 工作区与暂存区
 
@@ -139,13 +135,19 @@ HEAD is now at 188d795 appended a new line
 
 #### 撤销修改
 
-运行 `git reset HEAD <file>` 命令撤销暂存区的修改，重新放回工作区。
+```shell
+git reset HEAD <file> # 撤销暂存区的修改，重新放回工作区。
+git checkout -- <file> # 将工作区恢复到版本库或暂存区的最新版本
 
-运行 `git checkout -- <file>` 命令丢弃工作区的修改。file 将回退到版本库的最新版本（包括暂存区的版本）。
+# 在 Git 2.23 版本开始引入了 git restore
+git restore --staged <file> # 将文件修改从暂存区撤回
+```
 
 #### 删除文件
 
-运行 `git rm <file>` 命令从工作区中删除 file 并将修改提交到暂存区
+```shell
+git rm <file> # 从工作区中删除 file 并将修改提交到暂存区
+```
 
 > 1. 先手动删除文件，然后运行 `git rm <file>` 和 `git add <file>` 效果是一样的
 > 2. 删除也是一种修改操作
@@ -164,6 +166,8 @@ $ ssh-keygen -t rsa -C "iphone4s2008@icloud.com"
 
 接下来一路回车，以默认值创建 SSH Key。此时可以在用户主目录里找到 `.ssh` 目录，里面有 `id_rsa` 和 `id_rsa.pub` 两个文件，这两个就是 SSH Key 的密钥对，`id_rsa` 是私钥，不能泄露，`id_rsa.pub` 是公钥，可以告诉他人。
 
+> 公钥相当于锁，私钥相当于钥匙，如果版本库上有你的锁，那么你就可以用钥匙打开版本库。
+
 登录 GitHub，点击头像，打开 Settings->SSH and GPG keys，点击 New SSH key，填写任意 Title，在 Key 中粘贴 `id_rsa.pub` 文件的内容，完成添加。
 
 > SSH 用于实现安全远程登陆
@@ -174,7 +178,7 @@ $ ssh-keygen -t rsa -C "iphone4s2008@icloud.com"
 
 在 GitHub 上新建一个库。
 
-复制 `…or push an existing repository from the command line` 下的代码
+复制 `…or push an existing repository from the command line` 下的命令：
 
 ```shell
 git remote add origin git@github.com:Straining5/Projects.git
@@ -206,14 +210,14 @@ git push -u origin main
 
 ### 从远程库克隆
 
-在 GitHub 上新建库，拷贝 SSH Key，或者在已有的库的 `<> Code` 区的绿色按钮 Code 中拷贝 SSH Key，然后运行命令：
+在 GitHub 库的 `<> Code` 区的绿色按钮 Code 中拷贝 SSH Key，然后运行命令：
 
 ```shell
 #同样，这里需要替换 SSH Key
 $ git clone git@github.com:Straining5/github-slideshow.git
 ```
 
-Git 将把远程库拷贝到当前目录。注意，在当前目录下不能有 `.git` 文件。
+Git 将把远程库拷贝到当前目录。注意，当前目录下不能有 `.git` 文件。
 
 ## 分支管理
 
@@ -285,7 +289,7 @@ git push <remote_repo> <branch> # 将本地的 branch 推送到远程库的 bran
 git push <remote_repo> <source>:<destination> # 将 source 指向的位置推送到 destination。source 可以是分支，也可以是结点。如果 destination 不存在，则会自动创建一个
 ```
 
-> 需要注意一点，远程分支 origin/branch 也是存储在本地的，它用来和远程库同步
+> 远程分支 origin/branch 也是存储在本地的，它记录了上次和远程库通信时远程库的状态
 >
 > 如果不提供参数的话，Git 会将 HEAD 推送到 HEAD 跟踪的分支（如果 HEAD 指向的是一个没有跟踪任何分支的分支或某个结点的话 push 会失败）
 >
@@ -324,12 +328,7 @@ git merge origin/main # 注意如果你当前不在 main 分支上，pull 会把
 
 > 不要忘记 pull 里面还带一个 merge 操作
 
-
 `git pull --rebase`：以 rebase 的方式进行合并
-
-```shell
-git config 
-```
 
 ### 分离的 HEAD
 
@@ -338,8 +337,11 @@ git config
 ### tag
 
 ```shell
-git tag “name” # 为 HEAD 创建一个标签
-git tag “name” <node> # 为 node 创建一个标签
+git tag # 查看所有标签
+git tag "tag_name" # 为 HEAD 创建一个标签
+git tag "tag_name" <node> # 为 node 创建一个标签
+git tag -a "tag_name" -m "message" <node> # 为 node 创建带说明的标签
+git show <tag_name> # 查看标签信息
 ```
 
 标签相当于一个锚点，可以用它来为一些里程碑式的修改进行标记。

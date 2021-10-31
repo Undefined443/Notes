@@ -1,0 +1,33 @@
+# Shell
+
+```shell
+clear # 清屏
+
+rm <file> # 删除文件
+
+vi # 使用 vim 编辑文件
+
+q # 退出
+
+cat <file> # 查看文件内容
+
+cat -n <file> # 显示行号
+
+touch <file> # 创建文件
+
+echo "message" > <file> # 以覆写的方式将消息写入文件
+
+echo "message" >> <file> # 以追加的方式写入文件
+```
+
+## vim
+
+```shell
+vi <file> # 用 vim 打开或创建一个文件
+```
+
+按下 <kbd>i</kbd> 进入输入模式
+
+输入完成后，按下 <kbd>ESC</kbd> 回到命令模式
+
+输入 `:` 进入底线命令模式并输入 `wq` 保存并离开
