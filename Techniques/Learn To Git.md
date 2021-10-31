@@ -152,8 +152,9 @@ git restore --staged <file> # 撤销提交到暂存区的修改
 git rm <file> # 从工作区中删除 file 并将修改提交到暂存区
 ```
 
-> 1. 先手动删除文件，然后运行 `git rm <file>` 和 `git add <file>` 效果是一样的
-> 2. 删除也是一种修改操作
+> 先手动删除文件，然后运行 `git rm <file>` 和 `git add <file>` 效果是一样的
+> 
+> 删除也是一种修改操作
 
 ## 远程仓库
 
