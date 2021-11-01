@@ -33,3 +33,9 @@ vi <file> # 用 vim 打开或创建一个文件
 输入完成后，按下 <kbd>ESC</kbd> 回到命令模式
 
 输入 `:` 进入底线命令模式并输入 `wq` 保存并离开
+
+## Visual Studio Code
+
+```shell
+code . # 用 VSCode 打开该文件夹
+```

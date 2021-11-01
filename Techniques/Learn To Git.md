@@ -424,5 +424,3 @@ git rebase -i c2      # 将当前分支以 c2 为根，重新整理中间的结�
 > [Git 简明指南](http://rogerdudler.github.io/git-guide/index.zh.html)
 >
 > [图形化 git 学习网站](https://learngitbranching.js.org/?locale=zh_CN)
->
-> [php 中文网：git 常用命令大全](https://www.php.cn/tool/git/469391.html)
