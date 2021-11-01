@@ -162,9 +162,12 @@ Markdown 中的段落使用空行来标记。
 
 ### 使用规范
 
-要使用有意义的链接标题。  如：  
-如果想了解关于Markdown的更多信息，请查看[Markdown指南](markdown_guide.md)  
-不建议：  
+要使用有意义的链接标题。  如：
+
+如果想了解关于Markdown的更多信息，请查看[Markdown指南](markdown_guide.md)
+
+**不建议：**
+
 如果想了解关于Markdown的更多信息，请查看[这里](markdown_guide.md)
 
 ## 行内代码与代码块
