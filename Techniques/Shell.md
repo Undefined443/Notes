@@ -1,5 +1,7 @@
 # Shell
 
+在 Visual Studio Code 中按下 <kbd>Ctrl</kbd> + <kbd>`</kbd> 打开 Terminal
+
 ```shell
 clear # 清屏
 
