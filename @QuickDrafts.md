@@ -1,45 +1,6 @@
-# 大数据时代的用户数据隐私保护
+Hello, everyone! Today I would like to introduce a book named Pride and Prejudice to you.
 
-近年来，用户信息安全问题是公众关切的焦点议题之一。个人信息与数据保护作为互联网治理体系的组成部分，也是构建良好互联网秩序的重中之重。近年来发生的个人行踪记录遭售卖、“朋友圈”信息被盗用、电商数据外泄、隐私信息刷屏等现象表明，大数据开发利用中的信息安全问题渐成隐患。当前，我国互联网用户规模已超 8 亿，在数据安全风险日益凸显的当下，保障数据安全、保护个人信息隐私值得高度重视。
+You may not be able to guess that the author of this book is a female. Her name is Jane Austen. At that time, it was very difficult for female writers to create and publish literary works, and so was Jane. Jane began to write when she was just 11 years old, and by the age of 23 she had already drafted early versions of some of her most famous novels, including Pride and Prejudice and Sense and Sensibility. All of Jane’s work was published anonymously. Despite the fact that her work was generally well received and even became fashionable in some circles, she achieved little recognition until after her death. However, Comments on her work are polarized. On the one hand, Austin's works are relaxed and humorous, full of comic conflict. Because Austin lived in the countryside with strong feudal power all his life, and her family was rich, her life circle was very small. This makes her works often limited to the love and marriage stories of the daughters of ordinary squires, and her works also reflect the views of feudal forces to some extent. The work mainly reflects the moral standards of family and society through the social communication and daily dialogue of ladies and gentlemen. This makes Austin's works regarded as popular books for a long time. On the other hand, her works reflects the social situation at that time through the daily dialogue and communication of gentlemen and wives, satirizes the phenomenon of mercenary and vanity with humorous language, and ridicules people's despicable and ridiculous weaknesses such as stupidity, selfishness, snobbery and blind self-confidence through comic scenes.
+Pride and Prejudice shows different marriages and love in the 18th century in England and also portrays lots of characters such as Elizabeth, Darcy, Jane, Bingley and so on. Our heroine is Elizabeth Bennet, a smart country girl. She is the second of the five daughters in her family. Under their mother’s arrangement, the five girls attended a ball to get familiar with Mr.Bingley. During the ball, Elizabeth’s elder sister Jane fell in love with Mr.Bingley while Elizabeth heard Bingley’s friend Mr.Darcy’ s rude words towards her. However, as times going by, Mr.Darcy found he had fell in love with Elizabeth out of control. In the meantime, Elizabeth was attracted by a militia officer named Mr.Wickham, who was handsome and polite. Mr.Wickham told Elizabeth his miserable childhood and he said Mr.Darcy’s cold blood and dishonesty is the reason led to his terrible situation. His words deepen Elizabeth’s prejudice towards Mr.Darcy. As a result, when she heard that Mr.Darcy had persuaded Bingley not to get married with her sister Jane, she can’t control her boiling anger. So when Mr.Darcy confessed to her, she refused and scold him angrily. However, the second day she received a letter written by Darcy, which made her reflected on her prejudice and rude attitude towards him. She surprisingly found that Mr.Wickham was the one who cheated her.The truth made Elizabeth feel shamed and guilty.What’s more, it’s surprising for her to find Darcy begin to change his behavior from the haughty one to the modest one. His spirit of admitting and overcoming shortages touched her and she also found her admiration towards him gradually. At the end of the story, Jane and Bingley finally was together while Darcy also confessed again towards Elizabeth, who delightedly agreed. But on the contrary, their younger sister Lidia eloped with Mr.Wickham who just want to take advantage of her to obtain her properties.And their hasty marriage was not so happy.
 
-## 大数据时代隐私保护的三个特征
-
-当今，大数据是政府、企业、个人争相开发利用的一种资源。随着大数据技术的发展，数据的挖掘、整合、交易越来越便利，这也要求各界更新对个人隐私保护的固有认识。
-
-数据隐私泄露更常见。互联网时代，人们习惯在线解决一切问题。与此同时，数字化则进一步增加了数据隐私泄露的可能性。哈佛大学 Latanya Sweeney 教授关于人口统计学的研究表明，仅根据邮政编码、生日和性别，87%的美国公民的身份可以被准确识别。
-
-侵犯隐私手段更隐蔽。大数据时代，公民隐私的数字化，加剧了隐私的无形化。“看不见、摸不着”，信息的存储方式、速度、表现形式都发生了翻天覆地的变化，隐私在不经意之间即被侵犯。
-
-侵犯隐私后果更严重。互联网强大的记忆和存储功能让一切在线行为被永久记录。网络空间的可搜索性和永久存储性，有可能加重精神损害和名誉损害的后果。
-
-## GDPR 如何平衡保护和创新引发反思
-
-2018 年，欧盟《通用数据保护条例》（以下简称 GDPR）的施行将 Facebook、Google 等互联网巨头推上了风口浪尖。GDPR 在公法层面认可了一些长期以来的个人数据权利内容，并对违法行为规定了严苛的责任。总体而言，这些保护措施产生了威慑效应。GDPR 的出台给互联网平台包括个人网络应用带来很多新的改变，许多相关的专业话题也开始出现，比如如何在数据保护和创新效率间形成平衡等。
-
-北京大学法学院法治与发展研究院执行院长王锡锌指出，要明确界定保护什么、为何保护、如何保护的基本问题。与其说为了保护个人信息，不如说是为了进行社会管理，防止出现各种各样的社会风险，这是一种理念，或者叫风险规制。第二是信任保护。保护大家对制度的信任，制止滥用信息，GDPR 就是典型的监管模式。此外，对于怎么保护、保护与创新的平衡问题，保护手段不能够只从管理者的角度，还需要从福利最大化的角度，从个人、行业、社会、国家获得宏观成本收益上综合考察。
-
-GDPR 生效一年后，欧盟与国际隐私专家协会 IAPP 的统计数据显示，欧盟各成员国的数据保护机构受理了 20 多万起案件。相关数据隐私被窃取、安全泄露等事件时有发生，但 GDPR 也带来一些意想不到的情况，因合规压力对企业创新造成一些影响。FutureLab 未来智库专家、DCCI 互联网数据中心创始人胡延平提出了 MDPG 方案（多维数据保护指引）。他认为，GDPR 初心是好的，但思维与方法是陈旧的，更缺乏可落地的技术支撑，盲目追随会出现更多问题。要走出 GDPR 以旧思维、旧规制来格式化新情况、新业态、新经济的时空错位立法模式，进入以个人数据保护为基础，以应用场景为参照，以数据特性为重心，以兼顾规范和发展为原则，以多维开放个性为指向，以体系性建构为保障，以数据技术为基础的数据保护新阶段。
-
-## 相关法律体系和管理规范逐步完善
-
-从 2017 年的《个人信息保护法（草案）》到 2019 年的《数据安全管理办法（征求意见稿）》，我国有关数据隐私保护的相关法律正在逐步健全。但也应看到对于新增网民群体，法律对其的保护还须更加完善。比如，大量中老年网民和未成年人，往往对隐私保护和数据安全还没有清晰的认识。
-
-中国社会科学院大学副校长林维认为，首先，法律和信息保护具体规定的关系协调值得重视。其次需要更切实际、更具有可操作性。例如，《未成年人保护法》和未成年人信息保护具体规定之间，征求意见稿中提到收集未成年人信息应当获得监护人的同意，具体操作就值得探讨。第三，也需要关注数据权属的辨析，具体权利如何界定。最后，是如何使公民的基本权利在司法和隐私保护之间得到相对平衡。
-
-公安部网络安全局副处长吴小羽指出，近年来，我国对个人信息保护分别从加快立法、加大监管和严格执法等方面多管齐下，围绕个人信息保护做了大量的工作。自 2016 年以来，公安机关对侵犯公民个人信息犯罪一直保持高压严打态势，累计侦破侵公案件 1.4 万余起，抓获犯罪嫌疑人 3.7 万余名，但侵公犯罪一直保持高发态势，呈产业化、链条化、隐蔽化的发展态势，源源不断地为下游黑产犯罪输血供粮。结合司法实践来看，一是缺乏统一、完整的法律体系，个人信息保护专法尚未出台；二是社会综合治理体系尚未形成，“打防并举、防范先行”的理念和共识并未形成；三是大数据交易监管体系滞后，数据交易存在监管盲点，极易滋生黑产犯罪；四是企业违规滥采问题突出，缺乏对公民个人信息数据采集、存储、管理、交换、使用及数据全生命周期保护的强制性行业标准。
-
-腾讯公司数据隐私保护部副总经理、法学博士王小夏就如何完善相关法律法规给出建议：数据风险管理应上下共治，从收集、使用、管理到分享，都需要更好的救济渠道，由主管部门给出明确具体的要求。对于数据采集行为，应避免过度采集。在立法过程中，应多借鉴国外一些好的经验；在监管方面，应有自己的抓手；在力度方面，对于不断升级的数据安全保护水平，结合所处的发展阶段，要有合理的限度。
-
-## 积极开发运用大数据红利回馈社会
-
-中国互联网协会数据中心基础设施工作组组长、北京信世界创新中心副理事长马卫东指出，当前多地政府成立大数据平台，如何把数据用得更好，就成为当下需持续思考的问题。各地政府拥有大量数据资源，要想保护政府数据和信用数据，也需要考虑采集边界，梳理目录问题、条目、法律法规的问题。政府数据目前主要应用于信用产品和营商环境产品中。比如，当前，各地在招商引资过程中，偶尔忽略了“老赖”问题。我们应利用信用手段，对“老赖”现象进行有效的治理。
-
-企业和平台社会责任与用户信息数据隐私保护相辅相成。《2018 年中国广告市场报告》显示，2018 年中国广告经营额达到近 8000 亿，其中互联网广告规模已达 5000 亿，已经成为整个中国互联网产业的重要经济来源。
-
-中国广告协会会长助理、互联网广告委员会秘书长霍焰表示，互联网广告业对于数据信息的深度分析和精准应用，一方面在于帮助用户利用更少的时间、更低的成本、更加容易地获取自己更感兴趣的内容和服务；另一方面，降低广告主在商业模式转型、宣传推广等方面的经营成本，使其更高效、更便捷地精准触达目标消费者，拉动消费，拉动中小微企业，促进经济的持续发展。在国家积极推动互联网产业发展的背景下，互联网广告业界希望国家有关部门在制订标准和规范的时候，要兼顾和平衡个人信息保护与互联网广告产业科学发展的关系。同时，中国广告协会在个人信息保护和广告安全的整体方向上，始终与国家政策保持高度一致，除了及时推出国家标准、行业标准，还利用区块链和新加密技术对数据安全加强管理。
-
-## 用户数据隐私保护须兼顾发展与安全
-
-大数据时代的数据安全和隐私泄露问题无处不在，尽管面临诸多挑战，也不能因噎废食。现阶段，互联网产业、数字经济已经成为我国实现高质量发展、提升经济实力和国际竞争力的重要动力。我们应在个人信息数据的使用和保护之间积极寻找平衡点，在隐私得到有效保护的前提下充分发挥大数据的应用优势，推动数字产业发展。中央网信办互联网舆情中心数据分析处处长潘峰认为，要辩证看待发展与安全两者之间的关系，既要实现发展又要确保安全；确保安全才能实现发展，实现发展才能确保安全。互联网治理模式、信息数据运用和管理、相关法律制度和管理措施的出台，要综合考虑国际国内各种因素，符合我国所处发展阶段和基本国情，走中国特色治网之道。
-
-当前，舆论场上对于数据隐私保护的讨论角度较为单一，需要有更全面的思考维度。人民网舆论与公共政策研究中心副主任刘志华认为，下一个阶段，法律政策与相关公共讨论应避免单一目标导向，注重隐私保护与产业发展创新之间的价值平衡，应更加注重细化的讨论和论证，例如国内国际相关政策趋势及影响、隐私权利的边界划定、不同法规规章之间的衔接等问题。同时，对于舆论场上公众的关注点，媒体还需要起到积极的引导作用。
+In this novel, Austin reflects her own view of marriage: it is wrong to marry for property, money and status. However, it is also foolish to marry without considering the above factors. Therefore, she opposes both marriage for money and taking marriage as a child's play. She stressed the importance of an ideal marriage and took the feelings of men and women as the basics of an ideal marriage. This book conveys the author's understanding of marriage and reflects women's pursuit of personality independence and equal rights. Darcy and Elizabeth had a gap in family status and wealth. Darcy was full of arrogance at the beginning, and Elizabeth also had a lot of prejudice against him. After a series of things, Darcy is no longer arrogant and conceited, Elizabeth also eliminate prejudice, they get married. Through the figure of Elizabeth, it is conveyed that women should have self-esteem and pursue independence. Austin hopes to help people get rid of the shackles of traditional ideas, so as to find and realize themselves.
