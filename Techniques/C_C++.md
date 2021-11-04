@@ -1456,6 +1456,8 @@ stack<int, vector<int>> s; //s 是基于 vector<int> 的适配器
 ## priority_queue
 
 <queue>`
+`<queue>`
+
 ```cpp
 priority_queue<typename T, typename Container = vector<T>, typename Compare = less<T>>;
 ```
