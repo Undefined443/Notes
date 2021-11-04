@@ -39,5 +39,5 @@ vi <file> # 用 vim 打开或创建一个文件
 ## Visual Studio Code
 
 ```shell
-code . # 用 VSCode 打开该文件夹
+code . # 用 Visual Studio Code 打开该文件夹
 ```

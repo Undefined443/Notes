@@ -1456,6 +1456,15 @@ stack<int, vector<int>> s; //s 是基于 vector<int> 的适配器
 ## priority_queue
 
 <queue>`
+```cpp
+priority_queue<typename T, typename Container = vector<T>, typename Compare = less<T>>;
+```
+
+less 是一个默认的排序断言，定义在头文件 function 中，决定了容器中最大的元素会排在队列前面。
+
+function 中还定义了 greater，可以使最小元素排在队列前面。
+
+> 如果要指定最后一个参数，则前面的所有参数都要提供。
 
 # 关联容器
 
