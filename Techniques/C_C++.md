@@ -1453,6 +1453,10 @@ stack<int, vector<int>> s; //s 是基于 vector<int> 的适配器
 
 *stack 和 queue 的默认容器是 deque，priority_queue 的默认底层容器是 vector。*
 
+## priority_queue
+
+<queue>`
+
 # 关联容器
 
 `map`（映射）：储存键值对 `pair`  
