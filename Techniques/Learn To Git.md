@@ -419,6 +419,20 @@ git branch -f main c6 # 将 main 分支强制指向 c6
 git rebase -i c2      # 将当前分支以 c2 为根，重新整理中间的结点
 ```
 
+## .gitignore
+
+```shell
+bin/                       # 忽略当前目录下的 bin 文件夹
+/bin                       # 忽略根目录下的 bin 文件
+*.c                        # 忽略所有 .c 文件
+**/file                    # 忽略 /file, a/file, a/b/file...
+a/**/file                  # 忽略 a/file, a/x/file, a/x/y/file...
+
+git check-ignore -v <file> # 检查 file 是否在 .gitignore 中
+```
+
+注意，.gitignore 只能忽略那些原来没有被 track 的文件。如果文件已经被 track，则需要使用 `git rm -r --cached .` 命令清空本地缓存，然后再提交。
+
 > 参考 [廖雪峰：Git 教程](https://www.liaoxuefeng.com/wiki/896043488029600)
 
 > [Git 简明指南](http://rogerdudler.github.io/git-guide/index.zh.html)
