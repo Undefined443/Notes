@@ -8,7 +8,7 @@ Mac 自带 Git :)
 
 ### 自报家门
 
-```shell
+```bash
 git config --global user.name "xiao"
 git config --global user.email "iphone4s2008@icloud.com"
 ```
@@ -17,7 +17,7 @@ git config --global user.email "iphone4s2008@icloud.com"
 
 1. 创建并进入一个空目录
 
-```shell
+```bash
 mkdir repo
 cd repo
 pwd # 显示当前目录
@@ -31,7 +31,7 @@ git branch -m <name>
 
 ### 把文件添加到版本库
 
-```shell
+```bash
 # 提交到暂存区
 git add <file>
 git add . # 提交所有文件，包括 .gitignore
@@ -53,7 +53,7 @@ git commit --amend
 
 ## 时光机穿梭
 
-```shell
+```bash
 git status # 查看当前暂存区状态
 
 git diff <file> # 查看文件的改动情况
@@ -71,7 +71,7 @@ git log # 显示从最近到最久的提交日志
 
 将当前分支回退到指定状态，之后的日志记录被删除（但是 commit-id）依然存在。
 
-```shell
+```bash
 git reset --hard HEAD^
 ```
 
@@ -100,7 +100,7 @@ reset 的三种模式：
 1. 使用 `git reflog` 命令显示参考日志（命令日志）
 2. 找到要恢复的版本的 commit-id，再次使用 `git reset --hard <commit_id>` 命令
 
-```shell
+```bash
 $ git reflog
 e849d38 (HEAD -> master) HEAD@{0}: reset: moving to HEAD^
 188d795 HEAD@{1}: commit: appended a new line
@@ -116,7 +116,7 @@ HEAD is now at 188d795 appended a new line
 
 可以理解为对某次提交进行反向修改，如果要回退已经上传到版本库的提交，则只能用这个命令。
 
-```shell
+```bash
 git revert HEAD
 ```
 
@@ -138,7 +138,7 @@ git revert HEAD
 
 ##### 撤销修改
 
-```shell
+```bash
 git reset HEAD <file> # 撤销提交到暂存区的修改
 git checkout -- <file> # 将工作区恢复到版本库或暂存区的最新版本
 
@@ -148,7 +148,7 @@ git restore --staged <file> # 撤销提交到暂存区的修改
 
 ##### 删除文件
 
-```shell
+```bash
 git rm <file> # 从工作区中删除 file 并将修改提交到暂存区
 ```
 
@@ -164,7 +164,7 @@ git rm <file> # 从工作区中删除 file 并将修改提交到暂存区
 
 打开 Shell (Windows 下打开 Git Bash)，创建 SSH Key：
 
-```shell
+```bash
 $ ssh-keygen -t rsa -C "iphone4s2008@icloud.com"
 ```
 
@@ -184,7 +184,7 @@ $ ssh-keygen -t rsa -C "iphone4s2008@icloud.com"
 
 复制 `…or push an existing repository from the command line` 下的命令：
 
-```shell
+```bash
 git remote add origin git@github.com:Straining5/Projects.git
 # 修改当前分支的名字为 main
 git branch -M main
@@ -204,7 +204,7 @@ git push -u origin main
 
 ##### 关联分支
 
-```shell
+```bash
 # 创建一个跟踪远程分支的本地分支
 git checkout -b <local_branch> <remote_repo>/<tracked_branch>
 git branch -c <local_branch> <remote_repo>/<remote/branch>
@@ -218,7 +218,7 @@ git branch --set-upstream-to=<remote_repo>/<remote_branch> <local_branch> # 创�
 
 ###### 同步推送
 
-```shell
+```bash
 git remote set-url --add <remote_repo> <url> # 为现有的远程库添加额外的 URL
 ```
 
@@ -240,7 +240,7 @@ git remote set-url --add <remote_repo> <url> # 为现有的远程库添加额外
 
 在 GitHub 库的 `<> Code` 区的绿色按钮 Code 中拷贝 SSH Key，然后运行命令：
 
-```shell
+```bash
 #同样，这里需要替换 SSH Key
 $ git clone git@github.com:Straining5/github-slideshow.git
 ```
@@ -250,7 +250,7 @@ Git 将把远程库拷贝到当前目录。注意，当前目录下不能有 `.g
 ## 分支管理
 
 
-```shell
+```bash
 git branch             # 查看分支
 
 git branch <name>      # 创建分支
@@ -298,7 +298,7 @@ git branch -D <name>   # 删除一个尚未被合并的分支
 
 ### stash
 
-```shell
+```bash
 git stash # 将当前工作现场在当前分支上暂存起来
 
 git stash list # 查看暂存的工作现场
@@ -311,13 +311,13 @@ git stash drop <name>  # 删除
 
 ### cherry-pick
 
-```shell
+```bash
 git cherry-pick <node> # 摘取一个或几个提交到 HEAD
 ```
 
 ### push
 
-```shell
+```bash
 git push <remote_repo> <branch> # 将本地的 branch 推送到远程库的 branch
 git push <remote_repo> <source>:<destination> # 将 source 指向的位置推送到 destination。source 可以是分支，也可以是结点。如果 destination 不存在，则会自动创建一个
 ```
@@ -330,7 +330,7 @@ git push <remote_repo> <source>:<destination> # 将 source 指向的位置推送
 
 ### fetch
 
-```shell
+```bash
 git fetch # 将远程库所有更新下载到本地
 git fetch <remote_repo> <branch> # 将远程仓库上的 branch 下载到本地的 <remote_repo>/<branch>
 
@@ -345,7 +345,7 @@ git fetch <remote_repo> <source>:<destination> # 将远程的 source 下载到�
 
 `git pull` 相当于两个命令：
 
-```shell
+```bash
 git fetch
 git merge <remote_name>/<branch_name>
 ```
@@ -354,14 +354,14 @@ pull 的参数和 fetch 是一样的。
 
 `git pull origin main` 等价于：
 
-```shell
+```bash
 git fetch origin main
 git merge origin/main # 注意如果你当前不在 main 分支上，pull 会把当前分支和 main 合并。
 ```
 
 > 不要忘记 pull 里面还带一个 merge 操作
 
-```shell
+```bash
 # 设置默认合并方式
 git config pull.rebase false  # merge (the default strategy)
 git config pull.rebase true   # rebase
@@ -376,7 +376,7 @@ git config pull.ff only       # fast-forward only
 
 ### tag
 
-```shell
+```bash
 git tag # 查看所有标签
 git tag "tag_name" # 为 HEAD 创建一个标签
 git tag "tag_name" <node> # 为 node 创建一个标签
@@ -395,7 +395,7 @@ git push origin :refs/tags/<tag_name> # 删除远程标签
 
 ###  describe
 
-```shell
+```bash
 $ git describe <ref> # ref 可以是任何能被 Git 识别成提交记录的引用，缺省值为 HEAD
 <tag>_<numCommits>_g<hash> #tag 是离 ref 最近的标签，numCommits 是 tag 与 ref 相差的提交数，hash 是 ref 的哈希值的前几位
 ```
@@ -404,7 +404,7 @@ $ git describe <ref> # ref 可以是任何能被 Git 识别成提交记录的引
 
 ### rebase
 
-```shell
+```bash
 git rebase <destination> # 把当前分支摘下来，放到 destination 上。
 ```
 
@@ -414,16 +414,20 @@ rebase 是从当前分支与 destination 所在分支分离的地方开始，把
 
 当远程分支被锁定时，不允许你直接 push 修改到远程分支。你应该新建一个分支，推送这个分支并申请 pull request。
 
-```shell
+```bash
 git branch -f main c6 # 将 main 分支强制指向 c6
 git rebase -i c2      # 将当前分支以 c2 为根，重新整理中间的结点
 ```
 
 ## .gitignore
 
-```shell
-bin/                       # 忽略当前目录下的 bin 文件夹
-/bin                       # 忽略根目录下的 bin 文件
+```bash
+abc                        # 忽略所有名为 abc 的文件和目录
+dir/                       # 忽略所有名为 dir 的目录
+/file                      # 忽略根目录下的 file 文件
+
+# * 指单个目录或一个字符串
+# ** 指多个目录
 *.c                        # 忽略所有 .c 文件
 **/file                    # 忽略 /file, a/file, a/b/file...
 a/**/file                  # 忽略 a/file, a/x/file, a/x/y/file...
@@ -433,8 +437,10 @@ git check-ignore -v <file> # 检查 file 是否在 .gitignore 中
 
 注意，.gitignore 只能忽略那些原来没有被 track 的文件。如果文件已经被 track，则需要使用 `git rm -r --cached .` 命令清空本地缓存，然后再提交。
 
-> 参考 [廖雪峰：Git 教程](https://www.liaoxuefeng.com/wiki/896043488029600)
+[gitignore](https://www.cnblogs.com/FlyAway2013/p/15426421.html#:~:text=在%20.gitignore%20文件中，每一行的忽略规则的语法如下：%201）空格不匹配任意文件，可作为分隔符，可用反斜杠转义；%202）以“＃”开头的行都会被,Git%20忽略%E3%80%82%20即%23开头的文件标识注释，可以使用反斜杠进行转义；%203）可以使用标准的%20glob模式%20匹配%E3%80%82)
 
-> [Git 简明指南](http://rogerdudler.github.io/git-guide/index.zh.html)
->
-> [图形化 git 学习网站](https://learngitbranching.js.org/?locale=zh_CN)
+[廖雪峰：Git 教程](https://www.liaoxuefeng.com/wiki/896043488029600)
+
+[Git 简明指南](http://rogerdudler.github.io/git-guide/index.zh.html)
+
+[图形化 git 学习网站](https://learngitbranching.js.org/?locale=zh_CN)

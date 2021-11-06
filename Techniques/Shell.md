@@ -2,7 +2,7 @@
 
 在 Visual Studio Code 中按下 <kbd>Ctrl</kbd> + <kbd>`</kbd> 打开 Terminal
 
-```shell
+```bash
 clear # 清屏
 
 ls -ah # 查看当前目录文件（包括隐藏文件）
@@ -26,7 +26,7 @@ echo "message" >> <file> # 以追加的方式写入文件
 
 ## vim
 
-```shell
+```bash
 vi <file> # 用 vim 打开或创建一个文件
 ```
 
@@ -38,6 +38,6 @@ vi <file> # 用 vim 打开或创建一个文件
 
 ## Visual Studio Code
 
-```shell
+```bash
 code . # 用 Visual Studio Code 打开该文件夹
 ```
