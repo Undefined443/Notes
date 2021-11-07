@@ -305,7 +305,7 @@ main 文件：
 
 **头文件里只包含头文件本身所要用到的头文件（一般不需要包含），而源文件中包含所有要用到的头文件。**
 
-在源文件里 #include "stdafx.h" 加快编译速度？
+在源文件里 `#include <stdafx.h>` 加快编译速度？
 
 *头文件不应使用 using 声明*
 
@@ -322,7 +322,7 @@ A 包含了 B，B 又包含了 A。这种情况下，编译器不会直接在源
 
 ## Visual Studio 调试模式中出现"烫烫烫"和"屯屯屯"的原因
 
-> [经典乱码"烫烫烫"和"屯屯屯"](https://blog.csdn.net/fanxueya1322/article/details/88417173?utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-1.no_search_link&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-1.no_search_link)
+[经典乱码"烫烫烫"和"屯屯屯"](https://blog.csdn.net/fanxueya1322/article/details/88417173?utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-1.no_search_link&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-1.no_search_link)
 
 ## 格式化输入/输出函数
 
@@ -536,15 +536,17 @@ void print() {
 
 ## 常用成员函数
 
-- `c_str` 转换为 C 风格字符串
-- `insert`
-- `erase`
-- `substr`
-- `find` 还有反向查找 `rfind`；若未找到则返回 `string::npos`
-- `find_first_of` 找出指定字符串的首字符第一次出现的下标
-- `find_last_of` 尾字符
-- `find_first_not_of` 找出第一个与指定字符串不等的字符的下标
-- `find_last_not_of`
+```cpp
+s.c_str()           //转换为 C 风格字符串
+s.insert()
+s.erase()
+s.substr()
+s.find()            //还有反向查找 rfind；若未找到则返回 string::npos
+s.find_first_of()   //找出指定字符串的首字符第一次出现的下标
+s.find_last_of      //尾字符
+s.find_first_not_of //找出第一个与指定字符串不等的字符的下标
+s.find_last_not_of
+```
 
 例：查找字符串中子串的个数
 
@@ -1444,7 +1446,7 @@ curr = flst.erase_after(prev);
 
 queue: 先进先出，进入 queue 的对象被放置到队尾，而离开 queue 的对象则从队首删除。比如饭店按照客人到达的顺序来为他们安排座位。
 
-priority_queue: 允许我们为队列中的元素建立优先级。新加入的元素会排在所有优先级比它低的元素之前。比如饭店按照客人预定时间而不是到来时间的早晚来为他们安排座位。默认以 `<` 运算符来确定相对优先级。
+priority_queue: 允许我们为队列中的元素建立优先级。新加入的元素会排在所有优先级比它低的元素之前。比如饭店按照客人预定时间而不是到来时间的早晚来为他们安排座位。默认以 `<` 运算符来确定相对优先级（小的排前面）。
 
 ```cpp
 stack<int> s; //s 是基于 deque<int> 的适配器
@@ -1455,7 +1457,6 @@ stack<int, vector<int>> s; //s 是基于 vector<int> 的适配器
 
 ## priority_queue
 
-<queue>`
 `<queue>`
 
 ```cpp
@@ -1604,7 +1605,7 @@ c.equal_range(key);  //返回一个迭代器 pair，表示与关键字匹配的�
 //在 multi 关联容器中 key 相同的元素会相邻储存
 ```
 
-![图片](assets/IMG_2.png)
+![图片](../assets/IMG_2.png)
 
 ## 无序容器
 
@@ -1682,9 +1683,9 @@ it = c.insert(it, val);
 ++it;
 ```
 
-![图片](assets/IMG_3.png)
+![图片](../assets/IMG_3.png)
 
-*插入器不用解引用就可以赋值：`inserter = i;` 等价于 `*inserter = i;`。\*
+*插入器不用解引用就可以赋值：`inserter = i;` 等价于 `*inserter = i;`。*
 
 ### 流迭代器
 
@@ -1967,17 +1968,6 @@ int tolower(c) //将c转换为小写
 
 `getch()` 获取控制台的一个字符
 
-# STL
-
-## algorithm
-
-```cpp
-sort(iterator beg, iterator end, [bool cmp(Ele_type& a, Ele_type& b)]);
-stable_sort(iterator beg, iterator end, [bool cmp(Ele_type& a, Ele_type& b)])
-```
-
-cmp 返回 `true` 代表 a < b
-
 # IO 库
 
 ## iostream 普通流
@@ -2106,7 +2096,7 @@ bool fstrm.is_open();              //返回是否有打开的文件
 | trunc  | 打开文件时会清空所有数据，单独使用时与 out 相同 |
 | binary | 以二进制方式打开                                |
 
-> 组合用法：[C++ open 打开文件（含打开模式一览表）](http://c.biancheng.net/view/294.html)
+组合用法：[C++ open 打开文件（含打开模式一览表）](http://c.biancheng.net/view/294.html)
 
 # 泛型算法
 
@@ -2136,7 +2126,7 @@ copy(begin, end, begin); //返回拷贝后的尾后位置
 
 ```cpp
 sort(begin, end);  //序列元素必须定义有 < 运算符
-sort(begin, end, predicate);
+sort(begin, end, predicate); //predicate 返回 true 表示 a < b
 stable_sort(同上); //稳定排序，维持相等元素的原有顺序
 
 unique();          //对于有序序列，调用 unique() 将相邻的重复项"消除"，返回不重复区域的尾后迭代器。"消除"实际上是覆盖了重复项。
@@ -2185,6 +2175,7 @@ unique(beg, end, comp); //使用 comp 函数
 //提供 if 版本
 find(beg, end, val);     //查找和 val 相等的元素
 find_if(beg, end, pred); //查找使得 pred 为真的元素
+//若未找到元素，则返回尾后迭代器
 ```
 
 ## 区分拷贝元素的版本和不拷贝的版本
@@ -2201,7 +2192,7 @@ remove_copy_if(begin, end, dest, pred);
 
 # lambda 表达式
 
-> [C++11 lambda 表达式精讲](http://c.biancheng.net/view/3741.html)
+[C++11 lambda 表达式精讲](http://c.biancheng.net/view/3741.html)
 
 ## 可调用对象
 

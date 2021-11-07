@@ -4,5 +4,6 @@
 - [ ] cbegin()
 - [ ] `vector<vector<int>>`
 - [ ] emplace()
+- [ ] move()
 - [x] range-for
 - [x] auto

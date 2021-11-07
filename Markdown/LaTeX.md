@@ -139,6 +139,10 @@ $\lim\limits_{x\to\infty}\dfrac{1}{x}=0$
 
 $\lim\limits_{\substack{x\to\infty\\y\to\infty}}\dfrac{1}{x}=0$
 
+### 导数
+
+$y\prime\ y'\ \dot y\ \ddot y$
+
 ### 偏导
 
 $\partial$
@@ -173,7 +177,7 @@ $\pm$
 
 $\angle45^\circ$
 
-### 梯度 (Gradient)
+### 全微分算子（梯度）
 
 $\nabla$
 
