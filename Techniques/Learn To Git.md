@@ -432,6 +432,8 @@ dir/                       # 忽略所有名为 dir 的目录
 **/file                    # 忽略 /file, a/file, a/b/file...
 a/**/file                  # 忽略 a/file, a/x/file, a/x/y/file...
 
+!file                      # 再次包含 file
+
 git check-ignore -v <file> # 检查 file 是否在 .gitignore 中
 ```
 
