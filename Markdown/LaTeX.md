@@ -440,3 +440,5 @@ $\text{comment}$
 > [LaTeX 公式篇 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/110756681)
 >
 > [常用 LaTex 字符与公式速查](https://help.zhixi.com/guide/5591.html)
+>
+> [科技论文书写规范之正斜体问题](https://blog.csdn.net/wanjiac/article/details/106085105)
