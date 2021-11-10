@@ -422,8 +422,8 @@ git rebase -i c2      # 将当前分支以 c2 为根，重新整理中间的结�
 ## .gitignore
 
 ```bash
-abc                        # 忽略所有名为 abc 的文件和目录
-dir/                       # 忽略所有名为 dir 的目录
+file                       # 忽略当前目录下的 file 文件
+dir/                       # 忽略当前目录下的 dir 目录
 /file                      # 忽略根目录下的 file 文件
 
 # * 指单个目录或一个字符串
@@ -439,7 +439,9 @@ git check-ignore -v <file> # 检查 file 是否在 .gitignore 中
 
 注意，.gitignore 只能忽略那些原来没有被 track 的文件。如果文件已经被 track，则需要使用 `git rm -r --cached .` 命令清空本地缓存，然后再提交。
 
-[gitignore](https://www.cnblogs.com/FlyAway2013/p/15426421.html#:~:text=在%20.gitignore%20文件中，每一行的忽略规则的语法如下：%201）空格不匹配任意文件，可作为分隔符，可用反斜杠转义；%202）以“＃”开头的行都会被,Git%20忽略%E3%80%82%20即%23开头的文件标识注释，可以使用反斜杠进行转义；%203）可以使用标准的%20glob模式%20匹配%E3%80%82)
+[CNBlogs: gitignore](https://www.cnblogs.com/FlyAway2013/p/15426421.html#:~:text=在%20.gitignore%20文件中，每一行的忽略规则的语法如下：%201）空格不匹配任意文件，可作为分隔符，可用反斜杠转义；%202）以“＃”开头的行都会被,Git%20忽略%E3%80%82%20即%23开头的文件标识注释，可以使用反斜杠进行转义；%203）可以使用标准的%20glob模式%20匹配%E3%80%82)
+
+[gitignore 模板](https://github.com/github/gitignore)
 
 [廖雪峰：Git 教程](https://www.liaoxuefeng.com/wiki/896043488029600)
 
