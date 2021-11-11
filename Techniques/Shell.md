@@ -3,8 +3,9 @@
 在 Visual Studio Code 中按下 <kbd>Ctrl</kbd> + <kbd>`</kbd> 打开 Terminal
 
 ```bash
-open <dir>     # 在访达中打开 dir 目录
-explorer <dir> # 在资源管理器中打开 dir 目录
+open <dir/file>     # 在访达中打开 dir 目录
+start <dir/file>    # cmd 中的 open
+explorer <dir>      # 在资源管理器中打开 dir 目录
 
 clear # 清屏
 cls   # cmd 清屏
