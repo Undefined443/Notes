@@ -7,6 +7,7 @@ open <dir>     # 在访达中打开 dir 目录
 explorer <dir> # 在资源管理器中打开 dir 目录
 
 clear # 清屏
+cls   # cmd 清屏
 
 ls -ah # 查看当前目录所有文件（包括隐藏文件）
 
