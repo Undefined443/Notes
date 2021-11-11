@@ -2493,3 +2493,7 @@ uninitialized_copy_n(b, n, b2); //从迭代器 b 开始拷贝 n 个元素到 b2
 uninitialized_fill(b, e, t);    //用 t 的拷贝填充 [b, e)。返回尾后指针。
 uninitialized_fill_n(b, n, t);
 ```
+
+# 常见错误代码
+
+0xC0000005: 检查空指针访问
