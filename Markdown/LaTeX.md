@@ -79,6 +79,10 @@ $x = a_0 +\cfrac{1^2}{a_1+\cfrac{2^2}{a_2\cfrac{3^2}{a_3+\cfrac{4^2}{a_4+\cdots}
 1. 普通大分式建议使用 `\dfrac`
 2. 连分式建议使用 `\cfrac`
 
+### 绝对值
+
+$\|x\|\ \lvert x\rvert$
+
 ### 根号
 
 $\sqrt{x}\ \sqrt[n]{x}$
@@ -175,7 +179,7 @@ $\pm$
 
 ### 角
 
-$\angle45^\circ$
+$\angle45^\circ\ 90\degree$
 
 ### 全微分算子（梯度）
 
