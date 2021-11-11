@@ -12,6 +12,8 @@ cls   # cmd 清屏
 
 ls -ah # 查看当前目录所有文件（包括隐藏文件）
 
+mv <file> <dir> # 将 file 移动到 dir
+
 rm <file> # 删除文件
 rm -rf    # 删除当前目录，并且不询问
 
@@ -26,6 +28,10 @@ touch <file> # 创建文件
 
 echo "message" > <file> # 以覆写的方式将消息写入文件
 echo "message" >> <file> # 以追加的方式写入文件
+
+# 输入输出重定向
+< file # 输入重定向
+> file # 输出重定向
 ```
 
 ## vim
