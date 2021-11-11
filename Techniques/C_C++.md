@@ -1,5 +1,9 @@
 # 杂项
 
+```bash
+g++ <src1> <src2> ... -o <output> # 将源文件 src1，src2 编译
+```
+
 ## 逗号表达式
 
 C 语言提供一种特殊的运算符，逗号运算符，优先级别最低，它将两个及其以上的式子联接起来，从左往右逐个计算表达式，整个表达式的值为最后一个表达式的值。
@@ -1783,133 +1787,76 @@ for (auto e : vec) {
 
 # stdlib.h
 
-## 随机数函数
+```c
+//随机数函数
+int rand() //产生一个 [0, RAND_MAX] 内的伪随机数。rand 的默认初始种子值为 1。
+void srand(unsigned seed) //设定伪随机数序列的种子值
+//若不设定种子值，则同一程序运行两次得到的随机数完全相同。通常以时间作为随机数种子。
 
-`int rand()`
+//整数算数函数
+int abs(int i)    //返回整数 i 的绝对值
+long labs(long i) //返回长整形 i 的绝对值
 
-产生一个 [0, RAND_MAX] 内的伪随机数。rand 的默认初始种子值为 1。
+div_t div(int n, int m)     //返回 div 类型值，成员为 int。
+ldiv_t ldiv(long n, long m) //返回 div 类型值，成员为 long。
+//div 类型：n 除以 m，其成员变量有商 (quot) 和余数 (rem)。
 
-`void srand(unsigned seed)`
+//快速排序函数
+qsort(void *buffer, int length, int Ele_size, int cmp(void*, void*))
 
-设定伪随机数序列的种子值。
+///执行控制函数
+void abort()
 
-*若不设定种子值，则同一程序运行两次得到的随机数完全相同。通常以时间作为随机数种子*
+//使程序异常终止
+int atexit(void func()) //当程序正常终止时，调用函数 func()
+void exit(int state)    //结束程序，将 state 返回给系统。
 
-## 整数算数函数
+//系统函数
+system(const char*) //该函数可以向控制台传递命令
+system("pause")     //暂停
+system("HELP")      //获取 system 参数
 
-`int abs(int i)`
+//Windows 特供
 
-返回整数 i 的绝对值
+//字符串转换为算数类型
+int    atoi(char *str)
+double atof(char *str)
+long   atol(char *str)
 
-`long labs(long i)`
-
-返回长整形 i 的绝对值
-
-`div_t div(int n, int m)`
-
-返回 div 类型值，成员为 int。
-
-`ldiv_t ldiv(long n, long m)`
-
-返回 div 类型值，成员为 long。
-
-*div 类型：n 除以 m，其成员变量有商 (quot) 和余数 (rem)*
-
-## 快速排序函数
-
-`qsort(void *buffer, int length, int Ele_size, int cmp(void*, void*))`
-
-## 执行控制函数
-
-`void abort()`
-
-使程序异常终止
-
-`int atexit(void func())`
-
-当程序正常终止时，调用函数 func()
-
-`void exit(int state)`
-
-结束程序，将 state 返回给系统。
-
-## 系统函数
-
-`system(const char*)`
-
-常用 `system("pause");`
-
----
-
-以下函数只适用于 Windows 平台
-
-## 字符串转换为算数类型
-
-`int atoi(char *str)`
-
-`atof`
-
-`atol`
-
-## 算数类型转换为字符串
-
-`char *itoa(int 待转整数, char *buffer, int 进制)`
-
----
+char *itoa(int 待转整数, char *buffer, int 进制) //算数类型转换为字符串
+```
 
 # string.h
 
-## 计算字符串长度
+```c
+//计算字符串长度
+int strlen(char *str)
 
-`int strlen(char *str)`
+//字符串拼接
+char *strcat(char *前面的串, char *拼接的串)
 
-## 字符串拼接
+//字符串复制
+char *strcpy(char *粘贴, char *复制)
+char *strncpy(char *粘贴, char *复制, int n)
 
-`char *strcat(char *前面的串, char *拼接的串)`
+//比较字符串大小
+int strcmp(char *str1, char *str2)
+int strncmp(char *str1, char *str2, int n)
 
-## 字符串复制
+//字符串查找
+//查找字符串中某字符第一次出现的位置
+char *strchr(const char *str, int ch)  //返回指向第一个 ch 的指针，失败返回 NULL
+char *strrchr(const char *str, int ch) //反向查找 ch
+                                       //还有功能和 strchr 相同的 strchrnul，区别是未找到 ch 时后者返回指向 str 结尾的空字节 (the null byte)*
 
-`char *strcpy(char *粘贴, char *复制)`
+//查找子串
+char *strstr(const char *str1, const char *str2)  //返回 str2 在 str1 出现的首位置，未找到返回 NULL
+char *strrstr(const char *str1, const char *str2) //反向查找
 
-`char *strncpy(char *粘贴, char *复制, int n)`
-
-## 比较字符串大小
-
-`int strcmp(char *str1, char *str2)`
-
-`int strncmp(char *str1, char *str2, int n)`
-
-## 字符串查找
-
-### 查找字符串中某字符第一次出现的位置
-
-`char *strchr(const char *str, int ch)`
-
-返回指向第一个 ch 的指针，失败返回 NULL
-
-`strrchr` 反向查找 ch
-
-*还有功能和 `strchr` 相同的 `strchrnul`，区别是未找到 ch 时后者返回指向 str 结尾的空字节 (the null byte)*
-
-### 查找子串
-
-`char *strstr(const char *str1, const char *str2)`
-
-返回 str2 在 str1 出现的首位置，未找到返回 NULL
-
-`strrstr` 反向查找
-
----
-
-Windows 特供
-
-## 字符串转换为小写
-
-`char *strlwr(char *str)`
-
-## 字符串转换为大写
-
-`char *strupr(char *str)`
+//Windows 特供
+char *strlwr(char *str) //字符串转换为小写
+char *strupr(char *str) //字符串转换为大写
+```
 
 # math.h
 
@@ -1993,7 +1940,7 @@ int tolower(c) //将c转换为小写
 ```cpp
 SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_GREEN); //设置前景色为高亮绿色
 cout << "Some message" << endl;
-SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY|FOREGROUND_RED|FOREGROUND_GREEN|FOREGROUND_BLUE); //设置前景色为白色
+SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE); //设置前景色为白色
 ```
 
 - FOREGROUND_INTENSITY 设置前景色为高亮显示。
@@ -2006,7 +1953,16 @@ SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY|FO
 - BACKGROUND_GREEN 设置背景色为绿色。
 - BACKGROUND_BLUE 设置背景色为蓝色。
 
-`FOREGROUND_INTENSITY|FOREGROUND_RED|FOREGROUND_GREEN|FOREGROUND_BLUE` 设置前景色为高亮显示，并且叠加红、绿、蓝（即白色）
+`FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE` 设置前景色为高亮显示，并且叠加红、绿、蓝（即白色）。
+
+参数 2 是一个 2 位十六进制数，低 4 位表示文字颜色（前景色），高 4 位表示背景色。因此也可以使用下面的参数：
+
+```
+0 = 黑色    8 = 灰色    1 = 淡蓝      9 = 蓝色
+2 = 淡绿    A = 绿色    3 = 湖蓝      B = 淡浅绿  
+C = 红色    4 = 淡红    5 = 紫色      D = 淡紫  
+6 = 黄色    E = 淡黄    7 = 白色      F = 亮白
+```
 
 ## fstream 文件流
 
