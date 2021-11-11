@@ -1816,6 +1816,20 @@ system(const char*) //该函数可以向控制台传递命令
 system("pause")     //暂停
 system("HELP")      //获取 system 参数
 
+FILE *popen("command", "mode") //建立管道 I/O
+//popen 作用和 system 类似，但 popen 可以返回命令运行的结果，而 system 只返回命令运行是否成功。
+
+//例
+#include <stdio.h>
+int main() {
+  FILE *fp;
+  char buffer[80];
+  fp = popen("cat /etc/passwd", "r");
+  fgets(buffer, sizeof(buffer), fp);
+  printf("%s", buffer);
+  pclose(fp);
+}
+
 //Windows 特供
 
 //字符串转换为算数类型
