@@ -60,9 +60,10 @@ git diff <file> # 查看文件的改动情况
 
 git diff HEAD -- <file> # 查看工作区版本和版本库最新版本的区别
 
-git log # 显示从最近到最久的提交日志
-
-# 添加 --pretty=oneline 参数显示简化的提交日志
+git log                  # 显示从最近到最久的提交日志
+git log --graph          # 显示提交分支图
+git log --pretty=oneline # 单行模式：只显示 commit-id 和 commit-message
+git log --abbrev-commit  # 只显示前 7 位 commit-id
 ```
 
 ### 版本回退
