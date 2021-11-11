@@ -1101,110 +1101,6 @@ Demo d = {0, "abc"};
 
 > 见 C++ Primer 270 页
 
-# 文件
-
-## 基本概念
-
-### 文件种类
-
-1. 普通文件
-2. 设备文件
-
-### 文件类型
-
-1. ASCII 文件（一个字符占一个字节）
-2. 二进制文件
-
-*从字节流的角度来看，二者是一样的*
-
-## FILE 结构体
-
-`<stdio.h>`
-
-FILE 用于储存有关文件的各种信息。当打开一个文件时，程序为文件申请一个内存缓冲区，建立文件的各种信息，并用 FILE 变量储存起来。函数会返回这个 FILE 变量的指针。
-
-### 打开文件
-
-```c
-FILE *fopen("文件名", "使用方式"); //当输入文件路径时注意输入字符 / 时要转义，应输入 //
-```
-
-#### 使用方式
-
-##### 读写权限
-
-- r：读 (read)
-- w：覆写 (write)
-- a：追加 (append)
-- +：读和写
-- r+：读写已存在文件
-- w+：覆盖读写
-- a+：追加读写
-
-#### 读写方式
-
-- t：文本文件 (text)
-- b：二进制文件 (b)
-
-*读写方式可以写在读写权限的中间 `rb++` 或后面 `w++b`*
-
-### 关闭文件
-
-```c
-int fclose(FILE*); //正常关闭返回 0，失败返回 -1
-int fcloseall(); //错误返回非 0，否则返回 0
-```
-
-**当文件关闭时内存缓冲区的数据才会被写入文件**
-
-*标准文件流：*
-
-- `stdin` 标准输入流
-- `stdout` 标准输出流
-- `stderr` 标准错误流
-
-### 文件状态检测
-
-```c
-int feof(FILE*); //文件结束检测。结束返回 1，未结束返回 0。
-int ferr(FILE*); //文件错误检测。错误返回非 0，否则返回 0。
-```
-
-### 文件指针定位
-
-```c
-int fseek(FILE*, long offbit, int pos); //定位文件指针，定位成功返回 0，失败返回 1。
-void rewind(FILE*); //可以用 fseek 替代
-int ftell(FILE*); //获取光标位置
-```
-
-`fseek` 的 pos 参数：
-
-- SEEK_SET：起始位置 (0)
-- SEEK_CUR：当前位置 (1)
-- SEEK_END：结束位置 (2)
-
-*fseek 一般用于二进制文件*
-
-### 文件读写
-
-```c
-int fgetc(FILE*);
-char *fgets(char *charArr, int length, FILE*);
-int fputc(int, FILE*);
-int fputs(char *charArr, FILE*);
-
-//适用于 ANSII 文件
-int fscanf(FILE*, const char *格式控制字符串, ... 参数表);
-int fprintf(FILE*, const char *格式控制字符串, ... 参数表);
-
-//适用于二进制文件
-void *fread(void *buffer, int ele_size, int ele_num, FILE*); //ele_size 是读入的每个数据对象的大小, ele_num 是数据对象的个数
-fwrite(void *buffer, int ele_size, int ele_num, FILE*);
-```
-
-*在一般浏览工具中，回车换行被视为两个字符 `0X0D` `0X0A`。但文件读写和定位却按照 `0X0A` 处理，此时可考虑手动输入 `0X0D`。*
-
 # 函数模版
 
 ```cpp
@@ -1931,6 +1827,110 @@ int tolower(c) //将c转换为小写
 
 `getch()` 获取控制台的一个字符
 
+# 文件
+
+## 基本概念
+
+### 文件种类
+
+1. 普通文件
+2. 设备文件
+
+### 文件类型
+
+1. ASCII 文件（一个字符占一个字节）
+2. 二进制文件
+
+*从字节流的角度来看，二者是一样的*
+
+## FILE 结构体
+
+`<stdio.h>`
+
+FILE 用于储存有关文件的各种信息。当打开一个文件时，程序为文件申请一个内存缓冲区，建立文件的各种信息，并用 FILE 变量储存起来。函数会返回这个 FILE 变量的指针。
+
+### 打开文件
+
+```c
+FILE *fopen("文件名", "使用方式"); //当输入文件路径时注意输入字符 / 时要转义，应输入 //
+```
+
+#### 使用方式
+
+##### 读写权限
+
+- r：读 (read)
+- w：覆写 (write)
+- a：追加 (append)
+- +：读和写
+- r+：读写已存在文件
+- w+：覆盖读写
+- a+：追加读写
+
+#### 读写方式
+
+- t：文本文件 (text)
+- b：二进制文件 (b)
+
+*读写方式可以写在读写权限的中间 `rb++` 或后面 `w++b`*
+
+### 关闭文件
+
+```c
+int fclose(FILE*); //正常关闭返回 0，失败返回 -1
+int fcloseall();   //错误返回非 0，否则返回 0
+```
+
+**当文件关闭时内存缓冲区的数据才会被写入文件**
+
+*标准文件流：*
+
+- `stdin` 标准输入流
+- `stdout` 标准输出流
+- `stderr` 标准错误流
+
+### 文件状态检测
+
+```c
+int feof(FILE*); //文件结束检测。结束返回 1，未结束返回 0。
+int ferr(FILE*); //文件错误检测。错误返回非 0，否则返回 0。
+```
+
+### 文件指针定位
+
+```c
+int fseek(FILE*, long offbit, int pos); //定位文件指针，定位成功返回 0，失败返回 1。
+void rewind(FILE*); //可以用 fseek 替代
+int ftell(FILE*); //获取光标位置
+```
+
+`fseek` 的 pos 参数：
+
+- SEEK_SET：起始位置 (0)
+- SEEK_CUR：当前位置 (1)
+- SEEK_END：结束位置 (2)
+
+*fseek 一般用于二进制文件*
+
+### 文件读写
+
+```c
+int   fgetc(FILE*);
+char *fgets(char *charArr, int length, FILE*);
+int   fputc(int, FILE*);
+int   fputs(char *charArr, FILE*);
+
+//适用于 ANSII 文件
+int fscanf(FILE*, const char *格式控制字符串, ... 参数表);
+int fprintf(FILE*, const char *格式控制字符串, ... 参数表);
+
+//适用于二进制文件
+size_t fread(void *buffer, int ele_size, int ele_num, FILE*); //ele_size 是读入的每个数据对象的大小, ele_num 是数据对象的个数
+size_t fwrite(void *buffer, int ele_size, int ele_num, FILE*);
+```
+
+*在一般浏览工具中，回车换行被视为两个字符 `0X0D` `0X0A`。但文件读写和定位却按照 `0X0A` 处理，此时可考虑手动输入 `0X0D`。*
+
 # IO 库
 
 ## iostream 普通流
@@ -1945,7 +1945,7 @@ int tolower(c) //将c转换为小写
 
 *cout (console output)*
 
-*cerr 与 cerr 的区别：cout 带有缓冲，而 cerr 没有缓冲*
+*cerr 与 cerr 的区别：cout 带有缓冲，而 cerr 没有缓冲。*
 
 ### 设置 cout 输出颜色
 
@@ -2061,12 +2061,12 @@ bool fstrm.is_open();              //返回是否有打开的文件
 
 |  mode  | 操作                                            |
 | :----: | ----------------------------------------------- |
-|   in   | 读                                              |
-|  out   | 写                                              |
-|  app   | 追加                                            |
-|  ate   | 将读指针指向文件末尾                            |
-| trunc  | 打开文件时会清空所有数据，单独使用时与 out 相同 |
-| binary | 以二进制方式打开                                |
+|   ios::in   | 读                                              |
+|  ios::out   | 写                                              |
+|  ios::app   | 追加                                            |
+|  ios::ate   | 将读指针指向文件末尾                            |
+| ijos::trunc  | 打开文件时会清空所有数据，单独使用时与 out 相同 |
+| ios::binary | 以二进制方式打开                                |
 
 组合用法：[C++ open 打开文件（含打开模式一览表）](http://c.biancheng.net/view/294.html)
 
