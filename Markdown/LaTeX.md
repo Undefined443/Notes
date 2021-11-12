@@ -365,6 +365,16 @@ $\bm A^{\rm T}$
 
 ## 其它
 
+### 下括号
+
+$\begin{matrix}
+\underbrace{x_1+x_2+\cdots+x_k}\\k
+\end{matrix}$
+
+### 上位符号
+
+$\stackrel{\rm def}{=}$
+
 ### 表格
 
 $\begin{array}{c|cccc}
@@ -375,16 +385,6 @@ $\begin{array}{c|cccc}
 \end{array}$
 
 *array 和 matrix 的区别在于 array 有一个列对齐参数*
-
-### 下括号
-
-$\begin{matrix}
-\underbrace{x_1+x_2+\cdots+x_k}\\k
-\end{matrix}$
-
-### 上位符号
-
-$\stackrel{\rm def}{=}$
 
 ### 公式组合
 
