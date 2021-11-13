@@ -327,7 +327,7 @@ $\aleph\ \aleph_0$
 
 ### 矩阵
 
-$\bm A_{m\times n}=(a_{ij})_{M\times N}$
+${\bm A}_{m\times n}=(a_{ij})_{M\times N}$
 
 $\begin{pmatrix}
 a & b\\
