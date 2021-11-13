@@ -1933,19 +1933,27 @@ size_t fwrite(void *buffer, int ele_size, int ele_num, FILE*);
 
 # IO 库
 
-## iostream 普通流
+IO 库类型和头文件
+------
 
-定义了用于读写流的基本类型
+| 头文件  |                     类型                     |
+|:------:|:--------------------------------------------:|
+|iostream|        istream<br>ostream<br>iostream        |
+|fstream |        ifstream<br>ofstream<br>fstream       |
+|sstream |istringstream<br>ostringstream<br>stringstream|
 
-`istream`, `wistream`
-
-`ostream`, `wostream`
-
-`iostream`, `wiostream`
-
-*cout (console output)*
 
 *cerr 与 cerr 的区别：cout 带有缓冲，而 cerr 没有缓冲。*
+
+*当一个 `fstream` 对象被销毁时，`close()` 会自动被调用。*
+
+**IO 对象无拷贝或赋值**：由于不能拷贝 IO 对象，因此不能将形参或返回类型设置为流类型。进行 IO 操作的函数通常以引用的方式传递和返回流。读写一个 IO 对象会改变其状态，因此传递和返回的引用不能是 const 的。
+
+> cout (console output)
+>
+> 标准库定义了各种流的宽字符流版本。其命名是在原有名字前加一个 w 。如 `wcin`, `wcout`, `wcerr`。
+>
+> 每个流类型的输入流和输出流都继承 `istream` 或 `ostream`
 
 ### 设置 cout 输出颜色
 
@@ -1980,36 +1988,6 @@ C = 红色    4 = 淡红    5 = 紫色      D = 淡紫
 6 = 黄色    E = 淡黄    7 = 白色      F = 亮白
 ```
 
-## fstream 文件流
-
-定义了读写命名文件的类型
-
-`ifstream`, `wifstream`
-
-`ofstream`, `wofstream`
-
-`fstream`, `wfstream`
-
-*当一个 `fstream` 对象被销毁时，`close()` 会自动被调用。*
-
-## sstream 字符串流
-
-定义了读写内存 string 对象的类型
-
-`istringstream`, `wistringstream`
-
-`ostringstream`, `wostringstream`
-
-`stringstream`, `wstringstream`
-
-*标准库定义了各种流的宽字符流版本。其命名是在原有名字前加一个 w 。如 `wcin`, `wcout`, `wcerr`。*
-
-*每个流类型的输入流和输出流都继承 `istream` 或 `ostream`*
-
-## IO 对象无拷贝或赋值
-
-由于不能拷贝 IO 对象，因此不能将形参或返回类型设置为流类型。进行 IO 操作的函数通常以引用的方式传递和返回流。读写一个 IO 对象会改变其状态，因此传递和返回的引用不能是 const 的。
-
 ## 条件状态
 
 > 见 C++ Primer 279 页
@@ -2039,9 +2017,7 @@ tie(ostream*)
 
 对输入流使用 `tie` 函数来将其关联到一个输出流或检查已关联的输出流。`tie` 函数返回指向(先前的)关联的输出流的指针。若无则返回空指针。若提供 `ostream*` 参数则将自己关联到该输出流。
 
-# 文件输入输出
-
-## fstream 操作
+## 文件输入输出
 
 ```cpp
 fstream fstrm("文件名");            //创建一个 fstream 并打开文件。fstream 是头文件 <fstream> 中定义的一个类型。
@@ -2057,7 +2033,7 @@ bool fstrm.is_open();              //返回是否有打开的文件
 
 *最好使用普通版本的 fstream 对象处理 ANSI 文本*
 
-## 文件模式
+### 文件模式
 
 |  mode  | 操作                                            |
 | :----: | ----------------------------------------------- |
@@ -2069,6 +2045,52 @@ bool fstrm.is_open();              //返回是否有打开的文件
 | ios::binary | 以二进制方式打开                                |
 
 组合用法：[C++ open 打开文件（含打开模式一览表）](http://c.biancheng.net/view/294.html)
+
+## string 流
+
+*p287*
+
+> string 流可以向 string 写入数据，从 string 读取数据，就像 string 是一个 IO 流一样。
+>
+> 头文件 sstream 中定义的类型都继承自 iostream 头文件中定义的类型。
+
+```cpp
+//stringstream 特有的操作
+sstream strm(s); //sstream 是头文件 sstream 中定义的一个类型，strm 是一个 sstream 对象，保存 string s 的一个拷贝。此构造函数是 explicit 的。
+
+strm.str();      //返回 strm 所保存的 string 的拷贝
+strm.str(s);     //将 string s 拷贝到 strm 中。返回 void。
+```
+
+### 使用 istringstream
+
+当我们的某些工作是对整行文本进行处理，而其他一些工作是处理行内的单个单词时，通常可以使用 istringstream。
+
+> istringstream 可以看成标准输入
+
+```cpp
+string line;
+string word;
+vector<string> words;
+while (getline(cin, line) {   //逐行从输入读取数据，直至 cin 遇到文件尾（或其他错误）
+  istringstream record(line); //将 record 绑定到刚读入的行
+  while (record >> word) {
+    words.push_back(word);
+  }
+}
+```
+
+### 使用 ostringstream
+
+当我们逐步构造输出，希望最后一起打印时，ostringstream 是很有用的。
+
+```cpp
+ostringstream record;
+for (string word : words) {
+  record << " " << word;
+}
+cout << record.str() << endl;
+```
 
 # 泛型算法
 
