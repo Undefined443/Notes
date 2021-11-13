@@ -2,7 +2,7 @@
 
 在 Visual Studio Code 中按下 <kbd>Ctrl</kbd> + <kbd>`</kbd> 打开 Terminal
 
-```bash
+```zsh
 open <dir/file>     # 在访达中打开 dir 目录
 start <dir/file>    # cmd 中的 open
 explorer <dir>      # 在资源管理器中打开 dir 目录
@@ -36,7 +36,7 @@ echo "message" >> <file> # 以追加的方式写入文件
 
 ## vim
 
-```bash
+```zsh
 vi <file> # 用 vim 打开或创建一个文件
 ```
 
@@ -48,6 +48,6 @@ vi <file> # 用 vim 打开或创建一个文件
 
 ## Visual Studio Code
 
-```bash
+```zsh
 code . # 用 Visual Studio Code 打开该文件夹
 ```
