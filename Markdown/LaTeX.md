@@ -365,6 +365,10 @@ ${\bm A}^{\rm T}$
 
 ## 其它
 
+### 埃
+
+$\overset{\circ}{\rm A}$
+
 ### 下括号
 
 $\begin{matrix}
