@@ -9,8 +9,8 @@ Mac 自带 Git :)
 ### 自报家门
 
 ```zsh
-git config --global user.name "xiao"
-git config --global user.email "iphone4s2008@icloud.com"
+git config --global user.name "Xiao"
+git config --global user.email "iPhone4s2008@iCloud.com"
 ```
 
 ### 创建版本库 Repository
@@ -29,7 +29,7 @@ git config --global init.defaultBranch <name>
 git branch -m <name>
 ```
 
-### 把文件添加到版本库
+2. 把文件添加到版本库
 
 ```zsh
 # 提交到暂存区
@@ -118,7 +118,7 @@ HEAD is now at 188d795 appended a new line
 可以理解为对某次提交进行反向修改，如果要回退已经上传到版本库的提交，则只能用这个命令。
 
 ```zsh
-git revert HEAD
+git revert HEAD # 撤销 HEAD 提交的修改
 ```
 
 #### 工作区与暂存区
@@ -163,10 +163,10 @@ git rm <file> # 从工作区中删除 file 并将修改提交到暂存区
 
 #### 创建 SSH Key
 
-打开 Shell (Windows 下打开 Git zsh)，创建 SSH Key：
+打开 Shell (Windows 下打开 Git Bash)，创建 SSH Key：
 
 ```zsh
-$ ssh-keygen -t rsa -C "iphone4s2008@icloud.com"
+$ ssh-keygen -t rsa -C "iPhone4s2008@iCloud.com"
 ```
 
 接下来一路回车，以默认值创建 SSH Key。此时可以在用户主目录里找到 `.ssh` 目录，里面有 `id_rsa` 和 `id_rsa.pub` 两个文件，这两个就是 SSH Key 的密钥对，`id_rsa` 是私钥，不能泄露，`id_rsa.pub` 是公钥，可以告诉他人。
@@ -242,7 +242,7 @@ git remote set-url --add <remote_repo> <url> # 为现有的远程库添加额外
 在 GitHub 库的 `<> Code` 区的绿色按钮 Code 中拷贝 SSH Key，然后运行命令：
 
 ```zsh
-#同样，这里需要替换 SSH Key
+# 同样，这里需要替换 SSH Key
 $ git clone git@github.com:Straining5/github-slideshow.git
 ```
 

@@ -3,16 +3,20 @@ CASIO fx-991CN X 常用功能
 
 ### 复数转换 $a+b\,{\rm i}\leftrightarrow r\angle\theta$：
 
-1. 进入复数运算模式 <kbd>菜单</kbd> ->  <kbd>2</kbd>。
-2. <kbd>SHIFT</kbd> -> <kbd>设置</kbd> -> <kbd>2</kbd>，选择输出形式。
-3. 此时可进行计算。
+1. 进入复数运算模式 <kbd>菜单</kbd> ->  <kbd>2</kbd>
+2. 输入待转换数
+3. <kbd>OPTN</kbd> -> <kbd>⬇️</kbd>，选择目标格式。
+4. <kbd>=</kbd>
+
+> 可通过 <kbd>SHIFT</kbd> + <kbd>设置</kbd> -> <kbd>⬇️</kbd> -> <kbd>2</kbd> 选择默认输出格式
 
 ### 角度弧度转换
 
-例：在角度模式 `D` 下输入待转换的弧度值。（若要转换模式，<kbd>SHIFT</kbd> + <kbd>菜单</kbd> -> <kbd>2</kbd>）
+例：将弧度转换为角度
 
-1. <kbd>OPTN</kbd> -> <kbd>2</kbd>，选择弧度，将输入的数值标记为弧度。
-2. 按下 <kbd>=</kbd>
+1. 在角度模式 `D` 下输入待转换的弧度值。（若要转换模式，<kbd>SHIFT</kbd> + <kbd>菜单</kbd> -> <kbd>2</kbd>）
+2. <kbd>OPTN</kbd> -> <kbd>2</kbd>，选择弧度，将输入的数值标记为弧度。
+3. 按下 <kbd>=</kbd>
 
 ### 等式方程求解未知量
 
@@ -33,7 +37,7 @@ CASIO fx-991CN X 常用功能
 
 #### 查看并调用
 
-<kbd>SHIFT</kbd> + <kbd>STO</kbd>，显示变量菜单，此时直接按下变量所在按键即可输入变量（如输入${\rm A}$：<kbd>(-)</kbd>
+<kbd>SHIFT</kbd> + <kbd>STO</kbd>，显示变量菜单，此时直接按下变量所在按键即可输入变量（如输入 ${\rm A}$：<kbd>(-)</kbd>
 
 ### 独立存储器（M）
 
