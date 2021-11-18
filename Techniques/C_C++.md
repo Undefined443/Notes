@@ -1083,15 +1083,12 @@ Demo d = {0, "abc"};
 
 ## 静态成员
 
-静态成员函数的定义方法和其他成员函数一样，需要注意的是 `static` 关键字只出现在类内部。
-
-**静态数据成员必须在类的外部定义和初始化。其生命周期贯穿整个程序。**
-
-在定义静态成员时，和之前在类外定义成员函数一样，从类名开始，定义语句的剩余部分就都位于类的作用域之内了。
+静态成员在类的内部声明，在类的外部定义和初始化，其生命周期贯穿整个程序。注意 `static` 关键字只出现在类内部。
 
 静态数据成员可以是不完全类型。即静态数据成员的类型可以就是它所属的类类型，而非静态成员则只能声明称其指针或引用。
 
-*不完全类型：仅仅声明而未定义的类。在类中定义使用其他类的方法时可能出现不完全类错误，此时应将方法定义移至类外。*
+不完全类型
+: 仅仅声明而未定义的类。在类中定义使用其他类的方法时可能出现不完全类错误，此时应将方法定义移至类外。
 
 还可以使用静态成员作为默认实参，非静态数据成员则不行。
 
@@ -1728,14 +1725,13 @@ int main() {
   pclose(fp);
 }
 
-//Windows 特供
-
 //字符串转换为算数类型
+long   strtol(char *待转字符串, char **endptr, int base) //函数返回转换后的数值，并将第一个无法转换的字符的地址赋给 endptr。endptr 可以为 NULL
+//Windows 特供
 int    atoi(char *str)
 double atof(char *str)
 long   atol(char *str)
-
-char *itoa(int 待转整数, char *buffer, int 进制) //算数类型转换为字符串
+char  *itoa(int 待转整数, char *buffer, int 进制) //算数类型转换为字符串
 ```
 
 # string.h
@@ -1955,6 +1951,16 @@ IO 库类型和头文件
 >
 > 每个流类型的输入流和输出流都继承 `istream` 或 `ostream`
 
+### cout 格式化输出
+
+`<iomanip>`
+
+```cpp
+cout << setw(10) << setiosflags（ios::left) << "message"; //设置位宽 10，左对齐
+```
+
+[C 语言中文网：cout 格式化输出完全攻略](http://c.biancheng.net/view/275.html)
+
 ### 设置 cout 输出颜色
 
 *仅限 Windows 平台*
@@ -2048,7 +2054,7 @@ bool fstrm.is_open();              //返回是否有打开的文件
 
 ## string 流
 
-*p287*
+p287
 
 > string 流可以向 string 写入数据，从 string 读取数据，就像 string 是一个 IO 流一样。
 >
@@ -2103,8 +2109,11 @@ accumulate(beg, end, 初值);       //求和函数。保存和的对象的类型
 
 equal(beg, end, beg2);            //将第一个序列中的每个元素与第二个序列中的每个元素进行比较。若都相等，则返回 true。只要两个序列中的元素定义了 == 运算符就可以。容器2中的元素应至少和容器1一样多
 
-find_if(begin, end, predicate);   //返回指向第一个满足谓词 predicate 的迭代器
+find_if(begin, end, predicate);   //返回指向第一个满足一元谓词的对象的迭代器
 ```
+
+谓词
+: 谓词函数是一个返回布尔值的函数。使用一元谓词可以确定一个对象是否具有某些特征。使用二元谓词可以确定两个对象是否以某种方式关联。
 
 ## 写算法
 
@@ -2119,11 +2128,11 @@ copy(begin, end, begin); //返回拷贝后的尾后位置
 ## 重排算法
 
 ```cpp
-sort(begin, end);  //序列元素必须定义有 < 运算符
-sort(begin, end, predicate); //predicate 返回 true 表示 a < b
-stable_sort(同上); //稳定排序，维持相等元素的原有顺序
+sort(begin, end);            //序列元素必须定义有 < 运算符
+sort(begin, end, predicate); //二元谓词返回 true 表示 a < b
+stable_sort(同上);            //稳定排序，维持相等元素的原有顺序
 
-unique();          //对于有序序列，调用 unique() 将相邻的重复项"消除"，返回不重复区域的尾后迭代器。"消除"实际上是覆盖了重复项。
+unique(); //对于有序序列，调用 unique() 将相邻的重复项"消除"，返回不重复区域的尾后迭代器。"消除"实际上是覆盖了重复项。
 ```
 
 **向算法传递函数**
