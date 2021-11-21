@@ -34,8 +34,9 @@ git branch -m <name>
 ```zsh
 # 提交到暂存区
 git add <file>
-git add . # 提交所有文件，包括 .gitignore
-git add * # 提交所有文件，不包括 .gitignore，并且会提示 ignored 文件
+git add .  # 提交当前目录下所有文件，包括 .gitignore
+git add *  # 提交当前目录下所有文件，不包括 .gitignore，并且会提示 ignored 文件
+git add -A # 提交版本库所有文件
 
 # 暂存区提交到版本库
 git commit -m "added a readme file"
