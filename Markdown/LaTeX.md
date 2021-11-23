@@ -151,6 +151,10 @@ $y\prime\ y'\ \dot y\ \ddot y$
 
 $\partial$
 
+### 星
+
+$\ast\ \star$
+
 ### 矢量
 
 $\vec v\ \overrightarrow{AB}\ \boldsymbol E\ \bm r$
@@ -368,6 +372,10 @@ ${\bm A}^{\rm T}$
 ### 埃
 
 $\overset{\circ}{\rm A}$
+
+### 约化普朗克常数
+
+$\hbar$
 
 ### 下括号
 
