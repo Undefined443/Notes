@@ -208,6 +208,9 @@ q # 退出
 cat <file> # 查看文件内容
 cat -n <file> # 显示行号
 
+head -n 5 <file> # 显示 file 前 5 行内容
+tail -n 5 <file> # 显示 file 后 5 行内容
+
 touch <file> # 创建文件
 
 echo "message" > <file> # 以覆写的方式将消息写入文件
