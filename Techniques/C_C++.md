@@ -1,6 +1,6 @@
 # 杂项
 
-```bash
+```zsh
 g++ <src1> <src2> ... -o <output> # 将源文件 src1，src2 编译
 ```
 
@@ -224,6 +224,37 @@ int main(int argc, char *argv[])
 ```
 
 > `argv[0]` 永远是程序名
+
+### getopt()
+
+`<unistd.h>`
+
+[博客园：Linux 下 getopt() 函数的简单使用](https://www.cnblogs.com/qingergege/p/5914218.html)
+
+#### 定义
+
+```c
+int getopt(int argc, char * const argv[], const char *optstring);
+//参数 argc 和 argv 通常由 main 函数直接传入
+//optstring：选项字符串
+//返回值：如果找到符合的参数则返回此参数，否则返回 '?'。分析结束则返回 -1
+
+extern char *optarg; //如果某个选项有参数，optarg 就是该选项的参数字符串
+
+extern int optind; //下一次进行选项搜索的索引值，从 1 开始
+extern int opterr; //如果将 opterr 置为 0，则关闭错误输出
+extern int optopt; //当发现无效选项字符，即 getopt() 返回 '?' 时，optopt 就是该无效选项字符
+```
+
+> getopt() 会改变 argv[] 中参数的顺序。经过多次 getopt() 后，argv[] 中正确的选项及其参数会被放置在数组前面，而 optind 会指向第一个非选项和参数的位置。
+
+#### optstring
+
+`abc` 表示接收 -a, -b, -c 参数（`-abc` 等同于 `-a -b -c`：不带参数的选项可以写在一起）
+
+`a:` 表示选项 -a 有一个必选参数。必选参数可以和选项连在一起写，也可以用空格隔开
+
+`a::` 表示选项 -a 有一个可选参数。可选参数与选项之间不能有空格
 
 ## 类型别名
 
@@ -1931,7 +1962,7 @@ size_t fwrite(void *buffer, int ele_size, int ele_num, FILE*);
 # IO 库
 
 IO 库类型和头文件
-------
+--------------------
 
 | 头文件  |                     类型                     |
 |:------:|:--------------------------------------------:|
@@ -2033,14 +2064,19 @@ fstream fstrm("文件名", int mode);  //创建一个 fstream 并以 mode 模式
 fstrm.open("文件名");               //打开文件。要求没有已打开的文件，否则流的 failbit 会被置位。
 fstrm.open("文件名", int mode);
 
+//读写二进制文件
+fstrm.read(char *buffer, int count);
+fstrm.write(char *buffer, int count);
+
 fstrm.close();                     //关闭文件
 
 bool fstrm.is_open();              //返回是否有打开的文件
 ```
 
-*最好使用普通版本的 fstream 对象处理 ANSI 文本*
+> 最好使用普通版本的 fstream 对象处理 ANSI 文本
 
-### 文件模式
+文件模式
+----------
 
 |  mode  | 操作                                            |
 | :----: | ----------------------------------------------- |
@@ -2048,10 +2084,41 @@ bool fstrm.is_open();              //返回是否有打开的文件
 |  ios::out   | 写                                              |
 |  ios::app   | 追加                                            |
 |  ios::ate   | 将读指针指向文件末尾                            |
-| ijos::trunc  | 打开文件时会清空所有数据，单独使用时与 out 相同 |
+| ios::trunc  | 打开文件时会清空所有数据，单独使用时与 out 相同 |
 | ios::binary | 以二进制方式打开                                |
 
 组合用法：[C++ open 打开文件（含打开模式一览表）](http://c.biancheng.net/view/294.html)
+
+> 在 Windows 中，以文本方式打开文件会有一个 `\n`$\mathop\rightleftharpoons\limits_{写入}^{读取}$`\r\\n` 的转化过程
+>
+> 用二进制方式打开文件总是最保险的
+
+读写二进制文件示例：
+
+```cpp
+class Student {
+public:
+  char name[20];
+  int age;
+};
+
+int main() {
+  ifstream input("input", ios::in | ios::binary);
+  ofstream output("output", ios::out | ios::binary);
+  Student stu;
+  if(!input) {
+    cout << "error" <<endl;
+    return 0;
+  }
+  while(input.read((char *)&stu, sizeof(Student))) {
+    cout << stu.name << " " << stu.age << endl;
+    output.write((char *)&stu, sizeof(Student));
+  }
+  input.close();
+  output.close();
+  
+}
+```
 
 ## string 流
 

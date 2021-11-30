@@ -45,9 +45,9 @@ git commit -m "added a readme file"
 git commit --amend
 ```
 
-*`git` 命令必须在仓库内执行*
-
-*我觉得 `git add *` 更好*
+> `git` 命令必须在仓库内执行*
+>
+> 我觉得 `git add *` 更好*
 
 > 1. Git 只能管理文本文件，不能管理二进制文件
 > 2. 不要使用 Windows 自带的记事本编辑文本文件
@@ -91,7 +91,7 @@ reset 的三种模式：
 
 `HEAD^`：HEAD 的上一个结点
 
-`HEAD^^`或 `HEAD~2`：HEAD 的上上个结点
+`HEAD^^` 或 `HEAD~2`：HEAD 的上上个结点
 
 当某结点有两个父结点时，`HEAD^` 指向第一个父结点，而 `HEAD^2` 指向第二个父结点。
 

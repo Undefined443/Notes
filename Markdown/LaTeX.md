@@ -52,7 +52,7 @@
 
 $\frac xy$ $x\over y$
 
-*`\over` 命令的分式只有一层*
+> `\over` 命令的分式只有一层
 
 #### 使用 `\left(` 和 `\right)` 标记使括号匹配其中内容的大小
 
@@ -72,9 +72,9 @@ $\left.\dfrac{\partial z}{\partial x}\right|_{y=1}$
 
 $x = a_0 +\cfrac{1^2}{a_1+\cfrac{2^2}{a_2\cfrac{3^2}{a_3+\cfrac{4^2}{a_4+\cdots}}}}$
 
-- *c 代表 continued*
-- *d 代表 display*
-- *t 代表 text*
+> - c 代表 continued
+> - d 代表 display
+> - t 代表 text
 
 1. 普通大分式建议使用 `\dfrac`
 2. 连分式建议使用 `\cfrac`
@@ -129,7 +129,7 @@ $$
 \sum\nolimits_{i=1}^n
 $$
 
-*在 LaTeX 中，通常会自动将行内公式写成文本格式，而在行间公式里使用标准格式。可通过在 `\sum` 命令后加 `\limits` 来指定使用标准格式或 `\nolimits` 来指定使用文本格式*
+> 在 LaTeX 中，通常会自动将行内公式写成文本格式，而在行间公式里使用标准格式。可通过在 `\sum` 命令后加 `\limits` 来指定使用标准格式或 `\nolimits` 来指定使用文本格式
 
 ### 乘积运算符 (Product Operator)
 
@@ -171,7 +171,7 @@ $\div$
 
 $\cdots\ \ldots\ \vdots\ \ddots$
 
-*省略号的位置取决于其两端操作符的位置。例如：*
+省略号的位置取决于其两端操作符的位置。例如：
 
 $1+2+\cdots+n$
 
@@ -205,7 +205,7 @@ $\Pr$
 
 $\neq\ \not=$
 
-*`\not` 是在下一个符号上画斜杠*
+> `\not` 是在下一个符号上画斜杠
 
 ### 约等
 
@@ -267,7 +267,7 @@ $\{a,b,c,d\}\ \left\{\cfrac xy\right\}$
 
 $\mid\ \bigm|$
 
-用描述法表示的集合，在括号前后加上 `\,` 会更好看。
+> 用描述法表示的集合，在括号前后加上 `\,` 会更好看。
 
 ### 交集，并集
 
@@ -307,7 +307,7 @@ $\implies\ \Rightarrow\ \Longrightarrow\ \nRightarrow$
 
 $\iff\ \Leftrightarrow\ \nLeftrightarrow$
 
-*`\iff` 会在箭头两侧加上空格*
+> `\iff` 会在箭头两侧加上空格
 
 ### 同或，异或
 
@@ -361,13 +361,17 @@ c & d
 
 ### 求模符号
 
-$\|$
+$\|x\|$
 
 ### 矩阵转置
 
 ${\bm A}^{\rm T}$
 
 ## 其它
+
+### 字体
+
+$\mathrm{mathrm}\ {\rm rm}\ \boldsymbol{boldsymbol}\ {\bm bm}\ \mathbf{mathbf}\ {\bf bf}\ \mathbb{mathbb}$
 
 ### 埃
 
@@ -377,15 +381,29 @@ $\overset{\circ}{\rm A}$
 
 $\hbar$
 
+### 对勾
+
+$\checkmark\ \surd$
+
 ### 下括号
 
 $\begin{matrix}
 \underbrace{x_1+x_2+\cdots+x_k}\\k
 \end{matrix}$
 
+### 将普通符号转换成运算符
+
+$\mathop{x}\limits_a^b$
+
 ### 上位符号
 
 $\stackrel{\rm def}{=}$
+
+### 转换箭头
+
+$\rightleftharpoons$
+
+[CSDN：LaTex 各种箭头符号总结](https://blog.csdn.net/Artoria_QZH/article/details/103310704)
 
 ### 表格
 
@@ -396,11 +414,9 @@ $\begin{array}{c|cccc}
 1 & m_4 & m_5 & m_7 & m_6 
 \end{array}$
 
-*array 和 matrix 的区别在于 array 有一个列对齐参数*
+> array 和 matrix 的区别在于 array 有一个列对齐参数
 
 ### 公式组合
-
-用 `\begin{cases}` 和 `\end{cases}` 来构造分段函数，用 `\\` 换行。
 
 $$
 f(x)=
@@ -435,7 +451,13 @@ $$
 
 ### 颜色
 
-${\color{red}给你点颜色看看}\colorbox{red}{给你点颜色看看}$
+$\color{red}给你点颜色看看$
+
+$\colorbox{red}{给你点颜色看看}$
+
+### 大小
+
+$\huge huge$
 
 ### 注释
 
