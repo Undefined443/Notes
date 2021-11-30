@@ -170,9 +170,40 @@ echo ${#string}
 str1="a"
 str2="b"
 str3=$str1$str2"c" # 只需将字符串放在一起就能拼接
-```
 
-[Shell 字符串截取](http://c.biancheng.net/view/1120.html)
+# 字符串截取
+# 截取范围，从左边开始计数
+$ str=111a222b333a444 # a 是第 3 位（从 0 开始计数）
+
+$ echo ${str: 3: 5} # 从第 3 位开始输出 5 位
+
+a222b
+
+$ echo ${str: 3} # 省略长度
+a222b333a444
+
+# 从右边开始计数
+$ echo ${str: 0-4: 5} # 从倒数第 4 位开始输出 4 位。b 是倒数第 4 位（从 1 开始计数）
+b333a
+
+# 截去子串
+# 截去左边（截去前缀）
+$ echo ${str#*a} # 从左边截去第一个匹配 a 及之前的所有字符
+222b333a444
+
+$ echo ${str#111a} # 省略通配符 *，此时需要写出完整的前缀
+222b333a444
+
+$ echo ${str##*a} # 从右边截去第一个匹配 a 及之前的所有字符
+444
+
+# 截去右边（截去后缀）
+$ echo ${str%a*} # 从右边截去第一个匹配 a 及之后的所有字符
+111a222b333
+
+$ echo ${str%%a*} # 从左边截去第一个匹配 a 及之后的所有字符
+111
+```
 
 ## 数组
 
@@ -190,6 +221,7 @@ nums[20]=88
 open <dir/file>     # 在访达中打开 dir 目录
 start <dir/file>    # cmd 中的 open
 explorer <dir>      # 在资源管理器中打开 dir 目录
+nautilus <dit>      # ubuntu 中的 open
 
 clear # 清屏
 cls   # cmd 清屏
