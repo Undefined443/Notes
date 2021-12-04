@@ -12,7 +12,7 @@
 ```zsh
 # 将 Shell 脚本作为程序运行
 # 如果不写 ./，Linux 只会到系统路径（由 PATH 环境变量指定）下查找外部命令
-chmod +x ./script.sh # 给脚本添加执行权限
+chmod +x script.sh # 给脚本添加执行权限
 ./script.sh          # 运行脚本
 
 # 将 Shell 脚本作为参数传递给 Bash 解释器
@@ -245,6 +245,9 @@ tail -n 5 <file> # 显示 file 后 5 行内容
 
 touch <file> # 创建文件
 
+echo -e # 使用转义字符
+echo -n # 关闭自动换行
+
 echo "message" > <file> # 以覆写的方式将消息写入文件
 echo "message" >> <file> # 以追加的方式写入文件
 
@@ -255,6 +258,8 @@ echo $VAR # 使用 VAR 变量。可以通过 ${VAR} 指明变量名的边界
 # 输入输出重定向
 < file # 输入重定向
 > file # 输出重定向
+
+gedit [file] # 在 Linux 打开文本编辑器
 ```
 
 ## vim
