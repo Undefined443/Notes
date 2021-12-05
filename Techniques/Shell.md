@@ -22,7 +22,7 @@ bash script.sh # 这种方式将忽略脚本文件第一行的指定解释器信
 ### 在当前进程中运行 Shell 脚本
 
 ```bash
-source script.sh
+source script.sh # 在 zsh 下依然需要使用 ./script.sh
 . script.sh # source 命令的简化写法
 ```
 
@@ -223,7 +223,6 @@ echo -e "\e[0m输出文字"  # 使用默认配色
 
 # 样例
 echo -e "\e[31mHello, World\e[0m" # 红色 Hello, World
-# 实际上，如果没有设置背景色，则不用在后面使用 \e[0m 恢复默认配色
 # 注意，在 -e 选项的 echo 命令中，输出语句如果含有感叹号 !，则感叹号的后面只能是空白符或语句结束的双引号。否则 ! 会被解析成事件提示符
 echo -e "文字"'!'"文字" # 解决 echo -e 输出 ! 的问题
 
@@ -231,7 +230,7 @@ echo -e "文字"'!'"文字" # 解决 echo -e 输出 ! 的问题
 GREEN="\e[32m"
 RES="\e[0m"
 
-echo -e "${GREEN}Hello, World$RES" # 如果没有设置背景色可以不用 RES
+echo -e "${GREEN}Hello, World$RES"
 
 # 设置颜色动作
 PRT_GREEN="echo -e \e[32m"
@@ -278,6 +277,17 @@ Hello
 >
 > ! 和 ⬆️ ⬇️ 只会引用成功执行的命令
 
+### sh -c 的必要性
+
+```bash
+$ sudo echo "151.101.76.133 raw.githubusercontent.com" >> /etc/hosts
+bash: /etc/hosts: 权限不够
+```
+
+bash 拒绝这么做，说是权限不够。这是因为重定向符号 `>` 和 `>>` 也是 bash 的命令。我们使用 sudo 只是让 echo 命令具有了 root 权限，但是没有让 `>` 和 `>>` 命令也具有 root 权限，所以 bash 会认为这两个命令都没有像 hosts 文件写入信息的权限。
+
+利用 `sh -c` 命令，它可以让 bash 将一个字串作为完整的命令来执行，这样就可以将 sudo 的影响范围扩展到整条命令。
+
 ## 常用命令
 
 ```bash
@@ -289,9 +299,10 @@ nautilus <dit>      # ubuntu 中的 open
 clear # 清屏
 cls   # cmd 清屏
 
-ls -ah # 查看当前目录所有文件（包括隐藏文件）
+ls -a # 查看当前目录所有文件（包括隐藏文件）
 
 mv <file> <dir> # 将 file 移动到 dir
+mv <name1> <name2> # 重命名
 
 rm <file> # 删除文件
 rm -rf    # 删除当前目录，并且不询问
