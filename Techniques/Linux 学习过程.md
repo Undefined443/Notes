@@ -68,7 +68,7 @@ sudo apt install terminator
 ```bash
 cat /etc/shells # 查看已安装 shell
 sudo apt install zsh # 安装 zsh
-chsh# 更改默认 shell
+chsh -s /bin/zsh # 更改默认 shell
 wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh # 安装 oh-my-zsh
 # zsh 插件
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting # 代码高亮
