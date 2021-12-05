@@ -43,8 +43,10 @@ ${GREEN}"将公钥添加到 GitHub："$RES
 cat ~/.ssh/id_rsa.pub
 echo "Press any key to continue . . ."
 read -n 1
+echo
 ${GREEN}"请将下面内容加入 plugins"$RES
 echo "plugins=(git extract z zsh-autosuggestions zsh-syntax-highlighting autojump)"
 echo "Press any key to continue . . ."
 read -n 1
+echo
 gedit ~/.zshrc
