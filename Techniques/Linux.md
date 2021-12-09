@@ -22,7 +22,9 @@ clion.sh
 ### deb 安装包
 
 ```bash
-sudo apt install ./<file.deb>
+sudo cp file /tmp # 先将 .deb 文件移到 /tmp 文件夹，避免出现 “无法被用户'_apt'访问” 问题
+sudo apt install /tmp/file
+rm /tmp/file
 ```
 
 ### Clash for Linux
@@ -104,6 +106,20 @@ z 会记录你曾经进入过的目录，用模糊匹配快速进入想要的目
 autojump 用法：`j dir` 跳转到 dir
 
 [简书：Ubuntu | 安装 oh-my-zsh](https://www.jianshu.com/p/ba782b57ae96)
+
+### 安装 Menlo for Powerline 字体
+
+[官方教程](https://github.com/powerline/powerline/blob/develop/docs/source/installation/linux.rst)
+
+#### 在 Terminal 中使用 Menlo for Powerline 字体
+
+系统自带 Terminal：在配置文件首选项下选中一个配置文件，选中 ”使用自定义字体“，在下拉菜单中选择 Menlo for Powerline
+
+![配置字体](../assets/配置字体.png)
+
+#### 在 Visual Studio Code 中使用 Menlo for Powerline 字体
+
+在 settings.json 中加入 `"terminal.integrated.fontFamily": "Menlo for Powerline"`，或搜索 `Terminal: font` 设置，在 Font Family 栏下填入：Menlo for Powerline
 
 ### github.com:443
 
