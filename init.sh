@@ -2,6 +2,9 @@
 GREEN="echo -e \\e[32m"
 RES='\e[0m'
 
+export http_proxy=127.0.0.1:7890
+export https_proxy=$http_proxy
+
 # 基本组件
 sudo apt update # 更新可用软件包列表
 ${GREEN}"开启 autoremove"$RES
@@ -20,10 +23,9 @@ sudo apt install zsh -y
 
 # oh my zsh
 ${GREEN}"安装 oh my zsh"$RES
-# 原地址总是无法访问
-# sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 # Gitee 镜像
-sh -c "$(wget -O- https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh)"
+# sh -c "$(wget -O- https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh)"
 
 # 自动补全
 ${GREEN}"安装自动补全"$RES
