@@ -41,8 +41,8 @@ git add -A # 提交版本库所有文件
 # 暂存区提交到版本库
 git commit -m "added a readme file"
 
-# 修改 HEAD 的 commit message
-git commit --amend
+# 重新提交
+git commit --amend -m "message"
 ```
 
 > 我觉得 `git add *` 更好
