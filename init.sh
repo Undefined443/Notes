@@ -31,7 +31,8 @@ sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools
 
 # 自动补全
 ${GREEN}"安装自动补全"$RES
-mkdir ~/.oh-my-zsh/plugins/incr && cd ~/.oh-my-zsh/plugins/incr
+mkdir ~/.oh-my-zsh/plugins/incr
+cd ~/.oh-my-zsh/plugins/incr
 wget https://mimosa-pudica.net/src/incr-0.2.zsh
 echo 'source ~/.oh-my-zsh/plugins/incr/incr*.zsh' >> ~/.zshrc
 
@@ -44,7 +45,7 @@ echo 'source /usr/share/autojump/autojump.sh' >> ~/.zshrc
 ${GREEN}"安装 zsh-syntax-highlighting"$RES
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
-# auto suggestiong
+# auto suggestions
 ${GREEN}"安装 zsh-autosuggestions"$RES
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 

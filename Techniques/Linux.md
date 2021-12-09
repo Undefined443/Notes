@@ -19,6 +19,12 @@ bash # 开启新进程以刷新 PATH
 clion.sh
 ```
 
+### deb 安装包
+
+```bash
+sudo apt install ./<file.deb>
+```
+
 ### Clash for Linux
 
 在 [GitHub](https://github.com/Dreamacro/clash/releases) 下载 clash-linux-amd64 最新版本
@@ -31,7 +37,7 @@ mkdir ~/.config/clash
 mv clash ~/.config/clash # 将 clash 放到 ~/.config/clash 目录下
 cd ~/.config/clash
 wget -O config.yaml https://subscribe.a9b.top/link/zAy6rZxfKYqigGsv?clash=1 # 获取订阅文件
-echo 'PATH=$PATH:$HOME'/.config/clash >> ~/.bashrc # 添加到 PATH
+echo 'PATH=$PATH:$HOME/.config/clash' >> ~/.bashrc # 添加到 PATH
 source ~/.bashrc
 chmod +x clash # 添加执行权限
 clash
@@ -66,22 +72,45 @@ sudo apt install terminator
 ### 安装 zsh
 
 ```bash
-cat /etc/shells # 查看已安装 shell
-sudo apt install zsh # 安装 zsh
-chsh -s /bin/zsh # 更改默认 shell
-wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh # 安装 oh-my-zsh
-# zsh 插件
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting # 代码高亮
-sudo apt install autojump # 自动跳转
-git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions # 命令补全
-timedatectl set-local-rtc 1 --adjust-system-clock # 解决时钟问题
+sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# 自动补全
+mkdir ~/.oh-my-zsh/plugins/incr
+cd ~/.oh-my-zsh/plugins/incr
+wget https://mimosa-pudica.net/src/incr-0.2.zsh
+echo 'source ~/.oh-my-zsh/plugins/incr/incr*.zsh' >> ~/.zshrc # 第三方插件和主题要加载这句话
+
+# auto jump
+sudo apt install autojump -y
+echo 'source /usr/share/autojump/autojump.sh' >> ~/.zshrc
+
+# syntax hightlighting
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
+# auto suggestions
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 ```
+
+最后进入 ~/.zshrc，将 plugins 改为：
+
+```
+plugins=(git extract z zsh-autosuggestions zsh-syntax-highlighting autojump)
+```
+
+extract 用法：`x file` 自动解压 file
+
+z 会记录你曾经进入过的目录，用模糊匹配快速进入想要的目录 `z dir`
+
+autojump 用法：`j dir` 跳转到 dir
+
+[简书：Ubuntu | 安装 oh-my-zsh](https://www.jianshu.com/p/ba782b57ae96)
+
 ### github.com:443
 
 很多程序的安装脚本都在 GitHub 上，比如这条命令：
 
 ```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 ```
 
 就是从 GitHub 上下载 install.sh 脚本，然后用 bash 去执行该脚本（`curl` 是下载命令，`sh -c "$(curl -fsSL ...)"` 是用 shell 执行 curl 下载下来的文件。然而由于墙的原因经常会出现 443 错误：
@@ -90,9 +119,9 @@ timedatectl set-local-rtc 1 --adjust-system-clock # 解决时钟问题
 curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused
 ```
 
-然而如果我们在直接在浏览器中访问这个网址，会发现可以正常访问。所以我们可以在本地创建一个脚本文件 install.sh，然后把网页的内容拷贝进去，然后执行脚本： `. ./install.sh`
+如果我们可以正常访问这个网址，那么可以在本地创建一个脚本文件 install.sh，然后把网页的内容拷贝进去，然后执行脚本： `. ./install.sh`
 
-解法二：[CSDN：curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused](https://blog.csdn.net/u011700186/article/details/109452684)
+然而如果脚本中依然有连接 GitHub 的操作，那么这种方法就不能彻底解决问题。最好的方法还是挂代理。
 
 ### curl 和 wget 使用代理
 
@@ -143,12 +172,9 @@ proxy-user = "user:passward"
 curl --noproxy "*" url
 ```
 
-#### 设置 Linux 全局代理
+#### 设置 Linux 全局代理动作
 
 ```bash
-# 设置 setproxy 和 unsetproxy 动作
-# 开启代理 setproxy
-# 关闭代理 unsetproxy
 alias setproxy="export http_proxy=socks5://127.0.0.1:7890; export https_proxy=$http_proxy; echo 'HTTP Proxy on'"
 alias unsetproxy="unset http_proxy; unset https_proxy; echo 'HTTP Proxy off'"
 ```
