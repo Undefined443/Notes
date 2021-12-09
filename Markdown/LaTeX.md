@@ -239,9 +239,9 @@ $\bar x\ \overline {xy}$
 
 ### 取整
 
-向下取整 $\lfloor x\rfloor$
+⌊向下取整⌋ $\lfloor x\rfloor$
 
-向上取整 $\lceil x\rceil$
+⌈向上取整⌉ $\lceil x\rceil$
 
 ## 离散数学
 
@@ -473,9 +473,9 @@ $\text{comment}$
 >
 > [在 Markdown 中输入数学公式(MathJax)](https://www.jianshu.com/p/a0aa94ef8ab2)
 >
-> [常用 latex 公式](https://www.cnblogs.com/wxyww/p/latex.html)
+> [常用 LaTex 公式与手写公式转换器](https://www.cnblogs.com/wxyww/p/latex.html)
 >
-> [LaTex 符号大全（LaTeX_Symbols）](https://blog.csdn.net/yen_csdn/article/details/79966985)
+> [LaTex 符号大全（图片）](https://blog.csdn.net/yen_csdn/article/details/79966985)
 >
 > [LaTeX 公式篇 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/110756681)
 >

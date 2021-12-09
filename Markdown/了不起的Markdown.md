@@ -206,21 +206,21 @@ Markdown 中的段落使用空行来标记。
 #include <iostream>
 
 int main() {
-  std::cout << “Hello, World!” << std::endl;
+  std::cout << "Hello, World!" << std::endl;
   return 0;
 }
 ```
 
-小写语言名，如 html, css, shell, java, javascript, python, cs(csharp), c, cpp, arduino, cmake。
+小写语言名，如 html, css, shell, bash, java, javascript, python, cs(csharp), c, cpp, arduino, cmake。
 
 **使用规范**
 
-1.  很多 Shell 命令都要粘贴到终端中去执行，因此最好避免在 Shell 命令中使用任何换行操作；可以在行尾使用一个 `\`，这样既能避免命令换行，又能提高源码的可读性。
+1.  很多 Shell 命令都要粘贴到终端中去执行，因此最好避免在 Shell 命令中使用任何换行操作；可以在行尾使用一个反斜杠 `\` 将换行转义，这样既能避免命令换行，又能提高源码的可读性。
 2.  建议不要在没有输出内容的 Shell 命令前加 `$`。在命令没有输出内容的情况下，`$` 是没有必要的，因为内容全是命令，我们不会把命令和输出的内容混淆。
 
-```shell
-$ echo “test”
-test
+```bash
+$ echo "message"
+message
 ```
 
 ## 引用
@@ -355,6 +355,22 @@ x = {-b \pm \sqrt{b^2-4ac} \over 2a}
 $$
 
 详见 [[LaTex.md]]
+
+## 绘图
+
+```mermaid
+flowchart LR
+    A[Hard] --> B(Round)
+    B --> C((Circuit))
+    C -->|Text| D([CircuitHard])
+    D --- E{Decision}
+```
+
+[帮助文档](https://mermaid-js.github.io/mermaid/#/flowchart)
+
+[知乎：Mermaid 从入门到入土](https://zhuanlan.zhihu.com/p/355997933)
+
+[Mermaid 在线渲染器](https://mermaid-js.github.io/mermaid-live-editor/edit/)
 
 ## HTML 元素
 
