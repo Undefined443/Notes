@@ -76,3 +76,20 @@ sudo apt install autojump # 自动跳转
 git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions # 命令补全
 timedatectl set-local-rtc 1 --adjust-system-clock # 解决时钟问题
 ```
+### github.com:443
+
+很多程序的安装脚本都在 GitHub 上，比如这条命令：
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+就是从 GitHub 上下载 install.sh 脚本，然后用 bash 去执行该脚本（`curl` 是下载命令，`sh -c "$(curl -fsSL ...)"` 是用 shell 执行 curl 下载下来的文件。然而由于墙的原因经常会出现 443 错误：
+
+```bash
+curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused
+```
+
+然而如果我们在直接在浏览器中访问这个网址，会发现可以正常访问。所以我们可以在本地创建一个脚本文件 install.sh，然后把网页的内容拷贝进去，然后执行脚本： `. ./install.sh`
+
+解法二：[CSDN：curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused](https://blog.csdn.net/u011700186/article/details/109452684)
