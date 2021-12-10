@@ -18,6 +18,8 @@ ${GREEN}"安装 cmake"$RES
 sudo apt install cmake -y
 ${GREEN}"安装 g++"$RES
 sudo apt install g++ -y
+${GREEN}"安装 Clang"$RES
+sudo apt install clang -y
 ${GREEN}"安装 curl"$RES
 sudo apt install curl -y
 ${GREEN}"安装 zsh"$RES
