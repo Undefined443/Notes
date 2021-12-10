@@ -384,7 +384,17 @@ char *gets_s(char *str, int size);
 int puts(char *str);
 ```
 
-**注意！C11 删除了 gets() 函数，并使用一个新的更安全的函数 gets_s() 替代**
+**注意！C11 删除了 gets() 函数，并使用一个新的更安全的函数 gets_s() 替代。** 然而 get_s() 仅在 MSVC 中可用。我们可以使用 fgets() 来替代 gets()。不过要注意的是：fgets() 不会自动去掉行尾的换行符：
+
+```c
+char *fgets_wrapper(char *buffer, size_t buflen, FILE *fp) {
+  if (fgets(buffer, buflen, fp) != 0) {
+    buffer[strcspn(buffer, "\n")] = '\0';
+    return buffer;
+  }
+  return 0;
+}
+```
 
 ```cpp
 //istream 类方法
@@ -413,11 +423,14 @@ istream &getline(istream, string&, char);
 或者，在没有中文输入需求的情况下，若源代码使用 UTF-8 编码，那么可以在程序主函数第一行加入：
 
 ```c
-system("chcp 65001"); //让控制台使用 UTF-8 编码页
-system("cls"); //清除编码页提示
+system("chcp 65001 > nul"); //让控制台使用 UTF-8 编码页，并丢弃编码页提示（nul 是 Windows 的空设备名）
 ```
 
 这样可以正常输出中文，但是程序从控制台读取到的字符依然是 GBK 编码。如果让程序再次输出读取到的字符，那么会变成乱码（但是在控制台中看不到）。
+
+> UTF-8 编码页对应 65001，GBK 编码页对应 936。可以使用 chcp 命令查看当前编码页或更改编码页
+
+[Windows 修改控制台编码为 UTF-8](https://mxy493.xyz/2021052715441/)
 
 # 函数
 
