@@ -18,6 +18,10 @@ ${GREEN}"安装 cmake"$RES
 sudo apt install cmake -y
 ${GREEN}"安装 g++"$RES
 sudo apt install g++ -y
+${GREEN}"安装 LLVM"$RES
+sudo apt install llvm -y
+${GREEN}"安装 LLDB"$RES
+sudo apt install lldb -y
 ${GREEN}"安装 Clang"$RES
 sudo apt install clang -y
 ${GREEN}"安装 curl"$RES
