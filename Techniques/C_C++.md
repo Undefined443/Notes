@@ -1,7 +1,11 @@
 # 杂项
 
 ```zsh
-g++ <src1> <src2> ... -o <output> # 将源文件 src1，src2 编译
+gcc file1.c file2.c -o outpur # 编译 file1.c，file2.c，并生成文件 output
+g++ file1.cpp file2.cpp -o output
+
+clang file1.c file2.c -o output
+clang++ file1.cpp file2.cpp -o output
 ```
 
 ## 逗号表达式
@@ -225,7 +229,7 @@ int main(int argc, char *argv[])
 
 > `argv[0]` 永远是程序名
 
-### getopt()
+### 获取参数函数 getopt()
 
 `<unistd.h>`
 
@@ -353,10 +357,9 @@ A 包含了 B，B 又包含了 A。这种情况下，编译器不会直接在源
 
 *头文件 A 要用到 B 中的类，头文件 B 又要用 A 中的类*
 
-解决办法是在头文件中通过 `class` 声明引入类，在源文件中再使用 `#include` 包含类。  
-#C/头文件
+解决办法是在头文件中通过 `class` 声明引入类，在源文件中再使用 `#include` 包含类。
 
-## Visual Studio 调试模式中出现"烫烫烫"和"屯屯屯"的原因
+## Visual Studio 调试模式中出现 "烫烫烫" 和 "屯屯屯" 的原因
 
 [经典乱码"烫烫烫"和"屯屯屯"](https://blog.csdn.net/fanxueya1322/article/details/88417173?utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-1.no_search_link&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-1.no_search_link)
 
@@ -377,8 +380,11 @@ get();
 
 ```c
 char *gets(char *str); //返回自己的实参
+char *gets_s(char *str, int size);
 int puts(char *str);
 ```
+
+**注意！C11 删除了 gets() 函数，并使用一个新的更安全的函数 gets_s() 替代**
 
 ```cpp
 //istream 类方法
@@ -398,7 +404,20 @@ istream &getline(istream, string&, char);
 2. 达到输入域宽。
 3. 遇到非法字符输入。
 
-*进行多数据输入时，即使 scanf 函数中格式字符间没有空格，输入数据时也可通过空格进行划分*
+> 进行多数据输入时，即使 scanf 函数中格式字符间没有空格，输入数据时也可通过空格进行划分
+
+### 编写在 Windows 控制台环境下输入/输出中文的程序
+
+控制台默认使用 GBK 编码，因此我们编写的代码最好也使用 GBK 编码。这样编译出的程序无论是输出中文还是输入中文都没有问题。
+
+或者，在没有中文输入需求的情况下，若源代码使用 UTF-8 编码，那么可以在程序主函数第一行加入：
+
+```c
+system("chcp 65001"); //让控制台使用 UTF-8 编码页
+system("cls"); //清除编码页提示
+```
+
+这样可以正常输出中文，但是程序从控制台读取到的字符依然是 GBK 编码。如果让程序再次输出读取到的字符，那么会变成乱码（但是在控制台中看不到）。
 
 # 函数
 
@@ -1900,7 +1919,9 @@ FILE *fopen("文件名", "使用方式"); //当输入文件路径时注意输入
 - t：文本文件 (text)
 - b：二进制文件 (b)
 
-*读写方式可以写在读写权限的中间 `rb++` 或后面 `w++b`*
+> 读写方式可以写在读写权限的中间 `rb++` 或后面 `w++b`
+>
+> 默认以文本模式打开文件
 
 ### 关闭文件
 
