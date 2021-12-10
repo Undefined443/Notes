@@ -208,3 +208,31 @@ alias unsetproxy="unset http_proxy; unset https_proxy; echo 'HTTP Proxy off'"
 | apt full-upgrade | 在升级软件包时自动处理依赖关系 |
 |    apt search    | 搜索应用程序                   |
 |     apt show     | 显示安装细节                   |
+
+
+### chmod
+
+![](https://www.runoob.com/wp-content/uploads/2014/08/file-permissions-rwx.jpg)
+
+![](https://www.runoob.com/wp-content/uploads/2014/08/rwx-standard-unix-permission-bits.png)
+
+```bash
+chmod 777 file # 为所有用户开放 file 的全部权限
+chmod 744 file # 只有拥有者有全部权限，其他人只读
+
+chmod o+w file # 为其他人增加写权限
+chmod a+x file # 为所有人增加执行权限
+```
+
+u 表示该文件的拥有者，g 表示与该文件的拥有者属于同一个群体(group)者，o 表示其他以外的人，a 表示这三者皆是。
+
+|数字|权限|
+|:--:|:--:|
+|7|读 + 写 + 执行|
+|6|读 + 写|
+|5|读 + 执行|
+|4|读|
+|3|写 + 执行|
+|2|写|
+|1|执行|
+|0|无|
