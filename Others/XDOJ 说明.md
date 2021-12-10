@@ -4,7 +4,7 @@ warning: non-static data member initializers only available with -std=c++11 or -
 
 error: range-based 'for' loops are not allowed in C++98 mode
 
-部分内容需使用 `#pragma GCC diagnostic error "-std=c++14"` 命令
+部分内容需使用 `#pragma GCC diagnostic error "-std=c++11"` 命令
 
 - [ ] emplace_back()
 - [ ] cbegin()
