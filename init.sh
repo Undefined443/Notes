@@ -2,8 +2,10 @@
 GREEN="echo -e \\e[32m"
 RES='\e[0m'
 
-export http_proxy=127.0.0.1:7890
-export https_proxy=$http_proxy
+# 挂代理，不然容易安装失败
+export https_proxy=http://127.0.0.1:7890
+export http_proxy=http://127.0.0.1:7890
+export all_proxy=socks5://127.0.0.1:7890
 
 # 基本组件
 sudo apt update # 更新可用软件包列表

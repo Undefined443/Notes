@@ -109,13 +109,27 @@ autojump 用法：`j dir` 跳转到 dir
 
 ### 安装 Menlo for Powerline 字体
 
-[官方教程](https://github.com/powerline/powerline/blob/develop/docs/source/installation/linux.rst)
+#### MacOS
+
+在官网下载字体压缩包，双击打开安装即可。
+
+[GitHub: Menlo-for-Powerline](https://github.com/abertsch/Menlo-for-Powerline)
 
 #### 在 Terminal 中使用 Menlo for Powerline 字体
 
-系统自带 Terminal：在配置文件首选项下选中一个配置文件，选中 ”使用自定义字体“，在下拉菜单中选择 Menlo for Powerline
+#### Ubuntu
+
+在配置文件首选项下选中一个配置文件，选中 ”使用自定义字体“，在下拉菜单中选择 Menlo for Powerline
 
 ![配置字体](../assets/配置字体.png)
+
+#### MacOS
+
+终端 -> 偏好设置（<kbd>⌘</kbd> + <kbd>,</kbd>）
+
+![](../assets/字体设置%20MacOS.png)
+
+![](../assets/字体设置%20MacOS(1).png)
 
 #### 在 Visual Studio Code 中使用 Menlo for Powerline 字体
 
@@ -154,6 +168,7 @@ wget: World Wide Web Get
 ```bash
 export http_proxy=http://127.0.0.1:7890
 export https_proxy=$http_proxy # 对于 https 的内容，只会使用 https 代理
+export all_proxy=socks5://127.0.0.1:7890
 
 # 使用用户名和密码的代理，在 ip-addres 前加上 user:password@
 export http_proxy=http://user:password@proxyAddress:port
