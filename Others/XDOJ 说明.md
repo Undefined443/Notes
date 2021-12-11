@@ -12,6 +12,7 @@ error: range-based 'for' loops are not allowed in C++98 mode
 - [ ] emplace()
 - [ ] move()
 - [ ] INT32_MAX
+- [ ] shared_ptr
 - [x] INT_MAX
 - [x] range-for （需使用命令）
 - [x] auto
