@@ -1215,9 +1215,9 @@ T1 Demo<T1, T2>::func(T2 var) { //注意类名后面要有类型参数
 
 `<type_info>`：定义了 `bad_cast` 异常
 
-*exception，bad_alloc，bad_cast 异常类只能默认初始化。而其他异常类则恰恰相反，需要提供 string 或 C 风格字符串传递错误有关信息。*
-
-*异常类定义了一个名为 what 的成员函数，返回一个 C 风格字符串，表示错误有关信息。*
+> exception，bad_alloc，bad_cast 异常类只能默认初始化。而其他异常类则恰恰相反，需要提供 string 或 C 风格字符串传递错误有关信息。
+>
+> 异常类定义了一个名为 `what()` 的成员函数，返回一个 C 风格字符串，表示错误有关信息。
 
 # 顺序容器
 
@@ -1231,13 +1231,13 @@ T1 Demo<T1, T2>::func(T2 var) { //注意类名后面要有类型参数
 ```cpp
 c1 = c2;
 c = {1, 2, 3};
-swap(c1, c2); //c1.swap(c2)
-//swap 函数实际上只是交换两个容器的内部数据结构，元素本身并未交换
+swap(c1, c2); // c1.swap(c2)
+// swap 函数实际上只是交换两个容器的内部数据结构，元素本身并未交换
 
-//assign 操作不适用于关联容器和 array
+// assign 操作不适用于关联容器和 array
 seq.assign(beg, end);
-seq.assign(il); //将 seq 中的元素替换为 il 中的元素
-seq.assign(n, val); //将 seq 中的元素替换为 n 个值为 val 的元素
+seq.assign(il); // 将 seq 中的元素替换为 il 中的元素
+seq.assign(n, val); // 将 seq 中的元素替换为 n 个值为 val 的元素
 ```
 
 赋值运算符要求左边和右边的运算对象具有相同的类型。而 `assign` 允许从一个不同但相容的类型赋值。比如可以把 `vector<char*>` 赋给 `list<string>`。
@@ -1250,7 +1250,7 @@ seq.assign(n, val); //将 seq 中的元素替换为 n 个值为 val 的元素
 
 对于 array 来说，swap 之后指针、引用和迭代器所绑定的元素不变，但元素的值已经和另一个 array 中对应的元素的值进行了交换。
 
-*容器的 `insert`, `emplace`, `erase` 操作返回的都是指向操作位置的迭代器。*
+> 容器的 `insert`, `emplace`, `erase` 操作返回的都是指向操作位置的迭代器。
 
 ## 使用 insert 的返回值
 
@@ -1258,7 +1258,7 @@ seq.assign(n, val); //将 seq 中的元素替换为 n 个值为 val 的元素
 
 ```cpp
 while (cin >> word) {
-  iter = lst.insert(iter, word); //不断向 iter 位置插入元素。insert 返回指向第一个新元素的迭代器
+  iter = lst.insert(iter, word); // 不断向 iter 位置插入元素。insert 返回指向第一个新元素的迭代器
 }
 ```
 
@@ -1313,7 +1313,7 @@ resize(int, value_type ele); //通过 val 指定新元素的值
 
 `reserve(n)`: 分配至少能容纳 n 和元素的内存空间。只适用于 vector 和 string。
 
-*向容器中添加元素和从容器中删除元素的操作可能会使指向容器元素的指针、引用或迭代器失效（内存重新分配）。因此必须保证每次改变容器的操作之后都正确地定位迭代器，尤其是 vector, string 和 duque。可以利用 insert, emplace, erase 等函数的返回值来更新迭代器。*
+> 向容器中添加元素和从容器中删除元素的操作可能会使指向容器元素的指针、引用或迭代器失效（内存重新分配）。因此必须保证每次改变容器的操作之后都正确地定位迭代器，尤其是 vector, string 和 duque。可以利用 insert, emplace, erase 等函数的返回值来更新迭代器。
 
 
 
@@ -1322,18 +1322,18 @@ resize(int, value_type ele); //通过 val 指定新元素的值
 ## 初始化
 
 ```cpp
-//直接初始化
-vector<T> vec(n, val); //构造 n 个值为 val 的对象
-vector<T> vec{a, b, c}; //列表初始化
-vector<T> v1(v2); //使用另一个 vector 初始化。两 vector 的类型必须相同
-vector<T> vec(beg, end); //使用迭代器范围内的元素初始化
-vector<vector<T>> vec(m, vector<T> (n)); //二维 vector 的初始化
+// 直接初始化
+vector<T> vec(n, val); // 构造 n 个值为 val 的对象
+vector<T> vec{a, b, c}; // 列表初始化
+vector<T> v1(v2); // 使用另一个 vector 初始化。两 vector 的类型必须相同
+vector<T> vec(beg, end); // 使用迭代器范围内的元素初始化
+vector<vector<T>> vec(m, vector<T> (n)); // 二维 vector 的初始化
 
-//拷贝初始化
+// 拷贝初始化
 vector<T> v1 = v2;
 
 //值初始化
-vector<T> vec(n); //对每个元素使用其类型的默认初始化
+vector<T> vec(n); // 对每个元素使用其类型的默认初始化
 ```
 
 ## 对 vector 对象使用关系运算符
@@ -1412,8 +1412,8 @@ queue: 先进先出，进入 queue 的对象被放置到队尾，而离开 queue
 priority_queue: 允许我们为队列中的元素建立优先级。新加入的元素会排在所有优先级比它低的元素之前。比如饭店按照客人预定时间而不是到来时间的早晚来为他们安排座位。默认以 `<` 运算符来确定相对优先级（小的排前面）。
 
 ```cpp
-stack<int> s; //s 是基于 deque<int> 的适配器
-stack<int, vector<int>> s; //s 是基于 vector<int> 的适配器
+stack<int> s; // s 是基于 deque<int> 的适配器
+stack<int, vector<int>> s; // s 是基于 vector<int> 的适配器
 ```
 
 *stack 和 queue 的默认容器是 deque，priority_queue 的默认底层容器是 vector。*
@@ -1490,18 +1490,18 @@ pair 有两个 public 数据成员：`first` 和 `second`。
 pair 上的操作：
 
 ```cpp
-pair<T1, T2> p(v1, v2); //等价于 p{v1, v2}, p = {v1, v2}
-make_pair(v1, v2); //返回一个用 v1 和 v2 初始化的 pair。其类型由 v1 和 v2 推断出来。
-p1 relop p2; //比较两个 pair。relop 是关系运算符 <, >, <=, >=, ==, !=。使用字典序来比较两个 pair。
+pair<T1, T2> p(v1, v2); // 等价于 p{v1, v2}, p = {v1, v2}
+make_pair(v1, v2); // 返回一个用 v1 和 v2 初始化的 pair。其类型由 v1 和 v2 推断出来。
+p1 relop p2; // 比较两个 pair。relop 是关系运算符 <, >, <=, >=, ==, !=。使用字典序来比较两个 pair。
 ```
 
 在函数中返回一个空 pair：
 
 ```cpp
-return pair<T1, T2> (); //隐式构造一个空 pair
+return pair<T1, T2> (); // 隐式构造一个空 pair
 
-//列表初始化返回的 pair:
-return {v1, v2}; //也可以显式构造一个 pair: return pair<T1, T2>(v1, v2); 或者 return make_pair(v1, v2);
+// 列表初始化返回的 pair:
+return {v1, v2}; // 也可以显式构造一个 pair: return pair<T1, T2>(v1, v2); 或者 return make_pair(v1, v2);
 ```
 
 ### map 的下标操作
@@ -1539,7 +1539,7 @@ map 和 unordered_map 容器提供了下标运算符和一个对应的 `at` 函�
 
 使用 `insert` 或 `emplace`。可以向 insert 提供一个元素值，或者一个范围，或者一个初始化器列表。注意 map 的元素类型是 pair，可以用 `insert({key, val});` 向 map 插入元素。
 
-*对于非 multi 的关联容器，插入已存在的关键字对容器没有任何影响。*
+> 对于非 multi 的关联容器，插入已存在的关键字对容器没有任何影响。
 
 ### insert, emplace 的返回值
 
@@ -1550,8 +1550,8 @@ map 和 unordered_map 容器提供了下标运算符和一个对应的 `at` 函�
 关联容器定义了三个版本的 erase 函数。接受迭代器(范围)的版本与对应的顺序容器操作类似。此外它还有一个接受关键字参数的版本，此版本删除所有匹配给定关键字的元素，返回实际删除的元素的数量。
 
 ```cpp
-c.erase(beg, end); //删除迭代器范围内的元素
-c.erase(key_type key); //删除所有匹配key的元素，返回删除的元素数量
+c.erase(beg, end); // 删除迭代器范围内的元素
+c.erase(key_type key); // 删除所有匹配key的元素，返回删除的元素数量
 ```
 
 ## 查找元素
@@ -1560,16 +1560,16 @@ c.erase(key_type key); //删除所有匹配key的元素，返回删除的元素�
 c.find(key);
 c.count(key);
 
-c.lower_bound(key);  //返回指向第一个关键字 <= key 的元素
-c.upper_bound(key);  //返回指向第一个关键字 > key 的元素
+c.lower_bound(key);  // 返回指向第一个关键字 <= key 的元素
+c.upper_bound(key);  // 返回指向第一个关键字 > key 的元素
 
-//如果元素不在容器中，则 lower_bound 和 upper_bound 返回关键字的第一个安全插入点——不影响容器中元素顺序的插入位置
-//这两个操作并不报告关键字是否存在，重要的是它们的返回值可作为一个迭代器范围
+// 如果元素不在容器中，则 lower_bound 和 upper_bound 返回关键字的第一个安全插入点——不影响容器中元素顺序的插入位置
+// 这两个操作并不报告关键字是否存在，重要的是它们的返回值可作为一个迭代器范围
 
 for (auto beg = multimap.lower_bound(key), end = multimap.upper_bound(key); beg != end; ++beg)
 
-c.equal_range(key);  //返回一个迭代器 pair，表示与关键字匹配的元素范围。若 key 不存在，则 pair 的两个成员均等于 c.end()
-//在 multi 关联容器中 key 相同的元素会相邻储存
+c.equal_range(key);  // 返回一个迭代器 pair，表示与关键字匹配的元素范围。若 key 不存在，则 pair 的两个成员均等于 c.end()
+// 在 multi 关联容器中 key 相同的元素会相邻储存
 ```
 
 ![图片](../assets/IMG_2.png)
@@ -1587,15 +1587,18 @@ c.equal_range(key);  //返回一个迭代器 pair，表示与关键字匹配的�
 默认情况下，无序容器使用关键字类型的 `==` 运算符来比较元素，它们还使用一个 `hash<key_type>` 类型的对象来生成每个元素的哈希值。标准库为内置类型，string，智能指针类型提供了 hash 模版。因此我们可以直接定义关键字是这些类型的无序容器。如果想定义自定义类型的无序容器，我们可以提供函数来替代 `==` 运算符和哈希值计算函数。例如：
 
 ```cpp
-unordered_multiset<Sales_data, decltype(hasher)*, decltype(eqOp)*> bookstore(42, hasher, eqOp);
-size_t hasher(const Sales_data& sd) {
-  return hash<string>()(sd.isbn); //尚不清楚的用法
+unordered_multiset<Sales_data, decltype(hasher) *, decltype(eqOp) *> bookstore(42, hasher, eqOp);
+
+size_t hasher(const Sales_data &sd) {
+  return hash<string>()(sd.isbn); // 尚不清楚的用法
 }
-bool eqOp(const Sales_data& lhs, const Sales_data& rhs) {
+
+bool eqOp(const Sales_data &lhs, const Sales_data &rhs) {
   return lhs.isbn() == rhs.isbn();
 }
-//如果我们的类定义了 == 运算符，则可以只重载哈希函数：
-unordered_set<Foo, decltype(FooHash)*> fooSet(10, FooHash);
+
+// 如果我们的类定义了 == 运算符，则可以只重载哈希函数：
+unordered_set<Foo, decltype(FooHash) *> fooSet(10, FooHash);
 ```
 
 # 迭代器
@@ -1609,13 +1612,13 @@ unordered_set<Foo, decltype(FooHash)*> fooSet(10, FooHash);
 - 随机访问迭代器：支持上面迭代器的所有功能，同时还支持以下操作：（相当于普通指针）
 
 ```cpp
-p += 5; //后移 5 个元素
+p += 5; // 后移 5 个元素
 p -= 5;
-p + 5;  //返回后面第 5 个元素的迭代器
-p[5];   //返回 p 后面第 5 个元素的引用
+p + 5;  // 返回后面第 5 个元素的迭代器
+p[5];   // 返回 p 后面第 5 个元素的引用
 ```
 
-*只有随机访问迭代器支持比较运算符和迭代器减法。*
+> 只有随机访问迭代器支持比较运算符和迭代器减法。
 
 ## 定义格式
 
@@ -1652,7 +1655,7 @@ it = c.insert(it, val);
 
 ![图片](../assets/IMG_3.png)
 
-*插入器不用解引用就可以赋值：`inserter = i;` 等价于 `*inserter = i;`。*
+> 插入器不用解引用就可以赋值：`inserter = i;` 等价于 `*inserter = i;`。
 
 ### 流迭代器
 
@@ -1660,15 +1663,11 @@ it = c.insert(it, val);
 
 #### istream_iterator
 
-`istream_iterator<type>`
-
-istream_iterator 使用 `>>` 来读取流。创建时可以通过构造函数将它绑定到一个流。也可以默认初始化迭代器，这样它可以当作一个尾后迭代器。
-
-e.g.
+`istream_iterator` 使用 `>>` 来读取流。创建时可以通过构造函数将它绑定到一个流。也可以默认初始化迭代器，这样它可以当作一个尾后迭代器。
 
 ```cpp
 istream_iterator<int> in_iter(cin), eof;
-vector<int> ivec(in_iter, eof); //从 cin 读取数据，直至遇到文件尾或非 int 数据
+vector<int> ivec(in_iter, eof); // 从 cin 读取数据，直至遇到文件尾或非 int 数据
 ```
 
 `*in` 返回从流中读取的值
@@ -1677,9 +1676,12 @@ vector<int> ivec(in_iter, eof); //从 cin 读取数据，直至遇到文件尾�
 
 #### ostream_iterator
 
-`ostream_iterator<type> out(os) (os, char*)`
+```cpp
+ostream_iterator<type> out(os);
+ostream_iterator<type> (os, char *);
+```
 
-可以对任何具有输出运算符 << 的类定义 ostream_iterator。
+可以对任何具有输出运算符 `<<` 的类定义 `ostream_iterator`。
 
 在构造函数中可以传递一个字符串参数，在输出每个元素后都会打印此字符串。
 
@@ -1688,18 +1690,20 @@ e.g.
 ```cpp
 ostream_iterator<int> out_iter(cout, " ");
 for (auto e : vec) {
-  *out_iter++ = e; //等价于out_iter = e
-  out = val; //用 << 运算符将 val 写入到 out 所绑定的 ostream 中
+  *out_iter++ = e; // 等价于out_iter = e
+  out = val; // 用 << 运算符将 val 写入到 out 所绑定的 ostream 中
 }
 ```
 
-`*out`, `++out`, `out++` 这些运算符存在，但不对 out 做任何事情。但不建议刻意省略它们。
+`*out`, `++out`, `out++` 这些运算符存在，但不对 `out` 做任何事情。但不建议刻意省略它们。
 
 用 copy 来打印 vec 中的元素比循环更简单：`copy(vec.begin(), vec.end(), out_iter);`
 
-*对于一个绑定到流到迭代器，一旦其关联的流遇到文件尾或 IO 错误，迭代器的值就与尾后迭代器相等。*
-
-*`istream_iterator` 允许惰性求值。惰性求值：当需要用到这个值的时候，才去求它的值，而不是在赋值的时候立即求值。在这里想说的是，当我们将一个 `istream_iterator` 绑定到一个流时，标准库并不保证迭代器立即从流读取数据。*
+> 对于一个绑定到流的迭代器，一旦其关联的流遇到文件尾或 IO 错误，迭代器的值就与尾后迭代器相等。
+>
+> `istream_iterator` 允许惰性求值。
+>
+> 惰性求值：当需要用到这个值的时候，才去求它的值，而不是在赋值的时候立即求值。在这里想说的是，当我们将一个 `istream_iterator` 绑定到一个流时，标准库并不保证迭代器立即从流读取数据。
 
 ### 反向迭代器
 
@@ -1721,8 +1725,9 @@ for (auto e : vec) {
 
 依赖于预处理变量 （变量的状态有已定义和未定义）
 
-*预处理变量名一般全部大写。*  
-*预处理变量一般使用头文件名。e.g.: `EXAMPLE_H­`*
+> 预处理变量名一般全部大写。
+>
+> 预处理变量一般使用头文件名。e.g.: `EXAMPLE_H­`
 
 ## 指令
 
@@ -1751,38 +1756,38 @@ for (auto e : vec) {
 # stdlib.h
 
 ```c
-//随机数函数
-int rand() //产生一个 [0, RAND_MAX] 内的伪随机数。rand 的默认初始种子值为 1。
-void srand(unsigned seed) //设定伪随机数序列的种子值
-//若不设定种子值，则同一程序运行两次得到的随机数完全相同。通常以时间作为随机数种子。
+// 随机数函数
+int rand() // 产生一个 [0, RAND_MAX] 内的伪随机数。rand 的默认初始种子值为 1。
+void srand(unsigned seed) // 设定伪随机数序列的种子值
+// 若不设定种子值，则同一程序运行两次得到的随机数完全相同。通常以时间作为随机数种子。
 
-//整数算数函数
-int abs(int i)    //返回整数 i 的绝对值
-long labs(long i) //返回长整形 i 的绝对值
+// 整数算数函数
+int abs(int i)    // 返回整数 i 的绝对值
+long labs(long i) // 返回长整形 i 的绝对值
 
-div_t div(int n, int m)     //返回 div 类型值，成员为 int。
-ldiv_t ldiv(long n, long m) //返回 div 类型值，成员为 long。
-//div 类型：n 除以 m，其成员变量有商 (quot) 和余数 (rem)。
+div_t div(int n, int m)     // 返回 div 类型值，成员为 int。
+ldiv_t ldiv(long n, long m) // 返回 div 类型值，成员为 long。
+// div 类型：n 除以 m，其成员变量有商 (quot) 和余数 (rem)。
 
-//快速排序函数
+// 快速排序函数
 qsort(void *buffer, int length, int Ele_size, int cmp(void*, void*))
 
-///执行控制函数
+// 执行控制函数
 void abort()
 
-//使程序异常终止
-int atexit(void func()) //当程序正常终止时，调用函数 func()
-void exit(int state)    //结束程序，将 state 返回给系统。
+// 使程序异常终止
+int atexit(void func()) // 当程序正常终止时，调用函数 func()
+void exit(int state)    // 结束程序，将 state 返回给系统。
 
-//系统函数
-system(const char*) //该函数可以向控制台传递命令
-system("pause")     //暂停
-system("HELP")      //获取 system 参数
+// 系统函数
+system(const char*) // 该函数可以向控制台传递命令
+system("pause")     // 暂停
+system("HELP")      // 获取 system 参数
 
-FILE *popen("command", "mode") //建立管道 I/O
-//popen 作用和 system 类似，但 popen 可以返回命令运行的结果，而 system 只返回命令运行是否成功。
+FILE *popen("command", "mode") // 建立管道 I/O
+// popen 作用和 system 类似，但 popen 可以返回命令运行的结果，而 system 只返回命令运行是否成功。
 
-//例
+// 例
 #include <stdio.h>
 int main() {
   FILE *fp;
@@ -1793,96 +1798,96 @@ int main() {
   pclose(fp);
 }
 
-//字符串转换为算数类型
-long   strtol(char *待转字符串, char **endptr, int base) //函数返回转换后的数值，并将第一个无法转换的字符的地址赋给 endptr。endptr 可以为 NULL
-//Windows 特供
+// 字符串转换为算数类型
+long   strtol(char *待转字符串, char **endptr, int base) // 函数返回转换后的数值，并将第一个无法转换的字符的地址赋给 endptr。endptr 可以为 NULL
 int    atoi(char *str)
 double atof(char *str)
 long   atol(char *str)
-char  *itoa(int 待转整数, char *buffer, int 进制) //算数类型转换为字符串
+
+// Windows 特供
+char  *itoa(int 待转整数, char *buffer, int 进制) // 算数类型转换为字符串
 ```
 
 # string.h
 
 ```c
-//计算字符串长度
+// 计算字符串长度
 int strlen(char *str)
 
-//字符串拼接
+// 字符串拼接
 char *strcat(char *前面的串, char *拼接的串)
 
-//字符串复制
+// 字符串复制
 char *strcpy(char *粘贴, char *复制)
 char *strncpy(char *粘贴, char *复制, int n)
 
-//比较字符串大小
+// 比较字符串大小
 int strcmp(char *str1, char *str2)
 int strncmp(char *str1, char *str2, int n)
 
-//字符串查找
-//查找字符串中某字符第一次出现的位置
-char *strchr(const char *str, int ch)  //返回指向第一个 ch 的指针，失败返回 NULL
-char *strrchr(const char *str, int ch) //反向查找 ch
-                                       //还有功能和 strchr 相同的 strchrnul，区别是未找到 ch 时后者返回指向 str 结尾的空字节 (the null byte)*
+// 字符串查找
+// 查找字符串中某字符第一次出现的位置
+char *strchr(const char *str, int ch)  // 返回指向第一个 ch 的指针，失败返回 NULL
+char *strrchr(const char *str, int ch) // 反向查找 ch
+                                       // 还有功能和 strchr 相同的 strchrnul，区别是未找到 ch 时后者返回指向 str 结尾的空字节 (the null byte)*
 
-//查找子串
-char *strstr(const char *str1, const char *str2)  //返回 str2 在 str1 出现的首位置，未找到返回 NULL
-char *strrstr(const char *str1, const char *str2) //反向查找
+// 查找子串
+char *strstr(const char *str1, const char *str2)  // 返回 str2 在 str1 出现的首位置，未找到返回 NULL
+char *strrstr(const char *str1, const char *str2) // 反向查找
 
-//Windows 特供
-char *strlwr(char *str) //字符串转换为小写
-char *strupr(char *str) //字符串转换为大写
+// Windows 特供
+char *strlwr(char *str) // 字符串转换为小写
+char *strupr(char *str) // 字符串转换为大写
 ```
 
 # math.h
 
 ```c
-//求绝对值
+// 求绝对值
 int abs(int i);
 double fabs(double i);
 
-//计算 cos
+// 计算 cos
 double cos(double i);
 double acos(double i); //计算 cos^-1
+// 其他三角函数类似
 
-//其他三角函数类似
-
-//计算 e^x
+// 计算 e^x
 double exp(double);
 
-//计算对数
-double log(double);   //计算 ln x
-double log10(double); //计算 lg x
+// 计算对数
+double log(double);   // 计算 ln x
+double log10(double); // 计算 lg x
 
-//求计算术平方根
+// 求计算术平方根
 double sqrt(double i);
 
-//向下取整
+// 向下取整
 double floor(double i)
 
-//计算 x/y 的余数
+// 计算 x/y 的余数
 double fmod(double, double);
 
-//拆分浮点数
-double modf(double val, double *ip); //将 val 分解为整数和小数，整数部分存在 ip 所指的变量中，返回值为小数。
+// 拆分浮点数
+double modf(double val, double *ip); // 将 val 分解为整数和小数，整数部分存在 ip 所指的变量中，返回值为小数。
 ```
 
 # ctype.h
 
 ```c
-int isalpha(c) //检查c是否为字母
-int isdigit(c) //检查c是否为数字
-int isalnum(c) //检查c是否为字母或数字
-int isspace(c) //检查c是否为空格，制表符，换行符
-int isupper(c) //检查c是否为大写字母
-int islower(c) //检查c是否为小写字母
-int ispunct(c) //判断标点
-int isgraph(c) //检查c是否为可打印字符(不含空格)
-int isprint(c) //检查c是否为可打印字符(含空格)
-int iscntrl(c) //检查c是否为控制字符
-int isxdigit(c) //是否为十六进制
-int toupper(c) //将c转换为大写
-int tolower(c) //将c转换为小写
+int isalpha(c);  // 检查 c 是否为字母
+int isdigit(c);  // 检查 c 是否为数字
+int isalnum(c);  // 检查 c 是否为字母或数字
+int isspace(c);  // 检查 c 是否为空格，制表符，换行符
+int isupper(c);  // 检查 c 是否为大写字母
+int islower(c);  // 检查c 是否为小写字母
+int ispunct(c);  // 判断标点
+int isgraph(c);  // 检查 c 是否为可打印字符(不含空格)
+int isprint(c);  // 检查 c 是否为可打印字符(含空格)
+int iscntrl(c);  // 检查 c 是否为控制字符
+int isxdigit(c); // 是否为十六进制
+int toupper(c);  // 将 c 转换为大写
+int tolower(c);  // 将 c 转换为小写
 ```
 
 # conio.h
@@ -1916,7 +1921,7 @@ FILE 用于储存有关文件的各种信息。当打开一个文件时，程序
 ### 打开文件
 
 ```c
-FILE *fopen("文件名", "使用方式"); //当输入文件路径时注意输入字符 / 时要转义，应输入 //
+FILE *fopen("文件名", "使用方式"); // 当输入文件路径时注意输入字符 \ 时要转义，应输入 \\
 ```
 
 #### 使用方式
@@ -1943,8 +1948,8 @@ FILE *fopen("文件名", "使用方式"); //当输入文件路径时注意输入
 ### 关闭文件
 
 ```c
-int fclose(FILE*); //正常关闭返回 0，失败返回 -1
-int fcloseall();   //错误返回非 0，否则返回 0
+int fclose(FILE *); // 正常关闭返回 0，失败返回 -1
+int fcloseall();   // 错误返回非 0，否则返回 0
 ```
 
 **当文件关闭时内存缓冲区的数据才会被写入文件**
@@ -1958,16 +1963,16 @@ int fcloseall();   //错误返回非 0，否则返回 0
 ### 文件状态检测
 
 ```c
-int feof(FILE*); //文件结束检测。结束返回 1，未结束返回 0。
-int ferr(FILE*); //文件错误检测。错误返回非 0，否则返回 0。
+int feof(FILE *); // 文件结束检测。结束返回 1，未结束返回 0。
+int ferr(FILE *); // 文件错误检测。错误返回非 0，否则返回 0。
 ```
 
 ### 文件指针定位
 
 ```c
-int fseek(FILE*, long offbit, int pos); //定位文件指针，定位成功返回 0，失败返回 1。
-void rewind(FILE*); //可以用 fseek 替代
-int ftell(FILE*); //获取光标位置
+int fseek(FILE *, long offbit, int pos); // 定位文件指针，定位成功返回 0，失败返回 1。
+void rewind(FILE *); // 可以用 fseek 替代
+int ftell(FILE *); // 获取光标位置
 ```
 
 `fseek` 的 pos 参数：
@@ -1976,26 +1981,26 @@ int ftell(FILE*); //获取光标位置
 - SEEK_CUR：当前位置 (1)
 - SEEK_END：结束位置 (2)
 
-*fseek 一般用于二进制文件*
+> fseek 一般用于二进制文件
 
 ### 文件读写
 
 ```c
-int   fgetc(FILE*);
-char *fgets(char *charArr, int length, FILE*);
-int   fputc(int, FILE*);
-int   fputs(char *charArr, FILE*);
+int   fgetc(FILE *);
+char *fgets(char *charArr, int length, FILE *);
+int   fputc(int, FILE *);
+int   fputs(char *charArr, FILE *);
 
-//适用于 ANSII 文件
-int fscanf(FILE*, const char *格式控制字符串, ... 参数表);
-int fprintf(FILE*, const char *格式控制字符串, ... 参数表);
+// 适用于 ANSII 文件
+int fscanf(FILE *, const char *格式控制字符串, ... 参数表);
+int fprintf(FILE *, const char *格式控制字符串, ... 参数表);
 
-//适用于二进制文件
-size_t fread(void *buffer, int ele_size, int ele_num, FILE*); //ele_size 是读入的每个数据对象的大小, ele_num 是数据对象的个数
-size_t fwrite(void *buffer, int ele_size, int ele_num, FILE*);
+// 适用于二进制文件
+size_t fread(void *buffer, int ele_size, int ele_num, FILE *); // ele_size 是读入的每个数据对象的大小, ele_num 是数据对象的个数
+size_t fwrite(void *buffer, int ele_size, int ele_num, FILE *);
 ```
 
-*在一般浏览工具中，回车换行被视为两个字符 `0X0D` `0X0A`。但文件读写和定位却按照 `0X0A` 处理，此时可考虑手动输入 `0X0D`。*
+> 在一般浏览工具中，回车换行被视为两个字符 `0X0D` `0X0A`。但文件读写和定位却按照 `0X0A` 处理，此时可考虑手动输入 `0X0D`。
 
 # IO 库
 
@@ -2008,15 +2013,14 @@ IO 库类型和头文件
 |fstream |        ifstream<br>ofstream<br>fstream       |
 |sstream |istringstream<br>ostringstream<br>stringstream|
 
+cout (console output)
 
-*cerr 与 cerr 的区别：cout 带有缓冲，而 cerr 没有缓冲。*
-
-*当一个 `fstream` 对象被销毁时，`close()` 会自动被调用。*
+> `cerr` 与 `cerr` 的区别：`cout` 带有缓冲，而 `cerr` 没有缓冲。
+>
+> 当一个 `fstream` 对象被销毁时，`close()` 会自动被调用。
 
 **IO 对象无拷贝或赋值**：由于不能拷贝 IO 对象，因此不能将形参或返回类型设置为流类型。进行 IO 操作的函数通常以引用的方式传递和返回流。读写一个 IO 对象会改变其状态，因此传递和返回的引用不能是 const 的。
 
-> cout (console output)
->
 > 标准库定义了各种流的宽字符流版本。其命名是在原有名字前加一个 w 。如 `wcin`, `wcout`, `wcerr`。
 >
 > 每个流类型的输入流和输出流都继承 `istream` 或 `ostream`
@@ -2026,7 +2030,7 @@ IO 库类型和头文件
 `<iomanip>`
 
 ```cpp
-cout << setw(10) << setiosflags（ios::left) << "message"; //设置位宽 10，左对齐
+cout << setw(10) << setiosflags（ios::left) << "message"; // 设置位宽 10，左对齐
 ```
 
 [C 语言中文网：cout 格式化输出完全攻略](http://c.biancheng.net/view/275.html)
@@ -2038,9 +2042,9 @@ cout << setw(10) << setiosflags（ios::left) << "message"; //设置位宽 10，�
 `<windows.h>`
 
 ```cpp
-SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_GREEN); //设置前景色为高亮绿色
+SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_GREEN); // 设置前景色为高亮绿色
 cout << "Some message" << endl;
-SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE); //设置前景色为白色
+SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE); // 设置前景色为白色
 ```
 
 - FOREGROUND_INTENSITY 设置前景色为高亮显示。
@@ -2076,7 +2080,7 @@ C = 红色    4 = 淡红    5 = 紫色      D = 淡紫
 - `ends` 向缓冲区插入一个空字符，然后刷新缓冲区。
 - `flush` 直接刷新缓冲区。
 
-*如果程序崩溃，输出缓冲区不会被刷新。*
+> 如果程序崩溃，输出缓冲区不会被刷新。
 
 `unitbuf` 操纵符
 
@@ -2096,19 +2100,19 @@ tie(ostream*)
 ## 文件输入输出
 
 ```cpp
-fstream fstrm("文件名");            //创建一个 fstream 并打开文件。fstream 是头文件 <fstream> 中定义的一个类型。
-fstream fstrm("文件名", int mode);  //创建一个 fstream 并以 mode 模式打开文件。
+fstream fstrm("文件名");            // 创建一个 fstream 并打开文件。fstream 是头文件 <fstream> 中定义的一个类型。
+fstream fstrm("文件名", int mode);  // 创建一个 fstream 并以 mode 模式打开文件。
 
-fstrm.open("文件名");               //打开文件。要求没有已打开的文件，否则流的 failbit 会被置位。
+fstrm.open("文件名");               // 打开文件。要求没有已打开的文件，否则流的 failbit 会被置位。
 fstrm.open("文件名", int mode);
 
-//读写二进制文件
+// 读写二进制文件
 fstrm.read(char *buffer, int count);
 fstrm.write(char *buffer, int count);
 
-fstrm.close();                     //关闭文件
+fstrm.close();                     // 关闭文件
 
-bool fstrm.is_open();              //返回是否有打开的文件
+bool fstrm.is_open();              // 返回是否有打开的文件
 ```
 
 > 最好使用普通版本的 fstream 对象处理 ANSI 文本
@@ -2160,18 +2164,18 @@ int main() {
 
 ## string 流
 
-p287
+*p287*
 
 > string 流可以向 string 写入数据，从 string 读取数据，就像 string 是一个 IO 流一样。
 >
 > 头文件 sstream 中定义的类型都继承自 iostream 头文件中定义的类型。
 
 ```cpp
-//stringstream 特有的操作
-sstream strm(s); //sstream 是头文件 sstream 中定义的一个类型，strm 是一个 sstream 对象，保存 string s 的一个拷贝。此构造函数是 explicit 的。
+// stringstream 特有的操作
+sstream strm(s); // sstream 是头文件 sstream 中定义的一个类型，strm 是一个 sstream 对象，保存 string s 的一个拷贝。此构造函数是 explicit 的。
 
-strm.str();      //返回 strm 所保存的 string 的拷贝
-strm.str(s);     //将 string s 拷贝到 strm 中。返回 void。
+strm.str();      // 返回 strm 所保存的 string 的拷贝
+strm.str(s);     // 将 string s 拷贝到 strm 中。返回 void。
 ```
 
 ### 使用 istringstream
@@ -2184,8 +2188,8 @@ strm.str(s);     //将 string s 拷贝到 strm 中。返回 void。
 string line;
 string word;
 vector<string> words;
-while (getline(cin, line) {   //逐行从输入读取数据，直至 cin 遇到文件尾（或其他错误）
-  istringstream record(line); //将 record 绑定到刚读入的行
+while (getline(cin, line) {   // 逐行从输入读取数据，直至 cin 遇到文件尾（或其他错误）
+  istringstream record(line); // 将 record 绑定到刚读入的行
   while (record >> word) {
     words.push_back(word);
   }
@@ -2211,11 +2215,11 @@ cout << record.str() << endl;
 `<numeric>`
 
 ```cpp
-accumulate(beg, end, 初值);       //求和函数。保存和的对象的类型将和第三个参数相同。因此第三个参数的类型必须定义 + 运算符
+accumulate(beg, end, 初值);       // 求和函数。保存和的对象的类型将和第三个参数相同。因此第三个参数的类型必须定义 + 运算符
 
-equal(beg, end, beg2);            //将第一个序列中的每个元素与第二个序列中的每个元素进行比较。若都相等，则返回 true。只要两个序列中的元素定义了 == 运算符就可以。容器2中的元素应至少和容器1一样多
+equal(beg, end, beg2);            // 将第一个序列中的每个元素与第二个序列中的每个元素进行比较。若都相等，则返回 true。只要两个序列中的元素定义了 == 运算符就可以。容器2中的元素应至少和容器1一样多
 
-find_if(begin, end, predicate);   //返回指向第一个满足一元谓词的对象的迭代器
+find_if(begin, end, predicate);   // 返回指向第一个满足一元谓词的对象的迭代器
 ```
 
 谓词
@@ -2224,9 +2228,9 @@ find_if(begin, end, predicate);   //返回指向第一个满足一元谓词的�
 ## 写算法
 
 ```cpp
-fill(begin, end, val);   //将给定值赋予序列中所有元素
+fill(begin, end, val);   // 将给定值赋予序列中所有元素
 
-copy(begin, end, begin); //返回拷贝后的尾后位置
+copy(begin, end, begin); // 返回拷贝后的尾后位置
 ```
 
 很多算法都提供 copy 版本，例：`replace_copy(begin, end, begin2, 原值, 新值)` 将处理后的序列存到 begin2。
@@ -2234,11 +2238,11 @@ copy(begin, end, begin); //返回拷贝后的尾后位置
 ## 重排算法
 
 ```cpp
-sort(begin, end);            //序列元素必须定义有 < 运算符
-sort(begin, end, predicate); //二元谓词返回 true 表示 a < b
-stable_sort(同上);            //稳定排序，维持相等元素的原有顺序
+sort(begin, end);            // 序列元素必须定义有 < 运算符
+sort(begin, end, predicate); // 二元谓词返回 true 表示 a < b
+stable_sort(同上);            // 稳定排序，维持相等元素的原有顺序
 
-unique(); //对于有序序列，调用 unique() 将相邻的重复项"消除"，返回不重复区域的尾后迭代器。"消除"实际上是覆盖了重复项。
+unique(); // 对于有序序列，调用 unique() 将相邻的重复项"消除"，返回不重复区域的尾后迭代器。"消除"实际上是覆盖了重复项。
 ```
 
 **向算法传递函数**
@@ -2246,14 +2250,14 @@ unique(); //对于有序序列，调用 unique() 将相邻的重复项"消除"�
 在 sort 函数中，我们希望按照自定义的方式来进行排序。此时我们将向 sort 函数传递第三个参数，此参数是一个谓词(predicate)。谓词是一个可调用的表达式，其返回结果是一个能用作条件的值。接受谓词参数的算法对输入序列中的元素调用谓词。
 
 ```cpp
-for_each(beg, end, callable);         //对输入序列中每个元素调用 callable 对象
+for_each(beg, end, callable);         // 对输入序列中每个元素调用 callable 对象
 
-transform(beg, end, beg2, callable);  //对输入序列中每个元素调用可调用对象，并将结果写到目的位置。输入迭代器可以和目的迭代器相同。
+transform(beg, end, beg2, callable);  // 对输入序列中每个元素调用可调用对象，并将结果写到目的位置。输入迭代器可以和目的迭代器相同。
 ```
 
 ## 算法形参模式
 
-p367
+*p367*
 
 *alg*(beg, end, *other args*);
 
@@ -2263,7 +2267,7 @@ p367
 
 *alg*(beg, end, beg2, end2, *other args*);
 
-*算法假定：按其需要写入数据，不管向 dest 写入多少个元素都是安全的*
+> 算法假定：按其需要写入数据，不管向 dest 写入多少个元素都是安全的
 
 ## 算法命名规范
 
@@ -2272,8 +2276,8 @@ p367
 ### 通过重载形式传递一个谓词
 
 ```cpp
-unique(beg, end);       //使用元素类型的 == 运算符
-unique(beg, end, comp); //使用 comp 函数
+unique(beg, end);       // 使用元素类型的 == 运算符
+unique(beg, end, comp); // 使用 comp 函数
 ```
 
 ### 提供 \_if 版本
@@ -2281,10 +2285,10 @@ unique(beg, end, comp); //使用 comp 函数
 两个版本的算法都接受相同数目的参数，为避免重载歧义，标准库选择提供不同名字的版本。
 
 ```cpp
-//提供 if 版本
-find(beg, end, val);     //查找和 val 相等的元素
-find_if(beg, end, pred); //查找使得 pred 为真的元素
-//若未找到元素，则返回尾后迭代器
+// 提供 if 版本
+find(beg, end, val);     // 查找和 val 相等的元素
+find_if(beg, end, pred); // 查找使得 pred 为真的元素
+// 若未找到元素，则返回尾后迭代器
 ```
 
 ## 区分拷贝元素的版本和不拷贝的版本
@@ -2295,7 +2299,7 @@ find_if(beg, end, pred); //查找使得 pred 为真的元素
 reverse(beg, end);
 reverse_copy(beg, end, dest);
 
-//一些算法同时提供 _copy 和 _if 版本
+// 一些算法同时提供 _copy 和 _if 版本
 remove_copy_if(begin, end, dest, pred);
 ```
 
@@ -2334,7 +2338,7 @@ remove_copy_if(begin, end, dest, pred);
 我们可以忽略参数列表 `parameter list` 和返回类型 `-> return type`，但必须永远包含捕获列表和函数体。
 
 ```cpp
-auto f = [] { return 42; }; //定义了一个可调用对象 f，它不接受参数，返回 42。
+auto f = [] { return 42; }; // 定义了一个可调用对象 f，它不接受参数，返回 42。
 ```
 
 空捕获列表表明此 lambda 不使用它所在函数中的任何局部变量。
@@ -2348,7 +2352,7 @@ auto f = [] { return 42; }; //定义了一个可调用对象 f，它不接受参
 如果想要在 lambda 表达式中修改按值捕获的变量，则可以在 option 的位置写上 mutable：
 
 ```cpp
-auto f = [=]() mutable { return a++; }; //注意被 mutable 修饰的 lambda 表达式不能省略参数列表
+auto f = [=]() mutable { return a++; }; // 注意被 mutable 修饰的 lambda 表达式不能省略参数列表
 ```
 
 ## lambda 表达式的类型
@@ -2381,7 +2385,7 @@ auto newCallable = bind(callable, arg_list);
 
 名字 `_n` 都定义在名为 `placeholders` 的命名空间中，而这个命名空间本身定义在 `std` 命名空间中。为了使用这些名字，要写上 `std::placeholders`。
 
-*与 bind 函数一样，placeholders 命名空间也定义在 functional 头文件中。*
+> 与 bind 函数一样，placeholders 命名空间也定义在 functional 头文件中。
 
 ## ref 函数
 
@@ -2405,10 +2409,10 @@ C++11 标准库提供了两种智能指针类型来管理动态对象。`shared_
 
 ```cpp
 shared_ptr<T> sp(p);
-unique_ptr<T> up(p);      //用普通指针 p 初始化智能指针 sp；默认初始化为空指针
-p.get();                  //返回 p 中保存的指针
+unique_ptr<T> up(p);      // 用普通指针 p 初始化智能指针 sp；默认初始化为空指针
+p.get();                  // 返回 p 中保存的指针
 
-//交换 p 和 q 中的指针
+// 交换 p 和 q 中的指针
 swap(p, q);
 p.swap(q);
 ```
@@ -2416,17 +2420,17 @@ p.swap(q);
 `shared_ptr` 独有的操作：
 
 ```cpp
-make_shared<T>(args);     //返回一个 shared_ptr，指向一个由 args 初始化（构造）的 T 类型对象
-shared_ptr<T> p(q);       //p 是 q 的拷贝；此操作会递增 q 中的计数器。q 中的指针必须能转换为 T*
-shared_ptr<T> p(u);       //p 从 unique_ptr 那里接管了对象的所有权，并将 u 置为空
-shared_ptr<T> p(q/u, d);  //此操作与上面的区别是 p 将使用可调用对象 d 来代替 delete
-p = q;                    //此操作会递减 p 的引用次数，递增 q 的引用次数
-p.unique();               //若 p.use_count() 为 1，返回 true；否则返回 false
-p.use_count();            //返回与 p 共享对象的智能指针数量；可能很慢，主要用于调试
+make_shared<T>(args);     // 返回一个 shared_ptr，指向一个由 args 初始化（构造）的 T 类型对象
+shared_ptr<T> p(q);       // p 是 q 的拷贝；此操作会递增 q 中的计数器。q 中的指针必须能转换为 T*
+shared_ptr<T> p(u);       // p 从 unique_ptr 那里接管了对象的所有权，并将 u 置为空
+shared_ptr<T> p(q/u, d);  // 此操作与上面的区别是 p 将使用可调用对象 d 来代替 delete
+p = q;                    // 此操作会递减 p 的引用次数，递增 q 的引用次数
+p.unique();               // 若 p.use_count() 为 1，返回 true；否则返回 false
+p.use_count();            // 返回与 p 共享对象的智能指针数量；可能很慢，主要用于调试
 
 p.reset();
 p.reset(q);
-p.reset(q, d);            //若无参数，则将 p 置为空。若传递一个内置指针 q，则令 p 指向 q。若还传递了参数 d，则用 d 代替 delete
+p.reset(q, d);            // 若无参数，则将 p 置为空。若传递一个内置指针 q，则令 p 指向 q。若还传递了参数 d，则用 d 代替 delete
 ```
 
 ### 使用自定义的释放操作
@@ -2452,17 +2456,18 @@ C++ 使用运算符 `new` 和 `delete` 来分配和释放内存。默认情况�
 我们可以用直接初始化方式来初始化一个动态分配的对象：
 
 ```cpp
-int *pi = new int(1024); //使用直接初始化，等价于 int *pi(new int(1024));
+int *pi = new int(1024); // 使用直接初始化，等价于 int *pi(new int(1024));
 string *ps = new string(10, '9');
-vector<int> *pv = new vector<int> { 0, 1, 2, 3 }; //使用列表初始化
-int *pi2 = new int(); //使用值初始化
+vector<int> *pv = new vector<int> { 0, 1, 2, 3 }; // 使用列表初始化
+int *pi2 = new int(); // 使用值初始化
 ```
 
 ==注意：使用 new 分配局部数组时如果不加括号，则不会进行初始化==
 
 ```cpp
-int *p1 = new int[5](); //每个元素初始化为 0
-int *p2 = new int[5];   //不进行初始化
+int *p1 = new int[5]();          // 每个元素初始化为 0
+int *p2 = new int[5]{ 1, 2, 3 }; // 使用列表初始化
+int *p3 = new int[5];            // 不进行初始化
 ```
 
 我们还可以使用 auto 来从一个括号包围的初始化器中推断想要分配的对象的类型：
@@ -2474,25 +2479,25 @@ auto p = new auto(obj);
 分配 const 对象：
 
 ```cpp
-const int *pci = new const int(1024); //const 对象必须初始化
+const int *pci = new const int(1024); // const 对象必须初始化
 ```
 
 通过 delete 表达式就可以将动态内存归还给系统：
 
 ```cpp
-delete p;
+delete p; // 可以 delete 空指针
 ```
 
 ### 内存耗尽
 
-==如果 `new` 不能分配所要求的内存空间，它会抛出一个 `bad_alloc` 异常。==我们可以通过向定位 new 传递 `nothrow` 参数来阻止它抛出异常。此时它会返回一个空指针。bad_alloc 和 nothrow 定义在 `<new>` 中。
+**如果 `new` 不能分配所要求的内存空间，它会抛出一个 `bad_alloc` 异常。** 我们可以通过向定位 new 传递 `nothrow` 参数来阻止它抛出异常。此时它会返回一个空指针。bad_alloc 和 nothrow 定义在 `<new>` 中。
 
 ```cpp
-int *p1 = new int; //如果分配失败，new 抛出 bad_alloc
-int *p2 = new (nothrow) int; //如果分配失败，new 返回空指针
+int *p1 = new int; // 如果分配失败，new 抛出 bad_alloc
+int *p2 = new (nothrow) int; // 如果分配失败，new 返回空指针
 ```
 
-*在自由空间分配的内存是无名的，因此 `new` 无法为其分配的对象命名，而是返回一个指向该对象的指针*
+> 在自由空间分配的内存是无名的，因此 `new` 无法为其分配的对象命名，而是返回一个指向该对象的指针
 
 注意不要创建两个独立的指向同一内存的智能指针。
 
@@ -2503,10 +2508,9 @@ int *p2 = new (nothrow) int; //如果分配失败，new 返回空指针
 如果不初始化一个智能指针，它就会被初始化为一个空指针。我们还可以用 new 返回的指针来初始化智能指针：
 
 ```cpp
-shared_ptr<int> p(new int(42)); //必须使用直接初始化形式
+shared_ptr<int> p(new int(42)); // 必须使用直接初始化形式
 
-//返回 shared_ptr
-return shared_ptr<int>(new int(42));
+return shared_ptr<int>(new int(42)); // 返回 shared_ptr
 ```
 
 接受指针参数的智能指针构造函数是 `explicit` 的。因此不能将一个内置指针隐式转换为一个智能指针，必须使用直接初始化形式。
@@ -2520,19 +2524,19 @@ return shared_ptr<int>(new int(42));
 unique_ptr 特有的操作：
 
 ```cpp
-unique_ptr<T, D> u(p, d);  //指向类型为 T 的对象 p，用类型为 D 的对象 d 代替 delete
-u = nullptr;               //释放 u 指向的对象，并将 u 置为空
-u.release();               //u 放弃对指针的控制权，返回指针，并将 u 置为空
-u.reset(p);                //释放 u 指向的对象，若提供了内置指针 q，则令 u 指向这个对象
+unique_ptr<T, D> u(p, d);  // 指向类型为 T 的对象 p，用类型为 D 的对象 d 代替 delete
+u = nullptr;               // 释放 u 指向的对象，并将 u 置为空
+u.release();               // u 放弃对指针的控制权，返回指针，并将 u 置为空
+u.reset(p);                // 释放 u 指向的对象，若提供了内置指针 q，则令 u 指向这个对象
 ```
 
 ### 传递 unique_ptr 参数和返回 unique_ptr
 
 不能拷贝 unique_ptr 的规则有一个例外：我们可以拷贝或赋值一个将要被销毁的 unique_ptr。最常见的例子是从函数返回一个 unique_ptr。
 
-> *内存泄漏：忘记释放动态内存就会导致 "内存泄漏" 问题，因为这种内存永远不可能被归还给自由空间了。查找内存泄漏错误是非常困难的，因为通常应用程序运行很长时间后，真正耗尽内存时，才能检测到这种错误。*
-
-> *空悬指针 (dangling pointer)：指向一个已经被释放的对象的指针*
+> 内存泄漏：忘记释放动态内存就会导致 "内存泄漏" 问题，因为这种内存永远不可能被归还给自由空间了。查找内存泄漏错误是非常困难的，因为通常应用程序运行很长时间后，真正耗尽内存时，才能检测到这种错误。
+>
+> 空悬指针 (dangling pointer)：指向一个已经被释放的对象的指针
 
 ## weak_ptr
 
@@ -2542,26 +2546,26 @@ weak_ptr 的操作：
 
 ```cpp
 weak_ptr<T> w(sp);
-w = p;              //p 可以是 shared_ptr 或 weak_ptr。赋值后 w 与 p 共享对象
-w.reset();          //将 w 置为空
-w.use_count();      //对应的 shared_ptr 的引用计数
-w.expired();        //若其共享的 shared_ptr 已被释放，则返回 true。expire：期满，断气死亡
-w.lock();           //返回当前共享的 shared_ptr
+w = p;              // p 可以是 shared_ptr 或 weak_ptr。赋值后 w 与 p 共享对象
+w.reset();          // 将 w 置为空
+w.use_count();      // 对应的 shared_ptr 的引用计数
+w.expired();        // 若其共享的 shared_ptr 已被释放，则返回 true。expire：期满，断气死亡
+w.lock();           // 返回当前共享的 shared_ptr
 ```
 
-由于对象可能不存在，我们不能使用 weak_ptr 直接访问对象，而必须使用 lock 返回的 shared_ptr。
+由于对象可能不存在，我们不能使用 `weak_ptr` 直接访问对象，而必须使用 lock() 返回的 `shared_ptr`。
 
-*`auto_ptr`：auto_ptr 是标准库早期版本中的一种智能指针，具有 unique_ptr 的部分特性。现在已被弃用。*
-
-*`weak_ptr` 是为了配合 `shared_ptr` 而引入的智能指针。由于 shared_ptr 具有强引用特性，意味着其指向的对象拥有比指针本身更长的生命周期。你的引用不解开，原对象就不能销毁。weak_ptr 的弱引用特性则弥补了这一缺点。*
+> `auto_ptr` 是标准库早期版本中的一种智能指针，具有 `unique_ptr` 的部分特性。现在已被弃用。
+>
+> `weak_ptr` 是为了配合 `shared_ptr` 而引入的智能指针。由于 `shared_ptr` 具有强引用特性，意味着其指向的对象拥有比指针本身更长的生命周期。你的引用不解开，原对象就不能销毁。`weak_ptr` 的弱引用特性则弥补了这一缺点。
 
 # 动态数组
 
 ## new 和数组
 
 ```cpp
-new int[get_size()]; //方括号中的大小必须是整形，但不必是常量
-                     //大小可以为 0，此时返回的指针相当于一个尾后指针
+new int[get_size()]; // 方括号中的大小必须是整形，但不必是常量
+                     // 大小可以为 0，此时返回的指针相当于一个尾后指针
 ```
 
 也可以用一个表示数组类型的类型别名来分配一个数组，这样，new 表达式中就不需要方括号了：
@@ -2576,10 +2580,8 @@ int *p = new arrT;
 默认情况下，new 分配的对象都是默认初始化的。要对数组中的元素进行值初始化，方法是在大小之后跟一对空括号：
 
 ```cpp
-new int[10](); //但是不能在括号中给出初始化器
-
-//在 C++11 中，也可以提供一个元素初始化器的花括号列表：
-new int[10]{ 0, 1, 2, 3 };
+new int[10](); // 但是不能在括号中给出初始化器
+new int[10]{ 0, 1, 2, 3 }; // 在 C++11 中，也可以提供一个元素初始化器的花括号列表
 ```
 
 ## 释放动态数组
@@ -2592,19 +2594,19 @@ new int[10]{ 0, 1, 2, 3 };
 
 ```cpp
 unique_ptr<int[]> up(new int[10]);
-up.release() //自动用 delete[] 销毁其指针
+up.release() // 自动用 delete[] 销毁其指针
 ```
 
-*C++ 语言和标准库提供了两种一次分配一个对象数组的方法。其中标准库定义的 allocator 类的性能和内存管理能力要比 C++ 语言定义的 Array new 表达式语法更好。*
-
-*使用容器的类可以使用默认的拷贝、赋值和析构操作。分配动态数组的类则必须定义自己版本的操作，在拷贝、复制以及销毁对象时管理所关联的内存。*
+> C++ 语言和标准库提供了两种一次分配一个对象数组的方法。其中标准库定义的 allocator 类的性能和内存管理能力要比 C++ 语言定义的 Array new 表达式语法更好。
+>
+> 使用容器的类可以使用默认的拷贝、赋值和析构操作。分配动态数组的类则必须定义自己版本的操作，在拷贝、复制以及销毁对象时管理所关联的内存。
 
 可以像使用普通的数组指针一样使用下标运算符访问数组中的元素。
 
 shared_ptr 不直接支持管理动态数组。如要使用，必须提供自己定义的删除器：
 
 ```cpp
-shared_ptr<int> sp(new int[10], [](int *p) { delete[] p; }); //传递一个 lambda 作为删除器
+shared_ptr<int> sp(new int[10], [](int *p) { delete[] p; }); // 传递一个 lambda 作为删除器
 ```
 
 同时，shared_ptr 未定义下标运算符，且不支持指针的算数运算
@@ -2617,19 +2619,19 @@ new 将内存分配和对象构造组合在了一起。而 delete 将对象析�
 
 ```cpp
 allocator<string> a;
-auto const p = a.allocate(n); //分配一段原始的、未构造的内存，保存 n 个 string
-a.construct(p, args);         //在 p 指向的内存中用 args 构造一个对象
-a.destroy(p);                 //对 p 指向的对象执行析构函数
-a.deallocate(p, n);           //释放从指针 p 开始的 n 块内存；p 必须是 allocate() 返回的指针，n 必须是创建 p 时所要求的大小。
-                              //在调用 deallocate 之前，用户必须对每个在这块内存中创建的对象调用 destroy
+auto const p = a.allocate(n); // 分配一段原始的、未构造的内存，保存 n 个 string
+a.construct(p, args);         // 在 p 指向的内存中用 args 构造一个对象
+a.destroy(p);                 // 对 p 指向的对象执行析构函数
+a.deallocate(p, n);           // 释放从指针 p 开始的 n 块内存；p 必须是 allocate() 返回的指针，n 必须是创建 p 时所要求的大小。
+                              // 在调用 deallocate 之前，用户必须对每个在这块内存中创建的对象调用 destroy
 ```
 
 ## allocator 算法
 
 ```cpp
-uninitialized_copy(b, e, b2);   //从迭代器范围 [b, e) 指出的输入范围中拷贝元素到 b2 指定的未构造的原始内存中。返回尾后指针。
-uninitialized_copy_n(b, n, b2); //从迭代器 b 开始拷贝 n 个元素到 b2
-uninitialized_fill(b, e, t);    //用 t 的拷贝填充 [b, e)。返回尾后指针。
+uninitialized_copy(b, e, b2);   // 从迭代器范围 [b, e) 指出的输入范围中拷贝元素到 b2 指定的未构造的原始内存中。返回尾后指针
+uninitialized_copy_n(b, n, b2); // 从迭代器 b 开始拷贝 n 个元素到 b2
+uninitialized_fill(b, e, t);    // 用 t 的拷贝填充 [b, e)。返回尾后指针
 uninitialized_fill_n(b, n, t);
 ```
 
