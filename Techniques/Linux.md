@@ -143,7 +143,7 @@ autojump 用法：`j dir` 跳转到 dir
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 ```
 
-就是从 GitHub 上下载 install.sh 脚本，然后用 bash 去执行该脚本（`curl` 是下载命令，`sh -c "$(curl -fsSL ...)"` 是用 shell 执行 curl 下载下来的文件。然而由于墙的原因经常会出现 443 错误：
+就是从 GitHub 上下载 install.sh 脚本，然后用 bash 去执行该脚本（`curl` 是下载命令，`sh -c "$(curl -fsSL ...)"` 是用 Shell 执行 curl 下载下来的脚本文件。然而由于墙的原因经常会出现 443 错误：
 
 ```bash
 curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused
@@ -170,7 +170,7 @@ export http_proxy=http://127.0.0.1:7890
 export https_proxy=$http_proxy # 对于 https 的内容，只会使用 https 代理
 export all_proxy=socks5://127.0.0.1:7890
 
-# 使用用户名和密码的代理，在 ip-addres 前加上 user:password@
+# 使用用户名和密码的代理，在 proxyAddres 前加上 user:password@
 export http_proxy=http://user:password@proxyAddress:port
 ```
 
