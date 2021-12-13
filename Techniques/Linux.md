@@ -1,3 +1,7 @@
+### Windows 下安装 Linux 子系统
+
+[知乎：Windows 安装 Linux 子系统](https://zhuanlan.zhihu.com/p/394365997)
+
 ### 安装 Windows Linux 双系统后开机直接进入 Windows
 
 解决方法：在 BIOS 的 Boot 选项下找到 UEFI Hard Disk Drive BBS Priorities，将 Boot Option #1 设置为 ubuntu。
