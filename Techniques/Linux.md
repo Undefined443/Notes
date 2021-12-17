@@ -1,6 +1,33 @@
-### 安装 Windows Linux 双系统后开机直接进入 Windows
+## Windows
+
+### Windows 下安装 Linux 子系统
+
+[知乎：Windows 安装 Linux 子系统](https://zhuanlan.zhihu.com/p/394365997)
+
+### PowerShell 7
+
+#### 安装 PowerShell 7
+
+进入官网，安装 MSI 包
+
+<https://docs.microsoft.com/zh-cn/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.2#msi>
+
+#### 配置 PowerShell 7
+
+[知乎：Windows Terminal 完美配置](https://zhuanlan.zhihu.com/p/137595941)
+
+> 安装字体：下载字体压缩包，解压，将所有字体文件拷贝到 `C:\Windows\Fonts`
+>
+> 配置 Windows Terminal：打开 Windows Terminal，在标题栏的下拉菜单中选择设置，在左边菜单中选择 “打开 JSON 文件”
+>
+> 知乎中给出的配置代码里面，第一块（写有 guid 的部分）只需把从“行为”开始剩下的部分复制到 settings.json 的 `list` 属性下的 PowerShell 相应块里。并把“行为”下的 `commandline` 项改为 `"C:/Program Files/PowerShell/7/pwsh.exe -nologo"`，“外观”下的 `fontFace` 项改为 `"FiraCode NF"`， `icon` 项去掉。而 Homebrew 配色放到 `schemes` 里即可。
+
+
+### 安装 Windows/Linux 双系统后开机直接进入 Windows
 
 解决方法：在 BIOS 的 Boot 选项下找到 UEFI Hard Disk Drive BBS Priorities，将 Boot Option #1 设置为 ubuntu。
+
+## Ubuntu
 
 ### CLion
 
@@ -15,7 +42,7 @@ mv clion-2021.2.3 clion # 重命名
 dir=`pwd`
 dir=${dir#$HOME/}
 echo 'PATH=$PATH:$HOME'/$dir/clion/bin >> ~/.bashrc # 添加到 PATH
-bash # 开启新进程以刷新 PATH
+source ~/.bashrc # 开启新进程以刷新 PATH
 clion.sh
 ```
 
@@ -53,7 +80,7 @@ clash
 
 http://clash.razord.top/#/proxies
 
-*存在的问题*
+**Issues**
 
 在设置代理后必须打开 clash 才能上网，否则必须禁用代理
 
@@ -109,15 +136,29 @@ autojump 用法：`j dir` 跳转到 dir
 
 ### 安装 Menlo for Powerline 字体
 
-[官方教程](https://github.com/powerline/powerline/blob/develop/docs/source/installation/linux.rst)
+##### MacOS
+
+在官网下载字体压缩包，双击打开安装即可。
+
+[GitHub: Menlo-for-Powerline](https://github.com/abertsch/Menlo-for-Powerline)
 
 #### 在 Terminal 中使用 Menlo for Powerline 字体
 
-系统自带 Terminal：在配置文件首选项下选中一个配置文件，选中 ”使用自定义字体“，在下拉菜单中选择 Menlo for Powerline
+##### Ubuntu
+
+在配置文件首选项下选中一个配置文件，选中 ”使用自定义字体“，在下拉菜单中选择 Menlo for Powerline
 
 ![配置字体](../assets/配置字体.png)
 
-#### 在 Visual Studio Code 中使用 Menlo for Powerline 字体
+##### MacOS
+
+终端 -> 偏好设置（<kbd>⌘</kbd> + <kbd>,</kbd>）
+
+![](../assets/字体设置%20MacOS.png)
+
+![](../assets/字体设置%20MacOS(1).png)
+
+##### 在 Visual Studio Code 中使用 Menlo for Powerline 字体
 
 在 settings.json 中加入 `"terminal.integrated.fontFamily": "Menlo for Powerline"`，或搜索 `Terminal: font` 设置，在 Font Family 栏下填入：Menlo for Powerline
 
@@ -129,7 +170,7 @@ autojump 用法：`j dir` 跳转到 dir
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 ```
 
-就是从 GitHub 上下载 install.sh 脚本，然后用 bash 去执行该脚本（`curl` 是下载命令，`sh -c "$(curl -fsSL ...)"` 是用 shell 执行 curl 下载下来的文件。然而由于墙的原因经常会出现 443 错误：
+就是从 GitHub 上下载 install.sh 脚本，然后用 bash 去执行该脚本（`curl` 是下载命令，`sh -c "$(curl -fsSL ...)"` 是用 Shell 执行 curl 下载下来的脚本文件。然而由于墙的原因经常会出现 443 错误：
 
 ```bash
 curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused
@@ -154,8 +195,9 @@ wget: World Wide Web Get
 ```bash
 export http_proxy=http://127.0.0.1:7890
 export https_proxy=$http_proxy # 对于 https 的内容，只会使用 https 代理
+export all_proxy=socks5://127.0.0.1:7890
 
-# 使用用户名和密码的代理，在 ip-addres 前加上 user:password@
+# 使用用户名和密码的代理，在 proxyAddres 前加上 user:password@
 export http_proxy=http://user:password@proxyAddress:port
 ```
 
