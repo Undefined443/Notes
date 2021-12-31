@@ -378,6 +378,8 @@ flowchart LR
 
 使用 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Del</kbd> 重启电脑
 
+<font color="red">Red Text</font>
+
 > 在 HTML 区块标签间的 Markdown 格式语法将不会被处理
 
 ## 定义列表
