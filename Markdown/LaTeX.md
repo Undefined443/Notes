@@ -500,10 +500,6 @@ ${\color{red}给你点颜色看看}$
 
 $\colorbox{red}{给你点颜色看看}$
 
-#### 大小
-
-$\huge huge$
-
 #### 注释
 
 $\text{comment}$

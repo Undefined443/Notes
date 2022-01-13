@@ -380,6 +380,8 @@ flowchart LR
 
 <font color="red">Red Text</font>
 
+x<sup>2</sup>, H<sub>2</sub>O
+
 > 在 HTML 区块标签间的 Markdown 格式语法将不会被处理
 
 ## 定义列表
