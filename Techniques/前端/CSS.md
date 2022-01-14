@@ -61,20 +61,20 @@ https://developer.mozilla.org/zh-CN/docs/Learn/CSS/First_steps/How_CSS_is_struct
 
 ### 选择器的类型
 
-| 选择器名称 | 选择的内容 |	示例 |
-|-------------|-------------|------|
-| 元素选择器 （标签选择器）| 所有指定类型的 HTML 元素 | `p`<br />选择 `<p>` |
-| ID 选择器 | 具有指定 ID 的元素 | `#my-id`<br />选择 `<p id="my-id">` 或 `<a id="my-id">`|
-| 类选择器 | 具有特定类的元素 | `.my-class`<br />选择 `<p class="my-class">` 和 `<a class="my-class">` |
-| 属性选择器 | 拥有特定属性的元素 | `img[src]`<br />选择 `<img src="myimage.png">` 而不是 `<img>` |
-| 伪（Pseudo）类选择器 | 特定状态下的特定元素（比如鼠标指针悬停）| `a:hover`<br />仅在鼠标指针悬停在链接上时选择 `<a>` |
+| 选择器名称                | 选择的内容                               | 示例                                                                   |
+| ------------------------- | ---------------------------------------- | ---------------------------------------------------------------------- |
+| 元素选择器 （标签选择器） | 所有指定类型的 HTML 元素                 | `p`<br />选择 `<p>`                                                    |
+| ID 选择器                 | 具有指定 ID 的元素                       | `#my-id`<br />选择 `<p id="my-id">` 或 `<a id="my-id">`                |
+| 类选择器                  | 具有特定类的元素                         | `.my-class`<br />选择 `<p class="my-class">` 和 `<a class="my-class">` |
+| 属性选择器                | 拥有特定属性的元素                       | `img[src]`<br />选择 `<img src="myimage.png">` 而不是 `<img>`          |
+| 伪（Pseudo）类选择器      | 特定状态下的特定元素（比如鼠标指针悬停） | `a:hover`<br />仅在鼠标指针悬停在链接上时选择 `<a>`                    |
 
 选择器的种类远不止于此，更多信息请参阅 [选择器](https://developer.mozilla.org/zh-CN/docs/Learn/CSS/Building_blocks/Selectors)。
 
 ## 字体和文本
 
 > 中文字体文件较大，不适合直接用于 Web Font 。
-> 
+
 [Google Fonts](https://www.google.com/fonts)
 
 [阿里字体素材平台](https://www.taobao.com/markets/fuwu/fontmarket_freefonts)

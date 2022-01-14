@@ -84,75 +84,75 @@ python -m http.server 7800 # 默认端口为 8000
 
 ### HTML 通用属性
 
- `id`：用来赋予某个标签唯一的标识符。当我们用 CSS 或者 JavaScript 来操作这个标签时，可以通过 id 属性来找到这个标签。
+`id`：用来赋予某个标签唯一的标识符。当我们用 CSS 或者 JavaScript 来操作这个标签时，可以通过 id 属性来找到这个标签。
 
- `class`：同样是为标签定义一个标识符，不过这个标识符可以不唯一。我们可以为多个标签定义相同的 class 属性，也可以为一个标签定义多个 class 属性。
+`class`：同样是为标签定义一个标识符，不过这个标识符可以不唯一。我们可以为多个标签定义相同的 class 属性，也可以为一个标签定义多个 class 属性。
 
- ```html
+```html
 <div class="class1 class2 class3"></div>
 <p class="content">some text</p>
 <div class="content">xxx</div>
- ```
+```
 
- `title`：当鼠标移动到标签上时，就会显示 title 的值。
+`title`：当鼠标移动到标签上时，就会显示 title 的值。
 
- `style`：使用 style 属性我们可以在 HTML 标签内部为标签定义 CSS 样式，例如设置文本的颜色、字体等。
+`style`：使用 style 属性我们可以在 HTML 标签内部为标签定义 CSS 样式，例如设置文本的颜色、字体等。
 
- ```html
+```html
 <p style="color:red;">red text</p>
 <img src="xxx" style="height:50px;">
 <div style="paddding:10px;border:2px solid #999;text-align:center;">some text</div>
- ```
+```
 
- ### HTML 标题
+### HTML 标题
 
- ```html
+```html
 <h1>h1 标题</h1>
 <h2>h2 标题</h2>
 <h3>h3 标题</h3>
 <h4>h4 标题</h4>
 <h5>h5 标题</h5>
 <h6>h6 标题</h6>
- ```
+```
 
- ### HTML 段落
+### HTML 段落
 
- ```html
+```html
 <p>段落 1</p>
 <p>段落 2</p>
- ```
+```
 
- ### HTML 文本格式化
+### HTML 文本格式化
 
- [C 语言中文网](http://c.biancheng.net/view/9386.html)
+[C 语言中文网](http://c.biancheng.net/view/9386.html)
 
- 根据 HTML5 的规范，标题应该用 `<h1>`~`<h6>` 标签定义，被强调的文本应该用 `<em>` 标签定义，重要的文本应该用 `<strong>` 标签定义，被标记的或者高亮显示的文本应该用 `<mark>` 标签定义。
+根据 HTML5 的规范，标题应该用 `<h1>`~`<h6>` 标签定义，被强调的文本应该用 `<em>` 标签定义，重要的文本应该用 `<strong>` 标签定义，被标记的或者高亮显示的文本应该用 `<mark>` 标签定义。
 
- ### HTML 超链接
+### HTML 超链接
 
- ```html
+```html
 <a href="http://xxx" target="_blank">显示内容</a>
- ```
+```
 
- herf 属性指定链接的文件，target 属性指名新页面的打开方式。
+herf 属性指定链接的文件，target 属性指名新页面的打开方式。
 
- | 属性值 |                    说明                     |
- |:-------:|---------------------------------|
- |  _self   |在当前标签页中打开                 |
- | _blank |在新标签页中打开                    |
- |_parent|在当前框架的上一层打开新页面|
- |  _top   |在顶层框架中打开新页面          |
+|  属性值  | 说明                         |
+| :------: | ---------------------------- |
+|  \_self  | 在当前标签页中打开           |
+| \_blank  | 在新标签页中打开             |
+| \_parent | 在当前框架的上一层打开新页面 |
+|  \_top   | 在顶层框架中打开新页面       |
 
- > 绝大部分情况下，target 属性要么不写，保持默认的 _self，要么将它的值设置为 _blank。
+> 绝大部分情况下，target 属性要么不写，保持默认的 \_self，要么将它的值设置为 \_blank。
 
- ### HTML 图片
+### HTML 图片
 
- ```html
+```html
 <img src="./IMG.png" alt="description" width="150" height="100">
 <img src="./IMG.png" alt="description" style="width:150px; height:100px;">
- ```
+```
 
- 关于 width 和 height 属性的两点建议：
+关于 width 和 height 属性的两点建议：
 
 - 一般建议为图片设置 width 和 height 属性，以便浏览器可以在加载图片之前为其分配足够的空间，否则图片加载过程中可能会导致您的网站布局失真或闪烁。
 - 如果您的页面使用响应式布局（自适应布局），建议在上传图片之前裁剪好尺寸，而不要设置 width 和 height 属性，这样图片能够跟随屏幕宽度自动改变尺寸，从而不会变形，或者超出屏幕宽度。
@@ -186,7 +186,7 @@ python -m http.server 7800 # 默认端口为 8000
 </map>
 ```
 
-###  HTML 表格
+### HTML 表格
 
 ```html
 <!-- 认情况下，表格是没有边框的。这里将边框宽度设置为 1px，同时利用 CSS 设置边框塌陷，使双边框变为单边框 -->
@@ -363,7 +363,7 @@ python -m http.server 7800 # 默认端口为 8000
 - 不管是否使用换行标签，块级元素总是在新行上开始；
 - 块级元素的宽度、高度以及外边距和内边距等都可以控制；
 - 如果省略块级元素的宽度，那么它的宽度默认为当前浏览器窗口的宽度；
-块级元素中可以包含其它的内联元素和块级元素。
+- 块级元素中可以包含其它的内联元素和块级元素。
 
 ##### div 标签
 

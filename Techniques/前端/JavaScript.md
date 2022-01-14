@@ -21,13 +21,13 @@ https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/First_steps
 let myVariable; // 只有在单行内需要分割多条语句时，这个分号才是必须的
 ```
 
-|变量|解释|示例|
-|---|---|-----|
-|String|字符串（一串文本）：字符串的值必须用引号（单双均可，必须成对）扩起来。|let myVariable = '李雷';|
-|Number|数字：无需引号。|let myVariable = 10;|
-|Boolean|布尔值（真 / 假）： true/false 是 JS 里的特殊关键字，无需引号。|let myVariable = true;|
-|Array|数组：用于在单一引用中存储多个值的结构。|let myVariable = [1, '李雷', '韩梅梅', 10];<br />元素引用方法：myVariable[0], myVariable[1] ……|
-|Object|对象：JavaScript 里一切皆对象，一切皆可储存在变量里。这一点要牢记于心。|let myVariable = document.querySelector('h1');<br />以及上面所有示例都是对象。|
+| 变量    | 解释                                                                    | 示例                                                                                           |
+| ------- | ----------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| String  | 字符串（一串文本）：字符串的值必须用引号（单双均可，必须成对）扩起来。  | let myVariable = '李雷';                                                                       |
+| Number  | 数字：无需引号。                                                        | let myVariable = 10;                                                                           |
+| Boolean | 布尔值（真 / 假）： true/false 是 JS 里的特殊关键字，无需引号。         | let myVariable = true;                                                                         |
+| Array   | 数组：用于在单一引用中存储多个值的结构。                                | let myVariable = [1, '李雷', '韩梅梅', 10];<br />元素引用方法：myVariable[0], myVariable[1] …… |
+| Object  | 对象：JavaScript 里一切皆对象，一切皆可储存在变量里。这一点要牢记于心。 | let myVariable = document.querySelector('h1');<br />以及上面所有示例都是对象。                 |
 
 ## 运算符
 
