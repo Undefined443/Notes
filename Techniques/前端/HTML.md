@@ -29,42 +29,6 @@ python -m http.server 7800 # 默认端口为 8000
 
 在 GitHub 新建库，命名为 `yourname.github.io`（全小写），并将网站文件加入库即可。此时可通过 `yourname.github.io` 访问你的网站。
 
-### HTML 文档结构
-
-```html
-<!-- 文档类型声明 -->
-<!DOCTYPE html>
-
-<!-- HTML 页面的根标签 -->
-<html lang="zh-cn">
-
-  <!-- 保存页面的一些元数据 -->
-<head>
-
-  <!-- 指明网页的编码，可省略 -->
-  <meta charset="UTF-8">
-
-  <!-- 定义网页的标题 -->
-  <title>HTML 演示</title>
-</head>
-
-<!-- 定义网页的内容 -->
-<body>
-  <h1>这是一个标题</h1>
-  <p>这是一个段落</p>
-  <p>这是另一个段落</p>
-  <a href="http://c.biancheng.net/" target="_blank">这是一个链接，指向 C 语言中文网首页</a>
-  <ul>
-    <li>HTML教程</li>
-    <li>CSS教程</li>
-    <li>JavaScript教程</li>
-  </ul>
-
-  <input type="text" placeholder="请输入内容" />
-</body>
-</html>
-```
-
 ### HTML 标签的语法格式
 
 ```html
@@ -215,47 +179,6 @@ target 属性指明新页面的打开方式绝大部分情况下，target 属性
 ```
 
 > 使用 `?` 来分隔主 URL 与参数值，以及使用 `&` 来分隔 mailto: 中的各个参数。这是标准的URL查询标记方法。
-
-### HTML 图片
-
-```html
-<img src="./IMG.png" alt="description" width="150" height="100">
-<img src="./IMG.png" alt="description" style="width:150px; height:100px;">
-```
-
-关于 width 和 height 属性的两点建议：
-
-- 一般建议为图片设置 width 和 height 属性，以便浏览器可以在加载图片之前为其分配足够的空间，否则图片加载过程中可能会导致您的网站布局失真或闪烁。
-- 如果您的页面使用响应式布局（自适应布局），建议在上传图片之前裁剪好尺寸，而不要设置 width 和 height 属性，这样图片能够跟随屏幕宽度自动改变尺寸，从而不会变形，或者超出屏幕宽度。
-
-#### HTML5 中的图片属性
-
-有时我们需要按照比例来放大或缩小图片的尺寸以适应不同的设备，避免图片过大超出屏幕的范围，为此 HTML5 中增加了 `<picture>` 标签，该标签允许您针对不同类型的设备定义多个版本的图片。
-
-```html
-<picture>
-    <source media="(min-width: 1000px)" srcset="logo-large.png">
-    <source media="(max-width: 500px)" srcset="logo-small.png">
-    <img src="logo-default.png" alt="默认Logo">
-</picture>
-```
-
-在 `<picture>` 标签中包含零个或多个 `<source>` 标签，通过 `<source>` 标签中的 `media` 属性设定匹配条件（允许哪个版本的图片显示），通过 `srcset` 属性定义图片的路径。另外，在 `<picture>` 标签的最后还需要定义一个 `<img>` 标签，表示默认选项。
-
-#### 图像映射
-
-图像映射允许您在一个图片中定义超链接，实现思想就是在图像中划分一些区域，并在这些区域中定义超链接。
-
-```html
-<img src="logo.png" usemap="#objects" alt="C语言中文网 Logo">
-
-<!-- map 标签的 name 属性对应的是 img 标签的 usemap 属性 -->
-<map name="objects">
-  <area shape="rect" coords="x1,y1,x2,y2" href="http://xxx" alt="description">
-  <area shape="circle" coords="x,y,radius" href="http://xxx" alt="description">
-  <area shape="poly" coords="x1,y1,x2,y2,...,xn,yn" href="http://xxx" alt="description">
-</map>
-```
 
  ### 文本格式
 
@@ -564,6 +487,187 @@ para.onclick = function() {
 - `<aside>`：侧边栏，经常嵌套在 `<main>` 中。
 - `<footer>`：页脚。
 
+### HTML 文档结构
+
+```html
+<!-- 文档类型声明 -->
+<!DOCTYPE html>
+
+<!-- HTML 页面的根标签 -->
+<html lang="zh-cn">
+
+  <!-- 保存页面的一些元数据 -->
+  <head>
+
+    <!-- 指明网页的编码，可省略 -->
+    <meta charset="UTF-8">
+
+    <!-- 定义网页的标题 -->
+    <title>HTML 演示</title>
+  </head>
+
+  <!-- 定义网页的内容 -->
+  <body>
+  
+    <!-- 页眉 -->
+    <header>
+      <!-- 导航栏 -->
+      <nav>
+
+      </nav>
+    </header>
+
+    <!-- 主内容 -->
+    <main>
+      <article>
+
+      </article>
+
+      <!-- 边栏 -->
+      <aside>
+
+      </aside>
+    </main>
+
+    <footer>
+
+    </footer>
+  </body>
+</html>
+```
+
 [MDN：文档与网站结构](https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Introduction_to_HTML/Document_and_website_structure)
 
+## 多媒体与嵌入
+
+### 图片
+
+```html
+<img src="./IMG.png" alt="description" width="150" height="100">
+
+<!-- 使用 CSS 来改变图片尺寸 -->
+<img src="./IMG.png" alt="description" style="width:150px; height:100px;">
+```
+
+关于 width 和 height 属性的建议：
+
+- 一般建议为图片设置 width 和 height 属性，以便浏览器可以在加载图片之前为其分配足够的空间，否则图片加载过程中可能会导致您的网站布局失真或闪烁。
+- 但是您不应该使用 HTML 属性来改变图片的大小。如果要改变图片的尺寸，请使用 CSS。
+- 如果您的页面使用响应式布局（自适应布局），建议在上传图片之前裁剪好尺寸，而不要设置 width 和 height 属性，这样图片能够跟随屏幕宽度自动改变尺寸，从而不会变形，或者超出屏幕宽度。
+
+> **警告：** 大多数图片是有版权的。不要在你的网页上使用一张图片，除非：
+>
+> - 你是图片版权所有者
+> - 你有图片版权所有者明确的、书面上的使用授权
+> - 你有充分的证据证明这张图片是公共领域内的
+> 
+> 侵犯版权是违法并且不道德的。此外，在得到授权之前永远不要把你的 src 属性指向其他人网站上的图片。这被称为"盗链（hotlinking）"。同样，盗取其他人的带宽也是违法的。而且这会降低你的页面的加载速度，而且图片可能会在不受你控制的情况下被移走或用别的令人尴尬的东西替换掉。
+
+#### 为图片搭配说明文字
+
+```html
+<figure>
+  <img src="https://raw.githubusercontent.com/mdn/learning-area/master/html/multimedia-and-embedding/images-in-html/dinosaur_small.jpg"
+     alt="一只恐龙头部和躯干的骨架，它有一个巨大的头，长着锋利的牙齿。"
+     width="400"
+     height="341">
+  <figcaption>曼彻斯特大学博物馆展出的一只霸王龙的化石</figcaption>
+</figure>
+```
+
+`<figcaption>` 元素告诉浏览器和其他辅助的技术工具这段说明文字描述了 `<figure>` 元素的内容.
+
+`<figure>` 里不一定要是一张图片，也可以是几张图片、一段代码、音视频、方程、表格或别的。
+
+#### CSS 背景图片
+
+为页面中的所有段落设置一个背景图片：
+
+```css
+p {
+  background-image: url("images/dinosaur.jpg");
+}
+```
+
+#### HTML5 中的图片属性
+
+有时我们需要按照比例来放大或缩小图片的尺寸以适应不同的设备，避免图片过大超出屏幕的范围，为此 HTML5 中增加了 `<picture>` 标签，该标签允许您针对不同类型的设备定义多个版本的图片。
+
+```html
+<picture>
+    <source media="(min-width: 1000px)" srcset="logo-large.png">
+    <source media="(max-width: 500px)" srcset="logo-small.png">
+    <img src="logo-default.png" alt="默认Logo">
+</picture>
+```
+
+在 `<picture>` 标签中包含零个或多个 `<source>` 标签，通过 `<source>` 标签中的 `media` 属性设定匹配条件（允许哪个版本的图片显示），通过 `srcset` 属性定义图片的路径。另外，在 `<picture>` 标签的最后还需要定义一个 `<img>` 标签，表示默认选项。
+
+#### 图像映射
+
+图像映射允许您在一个图片中定义超链接，实现思想就是在图像中划分一些区域，并在这些区域中定义超链接。
+
+```html
+<img src="logo.png" usemap="#objects" alt="C语言中文网 Logo">
+
+<!-- map 标签的 name 属性对应的是 img 标签的 usemap 属性 -->
+<map name="objects">
+  <area shape="rect" coords="x1,y1,x2,y2" href="http://xxx" alt="description">
+  <area shape="circle" coords="x,y,radius" href="http://xxx" alt="description">
+  <area shape="poly" coords="x1,y1,x2,y2,...,xn,yn" href="http://xxx" alt="description">
+</map>
+```
+
+### 视频和音频
+
+视频使用 `<video>` 标签，音频使用 `<audio>` 标签。两者的使用方法是类似的。
+
+```html
+<video src="rabbit320.webm" controls>
+  <p>你的浏览器不支持 HTML5 视频。可点击<a href="rabbit320.mp4">此链接</a>观看</p>
+</video>
+```
+
+`controls` 属性
+: 为音视频添加浏览器提供的控件界面
+
+`<video>` 标签内的内容
+: 这个叫做后备内容。当浏览器不支持 `<video>` 标签的时候，就会显示这段内容。
+
+#### 使用多个播放源以提高兼容性
+
+```html
+<video controls>
+  <source src="rabbit320.mp4" type="video/mp4">
+  <source src="rabbit320.webm" type="video/webm">
+  <p>你的浏览器不支持 HTML5 视频。可点击<a href="rabbit320.mp4">此链接</a>观看</p>
+</video>
+```
+
+浏览器将会检查 `<source>` 标签，并且播放第一个与其自身 codec 相匹配的媒体。你的视频应当包括 WebM 和 MP4 两种格式，这两种在目前已经足够支持大多数平台和浏览器。如果不指定 `type` 属性，浏览器会尝试加载每一个文件，直到找到一个能正确播放的格式，这样会消耗掉大量的时间和资源。
+
+#### 其他 \<video\> 属性
+
+```html
+<video controls width="400" height="400"
+       autoplay loop muted
+       poster="poster.png">
+  <source src="rabbit320.mp4" type="video/mp4">
+  <source src="rabbit320.webm" type="video/webm">
+  <p>你的浏览器不支持 HTML5 视频。可点击<a href="rabbit320.mp4">此链接</a>观看</p>
+</video>
+```
+
+[MDN：其他 \<video\> 属性](https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Multimedia_and_embedding/Video_and_audio_content#%E5%85%B6%E4%BB%96_%3Cvideo%3E_%E7%89%B9%E6%80%A7)
+
+[MDN：显示音轨文本](https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Multimedia_and_embedding/Video_and_audio_content#%E6%98%BE%E7%A4%BA%E9%9F%B3%E8%BD%A8%E6%96%87%E6%9C%AC)
+
+
+### 其他嵌入技术
+
+通过 `<iframe>` 元素，可以将一个 web 页嵌入到另一个网页。：
+
+[MDN：其他嵌入技术](https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Multimedia_and_embedding/Other_embedding_technologies)
+
 *[href]: Hypertext Reference
+*[codec]: 编解码器（从“coder-decoder”派生的混合词）
