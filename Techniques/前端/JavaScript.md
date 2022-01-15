@@ -11,6 +11,8 @@ https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/First_steps
 
 > 浏览器会按照代码在文件中的顺序加载 HTML。如果先加载的 JavaScript 想要修改其下方的 HTML，那么它可能由于 HTML 尚未被加载而失效。因此，将 JavaScript 代码放在 HTML 页面的底部附近通常是最好的策略。
 
+**注意：**`<script>` 元素看起来像一个空元素，但它并不是，因此需要一个结束标记。你还可以选择将脚本放入 `<script>` 元素中，而不是指向外部脚本文件。
+
 [文档对象模型(DOM)](https://developer.mozilla.org/zh-CN/docs/Web/API/Document_Object_Model)
 
 ## 变量

@@ -1,8 +1,6 @@
 # HTML
 
-## 杂项
-
-[Google 图片搜索](https://www.google.com/imghp?gws_rd=ssl)
+## Introduction To HTML
 
 ### 命名格式
 
@@ -27,6 +25,10 @@ python -m http.server 7800 # 默认端口为 8000
 
 现在可以通过浏览器转到 `localhost:7800` 来访问此服务器。
 
+### 通过 GitHub 发布网站
+
+在 GitHub 新建库，命名为 `yourname.github.io`（全小写），并将网站文件加入库即可。此时可通过 `yourname.github.io` 访问你的网站。
+
 ### HTML 文档结构
 
 ```html
@@ -36,7 +38,7 @@ python -m http.server 7800 # 默认端口为 8000
 <!-- HTML 页面的根标签 -->
 <html lang="zh-cn">
 
-  <!-- 用来定义 HTML 文档的一些信息 -->
+  <!-- 保存页面的一些元数据 -->
 <head>
 
   <!-- 指明网页的编码，可省略 -->
@@ -75,6 +77,8 @@ python -m http.server 7800 # 默认端口为 8000
 
 有些 HTML 标签没有单独的结束标签，而是在开始标签中添加 `/` 来进行闭合。
 
+> 自闭合标签也称为“空元素”（empty elements）
+
 ```html
 <img src="./IMG.png" />
 <hr />
@@ -104,31 +108,59 @@ python -m http.server 7800 # 默认端口为 8000
 <div style="paddding:10px;border:2px solid #999;text-align:center;">some text</div>
  ```
 
- ### HTML 标题
+### 布尔属性
 
- ```html
-<h1>h1 标题</h1>
-<h2>h2 标题</h2>
-<h3>h3 标题</h3>
-<h4>h4 标题</h4>
-<h5>h5 标题</h5>
-<h6>h6 标题</h6>
- ```
+有时你会看到没有值的属性，它是合法的。这些属性被称为布尔属性，他们只能有跟它的属性名一样的属性值。例如 `disabled` 属性，它们可以标记表单输入使之变为不可用。
 
- ### HTML 段落
+```html
+<input type="text" disabled>
 
- ```html
-<p>段落 1</p>
-<p>段落 2</p>
- ```
+<input type="text" disabled="disabled">
+```
 
- ### HTML 文本格式化
+### 实体引用
 
- [C 语言中文网](http://c.biancheng.net/view/9386.html)
+|原义字符|等价字符引用|
+|:--------:|:-------------:|
+|<|`&lt;`|
+|>|`&gt;`|
+|"|`&quot;`|
+|'|`&apos;`|
+|&|`&amp;`|
 
- 根据 HTML5 的规范，标题应该用 `<h1>`~`<h6>` 标签定义，被强调的文本应该用 `<em>` 标签定义，重要的文本应该用 `<strong>` 标签定义，被标记的或者高亮显示的文本应该用 `<mark>` 标签定义。
+### \<meta\> 元素
 
- ### HTML 超链接
+Metadata——元数据
+: 用于描述数据的数据
+
+#### 添加作者和描述
+
+许多 `<meta>` 元素包含了 name 和 content 属性：
+
+- name 指定了meta 元素的类型； 说明该元素包含了什么类型的信息。
+- content 指定了实际的元数据内容。
+
+```html
+<!-- 添加作者和描述 -->
+<meta name="author" content="Chris Mills">
+<meta name="description" content="The MDN Learning Area aims to provide complete beginners to the Web with all they need to know to get started with developing web sites and applications.">
+```
+
+description 也被使用在搜索引擎显示的结果页中。
+
+可以在 [Google's webmaster toos](https://www.google.com/webmasters/tools/) 中进行配置使你的站点对搜索引擎更友好。
+
+许多网站有自己编写的元数据协议，用于向某些网站提供可使用的特定信息。
+
+#### 为你的站点增加自定义图标
+
+```html
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+```
+
+大多数浏览器也支持 `.gif` 或 `.png` 格式的图标
+
+ ### 超链接
 
  ```html
 <a href="http://xxx" target="_blank">显示内容</a>
@@ -186,7 +218,15 @@ python -m http.server 7800 # 默认端口为 8000
 </map>
 ```
 
-###  HTML 表格
+ ### 文本格式
+
+ [C 语言中文网：文本格式化](http://c.biancheng.net/view/9386.html)
+
+ 根据 HTML5 的规范，标题应该用 `<h1>`~`<h6>` 标签定义，被强调的文本应该用 `<em>` 标签定义，重要的文本应该用 `<strong>` 标签定义，被标记的或者高亮显示的文本应该用 `<mark>` 标签定义。
+
+只用于改变字体样式而没有特定语义的元素称为表象元素，应尽量避免使用这类元素。
+
+####  表格
 
 ```html
 <!-- 认情况下，表格是没有边框的。这里将边框宽度设置为 1px，同时利用 CSS 设置边框塌陷，使双边框变为单边框 -->
@@ -226,9 +266,9 @@ python -m http.server 7800 # 默认端口为 8000
 </table>
 ```
 
-### HTML 列表
+#### 列表
 
-#### 有序列表
+##### 有序列表
 
 ```html
 <!-- ordered list -->
@@ -243,7 +283,7 @@ python -m http.server 7800 # 默认端口为 8000
 - 不建议在 `<ol>` 中直接使用除 `<li>` 之外的其他标签。
 - 无序列表只需用 `<ul>` 替换 `<ol>` 即可。
 
-#### 定义列表
+##### 定义列表
 
 ```html
 <!-- definition list -->
@@ -259,11 +299,10 @@ python -m http.server 7800 # 默认端口为 8000
 </dl>
 ```
 
-![](../assets/定义列表.png)
+[C 语言中文网：使用 CSS 修改列表样式](http://c.biancheng.net/view/9389.html)
 
-[使用 CSS 修改列表样式](http://c.biancheng.net/view/9389.html)
 
-### HTML 表单
+#### 表单
 
 ```html
 <!-- 表单中其他标签 -->
@@ -276,9 +315,97 @@ python -m http.server 7800 # 默认端口为 8000
   - GET：用户点击提交按钮后，提交的信息会被显示在地址栏中。如果提交的信息中包含密码，则不建议这种方式。
   - POST：数据会传到后台，不显示在地址栏中。
 
-[表单控件](http://c.biancheng.net/view/7564.html)
+[C 语言中文网：表单控件](http://c.biancheng.net/view/7564.html)
 
-### HTML 注释规范
+
+#### 引用
+
+##### 块引用
+
+使用 `<blockquote>` 元素将引用内容包裹起来，并且在 cite 属性里用 URL 来指向引用的资源。
+
+```html
+<blockquote cite="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/blockquote">
+  <p>The <strong>HTML <code>&lt;blockquote&gt;</code> Element</strong> (or <em>HTML Block
+  Quotation Element</em>) indicates that the enclosed text is an extended quotation.</p>
+</blockquote>
+```
+
+##### 行内引用
+
+使用 `<q>` 元素将引用内容包裹起来，并且在 cite 属性里用 URL 来指向引用的资源。
+
+```html
+<p>The quote element — <code>&lt;q&gt;</code> — is <q cite="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/q">intended
+  for short quotations that don't require paragraph breaks.</q></p>
+```
+
+浏览器会将其作为普通文本放入引号内表示引用。
+
+`<q>` 元素旨在用于不需要分段的短引用。
+
+##### 引文
+
+cite 属性的内容不会被浏览器显示。若想要确保用户可以找到引用来源，更好的方法是为 `<cite>` 元素附上链接：
+
+```html
+<p>quotation</q> -- <a href="URL"><cite>MDN q page</cite></a>.</p>
+```
+
+#### 缩写
+
+```html
+<p>我们使用 <abbr title="超文本标记语言（Hyper text Markup Language）">HTML</abbr> 来组织网页文档。</p>
+
+<p>第 33 届 <abbr title="夏季奥林匹克运动会">奥运会</abbr> 将于 2024 年 8 月在法国巴黎举行。</p>
+```
+
+#### 标记联系方式
+
+```html
+<address>
+  <p>Chris Mills, Manchester, The Grim North, UK</p>
+</address>
+
+<!-- 这种形式也可以 -->
+<address>
+  <p>Page written by <a href="../authors/chris-mills/">Chris Mills</a>.</p>
+</address>
+```
+
+#### 展示计算机代码
+
+- `<code>`：用于标记计算机通用代码。
+- `<pre>`：用于保留空白符。
+- `<var>`：用于标记具体变量名。
+- `<kbd>`：用于标记键盘（或其他类型）输入。
+- `<samp>`：用于标记计算机程序的输出。
+
+```html
+<pre><code>const para = document.querySelector('p');
+
+para.onclick = function() {
+  alert('噢，噢，噢，别点我了。');
+}</code></pre>
+
+<p>在上述的 JavaScript 示例中，<var>para</var> 表示一个段落元素。</p>
+
+<p>请不要使用 <code>&lt;font&gt;</code> 、 <code>&lt;center&gt;</code> 等表象元素。</p>
+
+<pre>$ ping mozilla.org
+<samp>PING mozilla.org (63.245.215.20): 56 data bytes
+64 bytes from 63.245.215.20: icmp_seq=0 ttl=40 time=158.233 ms</samp></pre>
+```
+
+#### 标记时间和日期
+
+```html
+<time datetime="2016-01-20">2016年1月20日</time>
+```
+
+[MDN：标记日期和时间](https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Introduction_to_HTML/Advanced_text_formatting#%E6%A0%87%E8%AE%B0%E6%97%B6%E9%97%B4%E5%92%8C%E6%97%A5%E6%9C%9F)
+
+### 注释规范
 
 单行注释：注释内容前后各一个空格，注释位于要注释代码的上面，独占一行。
 
@@ -322,7 +449,7 @@ python -m http.server 7800 # 默认端口为 8000
 </div>
 ```
 
-### HTML 嵌入 CSS 样式
+### 嵌入 CSS 样式
 
 ```html
 <!-- 内联样式 -->
@@ -352,7 +479,7 @@ python -m http.server 7800 # 默认端口为 8000
 </head>
 ```
 
-### HTML 块级元素和内联元素
+### 块级元素和内联元素
 
 #### 块级元素
 
@@ -364,12 +491,6 @@ python -m http.server 7800 # 默认端口为 8000
 - 块级元素的宽度、高度以及外边距和内边距等都可以控制；
 - 如果省略块级元素的宽度，那么它的宽度默认为当前浏览器窗口的宽度；
 块级元素中可以包含其它的内联元素和块级元素。
-
-##### div 标签
-
-通过 `<div>` 标签可以将网页分割成不同的板块。
-
-#### span 标签
 
 #### 内联元素
 
@@ -389,5 +510,21 @@ python -m http.server 7800 # 默认端口为 8000
 - 可以设置 margin 外边距，但只对左右外边距有效，上下无效；
 - 设置 padding 内边距时，只有左右 padding 有效，上下则无效，需要注意的是元素范围是增大了，但是对元素周围的内容是没影响的；
 - 可以通过 display 属性将元素在内联元素和块级元素之间进行切换。
+
+#### 无语义元素
+
+有时候你可能只想将一组元素作为一个单独的实体来使用。为了应对这种情况，HTML提供了 `<div>` 和 `<span>` 元素。应配合使用 class 属性提供一些标签，使这些元素能易于查询。
+
+> 警告：`<div>` 非常便利但容易被滥用。由于它们没有语义值，会使 HTML 代码变得混乱。要小心使用，只有在没有更好的语义方案时才选择它，而且要尽可能少用， 否则文档的升级和维护工作会非常困难。
+
+### 布局元素
+
+- `<header>`：页眉。
+- `<nav>`：导航栏。
+- `<main>`：主内容。主内容中还可以有各种子内容区段，可用 `<article>`、`<section>` 和 `<div>` 等元素表示。
+- `<aside>`：侧边栏，经常嵌套在 `<main>` 中。
+- `<footer>`：页脚。
+
+[MDN：文档与网站结构](https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Introduction_to_HTML/Document_and_website_structure)
 
 *[href]: Hypertext Reference
