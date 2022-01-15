@@ -88,25 +88,25 @@ python -m http.server 7800 # 默认端口为 8000
 
 ### HTML 通用属性
 
- `id`：用来赋予某个标签唯一的标识符。当我们用 CSS 或者 JavaScript 来操作这个标签时，可以通过 id 属性来找到这个标签。
+`id`：用来赋予某个标签唯一的标识符。当我们用 CSS 或者 JavaScript 来操作这个标签时，可以通过 id 属性来找到这个标签。
 
- `class`：同样是为标签定义一个标识符，不过这个标识符可以不唯一。我们可以为多个标签定义相同的 class 属性，也可以为一个标签定义多个 class 属性。
+`class`：同样是为标签定义一个标识符，不过这个标识符可以不唯一。我们可以为多个标签定义相同的 class 属性，也可以为一个标签定义多个 class 属性。
 
- ```html
+```html
 <div class="class1 class2 class3"></div>
 <p class="content">some text</p>
 <div class="content">xxx</div>
- ```
+```
 
- `title`：当鼠标移动到标签上时，就会显示 title 的值。
+`title`：当鼠标移动到标签上时，就会显示 title 的值。
 
- `style`：使用 style 属性我们可以在 HTML 标签内部为标签定义 CSS 样式，例如设置文本的颜色、字体等。
+`style`：使用 style 属性我们可以在 HTML 标签内部为标签定义 CSS 样式，例如设置文本的颜色、字体等。
 
- ```html
+```html
 <p style="color:red;">red text</p>
 <img src="xxx" style="height:50px;">
 <div style="paddding:10px;border:2px solid #999;text-align:center;">some text</div>
- ```
+```
 
 ### 布尔属性
 
@@ -160,31 +160,70 @@ description 也被使用在搜索引擎显示的结果页中。
 
 大多数浏览器也支持 `.gif` 或 `.png` 格式的图标
 
- ### 超链接
+### 为文档设置主语言
 
- ```html
-<a href="http://xxx" target="_blank">显示内容</a>
- ```
+```html
+<html lang="zh-CN">
 
- herf 属性指定链接的文件，target 属性指名新页面的打开方式。
+<!-- 也可以为文档的分段设置不同的语言 -->
+<p>日语实例: <span lang="jp">ご飯が熱い。</span>.</p>
+```
 
- | 属性值 |                    说明                     |
- |:-------:|---------------------------------|
- |  _self   |在当前标签页中打开                 |
- | _blank |在新标签页中打开                    |
- |_parent|在当前框架的上一层打开新页面|
- |  _top   |在顶层框架中打开新页面          |
+### HTML 超链接
 
- > 绝大部分情况下，target 属性要么不写，保持默认的 _self，要么将它的值设置为 _blank。
+```html
+<a href="https://mozilla.org/" title="了解 Mozilla 使命以及如何参与贡献的最佳站点" target="_blank">显示内容</a>
 
- ### HTML 图片
+<!-- 将图像转换为链接 -->
+<a href="https://www.mozilla.org/zh-CN/">
+  <img src="mozilla-image.png" alt="链接至 Mozilla 主页的 Mozilla 标志">
+</a>
 
- ```html
+<!-- 链接到文档片段 -->
+<!-- 先给要链接到的元素分配一个 id 属性 -->
+<h2 id="Mailing_address">邮寄地址</h2>
+
+<!-- 然后在 URL 的结尾使用 '#' 指向该 id -->
+<p>要提供意见和建议，请将信件邮寄至 <a href="contacts.html#Mailing_address">我们的地址</a>。</p>
+
+<!-- 在同一文档下可以省略 URL -->
+<p>本页面底部可以找到 <a href="#Mailing_address">公司邮寄地址</a>。</p>
+
+<!-- 使用 download 属性提供下载资源的默认保存文件名 -->
+<a href="https://download.mozilla.org/?product=firefox-latest-ssl&os=win64&lang=zh-CN"
+   download="firefox-latest-64bit-installer.exe">
+  下载最新的 Firefox 中文版 - Windows（64位）
+</a>
+```
+
+target 属性指明新页面的打开方式绝大部分情况下，target 属性要么不写，保持默认的 \_self（在当前标签页打开），要么将它的值设置为 \_blank（在新标签页打开）。
+
+#### 电子邮件链接
+
+```html
+<a href="mailto:nowhere@mozilla.org">向 nowhere 发邮件</a>
+```
+
+当点击该链接时，将创建一个新的电子邮件并将收件人预设为 nowhere@mozilla.org
+
+除了电子邮件地址，您还可以提供其他信息。事实上，任何标准的邮件头字段都可以被添加到你提供的邮件URL。 其中最常用的是主题 (subject)、抄送 (cc) 和主体 (body) 。每个字段及其值被指定为查询项。
+
+```html
+<a href="mailto:nowhere@mozilla.org?cc=name2@rapidtables.com&bcc=name3@rapidtables.com&subject=The%20subject%20of%20the%20email&body=The%20body%20of%20the%20email">
+  Send mail with cc, bcc, subject and body
+</a>
+```
+
+> 使用 `?` 来分隔主 URL 与参数值，以及使用 `&` 来分隔 mailto: 中的各个参数。这是标准的URL查询标记方法。
+
+### HTML 图片
+
+```html
 <img src="./IMG.png" alt="description" width="150" height="100">
 <img src="./IMG.png" alt="description" style="width:150px; height:100px;">
- ```
+```
 
- 关于 width 和 height 属性的两点建议：
+关于 width 和 height 属性的两点建议：
 
 - 一般建议为图片设置 width 和 height 属性，以便浏览器可以在加载图片之前为其分配足够的空间，否则图片加载过程中可能会导致您的网站布局失真或闪烁。
 - 如果您的页面使用响应式布局（自适应布局），建议在上传图片之前裁剪好尺寸，而不要设置 width 和 height 属性，这样图片能够跟随屏幕宽度自动改变尺寸，从而不会变形，或者超出屏幕宽度。
@@ -490,7 +529,7 @@ para.onclick = function() {
 - 不管是否使用换行标签，块级元素总是在新行上开始；
 - 块级元素的宽度、高度以及外边距和内边距等都可以控制；
 - 如果省略块级元素的宽度，那么它的宽度默认为当前浏览器窗口的宽度；
-块级元素中可以包含其它的内联元素和块级元素。
+- 块级元素中可以包含其它的内联元素和块级元素。
 
 #### 内联元素
 
