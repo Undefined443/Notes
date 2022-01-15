@@ -589,9 +589,13 @@ p {
 }
 ```
 
-#### HTML5 中的图片属性
+#### 响应式图片
 
-有时我们需要按照比例来放大或缩小图片的尺寸以适应不同的设备，避免图片过大超出屏幕的范围，为此 HTML5 中增加了 `<picture>` 标签，该标签允许您针对不同类型的设备定义多个版本的图片。
+##### 美术设计
+
+[MDN：美术设计](https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images#%E7%BE%8E%E6%9C%AF%E8%AE%BE%E8%AE%A1)
+
+美术设计问题涉及当我们在桌面浏览器上的一个网站上显示一张大的、横向的照片，照片中有个人，然后当我们在移动端浏览器上浏览这个网站时，照片会缩小，这时照片上的人会变得非常小。这种情况下我们在移动端显示一个更小的肖像图会更好，这样人物的大小看起来更合适。
 
 ```html
 <picture>
@@ -602,6 +606,8 @@ p {
 ```
 
 在 `<picture>` 标签中包含零个或多个 `<source>` 标签，通过 `<source>` 标签中的 `media` 属性设定匹配条件（允许哪个版本的图片显示），通过 `srcset` 属性定义图片的路径。另外，在 `<picture>` 标签的最后还需要定义一个 `<img>` 标签，表示默认选项。
+
+[MDN：响应式图片](https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images)
 
 #### 图像映射
 
@@ -665,7 +671,16 @@ p {
 
 ### 其他嵌入技术
 
-通过 `<iframe>` 元素，可以将一个 web 页嵌入到另一个网页。：
+通过 `<iframe>` 元素，可以将一个 web 页嵌入到另一个网页。很多视频网站，如 YouTube，Bilibili，以及 Google Map 都支持嵌入。通常在分享界面可以找到需要的代码。
+
+通过 `<object>` 元素嵌入 PDT 文件：
+
+```html
+<object data="mypdf.pdf" type="application/pdf"
+        width="800" height="1200" typemustmatch>
+  <p>You don't have a PDF plugin, but you can <a href="myfile.pdf">download the PDF file.</a></p>
+</object>
+```
 
 [MDN：其他嵌入技术](https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Multimedia_and_embedding/Other_embedding_technologies)
 
