@@ -134,37 +134,6 @@ python -m http.server 7800 # 默认端口为 8000
 |&|`&amp;`|
 |空格|`&nbsp;`|
 
-
-### 嵌入 CSS 样式
-
-```html
-<!-- 内联样式 -->
-<p style="color:red;">some text</p>
-
-<!-- 内嵌样式 -->
-<head>
-  <style type="text/css">
-  p{
-      color:red;
-  }
-  </style>
-</head>
-
-<!-- 导入样式 -->
-<head>
-  <style type="text/css">
-    @import theme1.css;
-    @import url(theme2.css);
-    body { background-color: #e4e929; }
-  </style>
-</head>
-
-<!-- 链接式 -->
-<head>
-  <link href="theme.css" type="text/css" rel="stylesheet" />
-</head>
-```
-
 ### \<head\> 里有什么
 
 #### \<meta\> 元素
