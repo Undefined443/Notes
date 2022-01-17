@@ -50,11 +50,49 @@ python -m http.server 7800 # 默认端口为 8000
 <input type="text" placeholder="xxx" />
 ```
 
+#### 块级元素
+
+块级元素最主要的特点是它们自己独占一行。块级元素最具代表性的就是 `<div>`，此外还有 `<p>`, `<nav>`, `<aside>`, `<header>`, `<footer>`, `<section>`, `<article>`, `<ul>`, `<address>`, `<h1>` ~ `<h6>` 等。
+
+块级元素的主要特征如下所示：
+
+- 不管是否使用换行标签，块级元素总是在新行上开始；
+- 块级元素的宽度、高度以及外边距和内边距等都可以控制；
+- 如果省略块级元素的宽度，那么它的宽度默认为当前浏览器窗口的宽度；
+- 块级元素中可以包含其它的内联元素和块级元素。
+
+#### 内联元素
+
+内联元素也可以称为行内元素，内联元素中最常用的是 `<span>`，此外还有 `<b>`, `<i>`, `<u>`, `<em>`, `<strong>`, `<sup>`, `<sub>`, `<big>`, `<small>`, `<li>`, `<ins>`, `<del>`, `<code>`, `<cite>`, `<dfn>`, `<kbd>` 和 `<var>` 等。
+
+内联元素的主要特征如下所示：
+
+- 内联元素和其他元素会在同一行上显示；
+- 内联元素的宽、高以及外边距和内边距都不可以改变；
+- 内联元素的宽度就是其中内容的宽度，且不可以改变；
+- 内联元素中只能容纳文本或者其他内联元素。
+
+对于内联元素的使用，需要注意如下几点：
+
+- 设置宽度 `width` 无效；
+- 设置高度 `height` 无效，但可以通过 `line-height` 来设置行高；
+- 可以设置 `margin` 外边距，但只对左右外边距有效，上下无效；
+- 设置 `padding` 内边距时，只有左右 `padding` 有效，上下则无效，需要注意的是元素范围是增大了，但是对元素周围的内容是没影响的；
+- 可以通过 `display` 属性将元素在内联元素和块级元素之间进行切换。
+
+#### 无语义元素
+
+有时候你可能只想将一组元素作为一个单独的实体来使用。为了应对这种情况，HTML 提供了 `<div>` 和 `<span>` 元素。应配合使用 `class` 属性提供一些标签，使这些元素能易于查询。
+
+> 警告：`<div>` 非常便利但容易被滥用。由于它们没有语义值，会使 HTML 代码变得混乱。要小心使用，只有在没有更好的语义方案时才选择它，而且要尽可能少用， 否则文档的升级和维护工作会非常困难。
+
 ### HTML 通用属性
 
-`id`：用来赋予某个标签唯一的标识符。当我们用 CSS 或者 JavaScript 来操作这个标签时，可以通过 id 属性来找到这个标签。
+`id`
+: 用来赋予某个标签唯一的标识符。当我们用 CSS 或者 JavaScript 来操作这个标签时，可以通过 id 属性来找到这个标签。
 
-`class`：同样是为标签定义一个标识符，不过这个标识符可以不唯一。我们可以为多个标签定义相同的 class 属性，也可以为一个标签定义多个 class 属性。
+`class`
+: 同样是为标签定义一个标识符，不过这个标识符可以不唯一。我们可以为多个标签定义相同的 class 属性，也可以为一个标签定义多个 class 属性。
 
 ```html
 <div class="class1 class2 class3"></div>
@@ -62,9 +100,11 @@ python -m http.server 7800 # 默认端口为 8000
 <div class="content">xxx</div>
 ```
 
-`title`：当鼠标移动到标签上时，就会显示 title 的值。
+`title`
+: 当鼠标移动到标签上时，就会显示 title 的值。
 
-`style`：使用 style 属性我们可以在 HTML 标签内部为标签定义 CSS 样式，例如设置文本的颜色、字体等。
+`style`
+: 使用 style 属性我们可以在 HTML 标签内部为标签定义 CSS 样式，例如设置文本的颜色、字体等。
 
 ```html
 <p style="color:red;">red text</p>
@@ -79,6 +119,7 @@ python -m http.server 7800 # 默认端口为 8000
 ```html
 <input type="text" disabled>
 
+<!-- 相当于下面 -->
 <input type="text" disabled="disabled">
 ```
 
@@ -93,17 +134,50 @@ python -m http.server 7800 # 默认端口为 8000
 |&|`&amp;`|
 |空格|`&nbsp;`|
 
-### \<meta\> 元素
+
+### 嵌入 CSS 样式
+
+```html
+<!-- 内联样式 -->
+<p style="color:red;">some text</p>
+
+<!-- 内嵌样式 -->
+<head>
+  <style type="text/css">
+  p{
+      color:red;
+  }
+  </style>
+</head>
+
+<!-- 导入样式 -->
+<head>
+  <style type="text/css">
+    @import theme1.css;
+    @import url(theme2.css);
+    body { background-color: #e4e929; }
+  </style>
+</head>
+
+<!-- 链接式 -->
+<head>
+  <link href="theme.css" type="text/css" rel="stylesheet" />
+</head>
+```
+
+### \<head\> 里有什么
+
+#### \<meta\> 元素
 
 Metadata——元数据
 : 用于描述数据的数据
 
-#### 添加作者和描述
+##### 添加作者和描述
 
-许多 `<meta>` 元素包含了 name 和 content 属性：
+许多 `<meta>` 元素包含了 `name` 和 `content` 属性：
 
-- name 指定了meta 元素的类型； 说明该元素包含了什么类型的信息。
-- content 指定了实际的元数据内容。
+- `name` 指定了 meta 元素的类型； 说明该元素包含了什么类型的信息。
+- `content` 指定了实际的元数据内容。
 
 ```html
 <!-- 添加作者和描述 -->
@@ -173,7 +247,7 @@ description 也被使用在搜索引擎显示的结果页中。
 
 当点击该链接时，将创建一个新的电子邮件并将收件人预设为 nowhere@mozilla.org
 
-除了电子邮件地址，您还可以提供其他信息。事实上，任何标准的邮件头字段都可以被添加到你提供的邮件URL。 其中最常用的是主题 (subject)、抄送 (cc) 和主体 (body) 。每个字段及其值被指定为查询项。
+除了电子邮件地址，您还可以提供其他信息。事实上，任何标准的邮件头字段都可以被添加到你提供的邮件 URL。 其中最常用的是主题 (subject)、抄送 (cc) 和主体 (body) 。每个字段及其值被指定为查询项。
 
 ```html
 <a href="mailto:nowhere@mozilla.org?cc=name2@rapidtables.com&bcc=name3@rapidtables.com&subject=The%20subject%20of%20the%20email&body=The%20body%20of%20the%20email">
@@ -181,7 +255,7 @@ description 也被使用在搜索引擎显示的结果页中。
 </a>
 ```
 
-> 使用 `?` 来分隔主 URL 与参数值，以及使用 `&` 来分隔 mailto: 中的各个参数。这是标准的URL查询标记方法。
+> 使用 `?` 来分隔主 URL 与参数值，以及使用 `&` 来分隔 mailto: 中的各个参数。这是标准的 URL 查询标记方法。
 
  ### 文本格式
 
@@ -312,81 +386,7 @@ para.onclick = function() {
 <time datetime="2016-01-20">2016年1月20日</time>
 ```
 
-[MDN：标记日期和时间](https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Introduction_to_HTML/Advanced_text_formatting#%E6%A0%87%E8%AE%B0%E6%97%B6%E9%97%B4%E5%92%8C%E6%97%A5%E6%9C%9F)
-
-### 注释规范
-
-单行注释：注释内容前后各一个空格，注释位于要注释代码的上面，独占一行。
-
-```html
-<!-- Comment Text -->
-<div>...</div>
-```
-
-模块注释：用于描述模块开始与结束的位置。模块与模块之间空一行。
-
-```html
-<!-- S Comment Text A -->
-<div class="mod_a">
-  ...
-</div>
-<!-- E Comment Text A -->
-
-<!-- S Comment Text B -->
-<div class="mod_b">
-  ...
-</div>
-<!-- E Comment Text B -->
-```
-
-嵌套模块注释：当模块注释内再出现模块注释时，为了突出主要模块，嵌套模块不再使用，而只在内部模块结束的位置进行单行注释。
-
-```html
-<!-- S Comment Text A -->
-<div class="mod_a">
-
-  <div class="mod_b">
-    ...
-  </div>
-  <!-- /mod_b -->
-
-  <div class="mod_c">
-    ...
-  </div>
-  <!-- /mod_c -->
-
-</div>
-```
-
-### 嵌入 CSS 样式
-
-```html
-<!-- 内联样式 -->
-<p style="color:red;">some text</p>
-
-<!-- 内嵌样式 -->
-<head>
-  <style type="text/css">
-  p{
-      color:red;
-  }
-  </style>
-</head>
-
-<!-- 导入样式 -->
-<head>
-  <style type="text/css">
-    @import theme1.css;
-    @import url(theme2.css);
-    body { background-color: #e4e929; }
-  </style>
-</head>
-
-<!-- 链接式 -->
-<head>
-  <link href="theme.css" type="text/css" rel="stylesheet" />
-</head>
-```
+[MDN：标记日期和时间][marking up times and dates]
 
 ### HTML 文档结构
 
@@ -437,42 +437,6 @@ para.onclick = function() {
 </html>
 ```
 
-#### 块级元素
-
-块级元素最主要的特点是它们自己独占一行。块级元素最具代表性的就是 `<div>`，此外还有 `<p>`, `<nav>`, `<aside>`, `<header>`, `<footer>`, `<section>`, `<article>`, `<ul>`, `<address>`, `<h1>` ~ `<h6>` 等。
-
-块级元素的主要特征如下所示：
-
-- 不管是否使用换行标签，块级元素总是在新行上开始；
-- 块级元素的宽度、高度以及外边距和内边距等都可以控制；
-- 如果省略块级元素的宽度，那么它的宽度默认为当前浏览器窗口的宽度；
-- 块级元素中可以包含其它的内联元素和块级元素。
-
-#### 内联元素
-
-内联元素也可以称为行内元素，内联元素中最常用的是 `<span>`，此外还有 `<b>`, `<i>`, `<u>`, `<em>`, `<strong>`, `<sup>`, `<sub>`, `<big>`, `<small>`, `<li>`, `<ins>`, `<del>`, `<code>`, `<cite>`, `<dfn>`, `<kbd>` 和 `<var>` 等。
-
-内联元素的主要特征如下所示：
-
-- 内联元素和其他元素会在同一行上显示；
-- 内联元素的宽、高以及外边距和内边距都不可以改变；
-- 内联元素的宽度就是其中内容的宽度，且不可以改变；
-- 内联元素中只能容纳文本或者其他内联元素。
-
-对于内联元素的使用，需要注意如下几点：
-
-- 设置宽度 width 无效；
-- 设置高度 height 无效，但可以通过 line-height 来设置行高；
-- 可以设置 margin 外边距，但只对左右外边距有效，上下无效；
-- 设置 padding 内边距时，只有左右 padding 有效，上下则无效，需要注意的是元素范围是增大了，但是对元素周围的内容是没影响的；
-- 可以通过 display 属性将元素在内联元素和块级元素之间进行切换。
-
-#### 无语义元素
-
-有时候你可能只想将一组元素作为一个单独的实体来使用。为了应对这种情况，HTML提供了 `<div>` 和 `<span>` 元素。应配合使用 class 属性提供一些标签，使这些元素能易于查询。
-
-> 警告：`<div>` 非常便利但容易被滥用。由于它们没有语义值，会使 HTML 代码变得混乱。要小心使用，只有在没有更好的语义方案时才选择它，而且要尽可能少用， 否则文档的升级和维护工作会非常困难。
-
 #### 布局元素
 
 - `<header>`：页眉。
@@ -482,6 +446,56 @@ para.onclick = function() {
 - `<footer>`：页脚。
 
 [MDN：文档与网站结构](https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Introduction_to_HTML/Document_and_website_structure)
+
+### 注释规范
+
+#### 单行注释
+
+注释内容前后各一个空格，注释位于要注释代码的上面，独占一行。
+
+```html
+<!-- Comment Text -->
+<div>...</div>
+```
+
+#### 模块注释
+
+用于描述模块开始与结束的位置。模块与模块之间空一行。
+
+```html
+<!-- S Comment Text A -->
+<div class="mod_a">
+  ...
+</div>
+<!-- E Comment Text A -->
+
+<!-- S Comment Text B -->
+<div class="mod_b">
+  ...
+</div>
+<!-- E Comment Text B -->
+```
+
+#### 嵌套模块注释
+
+当模块注释内再出现模块注释时，为了突出主要模块，嵌套模块不再使用，而只在内部模块结束的位置进行单行注释。
+
+```html
+<!-- S Comment Text A -->
+<div class="mod_a">
+
+  <div class="mod_b">
+    ...
+  </div>
+  <!-- /mod_b -->
+
+  <div class="mod_c">
+    ...
+  </div>
+  <!-- /mod_c -->
+
+</div>
+```
 
 ## 多媒体与嵌入
 
@@ -494,11 +508,11 @@ para.onclick = function() {
 <img src="./IMG.png" alt="description" style="width:150px; height:100px;">
 ```
 
-关于 width 和 height 属性的建议：
+关于 `width` 和 `height` 属性的建议：
 
-- 一般建议为图片设置 width 和 height 属性，以便浏览器可以在加载图片之前为其分配足够的空间，否则图片加载过程中可能会导致您的网站布局失真或闪烁。
+- 一般建议为图片设置 `width` 和 `height` 属性，以便浏览器可以在加载图片之前为其分配足够的空间，否则图片加载过程中可能会导致您的网站布局失真或闪烁。
 - 但是您不应该使用 HTML 属性来改变图片的大小。如果要改变图片的尺寸，请使用 CSS。
-- 如果您的页面使用响应式布局（自适应布局），建议在上传图片之前裁剪好尺寸，而不要设置 width 和 height 属性，这样图片能够跟随屏幕宽度自动改变尺寸，从而不会变形，或者超出屏幕宽度。
+- 如果您的页面使用响应式布局（自适应布局），建议在上传图片之前裁剪好尺寸，而不要设置 `width` 和 `height` 属性，这样图片能够跟随屏幕宽度自动改变尺寸，从而不会变形，或者超出屏幕宽度。
 
 > **警告：** 大多数图片是有版权的。不要在你的网页上使用一张图片，除非：
 >
@@ -538,8 +552,6 @@ p {
 
 ##### 分辨率切换：不同的尺寸
 
-[MDN：分辨率切换][resolution switching]
-
 我们想要显示相同的图片内容，仅仅依据设备来显示更大或更小的图片。
 
 ```html
@@ -577,21 +589,23 @@ img {
 
 通过 [tinypng.com](https://tinypng.com/) 优化图片大小
 
+[MDN：分辨率切换][resolution switching]
+
 ##### 美术设计
 
-[MDN：美术设计][art direction]
-
-当网站在狭窄的屏幕上观看时，显示一幅图片的包含了重要细节的裁剪版本，第二个被裁剪的图片会在像平板电脑这样的中等宽度的屏幕设备上显示，这就是众所周知的美术设计问题
+当网站在狭窄的屏幕上观看时，显示一幅图片的包含了重要细节的裁剪版本，第二个被裁剪的图片会在像平板电脑这样的中等宽度的屏幕设备上显示，这就是众所周知的美术设计问题。
 
 ```html
 <picture>
-    <source media="(min-width: 1000px)" srcset="logo-large.png">
+  <source media="(min-width: 1000px)" srcset="logo-large.png">
     <source media="(max-width: 500px)" srcset="logo-small.png">
     <img src="logo-default.png" alt="默认Logo">
 </picture>
 ```
 
 在 `<picture>` 标签中包含零个或多个 `<source>` 标签，通过 `<source>` 标签中的 `media` 属性设定匹配条件（允许哪个版本的图片显示），通过 `srcset` 属性定义图片的路径。另外，在 `<picture>` 标签的最后还需要定义一个 `<img>` 标签，表示默认选项。
+
+[MDN：美术设计][art direction]
 
 #### 图像映射
 
@@ -710,23 +724,6 @@ img {
 
 `<th>` 用法和 `<td>` 是一样的，除了它表示为标题，不是普通的单元格。
 
-### 表单
-
-```html
-<!-- 表单中其他标签 -->
-<form action="URL" method="GET|POST">
-</form>
-```
-
-- action 属性指明将表单提交到哪个页面（跳转到哪个页面）
-- method 属性表示使用哪个方式提交数据
-  - GET：用户点击提交按钮后，提交的信息会被显示在地址栏中。如果提交的信息中包含密码，则不建议这种方式。
-  - POST：数据会传到后台，不显示在地址栏中。
-
-[C 语言中文网：表单控件](http://c.biancheng.net/view/7564.html)
-
-
-
 ### 定义列的样式
 
 在 `<table>` 标签下，使用 `<colgroup>` 和 `<col>` 标签来定义列的样式：
@@ -788,9 +785,7 @@ img {
 
 为了帮助屏幕阅读器更好地理解标题单元格，应该为 `<th>` 元素增加 `scope` 属性，说明该标题是列标题还是行标题。屏幕阅读设备会识别这种结构化的标记，并一次读出整列或整行。
 
-<iframe src="https://mdn.github.io/learning-area/html/tables/advanced/spending-record-finished.html" scrolling="yes" border="0" frameborder="0" allowfullscreen="true" weith="900" height="450"> </ifame>
-
-对于上面的表格，你可以这样定义列标题：
+你可以这样定义列标题：
 
 ```html
 <thead>
@@ -851,8 +846,25 @@ img {
 
 这会给表格中每个单元格的位置一个明确的定义。像一个电子表格一样，通过 headers 属性来定义单元格属于哪些行或列。为了让它工作良好，表格同时需要列和行标题。
 
+### 表单
+
+```html
+<!-- 表单中其他标签 -->
+<form action="URL" method="GET|POST">
+</form>
+```
+
+- action 属性指明将表单提交到哪个页面（跳转到哪个页面）
+- method 属性表示使用哪个方式提交数据
+  - GET：用户点击提交按钮后，提交的信息会被显示在地址栏中。如果提交的信息中包含密码，则不建议这种方式。
+  - POST：数据会传到后台，不显示在地址栏中。
+
+[C 语言中文网：表单控件](http://c.biancheng.net/view/7564.html)
+
 *[href]: Hypertext Reference
 *[codec]: 编解码器（从“coder-decoder”派生的混合词）
+
+[marking up times and dates]: https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Introduction_to_HTML/Advanced_text_formatting#%E6%A0%87%E8%AE%B0%E6%97%B6%E9%97%B4%E5%92%8C%E6%97%A5%E6%9C%9F
 
 [resolution switching]: https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images#%E5%88%86%E8%BE%A8%E7%8E%87%E5%88%87%E6%8D%A2%EF%BC%9A%E4%B8%8D%E5%90%8C%E7%9A%84%E5%B0%BA%E5%AF%B8
 
