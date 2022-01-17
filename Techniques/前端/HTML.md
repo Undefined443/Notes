@@ -581,7 +581,7 @@ img {
 
 [MDN：美术设计][art direction]
 
-美术设计问题涉及当我们在桌面浏览器上的一个网站上显示一张大的、横向的照片，照片中有个人，然后当我们在移动端浏览器上浏览这个网站时，照片会缩小，这时照片上的人会变得非常小。这种情况下我们在移动端显示一个更小的肖像图会更好，这样人物的大小看起来更合适。
+当网站在狭窄的屏幕上观看时，显示一幅图片的包含了重要细节的裁剪版本，第二个被裁剪的图片会在像平板电脑这样的中等宽度的屏幕设备上显示，这就是众所周知的美术设计问题
 
 ```html
 <picture>
@@ -657,7 +657,7 @@ img {
 
 通过 `<iframe>` 元素，可以将一个 web 页嵌入到另一个网页。很多视频网站，如 YouTube，Bilibili，以及 Google Map 都支持嵌入。通常在分享界面可以找到需要的代码。可通过 `width` 和 `height` 属性设置 iframe 的大小。
 
-通过 `<object>` 元素嵌入 PDT 文件：
+通过 `<object>` 元素嵌入 PDF 文件：
 
 ```html
 <object data="mypdf.pdf" type="application/pdf"
@@ -725,6 +725,131 @@ img {
 
 [C 语言中文网：表单控件](http://c.biancheng.net/view/7564.html)
 
+
+
+### 定义列的样式
+
+在 `<table>` 标签下，使用 `<colgroup>` 和 `<col>` 标签来定义列的样式：
+
+```html
+<table>
+  <colgroup>
+    <col>
+    <col style="background-color: yellow">
+  </colgroup>
+  <tr>
+    <th>Data 1</th>
+    <th>Data 2</th>
+  </tr>
+  <tr>
+    <td>Calcutta</td>
+    <td>Orange</td>
+  </tr>
+  <tr>
+    <td>Robots</td>
+    <td>Jazz</td>
+  </tr>
+</table>
+```
+
+一个 `<col>` 对应一列，这个表格有两列，因此这里有两个 `<col>`。
+
+#### 将样式应用到多列
+
+使用 `span` 属性，指定要将样式应用到表格多少列。
+
+```html
+<colgroup>
+  <col style="background-color: yellow" span="2">
+</colgroup>
+```
+
+#### 添加表格标题
+
+在 `<table>` 标签下插入 `<caption>` 标签：
+
+```html
+<table>
+  <caption>Dinosaurs in the Jurassic period</caption>
+
+  ...
+</table>
+```
+
+#### 表格结构化
+
+使用 `<thead>`，`<tbody>`，和 `<tfoot>` 标签包围表头，内容和表尾。
+
+表格结构化有利于更好地将 CSS 应用到表格上。
+
+> `<tbody>` 是隐式包含在表格中的。
+
+#### scope 属性
+
+为了帮助屏幕阅读器更好地理解标题单元格，应该为 `<th>` 元素增加 `scope` 属性，说明该标题是列标题还是行标题。屏幕阅读设备会识别这种结构化的标记，并一次读出整列或整行。
+
+<iframe src="https://mdn.github.io/learning-area/html/tables/advanced/spending-record-finished.html" scrolling="yes" border="0" frameborder="0" allowfullscreen="true" weith="900" height="450"> </ifame>
+
+对于上面的表格，你可以这样定义列标题：
+
+```html
+<thead>
+  <tr>
+    <th scope="col">Purchase</th>
+    <th scope="col">Location</th>
+    <th scope="col">Date</th>
+    <th scope="col">Evaluation</th>
+    <th scope="col">Cost (€)</th>
+  </tr>
+</thead>
+```
+
+以及这样的行标题：
+
+```html
+<tr>
+  <th scope="row">Haircut</th>
+  <td>Hairdresser</td>
+  <td>12/09</td>
+  <td>Great idea</td>
+  <td>30</td>
+</tr>
+```
+
+`scope` 属性还有两个可选的值：`colgroup` 和 `rowgroup`。这些用于多个列或行的标题。
+
+#### id 和 header 属性
+
+`scope` 属性也可以用 `id` 和 `header` 属性替换：
+
+1. 为每个 `<th>` 元素添加一个 `id` 属性
+2. 为每个 `<td>` 元素添加一个 `header` 属性，属性值包含它从属的所有标题的 `id`，用空格分隔。
+
+```html
+<thead>
+  <tr>
+    <th id="purchase">Purchase</th>
+    <th id="location">Location</th>
+    <th id="date">Date</th>
+    <th id="evaluation">Evaluation</th>
+    <th id="cost">Cost (€)</th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <th id="haircut">Haircut</th>
+  <td headers="location haircut">Hairdresser</td>
+  <td headers="date haircut">12/09</td>
+  <td headers="evaluation haircut">Great idea</td>
+  <td headers="cost haircut">30</td>
+</tr>
+
+  ...
+
+</tbody>
+```
+
+这会给表格中每个单元格的位置一个明确的定义。像一个电子表格一样，通过 headers 属性来定义单元格属于哪些行或列。为了让它工作良好，表格同时需要列和行标题。
 
 *[href]: Hypertext Reference
 *[codec]: 编解码器（从“coder-decoder”派生的混合词）
