@@ -91,6 +91,7 @@ python -m http.server 7800 # 默认端口为 8000
 |"|`&quot;`|
 |'|`&apos;`|
 |&|`&amp;`|
+|空格|`&nbsp;`|
 
 ### \<meta\> 元素
 
@@ -136,7 +137,9 @@ description 也被使用在搜索引擎显示的结果页中。
 ### HTML 超链接
 
 ```html
-<a href="https://mozilla.org/" title="了解 Mozilla 使命以及如何参与贡献的最佳站点" target="_blank">显示内容</a>
+<a href="xxx" title="xxx" target="_blank">显示内容</a>
+
+<a href="#">回到顶部</a>
 
 <!-- 将图像转换为链接 -->
 <a href="https://www.mozilla.org/zh-CN/">
@@ -147,22 +150,22 @@ description 也被使用在搜索引擎显示的结果页中。
 <!-- 先给要链接到的元素分配一个 id 属性 -->
 <h2 id="Mailing_address">邮寄地址</h2>
 
-<!-- 然后在 URL 的结尾使用 '#' 指向该 id -->
+<!-- 然后在 URL 的结尾使用哈希标记 '#' 指向该 id -->
 <p>要提供意见和建议，请将信件邮寄至 <a href="contacts.html#Mailing_address">我们的地址</a>。</p>
 
 <!-- 在同一文档下可以省略 URL -->
 <p>本页面底部可以找到 <a href="#Mailing_address">公司邮寄地址</a>。</p>
-
-<!-- 使用 download 属性提供下载资源的默认保存文件名 -->
-<a href="https://download.mozilla.org/?product=firefox-latest-ssl&os=win64&lang=zh-CN"
-   download="firefox-latest-64bit-installer.exe">
-  下载最新的 Firefox 中文版 - Windows（64位）
-</a>
 ```
 
-target 属性指明新页面的打开方式绝大部分情况下，target 属性要么不写，保持默认的 \_self（在当前标签页打开），要么将它的值设置为 \_blank（在新标签页打开）。
+`target` 属性
+: 指明新页面的打开方式。绝大部分情况下，target 属性要么不写，保持默认的 \_self（在当前标签页打开），要么将它的值设置为 \_blank（在新标签页打开）。
+
+`download` 属性
+: 指示浏览器下载 URL。若提供了属性值，则属性值将作为预填充文件名。
 
 #### 电子邮件链接
+
+使用 mailto 协议的 URL
 
 ```html
 <a href="mailto:nowhere@mozilla.org">向 nowhere 发邮件</a>
@@ -187,46 +190,6 @@ target 属性指明新页面的打开方式绝大部分情况下，target 属性
  根据 HTML5 的规范，标题应该用 `<h1>`~`<h6>` 标签定义，被强调的文本应该用 `<em>` 标签定义，重要的文本应该用 `<strong>` 标签定义，被标记的或者高亮显示的文本应该用 `<mark>` 标签定义。
 
 只用于改变字体样式而没有特定语义的元素称为表象元素，应尽量避免使用这类元素。
-
-####  表格
-
-```html
-<!-- 认情况下，表格是没有边框的。这里将边框宽度设置为 1px，同时利用 CSS 设置边框塌陷，使双边框变为单边框 -->
-<table border="1" style="border-collapse:collapse;">
-  <caption>表格标题</caption>
-
-  <!-- table row -->
-  <tr>
-
-    <!-- table heading -->
-    <th>名称</th>
-    <th>官网</th>
-    <th>性质</th>
-  </tr>
-  <tr>
-
-    <!-- table datacell（单元格） -->
-    <td>百度</td>
-    <td>https://www.baidu.com/</td>
-    <td>搜索</td>
-  </tr>
-  <tr>
-
-    <!-- 行合并 -->
-    <td rowspan="2">谷歌</td>
-    <td>https://www.google.com/</td>
-    <td rowspan="2">搜索</td>
-  </tr>
-  <tr>
-    <td>https://www.google.com.hk/</td>
-  </tr>
-  <tr>
-
-    <!-- 列合并 -->
-    <td colspan="3">谷歌是全世界最好的搜索引擎</td>
-  </tr>
-</table>
-```
 
 #### 列表
 
@@ -262,22 +225,6 @@ target 属性指明新页面的打开方式绝大部分情况下，target 属性
 ```
 
 [C 语言中文网：使用 CSS 修改列表样式](http://c.biancheng.net/view/9389.html)
-
-
-#### 表单
-
-```html
-<!-- 表单中其他标签 -->
-<form action="URL" method="GET|POST">
-</form>
-```
-
-- action 属性指明将表单提交到哪个页面（跳转到哪个页面）
-- method 属性表示使用哪个方式提交数据
-  - GET：用户点击提交按钮后，提交的信息会被显示在地址栏中。如果提交的信息中包含密码，则不建议这种方式。
-  - POST：数据会传到后台，不显示在地址栏中。
-
-[C 语言中文网：表单控件](http://c.biancheng.net/view/7564.html)
 
 
 #### 引用
@@ -441,52 +388,6 @@ para.onclick = function() {
 </head>
 ```
 
-### 块级元素和内联元素
-
-#### 块级元素
-
-块级元素最主要的特点是它们自己独占一行。块级元素最具代表性的就是 `<div>`，此外还有 `<p>`, `<nav>`, `<aside>`, `<header>`, `<footer>`, `<section>`, `<article>`, `<ul>`, `<address>`, `<h1>` ~ `<h6>` 等。
-
-块级元素的主要特征如下所示：
-
-- 不管是否使用换行标签，块级元素总是在新行上开始；
-- 块级元素的宽度、高度以及外边距和内边距等都可以控制；
-- 如果省略块级元素的宽度，那么它的宽度默认为当前浏览器窗口的宽度；
-- 块级元素中可以包含其它的内联元素和块级元素。
-
-#### 内联元素
-
-内联元素也可以称为行内元素，内联元素中最常用的是 `<span>`，此外还有 `<b>`, `<i>`, `<u>`, `<em>`, `<strong>`, `<sup>`, `<sub>`, `<big>`, `<small>`, `<li>`, `<ins>`, `<del>`, `<code>`, `<cite>`, `<dfn>`, `<kbd>` 和 `<var>` 等。
-
-内联元素的主要特征如下所示：
-
-- 内联元素和其他元素会在同一行上显示；
-- 内联元素的宽、高以及外边距和内边距都不可以改变；
-- 内联元素的宽度就是其中内容的宽度，且不可以改变；
-- 内联元素中只能容纳文本或者其他内联元素。
-
-对于内联元素的使用，需要注意如下几点：
-
-- 设置宽度 width 无效；
-- 设置高度 height 无效，但可以通过 line-height 来设置行高；
-- 可以设置 margin 外边距，但只对左右外边距有效，上下无效；
-- 设置 padding 内边距时，只有左右 padding 有效，上下则无效，需要注意的是元素范围是增大了，但是对元素周围的内容是没影响的；
-- 可以通过 display 属性将元素在内联元素和块级元素之间进行切换。
-
-#### 无语义元素
-
-有时候你可能只想将一组元素作为一个单独的实体来使用。为了应对这种情况，HTML提供了 `<div>` 和 `<span>` 元素。应配合使用 class 属性提供一些标签，使这些元素能易于查询。
-
-> 警告：`<div>` 非常便利但容易被滥用。由于它们没有语义值，会使 HTML 代码变得混乱。要小心使用，只有在没有更好的语义方案时才选择它，而且要尽可能少用， 否则文档的升级和维护工作会非常困难。
-
-### 布局元素
-
-- `<header>`：页眉。
-- `<nav>`：导航栏。
-- `<main>`：主内容。主内容中还可以有各种子内容区段，可用 `<article>`、`<section>` 和 `<div>` 等元素表示。
-- `<aside>`：侧边栏，经常嵌套在 `<main>` 中。
-- `<footer>`：页脚。
-
 ### HTML 文档结构
 
 ```html
@@ -535,6 +436,50 @@ para.onclick = function() {
   </body>
 </html>
 ```
+
+#### 块级元素
+
+块级元素最主要的特点是它们自己独占一行。块级元素最具代表性的就是 `<div>`，此外还有 `<p>`, `<nav>`, `<aside>`, `<header>`, `<footer>`, `<section>`, `<article>`, `<ul>`, `<address>`, `<h1>` ~ `<h6>` 等。
+
+块级元素的主要特征如下所示：
+
+- 不管是否使用换行标签，块级元素总是在新行上开始；
+- 块级元素的宽度、高度以及外边距和内边距等都可以控制；
+- 如果省略块级元素的宽度，那么它的宽度默认为当前浏览器窗口的宽度；
+- 块级元素中可以包含其它的内联元素和块级元素。
+
+#### 内联元素
+
+内联元素也可以称为行内元素，内联元素中最常用的是 `<span>`，此外还有 `<b>`, `<i>`, `<u>`, `<em>`, `<strong>`, `<sup>`, `<sub>`, `<big>`, `<small>`, `<li>`, `<ins>`, `<del>`, `<code>`, `<cite>`, `<dfn>`, `<kbd>` 和 `<var>` 等。
+
+内联元素的主要特征如下所示：
+
+- 内联元素和其他元素会在同一行上显示；
+- 内联元素的宽、高以及外边距和内边距都不可以改变；
+- 内联元素的宽度就是其中内容的宽度，且不可以改变；
+- 内联元素中只能容纳文本或者其他内联元素。
+
+对于内联元素的使用，需要注意如下几点：
+
+- 设置宽度 width 无效；
+- 设置高度 height 无效，但可以通过 line-height 来设置行高；
+- 可以设置 margin 外边距，但只对左右外边距有效，上下无效；
+- 设置 padding 内边距时，只有左右 padding 有效，上下则无效，需要注意的是元素范围是增大了，但是对元素周围的内容是没影响的；
+- 可以通过 display 属性将元素在内联元素和块级元素之间进行切换。
+
+#### 无语义元素
+
+有时候你可能只想将一组元素作为一个单独的实体来使用。为了应对这种情况，HTML提供了 `<div>` 和 `<span>` 元素。应配合使用 class 属性提供一些标签，使这些元素能易于查询。
+
+> 警告：`<div>` 非常便利但容易被滥用。由于它们没有语义值，会使 HTML 代码变得混乱。要小心使用，只有在没有更好的语义方案时才选择它，而且要尽可能少用， 否则文档的升级和维护工作会非常困难。
+
+#### 布局元素
+
+- `<header>`：页眉。
+- `<nav>`：导航栏。
+- `<main>`：主内容。主内容中还可以有各种子内容区段，可用 `<article>`、`<section>` 和 `<div>` 等元素表示。
+- `<aside>`：侧边栏，经常嵌套在 `<main>` 中。
+- `<footer>`：页脚。
 
 [MDN：文档与网站结构](https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Introduction_to_HTML/Document_and_website_structure)
 
@@ -591,9 +536,50 @@ p {
 
 #### 响应式图片
 
+##### 分辨率切换：不同的尺寸
+
+[MDN：分辨率切换][resolution switching]
+
+我们想要显示相同的图片内容，仅仅依据设备来显示更大或更小的图片。
+
+```html
+<img srcset="elva-fairy-320w.jpg 320w,
+             elva-fairy-480w.jpg 480w,
+             elva-fairy-800w.jpg 800w"
+     sizes="(max-width: 320px) 280px,
+            (max-width: 480px) 440px,
+            800px"
+     src="elva-fairy-800w.jpg" alt="Elva dressed as a fairy">
+```
+
+`srcset` 属性
+: 定义可选择的图像集，以及每个图像的宽度（像素）。注意宽度的单位是 w。
+
+`sizes` 属性
+: 定义了一组媒体条件，以及当媒体条件为真时图像将填充的槽的宽度。最后一个槽的宽度是默认值，没有媒体条件。槽的宽度的单位可以是 `px`，`em` 或 `vw`。
+
+##### 分辨率切换：相同的尺寸
+
+```html
+<img srcset="elva-fairy-320w.jpg,
+             elva-fairy-480w.jpg 1.5x,
+             elva-fairy-640w.jpg 2x"
+     src="elva-fairy-640w.jpg" alt="Elva dressed as a fairy">
+```
+
+```css
+img {
+  width: 320px;
+}
+```
+
+浏览器将计算显示器的分辨率，然后选择 `srcset` 提供的最适合的图像。如果显示器具有标准/低分辨率，一个显示器像素表示一个 CSS 像素，将加载 320w 版本图像（1x 是默认值，不用写出来）。如果显示器有高分辨率，两个或更多的显示器像素表示一个 CSS 像素，将加载 640w 版本的图像。
+
+通过 [tinypng.com](https://tinypng.com/) 优化图片大小
+
 ##### 美术设计
 
-[MDN：美术设计](https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images#%E7%BE%8E%E6%9C%AF%E8%AE%BE%E8%AE%A1)
+[MDN：美术设计][art direction]
 
 美术设计问题涉及当我们在桌面浏览器上的一个网站上显示一张大的、横向的照片，照片中有个人，然后当我们在移动端浏览器上浏览这个网站时，照片会缩小，这时照片上的人会变得非常小。这种情况下我们在移动端显示一个更小的肖像图会更好，这样人物的大小看起来更合适。
 
@@ -606,8 +592,6 @@ p {
 ```
 
 在 `<picture>` 标签中包含零个或多个 `<source>` 标签，通过 `<source>` 标签中的 `media` 属性设定匹配条件（允许哪个版本的图片显示），通过 `srcset` 属性定义图片的路径。另外，在 `<picture>` 标签的最后还需要定义一个 `<img>` 标签，表示默认选项。
-
-[MDN：响应式图片](https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images)
 
 #### 图像映射
 
@@ -664,14 +648,14 @@ p {
 </video>
 ```
 
-[MDN：其他 \<video\> 属性](https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Multimedia_and_embedding/Video_and_audio_content#%E5%85%B6%E4%BB%96_%3Cvideo%3E_%E7%89%B9%E6%80%A7)
+[MDN：其他 \<video\> 属性][other video features]
 
-[MDN：显示音轨文本](https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Multimedia_and_embedding/Video_and_audio_content#%E6%98%BE%E7%A4%BA%E9%9F%B3%E8%BD%A8%E6%96%87%E6%9C%AC)
+[MDN：显示音轨文本][displaying video text tracks]
 
 
 ### 其他嵌入技术
 
-通过 `<iframe>` 元素，可以将一个 web 页嵌入到另一个网页。很多视频网站，如 YouTube，Bilibili，以及 Google Map 都支持嵌入。通常在分享界面可以找到需要的代码。
+通过 `<iframe>` 元素，可以将一个 web 页嵌入到另一个网页。很多视频网站，如 YouTube，Bilibili，以及 Google Map 都支持嵌入。通常在分享界面可以找到需要的代码。可通过 `width` 和 `height` 属性设置 iframe 的大小。
 
 通过 `<object>` 元素嵌入 PDT 文件：
 
@@ -682,7 +666,75 @@ p {
 </object>
 ```
 
-[MDN：其他嵌入技术](https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Multimedia_and_embedding/Other_embedding_technologies)
+[MDN：其他嵌入技术][other embedding technologies]
+
+## HTML 表格
+
+```html
+<!-- 认情况下，表格是没有边框的。这里将边框宽度设置为 1px，同时利用 CSS 设置边框塌陷，使双边框变为单边框 -->
+<table border="1" style="border-collapse:collapse;">
+  <caption>表格标题</caption>
+
+  <!-- table row -->
+  <tr>
+
+    <!-- table header -->
+    <th>名称</th>
+    <th>官网</th>
+    <th>性质</th>
+  </tr>
+  <tr>
+
+    <!-- table data -->
+    <td>百度</td>
+    <td>https://www.baidu.com/</td>
+    <td>搜索</td>
+  </tr>
+  <tr>
+
+    <!-- 行合并 -->
+    <td rowspan="2">谷歌</td>
+    <td>https://www.google.com/</td>
+    <td rowspan="2">搜索</td>
+  </tr>
+  <tr>
+    <td>https://www.google.com.hk/</td>
+  </tr>
+  <tr>
+
+    <!-- 列合并 -->
+    <td colspan="3">谷歌是全世界最好的搜索引擎</td>
+  </tr>
+</table>
+```
+
+`<th>` 用法和 `<td>` 是一样的，除了它表示为标题，不是普通的单元格。
+
+### 表单
+
+```html
+<!-- 表单中其他标签 -->
+<form action="URL" method="GET|POST">
+</form>
+```
+
+- action 属性指明将表单提交到哪个页面（跳转到哪个页面）
+- method 属性表示使用哪个方式提交数据
+  - GET：用户点击提交按钮后，提交的信息会被显示在地址栏中。如果提交的信息中包含密码，则不建议这种方式。
+  - POST：数据会传到后台，不显示在地址栏中。
+
+[C 语言中文网：表单控件](http://c.biancheng.net/view/7564.html)
+
 
 *[href]: Hypertext Reference
 *[codec]: 编解码器（从“coder-decoder”派生的混合词）
+
+[resolution switching]: https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images#%E5%88%86%E8%BE%A8%E7%8E%87%E5%88%87%E6%8D%A2%EF%BC%9A%E4%B8%8D%E5%90%8C%E7%9A%84%E5%B0%BA%E5%AF%B8
+
+[art direction]: https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images#%E7%BE%8E%E6%9C%AF%E8%AE%BE%E8%AE%A1
+
+[other embedding technologies]: https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Multimedia_and_embedding/Other_embedding_technologies
+
+[other video features]: https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Multimedia_and_embedding/Video_and_audio_content#%E5%85%B6%E4%BB%96_%3Cvideo%3E_%E7%89%B9%E6%80%A7
+
+[displaying video text tracks]: https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Multimedia_and_embedding/Video_and_audio_content#%E6%98%BE%E7%A4%BA%E9%9F%B3%E8%BD%A8%E6%96%87%E6%9C%AC
