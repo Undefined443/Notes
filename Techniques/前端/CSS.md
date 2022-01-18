@@ -116,15 +116,54 @@ a:hover {
 }
 ```
 
-#### 专一性
+### 冲突规则
 
-CSS语言有规则来控制在发生冲突时哪条规则将获胜——这些规则称为级联规则和专用规则。
+#### Cascade（层叠）
 
-专用规则
-: 当两规则发生冲突时，更具特异性的规则将起作用。
+当应用两条同级别的规则到一个元素的时候，写在后面的就是实际使用的规则。
 
-级联规则
-: 当两冲突的规则具有相同的特异性时，后声明的规则将起作用。
+#### Specificity（优先级）
+
+当多个规则有不同选择器对应相同的元素时，优先级高的规则会被使用。
+
+优先级排序：
+
+1. 内联样式的声明优先级最高
+2. ID 选择器
+3. 类选择器、属性选择器或伪类选择器
+4. 元素选择器、伪元素选择器
+
+通用选择器 `*`，组合符 `+`，`>`，`~`，` ` 和否定伪类 `:not` 不会影响优先级。
+
+[MDN：优先级计算规则][specificity]
+
+#### !important
+
+`!important` 可以用来覆盖所有上面所有优先级计算，不过需要很小心的使用。`!important` 用于修改特定属性的值， 能够覆盖普通规则的层叠。
+
+```css
+border: none !important
+```
+
+#### Inheritance（继承）
+
+一些设置在父元素上的 css 属性是可以被子元素继承的，有些则不能。CSS 为控制继承提供了四个特殊的通用属性值。每个 css 属性都接收这些值。
+
+`inherit`
+: 设置该属性会使子元素属性和父元素相同。实际上，就是“开启继承”。
+
+`initial`
+: 设置属性值和浏览器默认样式相同。如果浏览器默认样式中未设置且该属性是自然继承的，那么会设置为 `inherit`。
+
+`unset`
+: 将属性重置为自然值，也就是如果属性是自然继承那么就是 `inherit`，否则和 `initial` 一样
+
+`revert`
+: 见 [MDN: revert](https://developer.mozilla.org/en-US/docs/Web/CSS/revert)
+
+#### 重设所有属性值
+
+CSS 的 shorthand 属性 `all` 可以用于同时将这些继承值中的一个应用于（几乎）所有属性。它的值可以是其中任意一个（`inherit`，`initial`，`unset`，或 `revert`）。这是一种撤销对样式所做更改的简便方法，以便回到之前已知的起点。
 
 ### 函数
 
@@ -168,6 +207,8 @@ padding-top: 10px;
 padding-right: 15px;
 padding-bottom: 15px;
 padding-left: 5px;
+
+/* ------------------------------------------------------------------------- */
 
 background: red url(bg-graphic.png) 10px 10px repeat-x fixed;
 
@@ -221,7 +262,7 @@ background-attachment: fixed;
  */
 ```
 
-### 当浏览器遇到无法解析的 CSS 代码会发生什么
+### 当浏览器遇到无法解析的 CSS 代码时会发生什么
 
 浏览器会直接跳过无法解析的部分，继续解析剩下的部分。正是由于这个原因，我们可以为同一个元素指定多个 CSS 样式来解决有些浏览器不兼容新特性的问题。举例来说，一些老的浏览器不接收 `calc()` 作为一个值。我可能使用它结合像素为一个元素设置了动态宽度，老式的浏览器由于无法解析忽略这一行；新式的浏览器则会把这一行解析成像素值，并且覆盖第一行指定的宽度。
 
@@ -242,16 +283,27 @@ background-attachment: fixed;
 
 > 中文字体文件较大，不适合直接用于 Web Font 。
 
-#### 常用规则
+#### 常用属性
 
-```css
-html {
-  font-size: 14px;     /* 字号 */
-  text-align: center;  /* 文本对齐 */
-  line-height: 2;      /* 行高；当值为数字 n 时行高就是字体大小乘 n */
-  letter-spacing: 1px; /* 字间距 */
-}
-```
+`font-family`
+
+`font-size`
+
+`text-align`：文本对齐，`center`
+
+`line-height`：行高。当值为数字 n 时行高就是字体大小乘 n。
+
+`letter-spacing`：字间距
+
+`font-style`：设置斜体 `italic`
+
+`color`
+
+`border-bottom`
+
+`font-weight`：设置粗体 `bold`
+
+`text-decoration`：设置波浪线 `underline wavy green`
 
 ### CSS 的盒模型布局
 
@@ -296,3 +348,5 @@ img {
 [reference table of selectors]: https://developer.mozilla.org/zh-CN/docs/Learn/CSS/Building_blocks/Selectors#%E9%80%89%E6%8B%A9%E5%99%A8%E5%8F%82%E8%80%83%E8%A1%A8
 
 [functions]: https://developer.mozilla.org/zh-CN/docs/Learn/CSS/First_steps/How_CSS_is_structured#%E5%87%BD%E6%95%B0
+
+[specificity]: https://developer.mozilla.org/zh-CN/docs/Learn/CSS/Building_blocks/Cascade_and_inheritance#%E4%BC%98%E5%85%88%E7%BA%A7_2
