@@ -42,19 +42,6 @@
 
 这个整体称作规则（集）。
 
-#### 选择器的类型
-
-| 选择器名称                | 选择的内容                               | 示例                                                                   |
-| ------------------------- | ---------------------------------------- | ---------------------------------------------------------------------- |
-| 元素选择器  | 所有指定类型的 HTML 元素                 | `p`<br />选择 `<p>`                                                    |
-| ID 选择器                 | 具有指定 ID 的元素                       | `#my-id`<br />选择 `<p id="my-id">`                |
-| 类选择器                  | 具有特定类的元素                         | `.my-class` 或 `p.my-class`<br />选择 `<p class="my-class">` |
-| 属性选择器                | 拥有特定属性的元素                       | `img[src]` 或 `img[src=myimage.png]`<br />选择 `<img src="myimage.png">`         |
-| 伪类选择器      | 特定状态下的特定元素（比如鼠标指针悬停） | `a:hover`<br />仅在鼠标指针悬停在链接上时选择 `<a>`                    |
-| 伪元素选择器 |一个元素的某个部分|`p::first-line`<br />选择 `<p>` 中的第一行|
-
-选择器的种类远不止于此，更多信息请参阅 [MDN：选择器参考表][reference table of selectors]。
-
 #### 选择器列表
 
 ```css
@@ -71,48 +58,179 @@ h1,
 
 如果任何一个选择器无效（存在语法错误），那么整条规则都会被忽略。
 
-#### 根据元素在文档中的位置确定样式
-
-##### 使用包含选择符
-
-包含选择符是一个空格
-
-选择 `<li>` 内部的所有 `<em>` 元素：
+#### 类选择器
 
 ```css
-li em {
-  color: rebeccapurple;
-}
+/* 选择属于指定类的所有元素 */
+.special
+
+/* 选中属于指定类的指定元素 */
+p.special
+
+/* 选择同时属于多个类的所有元素 */
+.note.warning
 ```
 
-##### 使用相邻选择符
-
-相邻选择符是 `+`
-
-选择直接出现在 `<h1>` 后面并且与 `<h1>` 具有相同层级的 `<p>`：
+#### ID 选择器
 
 ```css
-h1 + p {
-  font-size: 200%;
-}
+/* 选择具有指定 ID 的元素 */
+#heading
+
+/* 选择元素类型和 ID 都匹配的元素 */
+h1#heading
 ```
 
-#### 根据状态确定样式
+> ID 选择器的优先级较高，不太方便处理。大多数情况下使用类选择器会更好。
+
+#### 属性选择器
+
+```css
+/* 选择具有指定属性的元素 */
+a[title]
+
+/* 选择具有指定属性及属性值的元素 */
+a[href="https://example.com"]
+
+/* 选择具有指定属性及属性值的元素，或多个属性值中有一个与给定值匹配的元素 */
+p[class~="special"]
+
+/* 选择具有指定属性及属性值的元素，或属性值的开始为给定值，后面紧随着一个连字符的元素 */
+div[lang|="zh"]
+```
+
+##### 子字符串匹配选择器
+
+```css
+/* 选择属性值前缀为给定值的元素 */
+li[class^="box-"]
+
+/* 选择属性值后缀为给定值的元素 */
+li[class$="-box"]
+
+/* 选择属性值包含给定子串的元素 */
+li[class*="box"]
+```
+
+##### 大小写不敏感
+
+在闭合括号之前使用 `i` 值。
+
+```css
+/* Case-insensitivity */
+li[class^="a" i]
+```
+
+> 还有一个 `s` 值，会强制要求大小写敏感。不过 HTML 文档默认就是大小写敏感的。
+
+#### 伪类选择器
+
+伪类选择器用于选择处于特定状态的元素。它们选中你的文档中处于某种状态的元素，表现得就像是你已经给它们设定了类一样。
+
+伪类就是开头为冒号的关键字：
+
+```css
+:pseudo-class-name
+```
+
+```css
+/* 选择 <article> 下的第一个 <p> 元素 */
+/* 作用相当于给第一个 <p> 元素设定类 */
+article p:first-child
+```
+
+类似的伪类还有 `:last-child`，`:only-child`，`:nth-child(an+b)`
+
+##### 用户行为伪类
 
 ```css
 /* 没有被访问的链接的样式 */
-a:link {
-  color: pink;
-}
+a:link
 
 /* 访问过的链接的样式 */
-a:visited {
-  color: green;
-}
+a:visited
 
 /* 链接被鼠标悬停的时候的样式 */
-a:hover {
-  text-decoration: none;
+a:hover
+```
+
+#### 伪元素选择器
+
+伪元素以类似的方式表现，不过表现得是像你往标记文本中加入新的 HTML 元素一样，而不是向现有的元素设定类。伪元素开头为双冒号 `::`。
+
+```css
+::pseudo-element-name
+```
+
+```css
+/* 选中某一段的第一行 */
+/* 作用相当于使用 <span> 包围第一行 */
+article p::first-line
+```
+
+##### 通过 ::before 和 ::after 生成内容
+
+有一组特殊的伪元素，它们和 `content` 属性一同使用，将内容插入到你的文档中。
+
+这些伪元素更推荐的用法是插入一个图标，比如加入一个小箭头，作为一个视觉性的提示，而且我们并不希望屏幕阅读器读出它：
+
+```css
+.box::after {
+  content: " ➥"
+}
+```
+
+[MDN：Generating content with ::before and ::after][generating content with ::before and ::after]
+
+[伪类和伪元素 Reference][reference section]
+
+#### 关系选择器
+
+##### 后代选择器
+
+选择作为某元素后代的元素。
+
+```css
+li em
+```
+
+##### 子代选择器
+
+选择指定元素的第一代子元素。
+
+```css
+div > span
+```
+
+##### 相邻兄弟选择器
+
+当第二个元素紧跟在第一个元素之后，并且两个元素都是属于同一个父元素的子元素时，第二个元素将被选中。
+
+```css
+h1 + p
+```
+
+##### 通用兄弟选择器
+
+位置无须紧邻，只须同层级。
+
+```css
+p ~ span
+```
+
+##### 全局选择器
+
+全局选择器可以让选择器更易读：
+
+```css
+/* 容易和 article:first-child 混淆 */
+article :first-child {
+  ...
+}
+
+/* 避免混淆 */
+article *:first-child {
+  ...
 }
 ```
 
@@ -350,3 +468,7 @@ img {
 [functions]: https://developer.mozilla.org/zh-CN/docs/Learn/CSS/First_steps/How_CSS_is_structured#%E5%87%BD%E6%95%B0
 
 [specificity]: https://developer.mozilla.org/zh-CN/docs/Learn/CSS/Building_blocks/Cascade_and_inheritance#%E4%BC%98%E5%85%88%E7%BA%A7_2
+
+[generating content with ::before and ::after]: https://developer.mozilla.org/zh-CN/docs/Learn/CSS/Building_blocks/Selectors/Pseudo-classes_and_pseudo-elements#%E7%94%9F%E6%88%90%E5%B8%A6%E6%9C%89before%E5%92%8Cafter%E7%9A%84%E5%86%85%E5%AE%B9
+
+[reference section]: https://developer.mozilla.org/zh-CN/docs/Learn/CSS/Building_blocks/Selectors/Pseudo-classes_and_pseudo-elements#%E5%8F%82%E8%80%83%E8%8A%82
