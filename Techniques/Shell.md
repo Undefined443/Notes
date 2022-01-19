@@ -1,5 +1,13 @@
 # Shell
 
+## 以 root 账户登录 Shell
+
+```bash
+sudo su
+```
+
+sudo: superuser do
+
 ## 执行 Shell 脚本
 
 ```bash

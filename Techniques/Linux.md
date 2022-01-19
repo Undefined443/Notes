@@ -162,6 +162,10 @@ autojump 用法：`j dir` 跳转到 dir
 
 在 settings.json 中加入 `"terminal.integrated.fontFamily": "Menlo for Powerline"`，或搜索 `Terminal: font` 设置，在 Font Family 栏下填入：Menlo for Powerline
 
+### Could not get lock 问题
+
+[CSDN: Could not get lock /var/lib/dpkg/lock-frontend](https://blog.csdn.net/lun55423/article/details/108907779)
+
 ### github.com:443
 
 很多程序的安装脚本都在 GitHub 上，比如这条命令：
