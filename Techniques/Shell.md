@@ -319,8 +319,9 @@ vi # 使用 vim 编辑文件
 
 q # 退出
 
-cat <file> # 查看文件内容
+cat <file>    # 查看文件内容
 cat -n <file> # 显示行号
+type <file>   # cmd 中的 cat
 
 head -n 5 <file> # 显示 file 前 5 行内容
 tail -n 5 <file> # 显示 file 后 5 行内容
