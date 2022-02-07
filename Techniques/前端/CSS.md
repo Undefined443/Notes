@@ -1,8 +1,8 @@
 # CSS
 
-## CSS 基础
+## CSS 第一步
 
-[MDN：CSS 基础](https://developer.mozilla.org/zh-CN/docs/Learn/CSS/First_steps/How_CSS_is_structured)
+[MDN：如何构建 CSS](https://developer.mozilla.org/zh-CN/docs/Learn/CSS/First_steps/How_CSS_is_structured)
 
 层叠样式表（Cascading Style Sheet）
 
@@ -153,9 +153,21 @@ li[class^="a" i]
 /* 选择 <article> 下的第一个 <p> 元素 */
 /* 作用相当于给第一个 <p> 元素设定类 */
 article p:first-child
+
+/* 其他伪类 */
+:last-child
+:only-child
+:nth-child(an+b)
+:nth-last-child(an+b)
+
+:first-of-type
+:last-of-type
+:only-of-type
+:nth-of-type
+:nth-last-of-type
 ```
 
-类似的伪类还有 `:last-child`，`:only-child`，`:nth-child(an+b)`
+[MDN: Pseudo-classes][pseudo-classes]
 
 ##### 用户行为伪类
 
@@ -166,8 +178,14 @@ a:link
 /* 访问过的链接的样式 */
 a:visited
 
+/* 当元素获得焦点时的样式 */
+a:focus
+
 /* 链接被鼠标悬停的时候的样式 */
 a:hover
+
+/* 连接被点击时的样式 */
+a:active
 ```
 
 #### 伪元素选择器
@@ -182,6 +200,10 @@ a:hover
 /* 选中某一段的第一行 */
 /* 作用相当于使用 <span> 包围第一行 */
 article p::first-line
+
+/* 其他常见伪元素 */
+::first-letter
+::selection /* 当前光标双击选中的文本 */
 ```
 
 ##### 通过 ::before 和 ::after 生成内容
@@ -193,6 +215,20 @@ article p::first-line
 ```css
 .box::after {
   content: " ➥"
+}
+```
+
+这些伪元素也经常被用于插入空字符串，然后像页面中的其他元素一样样式化：
+
+```css
+/* 插入一个链接图标 */
+a::after {
+  content: "";
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  background-image: url(img.png);
+  background-size: contain;
 }
 ```
 
@@ -312,9 +348,9 @@ body {
 }
 ```
 
-### 简写属性
+### 速记属性
 
-一些属性，如 `font`，`background`，`padding`，`border`，以及 `margin` 等属性称为简写属性——这是因为它们允许您在一行中设置多个属性值，从而节省时间并使代码更整洁。
+一些属性，如 `font`，`background`，`padding`，`border`，以及 `margin` 等属性称为速记属性——这是因为它们允许您在一行中设置多个属性值，从而节省时间并使代码更整洁。
 
 ```css
 /* 在像 padding 和 margin 这样的 4 值简写中，数值的应用顺序是上、右、下、左（从顶部顺时针）。也有其他的简写类型，例如 2 值简写，先上/下，然后是左/右。 */
@@ -391,68 +427,6 @@ background-attachment: fixed;
 }
 ```
 
-### 字体和文本
-
-要选择一种字体，打开 Google Fonts，选择一个 font family，选择其中具体的 style，然后在右侧边栏中拷贝 Google 给出的代码片段分别加入 HTML 和 CSS 文件。
-
-[Google Fonts](https://www.google.com/fonts)
-
-[阿里字体素材平台](https://www.taobao.com/markets/fuwu/fontmarket_freefonts)
-
-> 中文字体文件较大，不适合直接用于 Web Font 。
-
-#### 常用属性
-
-`font-family`
-
-`font-size`
-
-`text-align`：文本对齐，`center`
-
-`line-height`：行高。当值为数字 n 时行高就是字体大小乘 n。
-
-`letter-spacing`：字间距
-
-`font-style`：设置斜体 `italic`
-
-`color`
-
-`border-bottom`
-
-`font-weight`：设置粗体 `bold`
-
-`text-decoration`：设置波浪线 `underline wavy green`
-
-```css
-/* 更改页面颜色 */
-html {
-  background-color: #00539F;      /* 设置页面背景色 */
-}
-
-/* 文档体格式设置 */
-body {
-  width: 600px;                   /* 强制页面保持 600px 宽 */
-  margin: 0 auto;                 /* 设置上边和下边的外边距为 0，左边和右边的外边距为 auto（居中） */
-  background-color: #FF9500;      /* body 的背景色 */
-  padding: 0 20px 20px 20px;      /* 设置上、右、下、左内边距 */
-  border: 5px solid black;        /* 设置 5 像素的黑色实线边框 */
-}
-
-/* 定位页面主标题并添加样式 */
-h1 {
-  margin: 0;
-  padding: 20px 0;
-  color: #00539F;
-  text-shadow: 3px 3px 1px black; /* 文本阴影；阴影右移 3px，下移 3px，模糊半径 1px，阴影基色为黑色。 */
-}
-
-/* 图像居中 */
-img {
-  display: block;                 /* 图片是内联元素，需要先给予其块级行为 */
-  margin: 0 auto;                 /* 图像居中 */
-}
-```
-
 ### 盒模型
 
 ![图片](https://media.prod.mdn.mozit.cloud/attachments/2019/03/19/16558/29c6fe062e42a327fb549a081bc56632/box-model.png)
@@ -473,7 +447,9 @@ Margin box
 
 ![图片](https://media.prod.mdn.mozit.cloud/attachments/2019/03/19/16559/d7dbf772b414a2c96d8ac362c15ed352/standard-box-model.png)
 
-标准盒模型中 `width` 和 `height` 设置的是 *content box* 的大小。盒子的实际大小是 padding 加 border 再加 content box。
+标准盒模型中 `width` 和 `height` 设置的是 *content* 的大小。盒子的实际大小是 padding 加 border 再加 content。
+
+标准盒模型的属性值就是 `content-box`。
 
 #### 替代（IE）盒模型
 
@@ -598,21 +574,19 @@ background-attachment: fixed;  /* 背景固定在窗口上 */
 background-attachment: local;  /* 背景固定在元素上 */
 ```
 
-#### 使用 background 简写属性
+#### 使用 background 速记属性
 
-简写背景属性时的规则：
+`background` 属性可以让你一次设置所有不同的背景属性。使用多重背景时，使用逗号分隔各背景的属性值。使用 `background` 速记属性时的规则：
 
-- `background-color` 只能在逗号之后指定。
-- `background-size` 只能出现在背景位置之后，用 `/` 分隔，例如：`center/80%`。
-
-如果使用多个背景，则需要为第一个背景指定所有普通属性，然后在逗号后面添加下一个背景。
+- `background-color` 只能在最后一个逗号之后指定。
+- `background-size` 只能在 `background-position` 之后指定，并用 `/` 分隔，例如：`center / 80%`。
 
 ```css
 .box {
   background:   
-    linear-gradient(105deg, rgba(255,255,255,.2) 39%, rgba(51,56,57,1) 96%) center center / 400px 200px no-repeat,
-    url(big-star.png) center no-repeat,
-    rebeccapurple;
+    linear-gradient(105deg, rgba(255,255,255,.2) 39%, rgba(51,56,57,1) 96%) center center / 400px 200px no-repeat, /* 第一层背景是一个线性渐变 */
+    url(big-star.png) center no-repeat, /* 第二层背景是一个图像 */
+    rebeccapurple; /* 第三层背景是纯色背景，必须放在最后 */
 }
 ```
 
@@ -652,11 +626,11 @@ border-top-right-radius: 1em 10%; /* 指定特定角的圆角半径 */
 
 水平书写模式下的两种维度：
 
-![](https://media.prod.mdn.mozit.cloud/attachments/2020/03/18/17148/62e403b26b1d5dfd83bcd3bd67103f71/horizontal-tb-zh.png)
+![图片](https://media.prod.mdn.mozit.cloud/attachments/2020/03/18/17148/62e403b26b1d5dfd83bcd3bd67103f71/horizontal-tb-zh.png)
 
 纵向书写模式下的两种维度：
 
-![](https://media.prod.mdn.mozit.cloud/attachments/2020/03/18/17149/3820ee48cbd374006fbde6b9b91d8263/vertical-zh.png)
+![图片](https://media.prod.mdn.mozit.cloud/attachments/2020/03/18/17149/3820ee48cbd374006fbde6b9b91d8263/vertical-zh.png)
 
 #### 逻辑属性
 
@@ -672,8 +646,6 @@ CSS中布满了**物理位置**的关键词，比如 `top`、`right`、`bottom` 
 
 ### 溢出
 
-#### overflow 属性
-
 overflow 属性用来控制一个元素溢出的方式。
 
 `visible`——默认
@@ -683,7 +655,7 @@ overflow 属性用来控制一个元素溢出的方式。
 : 将溢出的内容隐藏
 
 `scroll`
-: x 轴和 y 轴滚动条将永远显示在盒子中，不论是否有溢出。可以使用 `overflow-y` 属性，设置 `overflow-y: scroll` 来仅在 y 轴方向滚动。也可以使用简写属性：`overflow: hidden scroll`。
+: x 轴和 y 轴滚动条将永远显示在盒子中，不论是否有溢出。可以使用 `overflow-y` 属性，设置 `overflow-y: scroll` 来仅在 y 轴方向滚动。也可以使用速记属性：`overflow: hidden scroll`。
 
 `auto`
 : 只有在发生溢出时才显示滚动条。
@@ -710,12 +682,12 @@ CSS 值倾向于使用尖括号表示：`<color>`，CSS 值也被称为数据类
 ##### 相对长度单位
 
 |单位|相对于|
-|:---:|---|
+|:---:|:---|
 |`em`|在 font-size 中使用是相对于父元素的字体大小，在其他属性中使用是相对于自身的字体大小，如 width。|
 |`x`|字符“x”的高度|
 |`ch`|数字“0”的宽度|
 |`rem`|根元素的字体大小|
-|`lh`|元素的line-height|
+|`lh`|元素的 line-height|
 |`vw`|视窗宽度的百分比|
 |`vh`|视窗高度的百分比|
 |`vmin`|视窗较小尺寸的百分比|
@@ -723,7 +695,7 @@ CSS 值倾向于使用尖括号表示：`<color>`，CSS 值也被称为数据类
 
 ###### em 和 rem
 
-在排版属性中 em 单位的意思是“父元素的字体大小”（font size of the element）。而 rem 单位的意思是“根元素的字体大小”（font size of the root element）即 html 元素的字体大小（默认为 16px）。
+在排版属性中 em 单位的意思是“父元素的字体大小”（font size of the element）。而 rem 单位的意思是“根元素的字体大小”（font size of the root element）即 `<html>` 元素的字体大小（默认为 16px）。
 
 #### percentage
 
@@ -870,7 +842,487 @@ textarea {
 
 ### 样式化表格
 
+#### 间距和布局
 
+```css
+/* spacing */
+
+table {
+  table-layout: fixed; /* 控制列的宽度由列标题决定 */
+  width: 100%;
+  border-collapse: collapse;
+  border: 3px solid purple;
+}
+
+
+/* 分别控制各列的宽度 */
+thead th:nth-child(1) {
+  width: 30%;
+}
+
+thead th:nth-child(2) {
+  width: 20%;
+}
+
+thead th:nth-child(3) {
+  width: 15%;
+}
+
+thead th:nth-child(4) {
+  width: 35%;
+}
+
+/* 设置 padding */
+th, td {
+  padding: 20px;
+}
+```
+
+#### 斑马条纹图案
+
+```css
+tbody tr:nth-child(odd) {
+  background-color: #ff33cc;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #e495e4;
+}
+
+table {
+  background-color: #ff33cc;
+}
+```
+
+#### 样式化标题
+
+```css
+caption-side: bottom; /* 设置标题的位置 */
+font-style: italic;
+text-align: center;
+letter-spacing: 1px;
+```
+
+### 调试 CSS
+
+[MDN：调试 CSS](https://developer.mozilla.org/zh-CN/docs/Learn/CSS/Building_blocks/Debugging_CSS)
+
+有时，当您停止思考问题时，解决方案就会神奇地出现，即使没有出现，在感到清爽的时候解决起问题来要容易很多。
+
+[HTML 验证器](https://validator.w3.org/)
+
+[CSS 验证器](https://jigsaw.w3.org/css-validator/)
+
+### 组织 CSS
+
+[MDN：组织 CSS](https://developer.mozilla.org/zh-CN/docs/Learn/CSS/Building_blocks/Organizing)
+
+## 样式化文字
+
+### 字体
+
+#### 网页安全字体
+
+有些字体在几乎任何机器上都可用，它们叫做网页安全字体（Web Safe Fonts）：
+
+|字体名称|范型|注意|
+|:---:|:---:|:---|
+|Arial|sans-serif|建议同时添加 Helvetica 作为优于 Arial 的首选字体，它们的字体几乎相同，但 Helvetica 有更好的形状，而 Arial 应用更广泛。|
+|Courier New|monospace|一些操作系统有 Courier New 的替代（可能是更老的）版本叫 Courier。建议同时使用两种字体，并将 Courier New 作为首选。|
+|Georgia|serif||
+|Times New Roman|serif|一些操作系统有 Times New Roman 的替代（可能是更老的）版本叫 Times。建议同时使用两种字体，并将 Times New Roman 作为首选|
+|Trebuchet MS|sans-serif|这种字体在移动操作系统上并不广泛|
+|Verdana|sans-serif||
+
+[cssfontstack.com](https://www.cssfontstack.com) 维护了一个可用在 Windows 和 MacOS 上的网页安全字体的列表
+
+#### 默认字体
+
+CSS 定义了 5 个通用字体名称：serif（有衬线），sans-serif（无衬线），monospace（等宽），cursive（手写）和 fantasy（装饰）。当使用这些通用名称时，不同的浏览器在不同的系统上使用的实际字体会有所不同。serif，sans-serif 和 monospace 比较好预测，而 cursive 和 fantasy 不太好预测。
+
+> sans 是法语，意为 “无” 。
+
+#### 字体栈
+
+```css
+font-family: "Trebuchet MS", Verdana, sans-serif;
+```
+
+为 `font-family` 属性提供一系列字体，浏览器将从第一个字体开始，逐个检查可用的字体。在字体栈的最后应该提供一个通用字体名，这样即使栈中的字体都不可用，浏览器也能选择一个相对合适的选择。
+
+> 有些字体名包含不止一个单词，这时需要用引号包裹。
+
+#### 字体样式，字体粗细，文本转换和文本装饰
+
+`font-style`
+: 打开和关闭文本 italic。将属性值设置为 italic 来打开斜体。
+
+`font-weight`
+: 设置文字的粗细。
+: normal, bold, light, extrabold, black
+: lighter, bolder：比父元素更细，更粗
+: 100-900:数值粗体值
+
+`text-transform`
+: 允许你设置要转换的字体
+: none：防止任何转型
+: uppercase：将所有文本转为大写
+: capitalize：所有单词首字母大写
+: full-width：将所有字形转换成全角，即固定宽度的正方形，允许拉丁字符和亚洲语言字形对齐。
+
+`text-decoration`
+: none：取消文本装饰
+: underline 下划线
+: line-through 删除线
+
+`text-decoration` 可以一次接受多个值。注意 `text-decoration` 是 `text-decoration-line`，`text-decoration-style`，`text-decoration-color` 的简写形式。因此你可以使用这样的属性值：
+
+```css
+text-decoration: line-through red wavy;
+```
+
+#### 文字阴影
+
+```css
+text-shadow: 4px 4px 5px red; /* 水平偏移 垂直偏移 模糊半径 阴影颜色 */
+```
+
+前两个值必须指定，可以使用大多数 CSS 长度与大小单位，但是 px 是比较合适的。偏移值可以为负。
+
+##### 多重阴影
+
+```css
+text-shadow: -1px -1px 1px #aaa,
+             0px 4px 1px rgba(0,0,0,.5),
+             4px 4px 5px rgba(0,0,0,.7),
+             0px 0px 7px rgba(0,0,0,.4);
+```
+
+### 文本布局
+
+#### 文本对齐
+
+`text-align`
+: 控制文本如何和它所在的内容盒子对齐
+: left：左对齐
+: center：居中
+: justify：等宽，一般结合 `hyphens` 属性使用
+
+#### 行高
+
+`line-height` 可以接受大多数 CSS 长度与大小单位，也可以设置一个无单位值作为倍数（推荐）。推荐的行高是 1.5~2 倍。
+
+#### 字母和单词间距
+
+`letter-spacing` 和 `word-spacing` 可以接受大多数 CSS 长度与大小单位。
+
+[其他一些值得看一下的属性][other properties]
+
+[Font 简写][font shorthand]
+
+```css
+text-indent: 4ch; /* 缩进 */
+```
+
+### 样式化 lists
+
+#### list 的默认样式
+
+- `<ul>`， `<ol>` 和 `<dl>` 元素有 1em 的顶部和底部 margin，以及 `<ul>` 和 `<ol>` 还有 2.5em 的左 padding。
+- `<li>` 元素没有默认间距
+- `<dd>` 元素有 2.5em 的左 margin
+- `<p>` 元素也有 1em 的顶部和底部 margin
+
+`list-style-type`
+: 设置 `<ol>` 和 `<ul>` 的项目符号（bullets）类型
+: 无序列表：`disc`, `square`, `circle`, `"\1F44D"`
+: 有序列表：`decimal`, `simp-chinese-informal`, `upper-roman`, `lower-alpha`
+
+`list-style-position`
+: 设置项目符号放置在项目前（对齐项目）还是项目中（对齐序号）
+: `outside`, `inside`
+
+`list-style-image`
+: 允许你使用自定义图片作为项目符号。注意，该属性在控制项目符号位置，大小等方面比较受限，最好使用 `background` 系列属性。
+
+```css
+/* 使用 list-style-image 属性 */
+ul {
+  list-style-image: url(star.svg);
+}
+
+/* 使用 background 属性的替代方案 */
+ul {
+  padding-left: 2rem; /* 将默认的 4rem 缩进减为 2rem，为图片腾位置 */
+  list-style-type: none;
+}
+
+ul li {
+  padding-left: 2rem; /* 给图片的 2rem 缩进 */
+  background-image: url(star.svg);
+  background-position: 0 0;
+  background-size: 1.6rem 1.6rem; /* 图片大小为 16px，留下 4px 空隙 */
+  background-repeat: no-repeat;
+}
+```
+
+#### list-style 速记属性
+
+```css
+list-style: square url(example.png) inside;
+```
+
+属性值可以任意顺序排列，你可以设置一个，两个或三个值。如果同时提供 `type` 和 `image`，则 `type` 用作 `image` 无法加载时的回退。
+
+#### 管理列表计数
+
+##### start
+
+```html
+<!-- 列表从 4 开始计数 -->
+<ol start="4">
+  <li>item1</li>
+  <li>item2</li>
+  <li>item3</li>
+</ol>
+```
+
+##### reversed
+
+```html
+<!-- 列表从 3 开始倒数 -->
+<ol start="3" reversed>
+  <li>item3</li>
+  <li>item2</li>
+  <li>item1</li>
+</ol>
+```
+
+##### value
+
+```html
+<!-- 单独指定列表项数值 -->
+<ol>
+  <li value="2">item2</li>
+  <li value="4">item4</li>
+  <li value="6">item6</li>
+</ol>
+```
+
+> 即便你使用非数字的 `list-style-type`，你依然需要为 `value` 属性赋予等价的数值。
+
+#### See also
+
+CSS 计数器提供用于自定义列表计数和样式的高级工具：
+
+[@counter-style][@counter-style]
+
+[counter-increment][counter-increment]
+
+[counter-reset][counter-reset]
+
+### 样式化 links
+
+link 的不同状态及对应的伪类：
+
+- link：有目标地址的 link（即不是仅有一个名字的 anchor）
+- visited：被访问过的 link 
+- hover：被鼠标指针悬停的 link
+- focus：获焦的 link（比如通过键盘的 <kbd>Tab</kbd> 移动到这个 link 的时候，或者使用 `HTMLElement.focus()` 等编程方法聚焦）
+- active：被激活的 link（被点击）
+
+> 通过键盘聚焦链接：使用 <kbd>Tab</kbd> 键将焦点前移，<kbd>Shift</kbd> + <kbd>Tab</kbd> 将焦点后移（Mac 上按下 <kbd>Option</kbd> + <kbd>Tab</kbd>，或者通过 <kbd>Ctrl</kbd> + <kbd>F7</kbd> 启用 Full Keyboard Access: All controls 选项）
+
+`cursor`
+: 修改鼠标指针的样式。
+
+`outline`
+: 文字的轮廓。outline 和 border 很像，唯一的区别是 border 占用了盒模型的空间，而 outline 只是放置在背景的顶部。
+
+典型的 link 规则集（**L**o**V**e **F**ears **HA**te）：
+
+```css
+a {
+  outline: none;
+  text-decoration: none;
+  padding: 2px 1px 0;
+}
+
+a:link {
+  color: #265301;
+}
+
+a:visited{
+  color: #437A16;
+}
+
+a:focus {
+  border-bottom: 1px solid; /* 使用 border-bottom 避免下划线穿过字母 g 和 y 底部；不设置 border-bottom 的颜色，使其采用元素文本的颜色（链接在不同状态下文本颜色不同） */
+  background: #BAE498;
+}
+
+a:hover {
+  border-bottom: 1px solid;
+  background: #CDFEAA;
+}
+
+a:active {
+  background: #265301;
+  color: #CDFEAA;
+}
+```
+
+这几个规则的顺序很重要，不要搞混。
+
+#### 在链接中加入图标
+
+[icons8.com](https://icons8.com/icon/741/external-link) 上的链接图标
+
+```css
+a[href*="http"] {
+  background: url('external-link-52.png') no-repeat 100% 0; /* 100% 0 将图像位置指定在右上角，也可以使用 right top */
+  background-size: 16px 16px;
+  padding-right: 19px;
+}
+```
+
+#### 将 link 样式化为按钮
+
+```css
+ul {
+  padding: 0; /* 移除 ul 默认的 2.5em 左 padding */
+  width: 100%; /* 设置宽度是外部容器的 100% */
+}
+
+li {
+  display: inline; /* 创建水平导航栏，因此改变 display 属性 */
+}
+
+a {
+  /* 先去掉 <a> 的默认样式 */
+  outline: none;
+  text-decoration: none;
+  /* 设置 <a> 的大小，同时避免 <a> 独占一行 */
+  display: inline-block;
+  /* 5 个按钮平分 100% 的宽度 */
+  width: 19.5%;         /* 5 个按钮宽度占据 97.5% 的宽度 */
+  margin-right: 0.625%; /* 4 个 margin 占据 2.5% 的宽度 */
+  text-align: center;
+  line-height: 3; /* 给按钮一些高度，同时有文本垂直居中的效果 */
+  color: black;
+}
+
+/* 移除最后一个按钮的右 margin 避免溢出到下一行 */
+li:last-child a {
+  margin-right: 0;
+}
+
+a:link, a:visited, a:focus {
+  background: yellow;
+}
+
+a:hover {
+  background: orange;
+}
+
+a:active {
+  background: red;
+  color: white;
+}
+```
+
+参考：[MDN: Styling Links as Buttons][styling links as buttons]
+
+### Web 字体
+
+关于 Web 字体：
+
+- 大部分字体都是收费的，你必须为字体付费，或者遵循其他许可条款，比如在代码中（或你的网站上）注明字体创建者的名字。
+- 所有主流浏览器都支持 WOFF/WOFF2。
+- WOFF2 支持所有 TrueType 和 OpenType 规范，包括可变字体，彩色字体，以及字体集。
+- 在一个字体的 @font-face 中，如果你给浏览器提供多个可下载的字体文件，浏览器会选择第一个可用的下载。因此你应该把新的、更好的格式比如 WOFF2 放在前面，把偏老的，不太好的格式比如 TTF 放在后面（WOFF > OTF > TTF > SVG）。
+- 如果你需要支持传统浏览器，则应该提供 EOT，TTF，以及 SVG 网络字体。
+
+*[WOFF]: Web 开放字体格式（Web Open Font Format）
+
+*[EOT]: Embedded Open Type
+
+> 你可以使用 FireFox 开发者工具中的 Font Editor 来检视并调整网页中使用的字体
+
+#### 使用下载的字体
+
+三种获取字体的网站：
+
+- 免费字体经销商（可能包含许可条款）：[Font Squirre][font squirre]，[dafont][dafont]，[Everything Fonts][everything fonts]
+- 付费字体经销商：[fonts.com][fonts.com], [myfonts.com][myfonts.com]，以及字体铸造厂(?😂)：[Linotype][linotype]，[Monotype][monotype]，[Exljbris][exljbris]
+- 在线字体服务：[Typekit][typekit]，[Cloud.typography][cloud.typography]，[Google Fonts][google fonts]
+
+首先下载字体压缩包并解压，将需要的字体文件（同一字体可能有粗体、斜体等变体）上传到 [Fontsquirrel Webfont Generator][fontsquirrel webfont generator] 生成需要的 Webfont 套件压缩包。解压 Webfont 套件并重命名为 `fonts`，打开 `stylesheet.css` 文件，将里面的 `@font-face` 规则集拷贝到你的 CSS 文件的最顶部，并在每个 `url()` 路径的开头加上 `fonts/`。
+
+现在，你就可以在 CSS 中使用刚刚导入的字体了。
+
+**说明**
+
+如果需要支持传统浏览器，则在生成 Webfont 套件前选择 "Expert" 选项，并选择 SVG，EOT，TTF 格式。
+
+字体生成网站通常限制上传文件大小，在这种情况下，考虑使用以下转换工具：
+
+- ttf 转换 woff：[sfnt2woff-zopfli][sfnt2woff-zopfli]
+- ttf 转换 woff2：[woff2][woff2]
+- ttf 转换 svg：[fontforge][fontforge]，[batik ttf2svf][batik ttf2svf]
+
+```css
+@font-face {
+  /* 你给这个字体起的名字。同一字体的变体可以使用同一名字，通过下面的 font-weight 和 font-style 来区分 */
+  font-family: 'DroidSerif'; 
+  /* 指定文件路径及文件类型，文件类型可以帮助浏览器更快地判断哪些文件可用 */
+  src: url('DroidSerif-Italic-webfont.woff2') format('woff2'), 
+       url('DroidSerif-Italic-webfont.woff') format('woff'),
+       url('DroidSerif-Italic-webfont.ttf') format('truetype');
+  font-weight: normal; /* 指定这个字体是否为粗体 */
+  font-style: italic; /* 指定这个字体是否为斜体 */
+}
+```
+
+#### 使用在线字体服务
+
+打开 Google Fonts，选择一个 font family，选择其中具体的 style，然后在右侧边栏中拷贝 Google 给出的代码片段分别加入 HTML 和 CSS 文件。
+
+> 如果无法访问 Google Fonts，也可以使用[阿里字体素材平台](https://www.taobao.com/markets/fuwu/fontmarket_freefonts)
+
+> 中文字体文件较大，不适合直接用于 Web Font 。
+
+#### 示例
+
+```css
+/* 更改页面颜色 */
+html {
+  background-color: #00539F;      /* 设置页面背景色 */
+}
+
+/* 文档体格式设置 */
+body {
+  width: 600px;                   /* 强制页面保持 600px 宽 */
+  margin: 0 auto;                 /* 设置上边和下边的外边距为 0，左边和右边的外边距为 auto（居中） */
+  background-color: #FF9500;      /* body 的背景色 */
+  padding: 0 20px 20px 20px;      /* 设置上、右、下、左内边距 */
+  border: 5px solid black;        /* 设置 5 像素的黑色实线边框 */
+}
+
+/* 定位页面主标题并添加样式 */
+h1 {
+  margin: 0;
+  padding: 20px 0;
+  color: #00539F;
+  text-shadow: 3px 3px 1px black; /* 文本阴影；阴影右移 3px，下移 3px，模糊半径 1px，阴影基色为黑色。 */
+}
+
+/* 图像居中 */
+img {
+  display: block;                 /* 图片是内联元素，需要先给予其块级行为 */
+  margin: 0 auto;                 /* 图像居中 */
+}
+```
 
 ------
 
@@ -884,8 +1336,41 @@ textarea {
 
 [reference section]: https://developer.mozilla.org/zh-CN/docs/Learn/CSS/Building_blocks/Selectors/Pseudo-classes_and_pseudo-elements#%E5%8F%82%E8%80%83%E8%8A%82
 
+[pseudo-classes]: https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes
+
 [margins, padding, and borders]: https://developer.mozilla.org/zh-CN/docs/Learn/CSS/Building_blocks/The_box_model#%E5%A4%96%E8%BE%B9%E8%B7%9D%EF%BC%8C%E5%86%85%E8%BE%B9%E8%B7%9D%EF%BC%8C%E8%BE%B9%E6%A1%86
 
 [block box and inline box]: https://developer.mozilla.org/zh-CN/docs/Learn/CSS/Building_blocks/The_box_model#%E5%9D%97%E7%BA%A7%E7%9B%92%E5%AD%90%EF%BC%88block_box%EF%BC%89_%E5%92%8C_%E5%86%85%E8%81%94%E7%9B%92%E5%AD%90%EF%BC%88inline_box%EF%BC%89
 
 [color keywords]: https://developer.mozilla.org/zh-CN/docs/Web/CSS/color_value#%E9%A2%9C%E8%89%B2%E5%85%B3%E9%94%AE%E5%AD%97
+
+[other properties]: https://developer.mozilla.org/zh-CN/docs/Learn/CSS/Styling_text/Fundamentals#%E5%85%B6%E4%BB%96%E4%B8%80%E4%BA%9B%E5%80%BC%E5%BE%97%E7%9C%8B%E4%B8%80%E4%B8%8B%E7%9A%84%E5%B1%9E%E6%80%A7
+
+[font shorthand]: https://developer.mozilla.org/zh-CN/docs/Learn/CSS/Styling_text/Fundamentals#font_%E7%AE%80%E5%86%99
+
+[@counter-style]: https://developer.mozilla.org/zh-CN/docs/Web/CSS/@counter-style
+
+[counter-increment]: https://developer.mozilla.org/zh-CN/docs/Web/CSS/counter-increment
+
+[counter-reset]: https://developer.mozilla.org/zh-CN/docs/Web/CSS/counter-reset
+
+[styling links as buttons]: https://developer.mozilla.org/en-US/docs/Learn/CSS/Styling_text/Styling_links#styling_links_as_buttons
+
+[font squirre]: https://www.fontsquirrel.com
+[dafont]: https://www.dafont.com
+[everything fonts]: https://everythingfonts.com
+[fonts.com]: https://www.fonts.com
+[myfonts.com]: https://www.myfonts.com
+[linotype]: https://www.linotype.com
+[monotype]: https://www.monotype.com
+[exljbris]: https://www.exljbris.com
+[typekit]: https://fonts.adobe.com
+[cloud.typography]: https://www.typography.com/webfonts
+[google fonts]: https://fonts.google.com
+
+[fontsquirrel webfont generator]: https://www.fontsquirrel.com/tools/webfont-generator
+
+[sfnt2woff-zopfli]: https://github.com/bramstein/sfnt2woff-zopfli
+[woff2]: https://github.com/google/woff2
+[fontforge]: https://fontforge.org/
+[batik ttf2svf]: https://people.apache.org/~clay/batik/ttf2svg.html

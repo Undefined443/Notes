@@ -343,6 +343,10 @@ echo $VAR # 使用 VAR 变量。可以通过 ${VAR} 指明变量名的边界
 > file # 输出重定向
 
 gedit [file] # 在 Linux 打开文本编辑器
+
+rmdir
+
+del # DOS 删除命令
 ```
 
 ### Linux 多命令顺序执行连接符

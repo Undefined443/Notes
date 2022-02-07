@@ -504,6 +504,14 @@ $\colorbox{red}{给你点颜色看看}$
 
 $\text{comment}$
 
+#### 代码注释
+
+$$
+abc\\
+% 注释
+abc
+$$
+
 #### 其它符号
 
 $\P\ \copyright\ \bigstar\ \clubsuit\ \diamondsuit\ \heartsuit\ \spadesuit$
@@ -512,7 +520,7 @@ $\P\ \copyright\ \bigstar\ \clubsuit\ \diamondsuit\ \heartsuit\ \spadesuit$
 
 ![图片](https://pic2.zhimg.com/80/v2-dac2ba8d57e2d047d4d067ad0bf9589d_1440w.jpg)
 
-> 引自
+> 参考资料
 >
 > [一篇文章教会你如何在 Markdown 文档中插入数学公式](https://zhuanlan.zhihu.com/p/158156773)
 >

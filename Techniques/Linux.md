@@ -282,3 +282,15 @@ u 表示该文件的拥有者，g 表示与该文件的拥有者属于同一个�
 |2|写|
 |1|执行|
 |0|无|
+
+### MD5 校验
+
+MacOS：使用 `md5` 命令
+
+Windows：
+
+```dos
+certutil -hashfile <file> MD5
+certutil -hashfile <file> SHA1
+certutil -hashfile <file> SHA256
+```

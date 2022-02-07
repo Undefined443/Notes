@@ -654,7 +654,6 @@ img {
 ## HTML 表格
 
 ```html
-<!-- 认情况下，表格是没有边框的。这里将边框宽度设置为 1px，同时利用 CSS 设置边框塌陷，使双边框变为单边框 -->
 <table border="1" style="border-collapse:collapse;">
   <caption>表格标题</caption>
 
@@ -695,7 +694,7 @@ img {
 
 ### 定义列的样式
 
-在 `<table>` 标签下，使用 `<colgroup>` 和 `<col>` 标签来定义列的样式：
+在 `<table>` 标签下 （`thead` 标签前），使用 `<colgroup>` 和 `<col>` 标签来定义列的样式：
 
 ```html
 <table>
