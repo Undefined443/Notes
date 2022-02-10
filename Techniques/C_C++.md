@@ -1,5 +1,7 @@
 # 杂项
 
+以 `\u` 开头的数字表示 Unicode
+
 ```zsh
 gcc file1.c file2.c -o outpur # 编译 file1.c，file2.c，并生成文件 output
 g++ file1.cpp file2.cpp -o output
