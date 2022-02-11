@@ -353,7 +353,7 @@ body {
 一些属性，如 `font`，`background`，`padding`，`border`，以及 `margin` 等属性称为速记属性——这是因为它们允许您在一行中设置多个属性值，从而节省时间并使代码更整洁。
 
 ```css
-/* 在像 padding 和 margin 这样的 4 值简写中，数值的应用顺序是上、右、下、左（从顶部顺时针）。也有其他的简写类型，例如 2 值简写，先上/下，然后是左/右。 */
+/* 在像 padding 和 margin 这样的 4 值速记中，数值的应用顺序是上、右、下、左（从顶部顺时针）。也有其他的速记类型，例如 2 值速记，先上/下，然后是左/右。 */
 padding: 10px 15px 15px 5px;
 
 /* 等价于 */
@@ -777,7 +777,7 @@ RGB 值是一个函数——`rgb()`，它接受三个 0 到 255 的十进制数�
 
 或者，使用 `object-fit` 属性（调整图片填充图片盒子的方式）。如果使用值 `cover`，则图像会被内接填充。如果使用值 `contain`，图像会被外接填充。如果使用值 `fill`，则图像会被非比例填充（默认）。
 
-#### form 元素
+#### form 元素 {#form-element}
 
 ##### 继承和表单元素
 
@@ -820,7 +820,7 @@ textarea {
 }
 ```
 
-你可以将 **form 元素**这一节的规则放在一起，成为以下的“表单重置”。
+你可以将 [form 元素](#form-element)这一节的规则放在一起，成为以下的“表单重置”。
 
 ```css
 button,
@@ -975,7 +975,7 @@ font-family: "Trebuchet MS", Verdana, sans-serif;
 : underline 下划线
 : line-through 删除线
 
-`text-decoration` 可以一次接受多个值。注意 `text-decoration` 是 `text-decoration-line`，`text-decoration-style`，`text-decoration-color` 的简写形式。因此你可以使用这样的属性值：
+`text-decoration` 可以一次接受多个值。注意 `text-decoration` 是 `text-decoration-line`，`text-decoration-style`，`text-decoration-color` 的速记形式。因此你可以使用这样的属性值：
 
 ```css
 text-decoration: line-through red wavy;
@@ -1018,7 +1018,7 @@ text-shadow: -1px -1px 1px #aaa,
 
 [其他一些值得看一下的属性][other properties]
 
-[Font 简写][font shorthand]
+[Font 速记][font shorthand]
 
 ```css
 text-indent: 4ch; /* 缩进 */
