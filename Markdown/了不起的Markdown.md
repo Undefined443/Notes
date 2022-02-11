@@ -324,7 +324,7 @@ message
 
 [[了不起的Markdown#Wiki 链接]]：引用一个标题
 
-*不加文件名后缀的话可能会找不到文件*
+> 不加文件名后缀的话可能会找不到文件
 
 ### 上标和下标
 
@@ -350,7 +350,7 @@ $$
 x = {-b \pm \sqrt{b^2-4ac} \over 2a}
 $$
 
-详见 [[LaTex.md]]
+详见 [[LaTex]]
 
 ### 绘图
 
@@ -362,11 +362,7 @@ flowchart LR
     D --- E{Decision}
 ```
 
-[帮助文档](https://mermaid-js.github.io/mermaid/#/flowchart)
-
-[知乎：Mermaid 从入门到入土](https://zhuanlan.zhihu.com/p/355997933)
-
-[Mermaid 在线渲染器](https://mermaid-js.github.io/mermaid-live-editor/edit/)
+详见 [[mermaid]]
 
 ### HTML 元素
 
