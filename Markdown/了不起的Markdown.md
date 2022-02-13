@@ -145,7 +145,7 @@ Markdown 中的段落使用空行来标记。
 
 第二部分：
 
-[markdown]: https://markdown.com.cn/basic-syntax/links.html
+[markdown]: https://markdown.com.cn/basic-syntax/links.html "Title"
 
 > 第二部分不能有其他字符，前面要有一个空行；冒号后面至少一个空格。
 
@@ -161,10 +161,9 @@ Markdown 中的段落使用空行来标记。
 
 使用 `<>` 将网络地址或邮箱地址包裹起来会被自动转换为超链接。
 
-使用规范
----------------------------
+**使用规范**
 
-要使用有意义的链接标题。  如：
+要使用有意义的链接标题。如：
 
 如果想了解关于Markdown的更多信息，请查看[Markdown指南](markdown_guide.md)
 
@@ -177,6 +176,12 @@ Markdown 中的段落使用空行来标记。
 ![说明文字](图片地址)
 
 ![说明文字](图片地址 =60x50)
+
+##### GitHub 特性
+
+![website](img.png#gh-light-mode-only)
+
+该图片将只在 GitHub Light 模式下显示
 
 ### 行内代码与围栏代码块
 
@@ -259,13 +264,19 @@ message
 
 使用 `\`
 
-## 扩展语法 GFW
+## GFW 扩展语法
 
-*[GFW]: GitHub Flavored Markdown
+GFW: GitHub Flavored Markdown
 
 ### Emoji
 
-:joy: :) :( :|
+:joy: :tada: 
+
+#### Callouts
+
+> :bulb: **Tip:** Here's an important tip to remember!
+
+:) :( :|
 
 > 更多表情符号请参考：<http://www.webpagefx.com/tools/emoji-cheat-sheet/>
 
@@ -314,6 +325,7 @@ message
 
 **语法说明**
 
+1. Markdown 中每个标题都有一个默认 id：小写字母，短横线代替空格。可以使用默认 id，也可以自定义 id。
 1. 锚点名建议使用字母和数字。
 2. 锚点名区分大小写。
 3. 锚点名中不能含有空格，也不能含有特殊字符。
@@ -374,6 +386,12 @@ flowchart LR
 
 x<sup>2</sup>, H<sub>2</sub>O
 
+<details>
+  <summary>⚡ This is a toggle!</summary>
+
+  Contents of toggle.
+</details>
+
 > 在 HTML 区块标签间的 Markdown 格式语法将不会被处理
 
 ### 定义列表
@@ -389,3 +407,11 @@ Markdown 将文本转换为 HTML。
 *[HTML]: HyperText Markup Language
 
 > 缩写对文件中所有匹配的文本有效
+
+### 注释
+
+[This is a hidden comment]: #
+
+### 目录
+
+按下 <kbd>F1</kbd> 或 <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd> 打开命令面板，搜索 `table of contents`，Markdown All in One 插件将在光标位置处创建目录。
