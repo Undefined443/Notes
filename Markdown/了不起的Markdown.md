@@ -18,6 +18,7 @@ VSCode 原生 Markdown 渲染器不完全支持 GFM 语法。这里有一些好�
 
 - Markdown+Math：支持更多 Latex 符号；该插件渲染的符号比 Markdown All in One 的小一些
 - Markdown Preview Enhanced：支持最全的 Markdown Preview，但是打开速度稍慢
+- vscode all markdown：提供类似 Typora 的即时渲染功能
 
 ## 基础语法
 
@@ -412,17 +413,22 @@ flowchart LR
 x<sup>2</sup>, H<sub>2</sub>O
 
 <details>
-  <summary>⚡ This is ##### GitHub 特性
+  <summary>⚡ This is a toggle!</summary>
 
-![website](img.png#gh-light-mode-only)
+  Contents of toggle.
+</details>
 
-该图片将只在 GitHub Light 模式下显示
->>>>>>>+main
-定义列表
+> 在 HTML 区块标签间的 Markdown 格式语法将不会被处理
 
-术语[![图片嵌入链接](图片地址)](链接地址)
->>>>>>>+8664c19
-HTML。
+### 定义列表
+
+术语
+: 定义 1
+: 定义 2
+
+### 缩写
+
+Markdown 将文本转换为 HTML。
 
 *[HTML]: HyperText Markup Language
 
