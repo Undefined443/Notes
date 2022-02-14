@@ -200,7 +200,7 @@ Markdown 中的段落使用空行来标记。
 
 [![说明文字](图片地址)](链接地址)
 
-##### GitHub 特性
+##### GitHub Feature
 
 ![website](img.png#gh-light-mode-only)
 
@@ -241,7 +241,7 @@ int main() {
 }
 ```
 
-小写语言名，如 html, css, shell, bash, java, javascript, python, cs(csharp), c, cpp, arduino, cmake。
+语言指示：小写语言名，如 html, css, javascript(js), shell, bash(sh), java, python(py), csharp(cs), c, cpp, arduino, cmake。[查看所有支持的语言][supported languages]
 
 **使用规范**
 
@@ -301,7 +301,7 @@ GFW: GitHub Flavored Markdown
 
 :) :( :|
 
-> VSCode 原生渲染器不支持 emoji，需要安装 Markdown Emoji 插件。
+> VS Code 原生渲染器不支持 emoji，需要安装 Markdown Emoji 插件。
 >
 > 更多表情符号请参考：<http://www.webpagefx.com/tools/emoji-cheat-sheet/>
 
@@ -435,3 +435,5 @@ HTML。
 ### 目录
 
 按下 <kbd>F1</kbd> 或 <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd> 打开命令面板，搜索 `table of contents`，Markdown All in One 插件将在光标位置处创建目录。
+
+[supported languages]: https://github.com/highlightjs/highlight.js/blob/main/SUPPORTED_LANGUAGES.md
