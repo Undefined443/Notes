@@ -1,6 +1,20 @@
 ## Windows
 
-### Windows 下安装 Linux 子系统
+### 安装 WSL
+
+在管理员 PowerShell 中输入命令：
+
+```ps
+wsl --install # 默认会安装 Ubuntu
+# 如果没有自动安装，则使用以下命令：
+wsl --install -d Ubuntu
+# 若要查看其他可用的发行版：
+wsl -l -o
+# 列出已安装的发行版：
+wsl -l -v
+```
+
+> 第一次输入命令后可能会提示："由于需要重启系统，因此没有进行任何操作。" 这时只需重启系统并重新输入命令即可。
 
 [知乎：Windows 安装 Linux 子系统](https://zhuanlan.zhihu.com/p/394365997)
 
