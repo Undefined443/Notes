@@ -264,9 +264,9 @@ message
 
 使用 `\`
 
-## GFW 扩展语法
+## GFM 扩展语法
 
-GFW: GitHub Flavored Markdown
+GFM: GitHub Flavored Markdown
 
 ### Emoji
 
