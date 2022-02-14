@@ -1,5 +1,24 @@
 # 了不起的 Markdown
 
+## VS Code 插件
+
+VSCode 原生 Markdown 渲染器不完全支持 GFM 语法。这里有一些好用的 Markdown 插件可以让你在使用 VSCode 编辑 Markdown 时获得更好的体验。
+
+**Essential**
+
+- GitHub Markdown Preview：该插件包包含 GitHub 风格 Preview 以及 Emoji 支持，Checkbox 支持等
+- Markdown Preview VS Code Highlighting：使 Preview 中的代码颜色与编辑器中的颜色匹配
+- Markdown Footnotes：支持脚注语法
+- Markdown Image Size：支持图片大小语法
+- Markdown Preview Mermaid Support：Mermaid 图表支持
+- Mermaid Markdown Syntax Highlighting：Mermaid 代码高亮
+- Markdown All in One：数学符号，GFM 支持，自动补全等。在插入图片时非常好用。
+
+**Optional**
+
+- Markdown+Math：支持更多 Latex 符号；该插件渲染的符号比 Markdown All in One 的小一些
+- Markdown Preview Enhanced：支持最全的 Markdown Preview，但是打开速度稍慢
+
 ## 基础语法
 
 ### 标题
@@ -182,6 +201,7 @@ Markdown 中的段落使用空行来标记。
 ![website](img.png#gh-light-mode-only)
 
 该图片将只在 GitHub Light 模式下显示
+[![图片嵌入链接](图片地址)](链接地址)
 
 ### 行内代码与围栏代码块
 
@@ -278,6 +298,8 @@ GFW: GitHub Flavored Markdown
 
 :) :( :|
 
+> VSCode 原生渲染器不支持 emoji，需要安装 Markdown Emoji 插件。
+>
 > 更多表情符号请参考：<http://www.webpagefx.com/tools/emoji-cheat-sheet/>
 
 ### 自动链接
@@ -387,22 +409,17 @@ flowchart LR
 x<sup>2</sup>, H<sub>2</sub>O
 
 <details>
-  <summary>⚡ This is a toggle!</summary>
+  <summary>⚡ This is ##### GitHub 特性
 
-  Contents of toggle.
-</details>
+![website](img.png#gh-light-mode-only)
 
-> 在 HTML 区块标签间的 Markdown 格式语法将不会被处理
+该图片将只在 GitHub Light 模式下显示
+>>>>>>>+main
+定义列表
 
-### 定义列表
-
-术语
-: 定义 1
-: 定义 2
-
-### 缩写
-
-Markdown 将文本转换为 HTML。
+术语[![图片嵌入链接](图片地址)](链接地址)
+>>>>>>>+8664c19
+HTML。
 
 *[HTML]: HyperText Markup Language
 
