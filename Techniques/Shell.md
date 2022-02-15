@@ -154,25 +154,26 @@ Name: LiXiao
 
 ## 特殊变量
 
-| 变量 | 含义                               |
-| :--: | ---------------------------------- |
-| `$0` | 当前脚本的文件名                   |
-| `$n` | 传递给脚本或函数的参数             |
+| 变量 | 含义                           |
+| :--: | ---------------------------- |
+| `$0` | 当前脚本的文件名                 |
+| `$n` | 传递给脚本或函数的参数（从 1 开始计数）|
 | `$#` | 传递给脚本或函数的参数个数         |
 | `$*` | 传递给脚本或函数的所有参数         |
 | `$@` | 传递给脚本或函数的所有参数         |
-| `$?` | 上个命令的退出状态，或函数的返回值 |
-| `$$` | 当前 Shell 进程 ID                 |
+| `$?` | 上个命令的退出状态，或函数的返回值   |
+| `$$` | 当前 Shell 进程 ID             |
 
 > 命令的退出状态由 `exit` 命令返回，函数的返回值由 `return` 返回
 
 ### $* 和 $@ 的区别
 
-当 `$*` 和 `$@` 被双引号 `""` 包含时，会有如下区别：
+当 `$*` 和 `$@` 不被双引号 `""` 包含时，它们没有任何区别。
 
-`"$*"` 会将所有的参数从整体上看做一份数据，而不是把每个参数都看做一份数据。
+当它们被双引号 `""` 包含时，会有如下区别：
 
-`"$@"` 仍然将每个参数都看作一份数据，彼此之间是独立的。
+- `"$*"` 会将所有的参数从整体上看做一份数据，而不是把每个参数都看做一份数据。
+- `"$@"` 仍然将每个参数都看作一份数据，彼此之间是独立的。
 
 ## 字符串
 
@@ -536,9 +537,9 @@ done <input >output # 输入重定向为 input，输出重定向为 output
 ```bash
 if condition # 也可以写作：if condition; then
 then
-  statement(s)
+  statements
 else
-  statement(s)
+  statements
 fi
 ```
 
@@ -548,28 +549,208 @@ fi
 
 ```bash
 if condition1; then
-  statement(s)
+  statements
 elif condition2; then
-  statement(s)
+  statements
 elif condition3; then
-  statement(s)
+  statements
 else
-  statement(s)
+  statements
 fi
 ```
 
 if 语句也支持使用逻辑运算符将多个退出状态组合起来。
 
-## test 命令（Shell [&nbsp;&nbsp;]）
-
-test 是 Shell 内置命令，用来检测某个条件是否成立。test 通常和 if 语句一起使用。
+### case in
 
 语法：
 
 ```bash
-test expression
+case expression in  # expression 可以是变量、数学表达式，或者是命令的执行结果。只要能得到 expression 的值就可以
+  pattern1)         # pattern 可以是数字，字符串，甚至是简单的正则表达式
+    statements
+    ;;
+  pattern2)
+    statements
+    ;;
+  pattern3)
+    statements
+    ;;
+  *)                # 可以没有 *) 部分。* 实际上是正则表达式
+    statements   # 最后的双分号可以省略
+esac
+```
 
-[ expression ] # 注意 expression 两侧的空格
+#### case in 支持的正则表达式
+
+|格式|说明|
+|:--|:--|
+|*|表示任意字符串|
+|[abc]|表示 a, b, c 三个字符中的任意一个。比如 [15ZH] 表示 1, 5, Z, H 中的任意一个|
+|[m-n]|表示从 m 到 n 的任意一个字符。比如 [0-9] 表示一个数字，[0-9a-zA-Z] 表示一个字母或数字|
+|\||表示多重选择，相当于或运算。比如 abc\|xyz 表示匹配字符串 "abc" 或 "xyz"|
+
+e.g.
+
+```bash
+read -n 1 char
+case $char in
+  [a-zA-Z])
+    printf "\n字母\n"
+    ;;
+  [0-9])
+    printf "\n数字\n"
+    ;;
+  [,.?!])
+    printf "\n标点符号\n"
+    ;;
+  *)
+    printf "\n错误\n"
+esac
+```
+
+### while
+
+语法：
+
+```bash
+while condition
+do
+  statements
+done
+```
+
+### until
+
+until 的使用场景很少，一般使用 while 即可。
+
+语法：
+
+```bash
+until condition # 若 condition 不成立则执行循环语句
+do
+  statements
+done
+```
+
+### for
+
+#### C 风格 for
+
+```bash
+sum=0
+for((i=1; i<=5; ++i))
+do
+  ((sum += i))
+done
+echo $sum
+```
+
+#### Python 风格 for in
+
+```bash
+for variable in value_list
+do
+  statements
+done
+```
+
+##### value_list
+
+1. 直接给出具体的值：`1 2 3 4 5`，`"john" "jack" "tom"`
+2. 给出一个取值范围（只支持数字和字母）：`{1..5}`，`{a..f}`
+3. 使用命令的执行结果：`$(ls)`
+4. 使用 Shell 通配符：`*.sh`
+5. 使用特殊变量：`$@`（如果省略 value_list 的话相当于使用 $@）
+
+[Shell 通配符](https://www.linuxidc.com/Linux/2016-08/134192.htm)
+
+[[#特殊变量]]
+
+### select in
+
+select in 可以自动显示带编号的菜单，用户输入编号就可以为循环变量赋予编号对应的值。select in 经常与 case in 一起使用。
+
+语法（结合 case in）：
+
+```bash
+select variable in value_list
+do
+  case variable in
+    pattern1)
+      statements
+      break        # select in 只有遇到 break 或文件结束符才会退出循环
+      ;;
+    pattern2)
+      statements
+      break
+      ;;
+    pattern3)
+      statements
+      break
+      ;;
+    *)
+      echo "输入错误，请重新输入。"
+  esac
+done
+```
+
+> 可以修改环境变量 `PS3` 来自定义输入提示符
+
+### break，continue
+
+```bash
+break n
+continue n
+```
+
+其中 n 表示作用的循环的层数（从内向外）。
+
+### 函数
+
+语法：
+
+```bash
+# 定义
+function func() { # function 关键字可以省略。如果写了 function 关键字，那么 () 可以省略
+  statements
+  [return value]
+}
+
+# 调用
+func [param1] [param2] [...] # 函数名后面不带括号
+```
+
+> Shell 不限制定义和调用的顺序。
+
+#### 函数返回值
+
+Shell 中的函数返回值是一个介于 0~255 的整数，用来表示函数的退出状态：返回值为 0 表示函数执行成功，非 0 表示函数执行失败。函数执行失败时可以根据退出状态来判断具体出现了什么错误。
+
+> :bulb: **Tip:** 在 Shell 中不要用返回值表示函数的处理结果
+
+如果函数体中没有 return 语句，那么函数将使用最后一条命令的退出状态作为自己的返回值。
+
+##### 如何得到函数的处理结果
+
+要想得到函数的处理结果，可以使用一下两种方案：
+
+- 在函数内部使用 echo，printf 命令将结果输出，并在函数外部使用 <code>$()</code> 或 <code>` `</code> 捕获结果。（推荐）
+- 将处理结果赋给全局变量
+
+## Shell [[&nbsp;&nbsp;]] 关键字
+
+`[[  ]]` 用来检测某个条件是否成立。
+
+`[[  ]]` 是 Shell 内置关键字，不是命令，在使用时没有给函数传递参数的过程。因此相比 test 命令，`[[  ]]` 不需要关注某些细枝末节：
+
+- 不需要把变量名用双引号 `""` 包围起来。即使变量是空值，也不会出错。
+- 不需要对 `>`、`<` 进行转义。
+
+语法：
+
+```bash
+[[ expression ]] # 注意 expression 两侧的空格
 ```
 
 ### 文件检测相关的选项
@@ -586,6 +767,18 @@ test expression
 |file1 -nt file2|判断 file1 的修改时间是否比 file2 新|
 |file1 -ot file2|判断 file1 的修改时间是否比 file2 旧|
 
+```bash
+read fileName
+read msg
+
+if [ -w $fileName ] && [ -n $msg ]; then
+  echo $msg >$fileName
+  echo "写入成功"
+else
+  echo "写入失败"
+fi
+```
+
 ### 字符串判断相关的选项
 
 |expression|作用|
@@ -593,10 +786,39 @@ test expression
 |-z str|判断 str 是否为空|
 |-n str|判断 str 是否非空|
 |str1 = str2<br />str1 == str2|判断 str1 是否和 str2 相等|
-|str1 \> str2|判断 str1 是否大于 str2。这里 \> 用于转义，防止 > 被误认为重定向字符|
-|str1 \<> str2|判断 str1 是否小于 str2|
+|str1 > str2|判断 str1 是否大于 str2|
+|str1 < str2|判断 str1 是否小于 str2|
 
-更多 test 选项参见 [C 语言中文网](http://c.biancheng.net/view/2742.html)
+```bash
+read str1
+read str2
+
+# 检测字符串是否为空
+if [[ -z $str1 || -z $str2 ]]; then # [[  ]] 支持逻辑运算符
+  echo "字符串不能为空"
+# 比较字符串
+elif [[ $str1 < $str2 ]]; then
+  echo "str1 < str2"
+else
+  echo "str1 >= str2"
+fi
+```
+
+### [[&nbsp;&nbsp;]] 支持正则表达式
+
+可以使用 `=~` 来检测字符串是否符合某个正则表达式：
+
+```bash
+# 检测一个字符串是否是手机号
+read tel
+if [[ $tel =~ ^1[0-9]{10}$ ]]; then
+  echo "你输入了一个手机号"
+else
+  echo "你输入的不是手机号"
+fi
+```
+
+更多 test 选项请参见 [C 语言中文网](http://c.biancheng.net/view/2742.html)
 
 ## echo 输出彩色字符
 
@@ -708,6 +930,7 @@ echo -e # 使用转义字符
 echo -n # 关闭自动换行
 
 read VAR # 从终端读取用户输入，并赋值给 VAR 变量
+         # 按下 Ctrl + D 表示读取到文件流的末尾
 
 gedit [file] # 在 Linux 打开文本编辑器
 ```

@@ -19,7 +19,7 @@
 ### 配置本地服务器
 
 ```bash
-# 进入网站所在目录
+# 在网站根目录下操作
 python -m http.server 7800 # 默认端口为 8000
 ```
 
@@ -125,14 +125,15 @@ python -m http.server 7800 # 默认端口为 8000
 
 ### 实体引用
 
-|原义字符|等价字符引用|
-|:--------:|:-------------:|
-|<|`&lt;`|
-|>|`&gt;`|
-|"|`&quot;`|
-|'|`&apos;`|
-|&|`&amp;`|
-|空格|`&nbsp;`|
+
+| 原义字符 | 等价字符引用 |
+| :--------: | :------------: |
+|    <    |    `&lt;`    |
+|    >    |    `&gt;`    |
+|    "    |   `&quot;`   |
+|    '    |   `&apos;`   |
+|    &    |   `&amp;`   |
+|   空格   |   `&nbsp;`   |
 
 ### \<head\> 里有什么
 
@@ -226,11 +227,11 @@ description 也被使用在搜索引擎显示的结果页中。
 
 > 使用 `?` 来分隔主 URL 与参数值，以及使用 `&` 来分隔 mailto: 中的各个参数。这是标准的 URL 查询标记方法。
 
- ### 文本格式
+### 文本格式
 
- [C 语言中文网：文本格式化](http://c.biancheng.net/view/9386.html)
+[C 语言中文网：文本格式化](http://c.biancheng.net/view/9386.html)
 
- 根据 HTML5 的规范，标题应该用 `<h1>`~`<h6>` 标签定义，被强调的文本应该用 `<em>` 标签定义，重要的文本应该用 `<strong>` 标签定义，被标记的或者高亮显示的文本应该用 `<mark>` 标签定义。
+根据 HTML5 的规范，标题应该用 `<h1>`~`<h6>` 标签定义，被强调的文本应该用 `<em>` 标签定义，重要的文本应该用 `<strong>` 标签定义，被标记的或者高亮显示的文本应该用 `<mark>` 标签定义。
 
 只用于改变字体样式而没有特定语义的元素称为表象元素，应尽量避免使用这类元素。
 
@@ -269,7 +270,6 @@ description 也被使用在搜索引擎显示的结果页中。
 
 [C 语言中文网：使用 CSS 修改列表样式](http://c.biancheng.net/view/9389.html)
 
-
 #### 引用
 
 ##### 块引用
@@ -278,7 +278,7 @@ description 也被使用在搜索引擎显示的结果页中。
 
 ```html
 <blockquote cite="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/blockquote">
-  <p>The <strong>HTML <code>&lt;blockquote&gt;</code> Element</strong> (or <em>HTML Block
+  <p>The <strong>HTML <code><blockquote></code> Element</strong> (or <em>HTML Block
   Quotation Element</em>) indicates that the enclosed text is an extended quotation.</p>
 </blockquote>
 ```
@@ -288,7 +288,7 @@ description 也被使用在搜索引擎显示的结果页中。
 使用 `<q>` 元素将引用内容包裹起来，并且在 cite 属性里用 URL 来指向引用的资源。
 
 ```html
-<p>The quote element — <code>&lt;q&gt;</code> — is <q cite="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/q">intended
+<p>The quote element — <code><q></code> — is <q cite="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/q">intended
   for short quotations that don't require paragraph breaks.</q></p>
 ```
 
@@ -342,7 +342,7 @@ para.onclick = function() {
 
 <p>在上述的 JavaScript 示例中，<var>para</var> 表示一个段落元素。</p>
 
-<p>请不要使用 <code>&lt;font&gt;</code> 、 <code>&lt;center&gt;</code> 等表象元素。</p>
+<p>请不要使用 <code><font></code> 、 <code><center></code> 等表象元素。</p>
 
 <pre>$ ping mozilla.org
 <samp>PING mozilla.org (63.245.215.20): 56 data bytes
@@ -488,7 +488,7 @@ para.onclick = function() {
 > - 你是图片版权所有者
 > - 你有图片版权所有者明确的、书面上的使用授权
 > - 你有充分的证据证明这张图片是公共领域内的
-> 
+>
 > 侵犯版权是违法并且不道德的。此外，在得到授权之前永远不要把你的 src 属性指向其他人网站上的图片。这被称为"盗链（hotlinking）"。同样，盗取其他人的带宽也是违法的。而且这会降低你的页面的加载速度，而且图片可能会在不受你控制的情况下被移走或用别的令人尴尬的东西替换掉。
 
 #### 为图片搭配说明文字
@@ -634,7 +634,6 @@ img {
 [MDN：其他 \<video\> 属性][other video features]
 
 [MDN：显示音轨文本][displaying video text tracks]
-
 
 ### 其他嵌入技术
 
@@ -833,13 +832,8 @@ img {
 *[codec]: 编解码器（从“coder-decoder”派生的混合词）
 
 [marking up times and dates]: https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Introduction_to_HTML/Advanced_text_formatting#%E6%A0%87%E8%AE%B0%E6%97%B6%E9%97%B4%E5%92%8C%E6%97%A5%E6%9C%9F
-
 [resolution switching]: https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images#%E5%88%86%E8%BE%A8%E7%8E%87%E5%88%87%E6%8D%A2%EF%BC%9A%E4%B8%8D%E5%90%8C%E7%9A%84%E5%B0%BA%E5%AF%B8
-
 [art direction]: https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images#%E7%BE%8E%E6%9C%AF%E8%AE%BE%E8%AE%A1
-
 [other embedding technologies]: https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Multimedia_and_embedding/Other_embedding_technologies
-
 [other video features]: https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Multimedia_and_embedding/Video_and_audio_content#%E5%85%B6%E4%BB%96_%3Cvideo%3E_%E7%89%B9%E6%80%A7
-
 [displaying video text tracks]: https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Multimedia_and_embedding/Video_and_audio_content#%E6%98%BE%E7%A4%BA%E9%9F%B3%E8%BD%A8%E6%96%87%E6%9C%AC
