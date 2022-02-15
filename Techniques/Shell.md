@@ -10,9 +10,10 @@ sudo: superuser do
 
 ## 执行 Shell 脚本
 
+指明脚本解释器：
+
 ```bash
 #!/bin/bash
-# 指明该脚本需要什么解释器来执行（使用哪一种 Shell）
 ```
 
 ### 在新进程中运行 Shell 脚本
@@ -42,18 +43,20 @@ Shell 有多个配置文件。对普通用户来说，~/.bashrc 是最重要的�
 
 实例
 
-    # 给 PATH 变量增加新的路径
-    PATH=$PATH:$HOME/addon # 将主目录下的 addon 目录也设置为系统路径
-    # 修改命令提示符的格式
-    PS1="[c.biancheng.net]\$"
+```bash
+# 给 PATH 变量增加新的路径
+PATH=$PATH:$HOME/addon # 将主目录下的 addon 目录也设置为系统路径
+# 修改命令提示符的格式
+PS1="[bash]\$" # 命令提示符改为 [bash]$
+```
 
-> PATH 使用冒号 : 分隔不同的路径
+> PATH 使用冒号 `:` 分隔不同的路径
 
 [PS1 和 PS2 中的特殊字符](http://c.biancheng.net/view/vip_3279.html)
 
 ## 变量
 
-在 Bash shell 中，每一个变量的值都是字符串。在默认情况下，Bash shell 不会区分变量类型。当然，如果有必要，也可以使用 `Shell declare` 关键字显式定义变量的类型。
+在 Bash shell 中，每一个变量的值都是字符串。在默认情况下，Bash shell 不会区分变量类型。当然，如果有必要，也可以使用 `declare` 关键字显式定义变量的类型。
 
 ```bash
 # 定义变量
@@ -67,8 +70,12 @@ unset variable # 删除变量。unset 命令不能删除只读变量
 # 使用变量
 author="李潇"
 echo $author
-echo "作者是${author}。" #用花括号指明变量名的边界
+echo "作者是${author}。" # 用花括号指明变量名的边界
+```
 
+### 命令替换
+
+```bash
 # 命令替换：将命令的结果赋给变量
 var=`cat log.txt` # 多个命令之间以分号 ; 分隔
 var=$(cat log.txt) # 推荐，并且这种方式最常见
@@ -93,7 +100,7 @@ function func() {
 
 #### 全局变量
 
-在当前 Shell 进程中有效。在 Shell 中定义的变量默认就是全局变量。
+在当前 Shell 进程中有效。在 Shell 中定义的变量**默认就是全局变量。**
 
 #### 环境变量
 
@@ -157,13 +164,15 @@ Name: LiXiao
 | `$?` | 上个命令的退出状态，或函数的返回值 |
 | `$$` | 当前 Shell 进程 ID                 |
 
-> 当 `$*` 和 `$@` 被双引号 `""` 包含时，会有如下区别：
->
-> `"$*"` 会将所有的参数从整体上看做一份数据，而不是把每个参数都看做一份数据。
->
-> `"$@"` 仍然将每个参数都看作一份数据，彼此之间是独立的。
->
 > 命令的退出状态由 `exit` 命令返回，函数的返回值由 `return` 返回
+
+### $* 和 $@ 的区别
+
+当 `$*` 和 `$@` 被双引号 `""` 包含时，会有如下区别：
+
+`"$*"` 会将所有的参数从整体上看做一份数据，而不是把每个参数都看做一份数据。
+
+`"$@"` 仍然将每个参数都看作一份数据，彼此之间是独立的。
 
 ## 字符串
 
@@ -212,15 +221,384 @@ $ echo ${str%%a*} # 从左边截去第一个匹配 a 及之后的所有字符
 
 ## 数组
 
+### 数组的声明与使用
+
+在 Shell 中，用 `()` 来表示数组，数组元素之间用空格分隔：
+
 ```bash
 # 数组没有长度限制
 nums=(1 2 3) # 定义一个数组
 nums=(1 2 3 "abc") # 数组没有类型限制
-nums=([3]=24 [5]=19 [10]=12) # 可以只给特定元素赋值
 nums[20]=88
+nums=([3]=24 [5]=19 [10]=12) # 可以只给特定元素赋值
+
+# 获取数组元素
+echo ${nums[0]} # 输出第 0 个元素
+echo ${nums[*]} # 输出数组所有元素
+echo ${nums[@]} # 另一种写法
+
+unset nums[0] # 删除数组元素
+unset nums # 删除数组
 ```
 
-### echo 输出彩色字符
+### 获取数组长度
+
+和获取字符串长度的方法类似，使用 `#` 号：
+
+```bash
+# 两种形式是等价的
+echo ${#nums[*]}
+echo ${#nums[@]}
+```
+
+### 数组拼接
+
+先将数组展开，然后再合并到一起：
+
+```bash
+# 两种形式是等价的
+arr=(${nums_1[*]} ${nums_2[*]})
+arr=(${nums_1[@]} ${nums_2[@]})
+```
+
+### 关联数组（下标是字符串的数组）
+
+#### 定义与使用
+
+```bash
+declare -A color # 定义一个名为 color 的数组
+color["red"]="#ff0000"
+color["green"]="#00ff00"
+color["blue"]="#0000ff"
+
+# 在定义的同时赋值
+declare -A color=(["red"]="#ff0000" ["green"]="#00ff00" ["blue"]="#0000ff")
+
+echo $(color["red"]) # 访问关联数组
+```
+
+#### 获取所有键
+
+```bash
+# 两种形式是等价的
+${!color[*]}
+${!color[@]}
+```
+
+## Shell 数学运算
+
+除了 C 语言中包含的所有算数运算符外，Shell 还包括幂运算符：`**`
+
+### 整数运算
+
+将表达式写在双小括号 `(())` 之间。多个表达式用 `,` 分隔，最后一个表达式的值将作为命令的执行结果。
+
+使用 `$` 获取 (()) 命令的结果。
+
+> Shell 中还有 `let` 命令，`$[]` 命令，它们的功能和 `(())` 一样，都是计算整数。 除此之外，还有 `expr` 命令也可以用于整数计算。
+
+e.g.
+
+```bash
+$ ((a=2-1))
+$ ((b=a+4))
+$ echo $((1+2, 2**3))
+8
+$ echo $((a<2&&b==5))
+1
+$ echo $((a++))
+1
+```
+
+### 浮点数运算
+
+使用 Linux `bc` 命令
+
+一行一个表达式，或者一行中多个表达式用分号 `;` 分开。
+
+[C 语言中文网：Linux bc 命令](http://c.biancheng.net/view/vip_3237.html)
+
+#### 内置变量
+
+|变量名|作用|
+|:--:|:--|
+|scale|指定精度，默认为 0|
+|ibase|指定输入进制|
+|obase|指定输出进制|
+|last 或 .|表示最近打印的数字|
+
+> :bulb: Tip: obase 要尽量放在 ibase 前面，因为指定 ibase 后，所有后续输入的数字都是以 ibase 的进制来换算的。
+
+#### 内置函数
+
+在输入 bc 命令时需要使用 `-l` 选项启用数学库。
+
+|函数名|作用|
+|:--:|:--|
+|s(x)|正弦函数，x 是弧度值|
+|c(x)|余弦函数，x 是弧度值|
+|a(x)|反正切函数，返回弧度值|
+|l(x)|自然对数函数|
+|e(x)|自然指数函数|
+|j(n,x)|贝塞尔函数，计算从 n 到 x 的阶数|
+
+#### 在 Shell 中使用 bc 计算器
+
+```bash
+echo "expression" | bc # expression 可以包含 Shell 中的变量：$var
+var=$(echo "expression" | bc)
+```
+
+e.g. 进制转换：
+
+```bash
+# 10 进制转 16 进制
+i=15
+j=$(echo "obase=16;$i" | bc)
+echo $j
+
+# 16 进制转 10 进制
+k=$(echo "obase=10;ibase=16;$j" | bc) # 别忘了 obase 要写在 ibase 前面
+echo $k
+```
+
+##### 借助重定向使用 bc 计算器
+
+```bash
+var=$(bc << EOF # 分界符（EOF）可以自定义
+2*3
+last/2
+EOF
+```
+
+这种方式在有大量数学计算时比较方便
+
+## declare 命令
+
+语法：
+
+```bash
+declare [-/+] [选项] expression
+```
+
+> declare 和 typeset 都是 Shell 内建命令，它们用法相同，不过 typeset 已经弃用。
+
+`-` 表示设置属性，`+` 表示取消属性。
+
+|选项|含义|
+|:--:|:--|
+|-f|列出之前由用户在脚本中定义的函数名称和函数体|
+|-F|仅列出自定义函数名称|
+|-g|在 Shell 函数内部创建全局变量|
+|-p|显示指定变量的属性和值|
+|-a|声明变量为普通数组|
+|-A|声明变量为关联数组|
+|-i|将变量定义为整型|
+|-r|将变量定义为只读|
+|-x|将变量设置为环境变量|
+
+e.g.
+
+```bash
+$ declare -i n m num # 将 n, m, num 声明为整型
+$ declare -r CONST=23 # 将 CONST 声明为只读，等价于 readonly CONST
+
+$ declare -p CONST # 显示变量的属性和值
+declare -r CONST="23"
+```
+
+## 重定向
+
+### 文件描述符
+
+为了表示并区分已经打开的文件，Linux 会给每个文件分配一个 ID，即文件描述符（File Descriptor）。stdin，stdout，stderr 是默认打开的，它们已经有了自己的文件描述符：
+
+|FD|文件名|
+|:--:|:--:|
+|0|stdin|
+|1|stdout|
+|2|stderr|
+
+Linux 始终从文件描述符 0 读取内容，向文件描述符 1 输出正确结果，向文件描述符 2 输出错误提示。
+
+文件描述符操作符（`>`, `<`）可以修改文件描述符指向的文件，从而实现重定向的功能。
+
+### 输出重定向
+
+格式：`FD>file`
+
+在输出重定向中，`>` 表示覆盖，`>>` 表示追加。
+
+> :bulb: **Tip:** `FD` 和 `>` 之间不能有空格，否则 Shell 会解析失败；`>` 和 `file` 之间的空格可有可无。
+
+```bash
+command >>file           # 以追加输出的方式打开 file，并让文件描述符 1 指向 file。这里 1 被省略
+command 2>>file
+command >>file1 2>>file2 # 正确结果输出到 file1，错误提示输出到 file2
+command >>file 2>&1      # 2>&1：让文件描述符 2 指向文件描述符 1 所指的文件。结果是 1 和 2 都指向 file
+command &>file           # 以覆写输出的方式打开 file，并让文件描述符 1 和 2 都指向 file
+command n>&-             # 关闭文件描述符 n 及其代表的文件。n 默认为 1
+```
+
+> 建议将正确结果和错误输出保存到不同文件
+
+#### /dev/null 文件
+
+如果不想显示或保存任何输出，可以将输出重定向到 `/dev/null` 文件中：
+
+```bash
+ls -l &>/dev/null # 在 Windows 中的等价文件名为 NUL
+```
+
+### 输入重定向
+
+格式：`FD<file`
+
+```bash
+command <file          # 以输入的方式打开 file，并让文件描述符 0 指向 file。这里 0 被省略
+command <input >output # 从 input 输入，正确结果输出到 output
+command n<>file        # 同时以输入和输出的方式打开 file，并让文件描述符 n 指向 file。n 默认为 0
+
+# 使用 Here Document
+command <<EOF
+  document
+EOF
+```
+
+#### Here Document
+
+语法：
+
+```bash
+command <<END # END 是分界符，可以自定义
+  document
+END # 行内不能有其他内容
+```
+
+Shell 将把 document 的内容输入到命令中。
+
+##### 忽略命令替换
+
+默认情况下，document 中出现的变量和命令也会被求值或运行。你可以将分界符用单引号或双引号包围来使 Shell 替换失效：
+
+```bash
+command <<'END'
+  document
+END
+```
+
+##### 忽略制表符
+
+默认情况下，行首的制表符也被当做正文的一部分。不过我们输入制表符仅仅是为了格式对齐，并不希望它作为正文的一部分。为了去掉制表符，你可以在 `<<` 和 `END` 之间添加 `-`：
+
+```bash
+cat <<-END
+  document
+END
+```
+
+##### 常见用法
+
+Here Document 最常用的功能还是向用户显示命令或者脚本的用法信息：
+
+```bash
+usage(){
+  cat <<-END
+    usage: command [-x] [-v] [-z] [file ...]
+    A short explanation of the operation goes here.
+    It might be a few lines long, but shouldn't be excessive.
+END
+}
+```
+
+### 代码块重定向
+
+将重定向命令放在代码块的结尾处，就可以对代码块中的所有命令实施重定向：
+
+```bash
+sum=0
+while read n; do
+  ((sum += n))
+done <input >output # 输入重定向为 input，输出重定向为 output
+
+# 组命令重定向
+{
+  echo "line 1"
+  echo "line 2"
+  echo "line 3"
+} >file
+```
+
+## Shell 结构语句
+
+### if else
+
+```bash
+if condition # 也可以写作：if condition; then
+then
+  statement(s)
+else
+  statement(s)
+fi
+```
+
+> :bulb: **Tip:** condition 检测的是命令的退出状态。通常退出状态为 0 表示 “成功” ，其他状态表示 “失败” 。`((1))` 的退出状态为 0。
+
+#### if elif else
+
+```bash
+if condition1; then
+  statement(s)
+elif condition2; then
+  statement(s)
+elif condition3; then
+  statement(s)
+else
+  statement(s)
+fi
+```
+
+if 语句也支持使用逻辑运算符将多个退出状态组合起来。
+
+## test 命令（Shell [&nbsp;&nbsp;]）
+
+test 是 Shell 内置命令，用来检测某个条件是否成立。test 通常和 if 语句一起使用。
+
+语法：
+
+```bash
+test expression
+
+[ expression ] # 注意 expression 两侧的空格
+```
+
+### 文件检测相关的选项
+
+|expression|作用|
+|:--|:--|
+|-d file|判断 file 是否存在，并且是否为目录文件|
+|-e file|判断 file 是否存在|
+|-f file|判断 file 是否存在，并且是否为普通文件|
+|-s file|判断 file 是否存在，并且是否非空|
+|-r file|判断 file 是否存在，并且是否拥有读权限|
+|-w file|判断 file 是否存在，并且是否拥有读权限|
+|-x file|判断 file 是否存在，并且是否拥有执行权限|
+|file1 -nt file2|判断 file1 的修改时间是否比 file2 新|
+|file1 -ot file2|判断 file1 的修改时间是否比 file2 旧|
+
+### 字符串判断相关的选项
+
+|expression|作用|
+|:--|:--|
+|-z str|判断 str 是否为空|
+|-n str|判断 str 是否非空|
+|str1 = str2<br />str1 == str2|判断 str1 是否和 str2 相等|
+|str1 \> str2|判断 str1 是否大于 str2。这里 \> 用于转义，防止 > 被误认为重定向字符|
+|str1 \<> str2|判断 str1 是否小于 str2|
+
+更多 test 选项参见 [C 语言中文网](http://c.biancheng.net/view/2742.html)
+
+## echo 输出彩色字符
 
 ```bash
 echo -e "\033[背景色;前景色m输出文字"
@@ -309,15 +687,13 @@ cls   # cmd 清屏
 
 ls -a # 查看当前目录所有文件（包括隐藏文件）
 
-mv <file> <dir> # 将 file 移动到 dir
+mv <file> <dir>    # 将 file 移动到 dir
 mv <name1> <name2> # 重命名
 
 rm <file> # 删除文件
-rm -rf    # 删除当前目录，并且不询问
-
-vi # 使用 vim 编辑文件
-
-q # 退出
+rm -rf    # 强制递归删除
+rmdir     # 删除目录
+del       # DOS 删除命令
 
 cat <file>    # 查看文件内容
 cat -n <file> # 显示行号
@@ -331,22 +707,9 @@ touch <file> # 创建文件
 echo -e # 使用转义字符
 echo -n # 关闭自动换行
 
-echo "message" > <file> # 以覆写的方式将消息写入文件
-echo "message" >> <file> # 以追加的方式写入文件
-
 read VAR # 从终端读取用户输入，并赋值给 VAR 变量
 
-echo $VAR # 使用 VAR 变量。可以通过 ${VAR} 指明变量名的边界
-
-# 输入输出重定向
-< file # 输入重定向
-> file # 输出重定向
-
 gedit [file] # 在 Linux 打开文本编辑器
-
-rmdir
-
-del # DOS 删除命令
 ```
 
 ### Linux 多命令顺序执行连接符
