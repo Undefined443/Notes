@@ -360,7 +360,7 @@ GFM: GitHub Flavored Markdown
 
 [[了不起的Markdown]]：引用文件
 
-[[了不起的Markdown#Wiki 链接]]：引用一个标题
+[[了不起的Markdown#Wiki 链接]]：引用一个标题，如果是文档内引用可以省略 `#` 前面的部分
 
 > 不加文件名后缀的话可能会找不到文件
 
