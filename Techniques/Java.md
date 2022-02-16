@@ -411,3 +411,436 @@ int num = Integer.parseInt(num_s);
 简单变量$\mathop\rightleftharpoons\limits_{拆封}^{封装}$对象
 
 > 在 Java 中，每一种基本数据类型都有其对应的对象类，基本变量与其相应类对象只有格式的差别
+
+# 接口
+
+## 概念
+
+接口是一组方法，它提供了名称、参数和返回类型，但是没有包含实现方法的代码。接口充当对象之间的契约：如果一个对象实现了该接口，其他对象就会知道它们可以调用该对象中接口的所有方法。
+
+## 定义接口
+
+```java
+public interface Demo {
+  method1;
+  method2;
+}
+```
+
+> 接口成员无访问限制修饰符，因为接口中的成员变量只有一种类型：`public static final`，所以可以直接省去修饰符。
+
+## 注解
+
+注解（annotation）是一种巧妙的注释（comment）形式，可以被 Java 解释器、编译器和编程工具所理解。注解可以定义不属于程序一部分的程序信息，使得当程序在编译或运行时，这些程序信息能够触发行为。
+
+# Collection
+
+集合接口树：
+
+```mermaid
+flowchart TD
+A1(Collection<E>)
+B1(Set<E>)
+C1(List<E>)
+D1(Queue<E>)
+A1 --> B1 & C1 & D1
+B1 --> E1([SortedSet<E>])
+C1 --> F1([ArrayList<E>]) & G1([LinkedList])
+
+A2(Map<K,V>) --> B2([SortedMap<K,V>])
+
+classDef default fill:#CDFEAA,stroke:none,color:#265301;
+classDef object fill:#265301,stroke:none,color:#CDFEAA;
+
+class E1,F1,G1,B2 object;
+```
+
+> Set: 集合，无序，不含重复元素
+>
+> List: 链表，有序，可含重复元素
+
+> 带有 "hash" 的集合类通过哈希值判断两个元素是否相同。
+>
+> 在集合类里判断两个元素是否相同，必须同时重写 `equals()` 方法和 `hashcode()` 方法。
+
+> Collection 是接口，Collections 是类
+
+可以用已有集合创建新的集合，只需在构造函数中传入原集合的引用。
+
+## iterator
+
+每个集合类都包含一个迭代器对象，相当于集合中元素之间的游标。使用 `iterator()` 函数获取集合类对象的迭代器，该迭代器准备返回集合中的第一个元素。迭代器引用可以使用泛型。
+
+迭代器迭代时会启用一个新的线程，此时迭代器所属的集合类对象的线程被锁定，无法再进行操作，只能使用迭代器操作。迭代器相对增强 for 循环的好处是可以对元素进行操作。
+
+# Collections 类
+
+## 方法
+
+```java
+shuffle(E); // 将集合打乱；shuffle：洗牌
+reverse(E); // 将集合倒序
+sort(E);    // 通过集合元素对象所实现的 Comparable 接口中的 compareTo(Object) 方法进行排序
+```
+
+声明集合时如果不指明元素类型，则使用 Object 作为元素类型。
+
+## List
+
+```java
+retainAll(E); // 将被调用该方法的集合对象与目标集合作交集
+E set(int index, E element); // 取出在 index 处的元素，并用 element 替换该元素
+```
+
+## Map
+
+一个 key 只对应一个 value，一个 value 可以对应多个 key。当使用重复的 key 加入新的键值对时，旧的键值对会被覆盖。
+
+> `add()` 方法需要接收对象而不能接收基本数据类型的原因之一是基本数据类型存储在栈，当作用域结束后就不可用了，元素无法保证长久保存。
+
+# ArrayList
+
+java.util
+
+## 声明
+
+```java
+ArrayList<Object> ary = new ArrayList<Object>();
+```
+
+可以通过构造函数指定数组长度，该长度与实际长度越接近，程序运行效率越高。
+
+貌似 `<>` 可以不写，如 `Collection c = new ArrayList();`
+
+## 方法
+
+```java
+add(Object);
+add(int, Object); （在指定位置）添加元素
+
+contains(Object); // 是否含有某元素
+
+indexOf(Object); // 获取某元素的下标，元素未找到时返回 -1
+
+get(int); // 检索元素
+
+remove(Object);
+remove(int); // 移除元素，可以用下标作为参数，也可以使用元素本身作为参数。使用 Object 时，函数使用对象的 equals() 方法来确定两个元素是否相同。
+
+size(); // 获取大小
+```
+
+> 使用 Collections 接口的 `sort()` 方法可以对字符串 ArrayList 排序。
+>
+> ArrayList 只能存放同一类对象或具有共同超类的对象（所有对象都能存，但基本类型有限制）。
+>
+> Vector 和 ArrayList 功能相同，但前者需要同步，运行速度较慢。
+
+# HashMap
+
+hash: 散列
+
+HashTable 和 HashMap 功能相同，但需要同步，速度更慢。
+
+使用泛型创建对象时第二组 `<>` 中的类型参数可以省略。
+
+## 声明
+
+```java
+HashMap<Object, Object>(int 初始容量, double 负载因子); // 缺省值为 (16, 0.75)
+```
+
+## 方法
+
+```java
+put(Object, Object); // 将对象存入 HashMap
+get(Object key); // 检索对象，映射不存在时返回 null
+getOrDefault(Object, Object); // 检索对象，映射不存在时返回第二个参数
+
+containsKey(Object);
+containsValue(); // 是否存在键或值
+
+size(); // Map 中 entry 的个数
+entrySet(); // 获得 entry set
+```
+
+## 遍历 HashMap
+
+调用 HashMap 对象的 `entrySet()` 方法获得 HashMap 对象的条目集合，通过 `Map.Entry<Object, Object>` 对象访问 Set 中的每个条目。调用 `getKey()`，`getValue()` 方法获得键和值。
+
+# GUI
+
+## 基本概念
+
+```mermaid
+flowchart LR
+A(GUI) --> B(组件) & C(容器)
+B --> B1(按钮) & B2(滑块) & B3(...)
+C --> C1(窗口) & C2(框架)
+
+classDef default fill:#CDFEAA,stroke:none,color:#265301;
+```
+
+窗口：一种简单的容器
+
+框架：常见的窗口
+
+> Dialog: 对话框（无菜单栏的 Frame）
+
+## 框架
+
+框架的构造函数中应包括：
+
+1. 调用超类 JFrame 的构造函数；
+2. 设置框架的标题（向超类的构造函数传递字符串参数或稍后使用 `setTitle()` 方法）；
+3. 设置框架的大小（使用 `setSize(int 宽度, int 高度)` 方法或在填充组件后使用无参的 `pack()` 方法）；
+4. 设置框架的外观（使用 UIManager 类的 `setLookAndFeel()` 方法，参数为外观类的完整名称）；
+5. 定义用户关闭框架时应执行的操作（调用框架的 `setDefaultCloseOperation(int)` 方法）；
+  参数：
+    - EXIT_ON_CLOSE 退出程序（关闭所有窗口）
+    - DISPOSE_ON_CLOSE 关闭当前窗口
+    - DO_NOTHING_ON_CLOSE 无操作
+    - HIDE_ON_CLOSE 隐藏窗口
+6. 设置是否显示框架（`setVisible(boolean)`）
+
+> AWT: Abstract Window Toolkit（抽象窗口工具包），是早期的 GUI 编程开发工具包。Swing 是 AWT 的扩展，Swing 中与 AWT的同名组件的名称前都加了 J 用以区分。
+
+```java
+paint(Graphic g); // 当窗口发生变化时由窗口自动调用。g 是画笔，调用 g 的方法来绘制图形。
+```
+
+二次缓冲 `repaint()` > `update()` > `paint()`
+
+awt 中的 Frame 的关闭按钮也是需要监听器来响应的，该监听器为 WindowListener。要关闭窗口，可以重写 WindowCloseing：
+
+```java
+WindowClosing(WindowEvent e) {
+  setVisible(false);
+  System.exit(0);
+}
+```
+
+## 组件（Component）
+
+```java
+// 按钮
+JButton(String label);
+
+// 标签
+JLabel(String text);
+JLabel(String text, int align); // align 值：JLabel.RIGHT, JLabel.LEFT, JLabel.CENTER
+
+// 文本框
+JTextField(int width);
+JTextField(string text, int width);
+// 文本框包含的方法
+Sting getText(); // 检索对象包含的文本
+setText(String); // 设置对象的文本
+setEchoChar(char); // 设置回显字符
+
+// 复选框
+JCheckBox(String text);
+JCheckBox(String text, boolean isChosen); // 是否选中
+
+// 组
+ButtonGroup(); // 调用 add() 方法添加复选框
+// 同组的复选框只能选中一个；ButtonGroup 对象只是关联复选框，没有容器的功能
+
+// 组合框（选项列表）
+JComboBox();
+// JComboBox 的方法
+addItem(String item); // 添加选项
+setEditable(); // 设置是否接受文本输入，需要在 JComboBox 放入容器之前设置
+
+// 文本区域
+JTextArea(int height, int width);
+JTextArea(String text, int height, int width); // 设置初始文本
+// JTextArea 的方法
+setLineWrap(); // 设置自动换行
+setWrapStyleWord(boolean); // true 基于单词换行，false 基于字符换行
+
+// 图像图标
+ImageIcon(String fileName); // fileName 中使用斜杠 / 分隔文件夹
+// 调用构造函数 Jlabel(ImageIcon), JButton(ImageIcon) 将图标应用于标签和按钮
+// 也可以 JButton refresh = new JButton("Refresh", "images/refreshIcon.gif");
+// ImageIcon 只支持 JPEG, PNG, GIF 格式的图片
+
+// 表
+// 表由一个存储数据的二位 Object 数组和一个表示表头的 String 数组组成，其中二维数组每列的数据类型必须相同。
+JTable(Object[][] tableData, String[] columnLabels);
+// JTable 的方法
+setFillsViewportHeight(boolean); // 让表格占用图形用户界面中所有可用的高度
+// 一般把表放在滚动面板里
+
+// 滑块
+JSlider(int min, int max);
+JSlider(int min, int max, int default); // 无参时默认 (0, 100, 50)
+JSlider(int dir, int min, int max, int default); // JSlider.VERTICAL, JSlider.HORIZONTAL
+// JSlider 的方法
+setMajorTickSpacing(int);
+setMinorTickSpacing(int);// 设置刻度密度
+
+setPaintTicks(boolean); // 显示刻度
+setPaintLabels(true); // 显示主刻度数值
+```
+
+组件的方法
+
+```java
+setPreferredSize(); // 对组件使用 setSize() 无效，需使用 setPreferredSize()
+paintConponent(); // 当需要刷新容器中的组件时，可以重写容器的 paintConponent() 方法，然后在需要刷新时调用容器的 repaint() 方法
+```
+
+缩放 ImageIcon
+
+```java
+ImageIcon icon = new ImageIcon("image.png");
+Image image = icon.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+icon = new (image);
+```
+
+## 容器（Container）
+
+```java
+JPanel(); // 面板
+
+// 滚动面板
+JScrollPane(); // 无参数：在需要时出现滚动条
+JScrollPane(int ver, int hor); // 创建一个带有指定垂直滚动条和水平滚动条的滚动面板
+JScrollPane(Component); // 创建带有指定组件的滚动面板
+JScrollPane(Component, int ver, int hor);
+// 滚动条参数，以 VERTICAL 为例。可自行换为 HORIZONTAL
+JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED
+JScrollPane.VERTICAL_SCROLLBAR_NEVER
+JScrollPane.VERTICAL_SCROLLBAR_ALWAYS
+
+// 工具栏
+JToolBar(int dir); // dir: SwingContants.HORIZONTAL（默认）, SwingContants.VERTICAL
+// 调用 add() 添加组件
+// 工具栏必须放在使用 BorderLayout 布局管理器的容器中，此时该容器只能将一个方向区域分配给工具栏，并将中央区域分配给剩下的组件。
+```
+
+> 滚动面板是一个容器，记得将文本框组件加入进去
+
+容器的方法
+
+```java
+setEnabled(); // 启用/禁用组件
+add(); // 添加组件
+```
+
+设置容器边界
+
+```java
+// 重写容器的 getInsets() 方法
+public Insets getInsets() {
+  Insets squeeze = new Insets(up, left, down, right); // 上边界要留高，否则组件可能排到标题栏里面。
+}
+```
+
+## 布局管理器
+
+```java
+// 流式布局 java.awt
+FlowLayout(<对齐方式>, <int 水平间距, int 垂直间距>);
+
+// 网格布局 java.awt
+GridLayout(int row, int col, <int 水平间距, int 垂直间距>)
+
+// 边界布局 java.awt
+BorderLayout(); // 使用 add() 方法时第一个参数是类变量 NORTH, SOUTH, EAST, WEST, CENTER
+
+// 框式布局 java.swing
+BoxLayout(布局方式);
+// 参数
+BoxLayout.Y_AXIS // 竖直排列
+BoxLayout.X_AXIS // 水平排列（默认）
+```
+
+> 同一布局管理器可同时用于多个容器
+
+## 监听器（EventListener）
+
+### 监听接口类别及其方法
+
+```java
+// 响应鼠标单击或输入回车
+ActionListener {
+  void actionPerformed(ActionEvent);
+}
+
+// 响应使用选择列表或复选框
+ItemListener {
+  void itemStateChange(ItemEvent);
+}
+
+// 响应鼠标事件
+MouseListener
+
+// 响应键盘事件
+KeyListener {
+  void keyPressed(KeyEvent); // 按下按键时自动调用
+  void keyReleased(KeyEvent); //松开按键时自动调用
+  void keyTyped(KeyEvent); //按下并松开时自动调用
+}
+
+// 响应滑块输入
+ChangeListener {
+  void stateChanged(ChangeEvent);
+}
+```
+
+组件生成用户事件时自动发送事件给接口的方法
+
+### 设置监听器
+
+调用组件的 `addXxxListener(Object)` 方法。例：
+
+```java
+button.addActionListener(this); // 参数是实现接口的对象
+```
+
+### 各事件对象包含的方法
+
+ActionEvent
+
+```java
+String getActionCommand(); // 获得引发事件的组件的标签或文本等
+Object getSource(); // 获得引发事件的对象
+```
+
+ItemEvent
+
+```java
+Object getItem(); // 获得引发事件的对象
+int getStateChange(); // 获得对象当前选中状态：ItemEvent.SELECTED, ItemEvent.DESELECTED
+```
+
+KeyEvent
+
+```java
+char getKeyChar(); // 获得按下的字符，只适用于可显示字符
+int getKeyCode(); // 监视键盘上的每个键，返回的整数可以作为getKeyText() 的参数
+String getKeyText(int keyCode); // 获得键名
+```
+
+ChangeEvent
+
+```java
+Object getSource(); // 返回发生变更的对象
+boolean getValueIsAdjusting(); // 确定滑块是否在移动
+```
+
+> 滑块在移动的过程中将一直触发 ChangeEvent
+
+## 创建 Java 2D 图形
+
+### Font 类
+
+```java
+Font(String fontName, int style, int weight);
+// style: Font.BOLD, Font.ITALIC, Font.PLAIN
+
+// 你可以将字体样式合并起来，就像这样：
+Font headline = new Font("Courier New", Font.BOLD + Font.ITALIC, 72);
+```
