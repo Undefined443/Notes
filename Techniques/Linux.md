@@ -6,6 +6,7 @@
 
 ```ps
 wsl --install # 默认会安装 Ubuntu
+
 # 如果没有自动安装，则使用以下命令：
 wsl --install -d Ubuntu
 # 若要查看其他可用的发行版：
@@ -24,18 +25,21 @@ wsl -l -v
 
 进入官网，安装 MSI 包
 
-<https://docs.microsoft.com/zh-cn/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.2#msi>
+[MS Doc：在 Windows 上安装 PowerShell](https://docs.microsoft.com/zh-cn/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.2#msi>)
+
+<del>
 
 #### 配置 PowerShell 7
 
 [知乎：Windows Terminal 完美配置](https://zhuanlan.zhihu.com/p/137595941)
 
-> 安装字体：下载字体压缩包，解压，将所有字体文件拷贝到 `C:\Windows\Fonts`
+> 安装字体：下载字体压缩包并解压，选中所有字体，在右键菜单中选择 “为所有用户安装”
 >
-> 配置 Windows Terminal：打开 Windows Terminal，在标题栏的下拉菜单中选择设置，在左边菜单中选择 “打开 JSON 文件”
+> 配置 Windows Terminal：打开 Windows Terminal，在标题栏的下拉菜单中选择设置，在左边菜单中选择 “打开 JSON 文件”。
 >
-> 知乎中给出的配置代码里面，第一块（写有 guid 的部分）只需把从“行为”开始剩下的部分复制到 settings.json 的 `list` 属性下的 PowerShell 相应块里。并把“行为”下的 `commandline` 项改为 `"C:/Program Files/PowerShell/7/pwsh.exe -nologo"`，“外观”下的 `fontFace` 项改为 `"FiraCode NF"`， `icon` 项去掉。而 Homebrew 配色放到 `schemes` 里即可。
+> 不要看知乎里的代码，看他给的 GitHub 链接里的，直接拷贝过去。
 
+</del>
 
 ### 安装 Windows/Linux 双系统后开机直接进入 Windows
 
@@ -284,7 +288,7 @@ chmod o+w file # 为其他人增加写权限
 chmod a+x file # 为所有人增加执行权限
 ```
 
-u 表示该文件的拥有者，g 表示与该文件的拥有者属于同一个群体(group)者，o 表示其他以外的人，a 表示这三者皆是。
+u 表示该文件的拥有者，g 表示该文件的拥有者所属的群体，o 表示其他人，a 表示这三者皆是。
 
 |数字|权限|
 |:--:|:--:|
@@ -303,7 +307,7 @@ MacOS：使用 `md5` 命令
 
 Windows：
 
-```dos
+```bat
 certutil -hashfile <file> MD5
 certutil -hashfile <file> SHA1
 certutil -hashfile <file> SHA256
