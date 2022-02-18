@@ -574,9 +574,9 @@ command1 <input | command2 | command3 >output # 第一个命令从 input 获取�
 #### grep
 
 ```bash
-grep 'word' file    # 在 file 中查找包含 word 的行
+grep 'word' file    # 在 file 中查找并显示包含 word 的行
 grep -i 'word' file # 忽略大小写
-grep -R 'word' .    # 在当前目录及其子目录下的所有文件中查找 word
+grep -R 'word' .    # 在当前目录及其子目录下的所有文件中查找并显示包含 word 的行
 grep -c 'word' file # 搜索并显示 word 在 file 中出现的次数
 ```
 
