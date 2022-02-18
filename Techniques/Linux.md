@@ -212,11 +212,17 @@ autojump 用法：`j dir` 跳转到 dir
 
 ### 安装 Menlo for Powerline 字体
 
-##### MacOS
+MacOS:
 
 在官网下载字体压缩包，双击打开安装即可。
 
 [GitHub: Menlo-for-Powerline](https://github.com/abertsch/Menlo-for-Powerline)
+
+Linux:
+
+将字体压缩包解压到 `~/.local/share/fonts` 为当前用户安装或者 `/usr/share/fonts` 为系统安装，然后运行 `fc-cache -f -v`
+
+> 可以使用 `fc-list | grep <font name>` 检查字体是否安装成功，使用 `fc-list :lang=zh` 检查中文字体。
 
 #### 在 Terminal 中使用 Menlo for Powerline 字体
 

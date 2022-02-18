@@ -571,6 +571,15 @@ command1 <input | command2 | command3 >output # 第一个命令从 input 获取�
 |uniq|用于报告或忽略重复的行。|
 |wc｜用于打印文件中的总行数、单词数或字节数。｜
 
+#### grep
+
+```bash
+grep 'word' file    # 在 file 中查找包含 word 的行
+grep -i 'word' file # 忽略大小写
+grep -R 'word' .    # 在当前目录及其子目录下的所有文件中查找 word
+grep -c 'word' file # 搜索并显示 word 在 file 中出现的次数
+```
+
 ## Shell 结构语句
 
 ### if else
