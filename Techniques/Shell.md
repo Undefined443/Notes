@@ -6,7 +6,7 @@
 sudo su
 ```
 
-sudo: superuser do
+> sudo: superuser do
 
 ## 执行 Shell 脚本
 
@@ -32,12 +32,14 @@ bash script.sh # 这种方式将忽略脚本文件第一行的指定解释器信
 
 ```bash
 source script.sh # 在 zsh 下依然需要使用 ./script.sh
-. script.sh # source 命令的简化写法
+. script.sh      # source 命令的简化写法
 ```
 
 ## 配置脚本
 
 Shell 有多个配置文件。对普通用户来说，~/.bashrc 是最重要的文件，因为不管是否登陆都会加载该文件。
+
+Git Bash for Windows 的配置文件在 `C:\Program Files\Git\etc\profile.d\git-prompt.sh`
 
 [Shell 配置文件（配置脚本）的加载](http://c.biancheng.net/view/vip_3232.html)
 
