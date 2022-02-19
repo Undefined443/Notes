@@ -98,9 +98,67 @@ clash
 
 http://clash.razord.top/#/proxies
 
-**Issues**
+> :bulb: **Tip:** 在设置代理后必须打开 clash 才能上网，否则必须禁用代理。
+### 终端使用代理
 
-在设置代理后必须打开 clash 才能上网，否则必须禁用代理
+终端默认是不走代理的，即使我们已经打开了网络代理客户端的 “全局代理”。
+
+> 用 curl 或 wget 下载 GitHub 上的文件时出现的 443 错误就是没有挂代理导致的。
+
+#### 使用环境变量
+
+很多 Linux 和 Unix 命令行工具（比如 curl，wget，lynx 等）使用名为 `http_proxy`，`https_proxy`，`ftp_proxy` 的环境变量来获取代理信息。它允许你通过代理服务器来连接那些基于文本的会话和应用。
+
+wget: World Wide Web Get
+
+curl: Client URL
+
+> HTTP，HTTPS，FPT 是三个最常见的 TCP/IP 协议
+
+```bash
+export http_proxy=http://127.0.0.1:7890
+export https_proxy=$http_proxy           # 对于 https 的内容，只会使用 https 代理
+export all_proxy=socks5://127.0.0.1:7891
+
+# 使用用户名和密码的代理，在 proxyAddres 前加上 user:password@
+export http_proxy=http://user:password@proxyAddress:port
+```
+
+#### 使用命令选项
+
+```bash
+# 通过代理服务器访问 url
+wget -e http_proxy=127.0.0.1:7890 url # 如果是 https 内容，需要使用 https_proxy
+
+curl -x 127.0.0.1:7890 url
+curl -x socks5://127.0.0.1:7891 url
+```
+
+> 使用 `protocol://` 的格式指定协议。若不指定，则默认值为 `http://`
+>
+> 端口默认为 1080
+
+#### 设置配置文件
+
+在 ~/.curlrc 中添加：
+
+```
+proxy = 127.0.0.1
+proxy-user = "user:passward"
+```
+
+如果临时不需要代理使用以下参数
+
+```bash
+curl --noproxy "*" url
+```
+
+#### 设置 Linux 全局代理动作
+
+```bash
+alias set_proxy="export http_proxy='http://127.0.0.1:7890'; export https_proxy=$http_proxy; all_proxy='socks5://127.0.0.1:7891'; echo 'HTTP Proxy on'"
+alias unset_proxy="unset http_proxy; unset https_proxy; echo 'HTTP Proxy off'"
+```
 
 ### ScreenShot
 
@@ -154,11 +212,17 @@ autojump 用法：`j dir` 跳转到 dir
 
 ### 安装 Menlo for Powerline 字体
 
-##### MacOS
+MacOS:
 
 在官网下载字体压缩包，双击打开安装即可。
 
 [GitHub: Menlo-for-Powerline](https://github.com/abertsch/Menlo-for-Powerline)
+
+Linux:
+
+将字体压缩包解压到 `~/.local/share/fonts` 为当前用户安装或者 `/usr/share/fonts` 为系统安装，然后运行 `fc-cache -f -v`
+
+> 可以使用 `fc-list | grep <font name>` 检查字体是否安装成功，使用 `fc-list :lang=zh` 检查中文字体。
 
 #### 在 Terminal 中使用 Menlo for Powerline 字体
 
@@ -183,81 +247,6 @@ autojump 用法：`j dir` 跳转到 dir
 ### Could not get lock 问题
 
 [CSDN: Could not get lock /var/lib/dpkg/lock-frontend](https://blog.csdn.net/lun55423/article/details/108907779)
-
-### github.com:443
-
-很多程序的安装脚本都在 GitHub 上，比如这条命令：
-
-```bash
-sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-```
-
-就是从 GitHub 上下载 install.sh 脚本，然后用 bash 去执行该脚本（`curl` 是下载命令，`sh -c "$(curl -fsSL ...)"` 是用 Shell 执行 curl 下载下来的脚本文件。然而由于墙的原因经常会出现 443 错误：
-
-```bash
-curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused
-```
-
-如果我们可以正常访问这个网址，那么可以在本地创建一个脚本文件 install.sh，然后把网页的内容拷贝进去，然后执行脚本： `. ./install.sh`
-
-然而如果脚本中依然有连接 GitHub 的操作，那么这种方法就不能彻底解决问题。最好的方法还是挂代理。
-
-### curl 和 wget 使用代理
-
-curl: Client URL
-
-wget: World Wide Web Get
-
-#### 使用环境变量
-
-很多 Linux 和 Unix 命令行工具（比如 curl，wget，lynx 等）使用名为 `http_proxy`，`https_proxy`，`ftp_proxy` 的环境变量来获取代理信息。它允许你通过代理服务器来连接那些基于文本的会话和应用。
-
-> HTTP，HTTPS，FPT 是三个最常见的 TCP/IP 协议
-
-```bash
-export http_proxy=http://127.0.0.1:7890
-export https_proxy=$http_proxy # 对于 https 的内容，只会使用 https 代理
-export all_proxy=socks5://127.0.0.1:7890
-
-# 使用用户名和密码的代理，在 proxyAddres 前加上 user:password@
-export http_proxy=http://user:password@proxyAddress:port
-```
-
-#### 使用命令选项
-
-```bash
-# 通过代理服务器访问 url
-wget -e http_proxy=127.0.0.1:7890 url # 如果是 https 内容，需要使用 https_proxy
-
-curl -x 127.0.0.1:7890 url
-curl -x socks5://127.0.0.1:7891 url
-```
-
-> 使用 `protocol://` 的格式指定协议。若不指定，则默认值为 `http://`
->
-> 端口默认为 1080
-
-#### 设置配置文件
-
-在 ~/.curlrc 中添加：
-
-```
-proxy = 127.0.0.1
-proxy-user = "user:passward"
-```
-
-如果临时不需要代理使用以下参数
-
-```bash
-curl --noproxy "*" url
-```
-
-#### 设置 Linux 全局代理动作
-
-```bash
-alias setproxy="export http_proxy=socks5://127.0.0.1:7890; export https_proxy=$http_proxy; echo 'HTTP Proxy on'"
-alias unsetproxy="unset http_proxy; unset https_proxy; echo 'HTTP Proxy off'"
-```
 
 ### apt
 

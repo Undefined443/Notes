@@ -532,6 +532,56 @@ done <input >output # 输入重定向为 input，输出重定向为 output
 } >file
 ```
 
+## 管道
+
+```bash
+command1 | command2 # 管道符 | 左边命令的 stdout 将连接到右边命令的 stdin
+```
+
+![管道数据流指示](http://c.biancheng.net/uploads/allimg/190416/1-1Z4161052294c.gif)
+
+### 管道与输入重定向
+
+```bash
+command1 <input | command2 | command3 >output # 第一个命令从 input 获取输入，最后一个命令向 output 写入输出
+```
+
+[C 语言中文网：管道详解](http://c.biancheng.net/view/3131.html)
+
+### 过滤器
+
+过滤器：从标准输入读取数据，向标准输出输出结果的命令
+
+常用过滤器：
+
+|命令|说明|
+|:--|:--|
+|awk|用于文本处理的解释性程序设计语言，通常被作为数据提取和报告的工具。|
+|cut|用于将每个输入文件（如果没有指定文件则为标准输入）的每行的指定部分输出到标准输出。|
+|grep|用于搜索一个或多个文件中匹配指定模式的行。|
+|tar|用于归档文件的应用程序。|
+|head|用于读取文件的开头部分（默认是 10 行）。如果没有指定文件，则从标准输入读取。|
+|paste|用于合并文件的行。|l
+|sed|用于过滤和转换文本的流编辑器。|
+|sort|用于对文本文件的行进行排序。|
+|split|用于将文件分割成块。|
+|strings|用于打印文件中可打印的字符串。|
+|tac|与 cat 命令的功能相反，用于倒序地显示文件或连接文件。|
+|tail|用于显示文件的结尾部分。|
+|tee|用于从标准输入读取内容并写入到标准输出和文件。|
+|tr|用于转换或删除字符。|
+|uniq|用于报告或忽略重复的行。|
+|wc｜用于打印文件中的总行数、单词数或字节数。｜
+
+#### grep
+
+```bash
+grep 'word' file    # 在 file 中查找并显示包含 word 的行
+grep -i 'word' file # 忽略大小写
+grep -R 'word' .    # 在当前目录及其子目录下的所有文件中查找并显示包含 word 的行
+grep -c 'word' file # 搜索并显示 word 在 file 中出现的次数
+```
+
 ## Shell 结构语句
 
 ### if else
