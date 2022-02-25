@@ -39,9 +39,7 @@ git add -A # 提交版本库所有文件
 
 # 暂存区提交到版本库
 git commit -m "message"
-
 git commit -a                   # 自动将工作区所有修改的文件添加到暂存区并提交
-
 git commit --amend -m "message" # 重新提交
 ```
 
@@ -153,6 +151,187 @@ git rm <file> # 从工作区中删除 file 并将修改提交到暂存区
 > 
 > 删除也是一种修改操作
 
+### 分支管理
+
+```bash
+git branch               # 查看分支
+
+git branch <branch>      # 创建分支
+
+git checkout <branch>    # 切换分支
+git switch <branch>      # 新版本命令
+
+git checkout -b <branch> # 创建并切换分支
+git switch -c <branch>   # 新版本命令
+
+git merge <branch>       # 将 branch 合并到当前分支
+
+git branch -d <branch>   # 删除分支
+git branch -D <branch>   # 删除一个尚未被合并的分支
+
+git branch -f <branch> <node> # 将 branch 分支强制指向 node
+
+git log --graph --pretty=oneline --abbrev-commit # 查看分支的合并情况
+```
+
+#### 分支管理策略
+
+合并分支时，Git 会优先采用 Fast forward 模式，即把当前分支直接指向合并的分支：
+
+![pic](https://static.liaoxuefeng.com/files/attachments/919022412005504/0)
+
+在这种模式下，删除分支后，在分支历史上看不到分支信息。
+
+我们可以通过命令 `git merge no-ff -m "message" <branch>` 命令来禁用 Fast forward 模式进行合并：
+
+![pic](https://static.liaoxuefeng.com/files/attachments/919023225142304/0)
+
+此时 Git 会在 merge 时生成一个新的 commit。这样，从分支历史上就可以看出分支信息。
+
+> 因为禁用 Fast forward 模式合并时要生成一个新的 commit，因此在 `git merge no-ff` 命令中还要加上 `-m` 选项写入描述信息。
+
+#### 分支策略
+
+在实际开发中，master 分支（主分支）用来发布新版本。dev 分支是所有人干活的地方。每个人在 dev 分支上再创建自己的分支，完成自己的工作。
+
+![pic](https://static.liaoxuefeng.com/files/attachments/919023260793600/0)
+
+#### stash
+
+```bash
+git stash      # 将当前工作现场暂存到当前分支
+
+git stash list # 查看暂存的工作现场
+
+git stash pop  # 恢复工作现场并删除 stash
+
+# 等价于下面两条命令
+git stash apply <name> # 恢复
+git stash drop <name>  # 删除
+```
+
+#### cherry-pick
+
+```bash
+git cherry-pick <node> # 摘取一个或几个提交到 HEAD
+```
+
+#### push
+
+```bash
+git push <remote> <branch>       # 将 branch 的内容推送到远程库的 branch
+git push <remote> <ref>:<branch> # 将 ref 的内容推送到远程库的 branch。ref 可以是分支，也可以是结点。如果远程库的 branch 分支不存在，则会自动创建一个 branch 分支
+```
+
+> 远程分支 remote/branch 也是存储在本地的，它记录了上次和远程库通信时远程库的状态。
+
+> 如果不提供 remote 参数的话，Git 会将 branch 的内容推送到其 track 的分支。
+> 
+> 如果使用 `git push`，若当前分支没有 track 任何分支，或当前处于 Detached Head 状态的话 push 会失败。
+
+> 如果不提供 ref 的话，Git 会删除远程库的 branch。
+
+#### fetch
+
+fetch 与 checkout 结合可以让你查看其他人在远程库上完成的工作而不影响你本地的工作。
+
+```bash
+git fetch # 将远程库所有内容下载到本地的 remote/branch
+git fetch <remote> [<branch>] # 只下载 remote 库的 branch 分支
+```
+
+#### pull
+
+将远程库中指定分支的内容抓取下来，并与当前分支合并。
+
+`git pull <remote> <branch>` 等价于：
+
+```bash
+git fetch <remote> <branch>
+git merge <remote>/<branch> # 注意是与当前分支合并，而不是 branch 关联的分支
+```
+
+```bash
+# 设置默认合并方式
+git config pull.rebase false  # merge (the default strategy)
+git config pull.rebase true   # rebase
+git config pull.ff only       # fast-forward only
+```
+
+可以添加 `--global` 参数来设置全局默认合并方式。
+
+也可以添加 `--rebase`, `--no-rebase`, 或 `--ff-only` 参数在一次 pull 时指定合并方式。
+
+#### 分离的 HEAD
+
+一般 HEAD 都是指向某个分支，并随分支一起移动。但当我们 checkout 到某个具体的 commit 时，这种绑定状态被解除，成为分离头指针状态。在这种情况下，我们可以对文件进行修改并提交，但在我们 checkout 到其他地方之前，必须创建一个新的分支来保留做的修改。
+
+#### tag
+
+```bash
+git tag                     # 查看所有标签
+git tag "tag_name" [<node>] # 为 node 创建一个标签，默认值为 HEAD
+git tag -a "tag_name" -m "message" [<node>] # 为 node 创建带说明的标签
+git show <tag_name>         # 查看标签信息
+```
+
+默认情况下，push 并不会把标签推送到远程库，必须通过显式命令才会推送标签：
+
+```bash
+git push [<remote>] <tag_name>          # 推送一个标签
+git push [<remote>] --tags              # 推送所有标签
+
+git tag -d <tag_name>                   # 删除本地标签
+git push <remote> :refs/tags/<tag_name> # 删除远程标签
+```
+
+> 标签相当于一个锚点，可以用它来为一些里程碑式的修改进行标记。
+
+#####  describe 命令
+
+```bash
+$ git describe <ref>       # ref 可以是任何能被 Git 识别成提交记录的引用，默认值为 HEAD
+<tag>_<numCommits>_g<hash> # tag 是离 ref 最近的标签，numCommits 是 tag 与 ref 相差的提交数，hash 是 ref 的哈希值的前几位
+```
+
+如果 ref 本身就有一个标签，则只输出该标签名。
+
+#### rebase
+
+rebase 是从当前分支与目标分支分离的地方开始，把属于当前分支的那一段挪到目标分支下面。
+
+```bash
+git rebase <branch>  # 把当前分支摘下来，放到指定分支上
+git rebase -i <node> # 将当前分支以 node 为根，重新整理中间的结点
+```
+
+#### pull request
+
+当远程分支被锁定时，不允许你直接将本地分支内容 push 到远程分支。你应该新建一个分支，push 这个分支并申请 pull request。
+
+### .gitignore
+
+```bash
+file      # 忽略当前目录下的 file 文件
+dir/      # 忽略当前目录下的 dir 目录
+/file     # 忽略版本库根目录下的 file 文件
+!file     # 取消忽略 file
+```
+
+`*` 指单个目录或一个字符串，`**` 指多个目录：
+
+```bash
+*.c       # 忽略所有 .c 文件
+**/file   # 忽略 /file, a/file, a/b/file...
+a/**/file # 忽略 a/file, a/x/file, a/x/y/file..
+```
+
+```bash
+git check-ignore -v <file> # 检查 file 是否在 .gitignore 中
+```
+
+注意，.gitignore 只能忽略那些原来没有被 track 的文件。如果文件已经被 track，则需要使用 `git rm -r --cached .` 命令清空本地缓存，然后再提交。
+
 ## 远程版本库
 
 ### 添加远程库
@@ -216,6 +395,10 @@ git remote set-url --add <remote> <url> # 为现有的远程库添加额外的 U
 
 再添加一个远程库，以后在 push，pull 时都需指定 remote：
 
+```bash
+git remote add <remote> <url>
+```
+
 ### 删除远程库
 
 可以先用 `git remote -v` 命令查看远程库的详细信息。
@@ -226,7 +409,7 @@ git remote set-url --add <remote> <url> # 为现有的远程库添加额外的 U
 
 > 此处的删除只是解除本地库和远程库的绑定关系
 
-### 从远程库克隆
+### 克隆远程库
 
 在 GitHub 库的 `<> Code` 区的绿色按钮 Code 中拷贝 SSH Key，然后运行命令：
 
@@ -235,194 +418,6 @@ git clone <url>
 ```
 
 Git 将把远程库拷贝到当前目录。注意，当前目录下不能有 `.git` 文件。
-
-## 分支管理
-
-```bash
-git branch             # 查看分支
-
-git branch <name>      # 创建分支
-
-git checkout <name>    # 切换分支
-git switch <name>      # 新版本命令
-
-git checkout -b <name> # 创建并切换分支
-git switch -c <name>   # 新版本命令
-
-git merge <branch>     # 将 branch 合并到当前分支
-
-git branch -d <name>   # 删除分支
-
-git branch -D <name>   # 删除一个尚未被合并的分支
-```
-
-### 解决冲突
-
-可以用 `git log --graph --pretty=oneline --abbrev-commit` 命令查看分支的合并情况。
-
-### 分支管理策略
-
-合并分支时，Git 会优先采用 Fast forward 模式，即把当前分支直接指向合并的分支：
-
-![pic](https://static.liaoxuefeng.com/files/attachments/919022412005504/0)
-
-在这种模式下，删除分支后，在分支历史上看不到分支信息。
-
-我们可以通过命令 `git merge no-ff -m "message" <branch>` 命令来禁用 Fast forward 模式进行合并：
-
-![pic](https://static.liaoxuefeng.com/files/attachments/919023225142304/0)
-
-此时 Git 会在 merge 时生成一个新的 commit。这样，从分支历史上就可以看出分支信息。
-
-> 因为禁用 Fast forward 模式合并时要生成一个新的 commit，因此在 `git merge no-ff` 命令中还要加上 `-m` 参数写入描述信息。
-
-#### 分支策略
-
-在实际开发中，master 分支（主分支）用来发布新版本。dev 分支是所有人干活的地方。每个人在 dev 分支上再创建自己的分支，完成自己的工作。
-
-![pic](https://static.liaoxuefeng.com/files/attachments/919023260793600/0)
-
-### stash
-
-```bash
-git stash # 将当前工作现场在当前分支上暂存起来
-
-git stash list # 查看暂存的工作现场
-
-git stash pop # 命令恢复工作现场并删除 stash，等价于下面两条命令
-git stash apply <name> # 恢复
-git stash drop <name>  # 删除
-```
-
-### cherry-pick
-
-```bash
-git cherry-pick <node> # 摘取一个或几个提交到 HEAD
-```
-
-### push
-
-```bash
-git push <remote> <branch> # 将本地的 branch 推送到远程库的 branch
-git push <remote> <source>:<destination> # 将 source 指向的位置推送到 destination。source 可以是分支，也可以是结点。如果 destination 不存在，则会自动创建一个
-```
-
-> 远程分支 remote/branch 也是存储在本地的，它记录了上次和远程库通信时远程库的状态
->
-> 如果不提供参数的话，Git 会将 HEAD 推送到 HEAD 跟踪的分支（如果 HEAD 指向的是一个没有跟踪任何分支的分支或某个结点的话 push 会失败）
->
-> 如果不提供 source 的话，git 会删除远程库的 destination
-
-### fetch
-
-```bash
-git fetch # 将远程库所有更新下载到本地
-git fetch <remote> <branch> # 将远程仓库上的 branch 下载到本地的 <remote>/<branch>
-
-# 和 git push 一样，git fetch 也可以使用这样的命令：
-git fetch <remote> <source>:<destination> # 将远程的 source 下载到本地的 destination（当前不能在 destination 上工作）
-# 但是很少有人这样用
-```
-
-> 如果不提供 source，Git 会在本地创建一个新分支
-
-### pull
-
-将远程库中指定分支的内容抓取下来，并与当前分支合并。
-
-`git pull <remote> <branch>` 等价于：
-
-```bash
-git fetch <remote> <branch>
-git merge <remote>/<branch>
-```
-
-```bash
-# 设置默认合并方式
-git config pull.rebase false  # merge (the default strategy)
-git config pull.rebase true   # rebase
-git config pull.ff only       # fast-forward only
-# 
-# 设置
-```
-
-可以添加 `--global` 参数来设置全局默认合并方式。
-
-也可以添加 `--rebase`, `--no-rebase`, 或 `--ff-only` 参数在一次 pull 时指定合并方式。
-
-### 分离的 HEAD
-
-一般 HEAD 都是指向某个分支，并随分支一起移动。但当我们 checkout 到某个具体的 commit 时，这种绑定状态被解除，成为分离头指针状态。在这种情况下，我们可以对文件进行修改并提交，但在我们 checkout 到其他地方之前，必须创建一个新的分支来保留做的修改。
-
-### tag
-
-```bash
-git tag                                     # 查看所有标签
-git tag "tag_name" [<node>]                 # 为 node 创建一个标签，默认值为 HEAD
-git tag -a "tag_name" -m "message" [<node>] # 为 node 创建带说明的标签
-git show <tag_name>                         # 查看标签信息
-```
-
-默认情况下，git push 并不会把标签推送到远程库，必须通过显式命令才会推送标签：
-
-```bash
-git push [<remote>] <tag_name>          # 推送一个标签
-git push [<remote>] --tags              # 推送所有标签
-
-git tag -d <tag_name>                   # 删除本地标签
-git push <remote> :refs/tags/<tag_name> # 删除远程标签
-```
-
-> 标签相当于一个锚点，可以用它来为一些里程碑式的修改进行标记。
-
-####  describe 命令
-
-```bash
-$ git describe <ref>       # ref 可以是任何能被 Git 识别成提交记录的引用，默认值为 HEAD
-<tag>_<numCommits>_g<hash> # tag 是离 ref 最近的标签，numCommits 是 tag 与 ref 相差的提交数，hash 是 ref 的哈希值的前几位
-```
-
-如果 ref 本身就有一个标签，则只输出该标签名。
-
-### rebase
-
-```bash
-git rebase <dst_branch> # 把当前分支摘下来，放到指定分支上
-```
-
-rebase 是从当前分支与目标分支分离的地方开始，把属于当前分支的那一段挪到目标分支下面
-
-### pull request
-
-当远程分支被锁定时，不允许你直接将本地分支内容 push 到远程分支。你应该新建一个分支，push 这个分支并申请 pull request。
-
-```bash
-git branch -f main c6 # 将 main 分支强制指向 c6
-git rebase -i c2      # 将当前分支以 c2 为根，重新整理中间的结点
-```
-
-### .gitignore
-
-```bash
-file      # 忽略当前目录下的 file 文件
-dir/      # 忽略当前目录下的 dir 目录
-/file     # 忽略版本库根目录下的 file 文件
-!file     # 取消忽略 file
-```
-
-`*` 指单个目录或一个字符串，`**` 指多个目录：
-
-```bash
-*.c       # 忽略所有 .c 文件
-**/file   # 忽略 /file, a/file, a/b/file...
-a/**/file # 忽略 a/file, a/x/file, a/x/y/file..
-```
-
-```bash
-git check-ignore -v <file> # 检查 file 是否在 .gitignore 中
-```
-
-注意，.gitignore 只能忽略那些原来没有被 track 的文件。如果文件已经被 track，则需要使用 `git rm -r --cached .` 命令清空本地缓存，然后再提交。
 
 [CNBlogs: gitignore](https://www.cnblogs.com/FlyAway2013/p/15426421.html#:~:text=在%20.gitignore%20文件中，每一行的忽略规则的语法如下：%201）空格不匹配任意文件，可作为分隔符，可用反斜杠转义；%202）以“＃”开头的行都会被,Git%20忽略%E3%80%82%20即%23开头的文件标识注释，可以使用反斜杠进行转义；%203）可以使用标准的%20glob模式%20匹配%E3%80%82)
 
