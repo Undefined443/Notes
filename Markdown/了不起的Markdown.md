@@ -248,10 +248,21 @@ int main() {
 
 1.  很多 Shell 命令都要粘贴到终端中去执行，因此最好避免在 Shell 命令中使用任何换行操作；可以在行尾使用一个反斜杠 `\` 将换行转义，这样既能避免命令换行，又能提高源码的可读性。
 2.  建议不要在没有输出内容的 Shell 命令前加 `$`。在命令没有输出内容的情况下，`$` 是没有必要的，因为内容全是命令，我们不会把命令和输出的内容混淆。
+3.  内容占位符用 `<>` 包裹，可选参数用 `[]` 包裹。
+
+```bash
+mkdir Demo;\ # 一定要加封号
+cd Demo;\
+touch file
+```
 
 ```bash
 $ echo "message"
 message
+```
+
+```bash
+git init [-q | --quiet] [--bare] [--template=<template_directory>]
 ```
 
 ### 引用
