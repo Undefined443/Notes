@@ -39,10 +39,11 @@ git add *  # 提交当前目录下所有文件，不包括 .gitignore，并且�
 git add -A # 提交版本库所有文件
 
 # 暂存区提交到版本库
-git commit -m "added a readme file"
+git commit -m "message"
 
-# 重新提交
-git commit --amend -m "message"
+git commit -a                   # 自动将工作区所有修改的文件添加到暂存区并提交
+
+git commit --amend -m "message" # 重新提交
 ```
 
 > 我觉得 `git add *` 更好
