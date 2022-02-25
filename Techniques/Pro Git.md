@@ -1,27 +1,26 @@
-# Git
+# Pro Git
 
 ## 安装与配置 Git
 
-Mac 自带 Git :)
+MacOS 自带 Git :)
 
 [Windows Git 详细安装教程](https://blog.csdn.net/mukes/article/details/115693833)
+
+## 本地版本库
 
 ### 自报家门
 
 ```bash
-git config --global user.name "Xiao"
-git config --global user.email "iPhone4s2008@iCloud.com"
+git config --global user.name "name"
+git config --global user.email "email"
 ```
 
-### 创建版本库 Repository
+### 创建版本库
 
-1. 创建并进入一个空目录
+1. 创建版本库
 
 ```bash
-mkdir repo
-cd repo
-pwd # 显示当前目录
-git init # 将当前目录设置成仓库
+git init # 将当前目录设置为版本库
 
 # 可以更改默认主分支名：
 git config --global init.defaultBranch <name>
@@ -49,22 +48,20 @@ git commit --amend -m "message"
 >
 > 不要使用 Windows 自带的记事本编辑文本文件
 
-## 时光机穿梭
+### 时光机穿梭
 
 ```bash
-git status # 查看当前暂存区状态
+git status               # 查看当前暂存区状态
 
-git diff <file> # 查看文件的改动情况
+git diff <file>          # 查看文件的改动情况
 
-git diff HEAD -- <file> # 查看工作区版本和版本库最新版本的区别
+git diff HEAD -- <file>  # 查看工作区版本和版本库最新版本的区别
 
 git log                  # 显示从最近到最久的提交日志
 git log --graph          # 显示提交分支图
 git log --pretty=oneline # 单行模式：只显示 commit-id 和 commit-message
 git log --abbrev-commit  # 只显示前 7 位 commit-id
 ```
-
-### 版本回退
 
 #### 操作符 \^ 与 \~
 
@@ -78,21 +75,23 @@ git log --abbrev-commit  # 只显示前 7 位 commit-id
 
 #### reset
 
-将当前分支回退到指定状态，之后的日志记录被删除（但是 commit-id 依然存在）。
+将当前分支指针置到指定结点，结点之后的日志记录被删除（但是 commit-id 依然存在）。
 
 ```bash
 git reset --hard HEAD^
 ```
 
-reset 的三种模式：
+![图片](https://upload-images.jianshu.io/upload_images/4428238-6dbab74ae9ad2e1f?imageMogr2/auto-orient/strip|imageView2/2/w/466)
+
+##### reset 的三种模式
 
 ![图片](https://upload-images.jianshu.io/upload_images/4428238-fcad08ebe26933a6.png)
 
---hard：直接将工作区置为目标结点的状态，丢弃所有未提交的修改
+`--hard`：丢弃指定结点之后的修改
 
---soft：被回退的修改保留到工作区且被 add 到暂存区，可以再次提交
+`--soft`：修改保留到工作区且被 add 到暂存区，可以再次提交
 
---mixed（默认）：被回退的修改保留到工作区，可以再次提交
+`--mixed`（默认）：修改保留到工作区，可以再次提交
 
 #### 取消 reset
 
@@ -134,34 +133,33 @@ git revert HEAD # 撤销 HEAD 提交的修改
 
 > Git 管理的是修改，而不是文件。
 
-##### 撤销修改
+#### 撤销修改
 
 ```bash
-git reset HEAD <file> # 撤销提交到暂存区的修改
-git checkout -- <file> # 将工作区恢复到版本库或暂存区的最新版本
+git reset HEAD <file>       # 将 file 在暂存区的修改撤回到工作区
+git restore --staged <file> # 在 Git 2.23 版本引入了 git restore
 
-# 在 Git 2.23 版本开始引入了 git restore
-git restore --staged <file> # 撤销提交到暂存区的修改
+git checkout -- <file>      # 将 file 恢复到暂存区或版本库的最新版本，相当于丢弃工作区的修改
 ```
 
-##### 删除文件
+#### 删除文件
 
 ```bash
 git rm <file> # 从工作区中删除 file 并将修改提交到暂存区
 ```
 
-> 先手动删除文件，然后运行 `git rm <file>` 和 `git add <file>` 效果是一样的
+> 等效于 `rm <file> && git add <file>`
 > 
 > 删除也是一种修改操作
 
-## 远程仓库
+## 远程版本库
 
 ### 添加远程库
 
 #### 创建 SSH Key
 
 ```bash
-ssh-keygen -t rsa -C "iPhone4s2008@iCloud.com" # 接下来一路回车，以默认值创建 SSH Key
+ssh-keygen -t rsa -C "email" # 接下来一路回车，以默认值创建 SSH Key
 cat ~/.ssh/id_rsa.pub
 ```
 
@@ -173,49 +171,49 @@ cat ~/.ssh/id_rsa.pub
 >
 > Git 也支持 HTTPS 协议，但相比 SSH 速度慢，且每次推送都必须输入口令。
 
-#### 创建远程库
+#### 添加远程库
 
 在 GitHub 上新建一个库。
 
 复制 `…or push an existing repository from the command line` 下的命令：
 
 ```bash
-git remote add origin git@github.com:Straining5/Projects.git
-git branch -M main # 修改当前分支的名字为 main
-git push -u origin main # 将 main 的所有内容推送到远程库
+git remote add origin <url> # 关联 url 指向的远程库并将其命名为 origin
+git branch -M main          # 修改当前分支的名字为 main
+git push -u origin main     # 将 main 分支推送到远程库 origin 并将 main 与 origin/main 关联
 ```
+ 
+> 新创建的分支并不会自动关联到远程库，因此在 push 新分支时需要使用 `git push <remote> [<branch>]` 命令指定要将 branch 推送到哪个远程库。
+> 
+> `-u | --set-upstream` 选项可以在推送完成后设置 branch 与远程库的 remote/branch 相关联。这样以后在 push 和 pull 时可以省略 remote 参数。
 
-> 添加后，远程库的名字就是 origin，这是 Git 默认的叫法，也可以改成别的，但是 origin 这个名字一看就知道是远程库。
->
 > 当我们第一次使用 Git 的 `push` 或者 `clone` 命令连接 GitHub 时，会得到一个警告，该警告要求我们确认 GitHub 的 Key 的指纹信息确实来自 GitHub 的服务器。我们只需输入 yes 回车即可。
->
-> 由于远程库是空的，我们第一次推送 main 分支时，加上了 `-u` 参数。Git 不但会把本地的 main 分支内容推送到远程的 main 分支，还会把本地的 main 分支和远程的 main 分支关联起来，在以后的推送或者拉取时就可以简化命令。
 
-从现在起，只要本地作了提交，就可以通过命令 `git push origin main` 把本地库的 main 分支的最新修改推送至 GitHub。
-
-### 关联分支
+### 关联分支（track）
 
 ```bash
-# 创建一个跟踪远程分支的本地分支
-git checkout -b dev origin/dev
-git branch -c dev origin/dev
+# 直接创建并进入一个跟踪远程分支的本地分支
+git checkout -b <branch> <remote>/<branch>
+git switch -c <branch> <remote>/<branch> # 新版本命令
 
-git branch -u <remote_repo>/<remote_branch> <local_branch> # 设置 local_branch 同步 remote_branch。也可以省略 local_branch 以将当前分支与 remote_branch 同步。
-
-git branch --set-upstream-to=<remote_repo>/<remote_branch> <local_branch> # 创建 local_branch 和 remote_repo/remote_branch 的链接。
+git branch -u <remote>/<branch> [<branch>] # 设置 branch 同步 remote/branch
 ```
+
+> :bulb: **Tip:** 只有在远程分支 remote/branch 已经存在的情况下才能设置 branch 同步 remote/branch。
+> 
+> 查看所有远程分支：`git branch -r`
 
 ### 关联多个远程库
 
 #### 同步推送
 
 ```bash
-git remote set-url --add <remote_repo> <url> # 为现有的远程库添加额外的 URL
+git remote set-url --add <remote> <url> # 为现有的远程库添加额外的 URL
 ```
 
-#### 分别推送
+#### 或者分别推送
 
-再添加一个远程库，以后在 push，pull 时都需指定 remote_repo
+再添加一个远程库，以后在 push，pull 时都需指定 remote：
 
 ### 删除远程库
 
@@ -223,7 +221,7 @@ git remote set-url --add <remote_repo> <url> # 为现有的远程库添加额外
 
 > 详细信息中 fetch 表示可以抓取的地址，push 表示可以推送的地址。
 
-然后运行 `git remote rm <remote_repo>` 命令删除远程库。
+然后运行 `git remote rm <remote>` 命令删除远程库。
 
 > 此处的删除只是解除本地库和远程库的绑定关系
 
@@ -232,7 +230,7 @@ git remote set-url --add <remote_repo> <url> # 为现有的远程库添加额外
 在 GitHub 库的 `<> Code` 区的绿色按钮 Code 中拷贝 SSH Key，然后运行命令：
 
 ```bash
-git clone git@github.com:Straining5/github-slideshow.git
+git clone <url>
 ```
 
 Git 将把远程库拷贝到当前目录。注意，当前目录下不能有 `.git` 文件。
@@ -245,12 +243,12 @@ git branch             # 查看分支
 git branch <name>      # 创建分支
 
 git checkout <name>    # 切换分支
-git switch <name>
+git switch <name>      # 新版本命令
 
 git checkout -b <name> # 创建并切换分支
-git switch -c <name>
+git switch -c <name>   # 新版本命令
 
-git merge <name>       # 合并到当前分支
+git merge <branch>     # 将 branch 合并到当前分支
 
 git branch -d <name>   # 删除分支
 
@@ -304,11 +302,11 @@ git cherry-pick <node> # 摘取一个或几个提交到 HEAD
 ### push
 
 ```bash
-git push <remote_repo> <branch> # 将本地的 branch 推送到远程库的 branch
-git push <remote_repo> <source>:<destination> # 将 source 指向的位置推送到 destination。source 可以是分支，也可以是结点。如果 destination 不存在，则会自动创建一个
+git push <remote> <branch> # 将本地的 branch 推送到远程库的 branch
+git push <remote> <source>:<destination> # 将 source 指向的位置推送到 destination。source 可以是分支，也可以是结点。如果 destination 不存在，则会自动创建一个
 ```
 
-> 远程分支 origin/branch 也是存储在本地的，它记录了上次和远程库通信时远程库的状态
+> 远程分支 remote/branch 也是存储在本地的，它记录了上次和远程库通信时远程库的状态
 >
 > 如果不提供参数的话，Git 会将 HEAD 推送到 HEAD 跟踪的分支（如果 HEAD 指向的是一个没有跟踪任何分支的分支或某个结点的话 push 会失败）
 >
@@ -318,43 +316,38 @@ git push <remote_repo> <source>:<destination> # 将 source 指向的位置推送
 
 ```bash
 git fetch # 将远程库所有更新下载到本地
-git fetch <remote_repo> <branch> # 将远程仓库上的 branch 下载到本地的 <remote_repo>/<branch>
+git fetch <remote> <branch> # 将远程仓库上的 branch 下载到本地的 <remote>/<branch>
 
 # 和 git push 一样，git fetch 也可以使用这样的命令：
-git fetch <remote_repo> <source>:<destination> # 将远程的 source 下载到本地的 destination（当前不能在 destination 上工作）
+git fetch <remote> <source>:<destination> # 将远程的 source 下载到本地的 destination（当前不能在 destination 上工作）
 # 但是很少有人这样用
 ```
 
-> 如果不提供 source，git 会在本地创建一个新分支
+> 如果不提供 source，Git 会在本地创建一个新分支
 
 ### pull
 
-`git pull` 相当于两个命令：
+将远程库中指定分支的内容抓取下来，并与当前分支合并。
+
+`git pull <remote> <branch>` 等价于：
 
 ```bash
-git fetch
-git merge <remote_name>/<branch_name>
+git fetch <remote> <branch>
+git merge <remote>/<branch>
 ```
-
-pull 的参数和 fetch 是一样的。
-
-`git pull origin main` 等价于：
-
-```bash
-git fetch origin main
-git merge origin/main # 注意如果你当前不在 main 分支上，pull 会把当前分支和 main 合并。
-```
-
-> 不要忘记 pull 里面还带一个 merge 操作
 
 ```bash
 # 设置默认合并方式
 git config pull.rebase false  # merge (the default strategy)
 git config pull.rebase true   # rebase
 git config pull.ff only       # fast-forward only
-# 可以用 "git config --global" 替换 "git config" 来设置针对所有库的默认合并方式
-# 也可以添加 --rebase, --no-rebase, 或 --ff-only 参数在一次 pull 时忽略默认设置
+# 
+# 设置
 ```
+
+可以添加 `--global` 参数来设置全局默认合并方式。
+
+也可以添加 `--rebase`, `--no-rebase`, 或 `--ff-only` 参数在一次 pull 时指定合并方式。
 
 ### 分离的 HEAD
 
@@ -363,27 +356,29 @@ git config pull.ff only       # fast-forward only
 ### tag
 
 ```bash
-git tag # 查看所有标签
-git tag "tag_name" # 为 HEAD 创建一个标签
-git tag "tag_name" <node> # 为 node 创建一个标签
-git tag -a "tag_name" -m "message" <node> # 为 node 创建带说明的标签
-git show <tag_name> # 查看标签信息
+git tag                                     # 查看所有标签
+git tag "tag_name" [<node>]                 # 为 node 创建一个标签，默认值为 HEAD
+git tag -a "tag_name" -m "message" [<node>] # 为 node 创建带说明的标签
+git show <tag_name>                         # 查看标签信息
+```
 
-# 默认情况下，git push 并不会把标签推送到远程库，必须通过显式命令才会推送标签
-git push origin <tag_name> # 推送一个标签
-git push [origin] --tags # 推送所有标签
+默认情况下，git push 并不会把标签推送到远程库，必须通过显式命令才会推送标签：
 
-git tag -d <tag_name> # 删除本地标签
-git push origin :refs/tags/<tag_name> # 删除远程标签
+```bash
+git push [<remote>] <tag_name>          # 推送一个标签
+git push [<remote>] --tags              # 推送所有标签
+
+git tag -d <tag_name>                   # 删除本地标签
+git push <remote> :refs/tags/<tag_name> # 删除远程标签
 ```
 
 > 标签相当于一个锚点，可以用它来为一些里程碑式的修改进行标记。
 
-###  describe
+####  describe 命令
 
 ```bash
-$ git describe <ref> # ref 可以是任何能被 Git 识别成提交记录的引用，缺省值为 HEAD
-<tag>_<numCommits>_g<hash> #tag 是离 ref 最近的标签，numCommits 是 tag 与 ref 相差的提交数，hash 是 ref 的哈希值的前几位
+$ git describe <ref>       # ref 可以是任何能被 Git 识别成提交记录的引用，默认值为 HEAD
+<tag>_<numCommits>_g<hash> # tag 是离 ref 最近的标签，numCommits 是 tag 与 ref 相差的提交数，hash 是 ref 的哈希值的前几位
 ```
 
 如果 ref 本身就有一个标签，则只输出该标签名。
@@ -391,35 +386,38 @@ $ git describe <ref> # ref 可以是任何能被 Git 识别成提交记录的引
 ### rebase
 
 ```bash
-git rebase <destination> # 把当前分支摘下来，放到 destination 上。
+git rebase <dst_branch> # 把当前分支摘下来，放到指定分支上
 ```
 
-rebase 是从当前分支与 destination 所在分支分离的地方开始，把属于当前分支的那一段挪到 destination 下面
+rebase 是从当前分支与目标分支分离的地方开始，把属于当前分支的那一段挪到目标分支下面
 
 ### pull request
 
-当远程分支被锁定时，不允许你直接 push 修改到远程分支。你应该新建一个分支，推送这个分支并申请 pull request。
+当远程分支被锁定时，不允许你直接将本地分支内容 push 到远程分支。你应该新建一个分支，push 这个分支并申请 pull request。
 
 ```bash
 git branch -f main c6 # 将 main 分支强制指向 c6
 git rebase -i c2      # 将当前分支以 c2 为根，重新整理中间的结点
 ```
 
-## .gitignore
+### .gitignore
 
 ```bash
-file                       # 忽略当前目录下的 file 文件
-dir/                       # 忽略当前目录下的 dir 目录
-/file                      # 忽略根目录下的 file 文件
+file      # 忽略当前目录下的 file 文件
+dir/      # 忽略当前目录下的 dir 目录
+/file     # 忽略版本库根目录下的 file 文件
+!file     # 取消忽略 file
+```
 
-# * 指单个目录或一个字符串
-# ** 指多个目录
-*.c                        # 忽略所有 .c 文件
-**/file                    # 忽略 /file, a/file, a/b/file...
-a/**/file                  # 忽略 a/file, a/x/file, a/x/y/file...
+`*` 指单个目录或一个字符串，`**` 指多个目录：
 
-!file                      # 再次包含 file
+```bash
+*.c       # 忽略所有 .c 文件
+**/file   # 忽略 /file, a/file, a/b/file...
+a/**/file # 忽略 a/file, a/x/file, a/x/y/file..
+```
 
+```bash
 git check-ignore -v <file> # 检查 file 是否在 .gitignore 中
 ```
 
@@ -433,4 +431,4 @@ git check-ignore -v <file> # 检查 file 是否在 .gitignore 中
 
 [Git 简明指南](http://rogerdudler.github.io/git-guide/index.zh.html)
 
-[图形化 git 学习网站](https://learngitbranching.js.org/?locale=zh_CN)
+[图形化 Git 学习网站](https://learngitbranching.js.org/?locale=zh_CN)
