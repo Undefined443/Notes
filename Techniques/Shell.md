@@ -403,10 +403,10 @@ declare [-/+] [选项] expression
 e.g.
 
 ```bash
-$ declare -i n m num # 将 n, m, num 声明为整型
+$ declare -i n m num  # 将 n, m, num 声明为整型
 $ declare -r CONST=23 # 将 CONST 声明为只读，等价于 readonly CONST
 
-$ declare -p CONST # 显示变量的属性和值
+$ declare -p CONST    # 显示变量的属性和值
 declare -r CONST="23"
 ```
 

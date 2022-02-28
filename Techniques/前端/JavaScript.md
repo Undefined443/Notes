@@ -15,6 +15,8 @@ https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/First_steps
 
 [文档对象模型(DOM)](https://developer.mozilla.org/zh-CN/docs/Web/API/Document_Object_Model)
 
+[安装 Node.js](https://docs.microsoft.com/zh-cn/windows/dev-environment/javascript/nodejs-on-windows)
+
 ## 变量
 
 使用关键字 `let` 或 `var` 声明变量。
@@ -31,11 +33,38 @@ let myVariable; // 只有在单行内需要分割多条语句时，这个分号�
 | Array   | 数组：用于在单一引用中存储多个值的结构。                                | let myVariable = [1, '李雷', '韩梅梅', 10];<br />元素引用方法：myVariable[0], myVariable[1] …… |
 | Object  | 对象：JavaScript 里一切皆对象，一切皆可储存在变量里。这一点要牢记于心。 | let myVariable = document.querySelector('h1');<br />以及上面所有示例都是对象。                 |
 
+可以使用 `typeof` 操作符来获取变量的数据类型。
+
+### Object 与 Array
+
+```js
+let person = {
+  name: 'Bob',
+  age: 20,
+  tags: ['js', 'web', 'mobile'],
+  city: 'Beijing',
+  hasCar: true,
+  zipCode: null
+};
+console.log(person.name);   // 输出 Bob
+console.log(person.tags);   // 输出 [js, web, mobile]
+console.log(person.arr[0]); // 输出 js
+```
+
 ## 运算符
 
 全等 `===`
 
 非全等 `!==`
+
+普通的相等 `==` 运算符允许类型转换，而全等不允许：
+
+```js
+var a = 25;
+var b = "25";
+console.log(a == b);  // 输出 true
+console.log(a === b); // 输出 false
+```
 
 [表达式和运算符](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators)
 
@@ -44,6 +73,75 @@ let myVariable; // 只有在单行内需要分割多条语句时，这个分号�
 ```js
 function multiply(num1, num2) {
   let result = num1 * num2;
-  return result;
+  return result; // 返回值可以是任意类型
+}
+
+function sayHello(message = "Hello") { // 使用参数默认值
+  console.log(message);
 }
 ```
+
+```js
+// 函数可以存储在变量，对象，数组中
+let fun = function() { // 这也叫做函数表达式
+  console.log("http://c.biancheng.net/js/");
+}
+
+// 函数还可以作为参数传递给其他函数，或者从其他函数返回
+function createGreeting(name) {
+  return "Hello, " + name;
+}
+function displayGreeting(greetingFunction, userName) {
+  return greetingFunction(userName);
+}
+let result = displayGreeting(createGreeting, "Peter");
+console.log(result);  // 输出 Hello, Peter
+```
+
+## JS 输出语句
+
+```js
+alert(message);       // 弹出一个提示框，只能输出文本内容
+confirm(message);     // 弹出一个对话框
+console.log(message); // 在浏览器的控制台输出内容，可以输出对象
+document.write(exp1, exp2, exp3, ...);     // 将内容写入到 HTML 文档中
+
+// 和前面的函数不一样，innerHTML 是一个属性而不是函数。可以获取或设置 HTML 标签中的内容。
+var demo = document.getElementById("demo");
+console.log(demo.innerHTML);
+demo.innerHTML = "<h2>innerHTML</h2>"
+```
+
+## JS 结构语句
+
+JavaScript 中的 if else，while，for 语句都和 Java 相同。除此之外，JavaScript 还拥有 for in 和 for of 语句。
+
+### for in
+
+for in 循环用来遍历 Object，在每次循环中，会将 object 中的一个属性的 key 赋给循环变量。
+
+```js
+let person = {"name": "Clark", "surname": "Kent", "age": "36"};
+
+for (var prop in person) {
+  console.log(prop + " = " + person[prop]); // 输出键及对应的值
+}
+```
+
+### for of
+
+```js
+// 遍历数组
+let arr = ['a', 'b', 'c', 'd'];
+for (let value of arr) {
+  console.log(value + ", "); // 输出 a, b, c, d
+}
+
+// 遍历字符串
+let str = "Hello";
+for (let value of str) {
+  console.log(value + ", "); // 输出 H, e, l, l, o, 
+}
+```
+
+JavaScript 中的 break 和 continue 也和 Java 的用法一样（可以使用 label）
