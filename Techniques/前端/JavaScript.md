@@ -71,13 +71,9 @@ console.log(a === b); // 输出 false
 ## 函数
 
 ```js
-function multiply(num1, num2) {
-  let result = num1 * num2;
-  return result; // 返回值可以是任意类型
-}
-
-function sayHello(message = "Hello") { // 使用参数默认值
-  console.log(message);
+function add(num1, num2 = 0) { // 可以使用参数默认值
+  let result = num1 + num2;
+  return result;
 }
 ```
 
@@ -145,3 +141,18 @@ for (let value of str) {
 ```
 
 JavaScript 中的 break 和 continue 也和 Java 的用法一样（可以使用 label）
+
+## 常用语句
+
+```js
+document.getElementByTagName("name"); // 通过标签名获得一个标签集
+document.querySelector("selector");   // 使用 CSS 选择器选择元素
+elem.innerHTML("content");    // 设置 elem 标签的内容，可解析 HTML 元素
+elem.textContent = "message"; // 设置 elem 标签的内容
+elem.getAttribute("name");
+elem.setAttribute("name", "value");
+
+localStorage.setItem("name", "value");
+
+elem.addEventListener('click', func); // 为元素添加事件监听器
+```
