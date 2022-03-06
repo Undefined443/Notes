@@ -147,14 +147,16 @@ JavaScript 中的 break 和 continue 也和 Java 的用法一样（可以使用 
 ```js
 document.getElementByTagName("name"); // 通过标签名获得一个标签集
 document.querySelector("selector");   // 使用 CSS 选择器选择元素
-elem.innerHTML("content");    // 设置 elem 标签的内容，可解析 HTML 元素
-elem.textContent = "message"; // 设置 elem 标签的内容
+elem.innerHTML("content");            // 设置 elem 标签的内容，可解析 HTML 元素
+elem.textContent = "message";         // 设置 elem 标签的内容
 elem.getAttribute("name");
 elem.setAttribute("name", "value");
 
 localStorage.setItem("name", "value");
 
 elem.addEventListener('click', func); // 为元素添加事件监听器
+```
+
 ## console
 
 ```js
