@@ -439,19 +439,15 @@ $$
 #### 对齐
 
 $$
-\begin{aligned}
+\begin{aligned} % 也可以使用 align*
 (2+1)\times(3+6)&=3\times9\\
 &=27
 \end{aligned}
 $$
 
-> `&` 应写在等号前面
->
-> 也可以使用 `align*`
->
-> 如果使用 `\align`，则会自动添加公式编号
->
-> aligned 比 matrix 间距更大
+> 1. 如果使用 align，则会自动添加公式编号。
+> 2. aligned 比 matrix 间距更大。
+> 3. cases 会适当缩小其包裹的公式，而 aligned 不会。
 
 #### 显示模式
 

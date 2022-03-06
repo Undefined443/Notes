@@ -1,4 +1,4 @@
-# 了不起的 Markdown
+# Markdown
 
 ## VS Code 插件
 
