@@ -404,6 +404,10 @@ $\mathop{x}\limits_a^b$
 
 $\stackrel{\rm def}{=}$
 
+#### 波浪线
+
+$\tilde S$
+
 #### 箭头
 
 $\rightleftharpoons\ \circlearrowleft\ \looparrowleft\ \Lsh

@@ -155,4 +155,13 @@ elem.setAttribute("name", "value");
 localStorage.setItem("name", "value");
 
 elem.addEventListener('click', func); // 为元素添加事件监听器
+## console
+
+```js
+console.table(arr);       // 以表格的形式输出数组和对象
+
+console.time("label");
+console.timeEnd("lebel"); // 计算过程用时
+
+console.dir(elem);        // 输出 HTML 元素
 ```
