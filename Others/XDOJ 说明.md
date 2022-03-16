@@ -8,7 +8,6 @@ error: range-based 'for' loops are not allowed in C++98 mode
 
 - [ ] emplace_back()
 - [ ] cbegin()
-- [ ] `vector<vector<int>>`
 - [ ] emplace()
 - [ ] move()
 - [ ] INT32_MAX
@@ -16,5 +15,7 @@ error: range-based 'for' loops are not allowed in C++98 mode
 - [x] INT_MAX
 - [x] range-for （需使用命令）
 - [x] auto
+- [x] `vector<vector<int>>`
+
 
 > 空指针访问错误在 XDOJ 中显示为超时
