@@ -1469,7 +1469,7 @@ map<string, string> authors = {{"Joyce", "James"}, {"Steve", "Jobs"}}; //只要�
 
 ### key 类型的要求
 
-对于有序容器(没有 `unordered_` 前缀的)，标准库使用关键字类型的 `<` 运算符来比较两个关键字。我们也可以提供自己定义的操作(函数)来代替关键字上的 `<` 运算符。所提供的操作必须在关键字类型上定义一个严格弱序 $\prec$。如果两个元素都不 "严格弱序" 于对方，则它俩相等。
+对于有序容器（没有 `unordered_` 前缀的），标准库使用关键字类型的 `<` 运算符来比较两个关键字。我们也可以提供自己定义的操作（函数）来代替关键字上的 `<` 运算符。所提供的操作必须在关键字类型上定义一个严格弱序 $\prec$。如果两个元素都不 "严格弱序" 于对方，则它俩相等。
 
 要使用自定义的操作，需要在定义关联容器类型时提供比较操作的类型——函数指针。可以使用 `decltype` 来声明该类型：`decltype(compare) *`。并在定义此容器类型的对象时提供操作的指针。
 
@@ -2615,28 +2615,32 @@ shared_ptr<int> sp(new int[10], [](int *p) { delete[] p; }); // 传递一个 lam
 
 ## allocator 类
 
-new 将内存分配和对象构造组合在了一起。而 delete 将对象析构和内存释放组合在了一起。allocator 允许我们分配大块内存，但只在真正需要时才真正执行对象创建操作。这样可以减少一定开销。
-
 `<memory>`
 
+new 将内存分配和对象构造组合在了一起。而 delete 将内存释放和对象析构组合在了一起。allocator 允许我们分配大块内存，但只在真正需要时才真正执行对象创建操作。这样可以减少一定开销。
+
+
 ```cpp
-allocator<string> a;
-auto const p = a.allocate(n); // 分配一段原始的、未构造的内存，保存 n 个 string
-a.construct(p, args);         // 在 p 指向的内存中用 args 构造一个对象
+allocator<string> a;          // allocator 类根据给定的对象类型来确定恰当的内存大小和对齐位置
+auto const p = a.allocate(n); // 为 n 个 string 分配内存
+a.construct(p, args);         // 在 p 位置构造一个对象，args 是传给构造函数的参数。
 a.destroy(p);                 // 对 p 指向的对象执行析构函数
 a.deallocate(p, n);           // 释放从指针 p 开始的 n 块内存；p 必须是 allocate() 返回的指针，n 必须是创建 p 时所要求的大小。
                               // 在调用 deallocate 之前，用户必须对每个在这块内存中创建的对象调用 destroy
 ```
 
-## allocator 算法
+### allocator 算法
 
 ```cpp
-uninitialized_copy(b, e, b2);   // 从迭代器范围 [b, e) 指出的输入范围中拷贝元素到 b2 指定的未构造的原始内存中。返回尾后指针
+uninitialized_copy(b, e, b2);   // 从迭代器范围 [b, e) 指出的输入范围中拷贝元素到 b2 指定的未构造的原始内存中。返回尾后指针。
 uninitialized_copy_n(b, n, b2); // 从迭代器 b 开始拷贝 n 个元素到 b2
-uninitialized_fill(b, e, t);    // 用 t 的拷贝填充 [b, e)。返回尾后指针
+
+uninitialized_fill(b, e, t);    // 用 t 的拷贝填充 [b, e)。返回尾后指针。
 uninitialized_fill_n(b, n, t);
 ```
 
-# 常见错误代码
+> 与 `copy` 函数不同，`uninitialized_copy` 函数在给定目的位置构造函数。
+
+## 常见错误代码
 
 0xC0000005: 检查空指针访问
