@@ -88,11 +88,11 @@ git reset --hard HEAD^
 
 ![图片](https://upload-images.jianshu.io/upload_images/4428238-fcad08ebe26933a6.png)
 
-`--hard`：丢弃指定结点之后的修改
+`--hard`：丢弃指定结点之后的修改。
 
-`--soft`：修改保留到工作区且被 add 到暂存区，可以再次提交
+`--soft`：修改保留到工作区且被 add 到暂存区，可以再次提交。（回到 commit 前的状态）
 
-`--mixed`（默认）：修改保留到工作区，可以再次提交
+`--mixed`（默认）：修改保留到工作区，可以再次提交。（回到 add 前的状态）
 
 #### 取消 reset
 
