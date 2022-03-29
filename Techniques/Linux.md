@@ -1,3 +1,5 @@
+# Linux
+
 ## Windows
 
 ### 安装 WSL
@@ -23,7 +25,7 @@ wsl -l -v
 
 #### 安装 PowerShell 7
 
-进入官网，安装 MSI 包
+进入官网，安装 MSI 包。
 
 [MS Doc：在 Windows 上安装 PowerShell](https://docs.microsoft.com/zh-cn/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.2#msi>)
 
@@ -44,6 +46,19 @@ wsl -l -v
 ### 安装 Windows/Linux 双系统后开机直接进入 Windows
 
 解决方法：在 BIOS 的 Boot 选项下找到 UEFI Hard Disk Drive BBS Priorities，将 Boot Option #1 设置为 ubuntu。
+
+### 在 Windows 上配置 SSH
+
+[MD Docs：安装 OpenSSH](https://docs.microsoft.com/zh-cn/windows-server/administration/openssh/openssh_install_firstuse#start-and-configure-openssh-server)
+
+1. 搜索 “可选功能” 。
+2. 添加可选功能 > 搜索 “SSH” ，并安装所有出现的选项。
+3. 在管理员身份下打开 PowerShell，输入 MS Docs 中 “启动并配置 OpenSSH 服务器” 部分给出的命令。
+4. 接下来便可以使用 `ssh username@address` 命令来连接到此计算机。
+
+> 在最后的登陆部分，我尝试了很多用户名-密码组合都没有成功，最后是使用了 设置 > 账户 > 家庭和其他用户 下唯一的一个其他用户才登陆成功。
+
+![](../assets/登陆SSH时使用的用户.png)
 
 ## Ubuntu
 
@@ -67,9 +82,9 @@ clion.sh
 ### deb 安装包
 
 ```bash
-sudo cp file /tmp # 先将 .deb 文件移到 /tmp 文件夹，避免出现 “无法被用户'_apt'访问” 问题
-sudo apt install /tmp/file
-rm /tmp/file
+sudo cp file.deb /tmp # 先将 .deb 文件移到 /tmp 文件夹，避免出现 “无法被用户'_apt'访问” 问题
+sudo apt install /tmp/file.deb
+rm /tmp/file.deb
 ```
 
 ### Clash for Linux
@@ -113,11 +128,11 @@ wget: World Wide Web Get
 
 curl: Client URL
 
-> HTTP，HTTPS，FPT 是三个最常见的 TCP/IP 协议
+> HTTP，HTTPS，FPT 是三个最常见的 TCP/IP 协议。
 
 ```bash
 export http_proxy=http://127.0.0.1:7890
-export https_proxy=$http_proxy           # 对于 https 的内容，只会使用 https 代理
+export https_proxy=$http_proxy           # 对于 https 的内容，只会使用 https 代理。
 export all_proxy=socks5://127.0.0.1:7891
 
 # 使用用户名和密码的代理，在 proxyAddres 前加上 user:password@
@@ -156,8 +171,8 @@ curl --noproxy "*" url
 #### 设置 Linux 全局代理动作
 
 ```bash
-alias set_proxy="export http_proxy='http://127.0.0.1:7890'; export https_proxy=$http_proxy; all_proxy='socks5://127.0.0.1:7891'; echo 'HTTP Proxy on'"
-alias unset_proxy="unset http_proxy; unset https_proxy; echo 'HTTP Proxy off'"
+alias set_proxy="export http_proxy='http://127.0.0.1:7890'; export https_proxy=$http_proxy; export all_proxy='socks5://127.0.0.1:7891'; echo 'Proxy on'"
+alias unset_proxy="unset http_proxy; unset https_proxy; unset all_proxy; echo 'Proxy off'"
 ```
 
 ### ScreenShot
@@ -179,7 +194,7 @@ sudo apt install terminator
 ```bash
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-# 自动补全
+# 自动补全，启用后终端可能会变卡。
 mkdir ~/.oh-my-zsh/plugins/incr
 cd ~/.oh-my-zsh/plugins/incr
 wget https://mimosa-pudica.net/src/incr-0.2.zsh
@@ -220,7 +235,7 @@ MacOS:
 
 Linux:
 
-将字体压缩包解压到 `~/.local/share/fonts` 为当前用户安装或者 `/usr/share/fonts` 为系统安装，然后运行 `fc-cache -f -v`
+将字体压缩包解压到 `~/.local/share/fonts` 为当前用户安装（或者 `/usr/share/fonts` 为系统安装），然后运行 `fc-cache -f -v`
 
 > 可以使用 `fc-list | grep <font name>` 检查字体是否安装成功，使用 `fc-list :lang=zh` 检查中文字体。
 
@@ -228,7 +243,7 @@ Linux:
 
 ##### Ubuntu
 
-在配置文件首选项下选中一个配置文件，选中 ”使用自定义字体“，在下拉菜单中选择 Menlo for Powerline
+在配置文件首选项下选中一个配置文件，选中 ”使用自定义字体“，在下拉菜单中选择 Menlo for Powerline 。
 
 ![配置字体](../assets/配置字体.png)
 
@@ -242,7 +257,7 @@ Linux:
 
 ##### 在 Visual Studio Code 中使用 Menlo for Powerline 字体
 
-在 settings.json 中加入 `"terminal.integrated.fontFamily": "Menlo for Powerline"`，或搜索 `Terminal: font` 设置，在 Font Family 栏下填入：Menlo for Powerline
+在 settings.json 中加入 `"terminal.integrated.fontFamily": "Menlo for Powerline"`，或搜索 `Terminal: font` 设置，在 Font Family 栏下填入：`Menlo for Powerline` 。
 
 ### Could not get lock 问题
 
@@ -254,7 +269,7 @@ Linux:
 | :--------------: | :----------------------------- |
 |   apt install    | 安装软件包                     |
 |    apt remove    | 移除软件包                     |
-|    apt purge     | 移出软件包及配置文件           |
+|    apt purge     | 移除软件包及配置文件           |
 |    apt update    | 刷新存储库索引                 |
 |   apt upgrade    | 升级所有可升级的软件包         |
 |  apt autoremove  | 自动删除不需要的包             |
@@ -271,7 +286,7 @@ Linux:
 
 ```bash
 chmod 777 file # 为所有用户开放 file 的全部权限
-chmod 744 file # 只有拥有者有全部权限，其他人只读
+chmod 744 file # 只有拥有者有全部权限，其他人只读。
 
 chmod o+w file # 为其他人增加写权限
 chmod a+x file # 为所有人增加执行权限
@@ -279,16 +294,16 @@ chmod a+x file # 为所有人增加执行权限
 
 u 表示该文件的拥有者，g 表示该文件的拥有者所属的群体，o 表示其他人，a 表示这三者皆是。
 
-|数字|权限|
-|:--:|:--:|
-|7|读 + 写 + 执行|
-|6|读 + 写|
-|5|读 + 执行|
-|4|读|
-|3|写 + 执行|
-|2|写|
-|1|执行|
-|0|无|
+| 数字  | 权限           |
+| :---: | :------------- |
+|   7   | 读 + 写 + 执行 |
+|   6   | 读 + 写        |
+|   5   | 读 + 执行      |
+|   4   | 读             |
+|   3   | 写 + 执行      |
+|   2   | 写             |
+|   1   | 执行           |
+|   0   | 无             |
 
 ### MD5 校验
 
