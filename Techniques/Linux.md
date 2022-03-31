@@ -189,7 +189,7 @@ sudo apt update
 sudo apt install terminator
 ```
 
-### 安装 zsh
+### 安装 Oh My Zsh
 
 ```bash
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"

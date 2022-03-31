@@ -142,12 +142,58 @@ for (let value of str) {
 
 JavaScript 中的 break 和 continue 也和 Java 的用法一样（可以使用 label）
 
+## I/O
+
+### 终端输入
+
+使用前需要安装 readline-sync 包：`npm install readline-sync`
+
+```js
+const readlineSync = require("readline-sync");
+let ans = readlineSync.question("What's your answer?\n");
+```
+
+### 文件输入
+
+```js
+const fs = require("fs");
+const content = fs.readFileSync("fileName", "utf8");
+```
+
+如果使用 readFile 输入，需要注意其有一个回调函数异步调用的问题：用于接受输入内容的回调函数并不会立即执行，最先执行的语句是 readFile 下面的语句。而回调函数则是等系统调用完成以后才执行。
+
+```js
+const fs = require("fs");
+fs.readFile(file, "utf8", (err, content) => {
+    if (err) {
+      // 处理错误
+      console.log("No such file");
+      process.exit(1);
+    }
+    console.log(content); // 使用读取内容
+  });
+  console.log("我先被调用");
+```
+
+### 文件输出
+
+```js
+const fs = require("fs");
+  fs.writeFile(file, JSON.stringify(data, null, "  "), (err) => {
+    if (err) {
+      console.log("Write file error");
+      process.exit(1);
+    }
+    console.log("success");
+  });
+```
+
 ## 常用语句
 
 ```js
 document.getElementByTagName("name"); // 通过标签名获得一个标签集
 document.querySelector("selector");   // 使用 CSS 选择器选择元素
-elem.innerHTML("content");            // 设置 elem 标签的内容，可解析 HTML 元素
+elem.innerHTML("content");            // 设置 elem 标签的内容，可解析 HTML 元素。
 elem.textContent = "message";         // 设置 elem 标签的内容
 elem.getAttribute("name");
 elem.setAttribute("name", "value");
