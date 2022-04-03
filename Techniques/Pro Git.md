@@ -6,6 +6,8 @@ MacOS 自带 Git :)
 
 [Windows Git 详细安装教程](https://blog.csdn.net/mukes/article/details/115693833)
 
+Windows Git Bash 配置文件：`C:/Program Files/Git/etc/profile.d/git-prompt.sh`
+
 ## 本地版本库
 
 ### 自报家门
