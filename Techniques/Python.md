@@ -97,6 +97,8 @@ dir(obj)  # 查看 obj 中的内容，obj 可省略。
 help(obj) # 查看 obj 的帮助文档
 ```
 
+`__doc__` 属性：提供某个函数的说明文档
+
 ### assert 断言
 
 ```py
@@ -512,7 +514,20 @@ import collections
 dq = deque()
 ```
 
+## 函数
 
+```py
+def func():
+    '''
+    这里可以编写说明文档
+    '''
+    # TO DO
+    return
+
+# 获得说明文档
+help(func)
+print(func.__doc__)
+```
 
 ## 类
 
