@@ -60,6 +60,10 @@ wsl -l -v
 
 ![](../assets/登陆SSH时使用的用户.png)
 
+## MacOS
+
+安装 VS Code 后配置环境变量：<kbd>⌘</kbd> + <kbd>⇧</kbd> + <kbd>P</kbd> 打开 Command Palette，输入 `Shell Command` ，选择 `Install 'code' command in PATH` 。
+
 ## Ubuntu
 
 ### CLion
@@ -280,30 +284,48 @@ Linux:
 
 ### chmod
 
-![](https://www.runoob.com/wp-content/uploads/2014/08/file-permissions-rwx.jpg)
+u 表示该文件的拥有者，g 表示该文件的拥有者所属的组，o 表示其他人，a 表示所有人。
+
+|  数字   | 权限  |
+| :-----: | :---: |
+| 4 (100) |  读   |
+| 2 (010) |  写   |
+| 1 (001) | 执行  |
 
 ![](https://www.runoob.com/wp-content/uploads/2014/08/rwx-standard-unix-permission-bits.png)
 
+e.g.
+
 ```bash
+# 数字表示法
 chmod 777 file # 为所有用户开放 file 的全部权限
 chmod 744 file # 只有拥有者有全部权限，其他人只读。
 
+# 字母表示法
 chmod o+w file # 为其他人增加写权限
 chmod a+x file # 为所有人增加执行权限
+chmod a-x file # 为所有人移除执行权限
+chmod u=rwx,g=rx,o=r file
+chmod u=rwx,og=rx file
 ```
 
-u 表示该文件的拥有者，g 表示该文件的拥有者所属的群体，o 表示其他人，a 表示这三者皆是。
+#### 查看文件权限
 
-| 数字  | 权限           |
-| :---: | :------------- |
-|   7   | 读 + 写 + 执行 |
-|   6   | 读 + 写        |
-|   5   | 读 + 执行      |
-|   4   | 读             |
-|   3   | 写 + 执行      |
-|   2   | 写             |
-|   1   | 执行           |
-|   0   | 无             |
+```bash
+$ ls -l
+total 16
+drwxr-xr-x  13 p6  staff  416  4  8 11:00 Courses
+drwxr-xr-x  10 p6  staff  320  4  8 15:37 Notes
+-rw-rw-rw-@  2 p6  staff   28  4  8 15:41 file.txt
+-rw-rw-rw-@  2 p6  staff   28  4  8 15:41 fileLink.txt
+lrwxr-xr-x   1 p6  staff    8  4  8 15:42 fileSoftLink -> file.txt
+```
+
+> 访问目录必须拥有执行权限
+
+[`ls -l` 输出内容详解](https://www.cnblogs.com/justmine/p/9053419.html)
+
+[Linux 文件权限查看及修改](https://www.cnblogs.com/cb0327/p/6189586.html)
 
 ### MD5 校验
 
