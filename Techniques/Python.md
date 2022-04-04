@@ -132,13 +132,6 @@ continue
 
 > `while` 和 `for` 后面都可以跟 `else`
 
-### 列表推导式
-
-```py
-squire = [x**2 for x in range(1, 10)] # 1 到 9 的平方列表
-even_squire = [x**2 for x in range(1, 10) if x % 2 == 0] # 1 到 9 的偶数平方列表
-```
-
 ## 运算符
 
 ### 算数运算符与赋值运算符
@@ -197,9 +190,9 @@ f.close()
 `print()` 使用的转换说明符与 C 语言 `printf()` 类似。
 
 ```py
-name = "李潇"
+name = "Xiao"
 age = 20
-print("我叫%s我今年%d岁" % (name, age))
+print("My name is %s and I'm %d years old." % (name, age))
 ```
 
 格式化字符串和变量之间用 `%` 分隔。
@@ -234,10 +227,12 @@ min(s)
 list(s)      # 将序列转换为列表
 str(s)       # 将序列转换为字符串
 sum(s)       # 计算元素和，元素必须为数字。
-sorted(s)
-reversed(s)
+sorted(s)    # 返回一个排好序的 list
+reversed(s)  # 返回给定序列的反向迭代器
 enumerate(s) # 将序列组合为一个索引序列
 ```
+
+[sorted()](http://c.biancheng.net/view/2239.html)
 
 ### list
 
@@ -479,6 +474,36 @@ print("100 的十六进制：{:#x}".format(100))
 print("0.01 的百分比表示：{:.0%}".format(0.01))
 ```
 
+### 推导式
+
+使用推导式可以快速生成列表、元组、字典以及集合类型的数据，因此推导式又可细分为列表推导式、元组推导式、字典推导式以及集合推导式。
+
+```py
+# 列表推导式
+[x**2 for x in range(1, 10)]                       # 1 到 9 的平方列表
+[x**2 for x in range(1, 10) if x % 2 == 0]         # 1 到 9 的偶数平方列表
+[(x, y) for x in range(1, 6) for y in range(1, 5)] # 可以使用多个循环
+
+# 元组推导式
+(x**2 for x in range(1, 10)) # 用法和列表推导式相同
+
+# 字典推导式
+{key:len(key) for key in l}  # 使用列表 l 中的元素作为 key ，key 的长度作为 value 。
+
+# 集合推导式
+{x**2 for x in range(1, 10)}
+```
+
+元组推导式生成的结果并不是 `tuple` ，而是 `generator` 。在遍历过 `generator` 对象后其中的元素将不复存在。
+
+### zip() 函数
+
+`zip()` 可以将多个序列按照对应位置顺序重组为一个个新的元组。当序列元素个数不一致时，取最短的那个。
+
+```py
+zip(iterable, ...)
+```
+
 ### collections 模块
 
 ```py
@@ -486,6 +511,8 @@ import collections
 
 dq = deque()
 ```
+
+
 
 ## 类
 
