@@ -327,6 +327,8 @@ lrwxr-xr-x   1 p6  staff    8  4  8 15:42 fileSoftLink -> file.txt
 
 [Linux 文件权限查看及修改](https://www.cnblogs.com/cb0327/p/6189586.html)
 
+[CSDN：「复制、拷贝、替身、软连接、硬连接」区别详解](https://blog.csdn.net/woodpeck/article/details/78761219)
+
 ### MD5 校验
 
 MacOS：使用 `md5` 命令
