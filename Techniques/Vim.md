@@ -59,15 +59,32 @@ vim -c command file # 在对文件进行编辑前，先执行指定的命令。
 >
 > 在指定行时，可以用 `.` 表示当前行，用 `$` 表示最后一行：`:.,$s/a/b/g` 将当前行到最后一行的所有 a 替换为 b 。
 >
-> 也可以使用 `#`，`+` 作为分隔符：`:s#dir1/#dir2#g`
+> Vim 允许自定义间隔符，比如：`:s#dir1/#dir2#g`
+>
+> `.` 
 
-[Vim 文本替换](https://www.jianshu.com/p/9cedcc218eb3)
+[简书：Vim 文本替换](https://www.jianshu.com/p/9cedcc218eb3)
+
+[Vim 文本替换](http://c.biancheng.net/linux/Vim.html)
 
 #### Vim 批量注释和自定义注释快捷键
 
 ```vim
 :1,9s/^/#/g " 注释 1 到 9 行
+:1,9s/^#//g " 取消 1 到 9 行的注释
 ```
+
+```vim
+:map ^P I#<Esc> " 设置 Ctrl + P 为在行首添加 # 注释
+:map ^B 0x      " 删除行首字符（删除 #）
+:unmap ^P       " 取消该快捷键
+```
+
+1. `^P` 使用 <kbd>Ctrl</kbd> + <kbd>V</kbd> + <kbd>P</kbd> 打出。
+2. `I` 表示在行首输入，`#` 为输入内容，`<Esc>` 表示退回命令模式。
+3. `0` 表示跳到行首，`x` 表示删除当前字符。
+
+[Vim 批量注释和自定义注释快捷键](http://c.biancheng.net/view/813.html)
 
 ### Vim 删除文本
 
@@ -101,7 +118,7 @@ vim -c command file # 在对文件进行编辑前，先执行指定的命令。
 | <kbd>Ctrl</kbd>+<kbd>R</kbd> | 重做                                                                     |
 |             `U`              | 第一次会撤销对当前行做过的全部操作，第二次会重做对当前行做过的所有操作。 |
 
-### Vim 其他常用快捷键
+### Vim 其他常用快捷键及命令
 
 |   快捷键    | 功能描述             |
 | :---------: | :------------------- |
@@ -109,6 +126,18 @@ vim -c command file # 在对文件进行编辑前，先执行指定的命令。
 |  `:w file`  | 另存为 file          |
 |  `:set nu`  | 显示行号             |
 | `:set nonu` | 取消显示行号         |
+|`:set cursorline`|突出显示当前行|
+|`:set mouse=a`<br>`:set selection=exclusive`<br>`:set selectmode=mouse,key`|启用鼠标|
+|`set autoindent`|自动缩进|
+|`set tabstop=4`|设置 Tab 键宽度|
+|`:set all`|查看所有的设置参数|
+
+> `:set nu` 也可以写作 `:set number`
+>
+> 可以编辑 `~/.vimrc` 文件来配置 Vim 默认设置，此时命令中可以不带 `:` 。
+
+[Vim 显示行号](http://c.biancheng.net/view/vip_5061.html)  
+[Vim 配置文件](http://c.biancheng.net/view/vip_5062.html)
 
 ## Vim 移动光标
 
