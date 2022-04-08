@@ -194,6 +194,10 @@ $\nabla$
 
 $\perp$
 
+#### 平行
+
+$\parallel$
+
 #### 正比
 
 $\propto$
@@ -516,10 +520,6 @@ $$
 
 $\P\ \copyright\ \bigstar\ \clubsuit\ \diamondsuit\ \heartsuit\ \spadesuit$
 
-#### 插入函数名称
-
-![图片](https://pic2.zhimg.com/80/v2-dac2ba8d57e2d047d4d067ad0bf9589d_1440w.jpg)
-
 > 参考资料
 >
 > [一篇文章教会你如何在 Markdown 文档中插入数学公式](https://zhuanlan.zhihu.com/p/158156773)
@@ -535,3 +535,5 @@ $\P\ \copyright\ \bigstar\ \clubsuit\ \diamondsuit\ \heartsuit\ \spadesuit$
 > [常用 LaTex 字符与公式速查](https://help.zhixi.com/guide/5591.html)
 >
 > [科技论文书写规范之正斜体问题](https://blog.csdn.net/wanjiac/article/details/106085105)
+>
+> [数学研发论坛：数学公式教程](https://bbs.emath.ac.cn/thread-5237-1-1.html)
