@@ -267,6 +267,15 @@ Linux:
 
 [CSDN: Could not get lock /var/lib/dpkg/lock-frontend](https://blog.csdn.net/lun55423/article/details/108907779)
 
+### npm 代理问题
+
+设置 npm 代理：
+
+```sh
+npm config set proxy=http://127.0.0.1:7890
+npm config set registry=http://registry.npmjs.org
+```
+
 ### apt
 
 |     apt 命令     | 功能                           |
