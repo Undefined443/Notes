@@ -1,13 +1,5 @@
 # Shell
 
-## 以 root 账户登录 Shell
-
-```bash
-sudo su
-```
-
-> sudo: superuser do
-
 ## 执行 Shell 脚本
 
 指明脚本解释器：
@@ -999,3 +991,36 @@ gedit [file] # 在 Linux 打开文本编辑器
 ## Shell 命令详解
 
 ### cat
+
+### su 和 sudo
+
+sudo: 使用提升的权限运行单个命令。
+
+su: 切换用户，默认切换到 root 。
+
+#### su
+
+`-`: 切换用户的同时，工作环境也切换为对应用户的工作环境。
+
+`-c`: 仅切换用户执行一次命令，执行后自动切换回来。
+
+```sh
+sudo -i                       # 提升权限，且不会自动恢复。
+
+su - root                     # 登录到指定用户，同时工作环境也切换为此用户的环境。需要输入该用户的密码。
+su - -c "useradd user1" root  # 以 root 的身份添加用户
+
+# 退回原用户
+exit
+logout
+```
+
+> sudo: superuser do
+>
+> 使用 `su` 命令时可能需要用 `sudo` 提升权限。
+
+### whoami 和 who am i
+
+`whoami`: 显示当前执行操作的用户名 (有效用户)
+
+`who am i`: 显示登录系统时所用的用户名 (实际用户)
