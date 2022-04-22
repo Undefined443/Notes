@@ -338,14 +338,80 @@ lrwxr-xr-x   1 p6  staff    8  4  8 15:42 fileSoftLink -> file.txt
 
 [CSDN：「复制、拷贝、替身、软连接、硬连接」区别详解](https://blog.csdn.net/woodpeck/article/details/78761219)
 
-### MD5 校验
+### 校验和检验
 
-MacOS：使用 `md5` 命令
+#### MacOS
 
-Windows：
+##### 计算校验和
+
+```sh
+md5 <file>           # MD5
+shasum -a 1 <file>   # SHA-1
+shasum -a 256 <file> # SHA-256
+```
+
+[如何在苹果Mac系统上使用MD5\SHA1\SHA256\SHA512等方式生成并验证下载文件签名](https://www.bootschool.net/article/5dda0d9af60a310558a7f070)
+
+##### 检验校验和
+
+校验和文件示例：
+
+[Checksums.txt](../assets/Checksums.txt)
+
+> 注意，在校验码和文件名之间有**两个**空格。
+
+在开始检验前，终端先进入要检验的文件所在的目录。
+
+```sh
+shasum -a 512 -c Checksums.txt # 使用 SHA-512 算法逐个检验 Checksums.txt 中的文件
+```
+
+#### Linux
+
+```sh
+md5sum <file>
+sha1sum <file>
+sha256sum <file>
+```
+
+#### Windows
 
 ```bat
-certutil -hashfile <file> MD5
-certutil -hashfile <file> SHA1
-certutil -hashfile <file> SHA256
+CertUtil -hashfile <file> MD5
+CertUtil -hashfile <file> SHA1
+CertUtil -hashfile <file> SHA256
 ```
+
+```ps1
+Get-FileHash <file> -Algorithm MD5
+```
+
+#checksum
+
+## 包管理器
+
+### MacOS
+
+```sh
+brew install
+brew uninstall|remove|rm
+brew list           # 显示已安装软件列表
+brew upgrade        # 更新 Homebrew
+brew search         # 搜索软件
+brew info           # 显示软件详细信息
+brew help [COMMAND] # 显示命令帮助
+man brew            # 显示帮助手册
+```
+
+### Windows
+
+```ps1
+winget install
+winget uninstall
+winget list
+winget upgrade
+winget search
+winget show         # 显示软件详细信息
+```
+
+[Microsoft Docs](https://docs.microsoft.com/zh-cn/windows/package-manager/winget/)
