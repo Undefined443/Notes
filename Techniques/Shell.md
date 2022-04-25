@@ -54,12 +54,12 @@ PS1="[bash]\$" # 命令提示符改为 [bash]$
 
 ```bash
 # 定义变量
-variable=value # 如果要赋的值不包含任何空白符及转义字符，那么可以不使用引号。不建议这种写法
-variable='value' # '' 相当于原生字符串，将不解析内容中的变量、命令
-variable="value" # 最常用的情况。会解析其中的变量，命令。但是不会解析转义字符
+variable=value    # 如果要赋的值不包含任何空白符及转义字符，那么可以不使用引号。不建议这种写法
+variable='value'  # '' 相当于原生字符串，将不解析内容中的变量、命令
+variable="value"  # 最常用的情况。会解析其中的变量，命令。但是不会解析转义字符
 
 readonly variable # 将变量定义为只读变量
-unset variable # 删除变量。unset 命令不能删除只读变量
+unset variable    # 删除变量。unset 命令不能删除只读变量
 
 # 使用变量
 author="李潇"
@@ -71,7 +71,7 @@ echo "作者是${author}。" # 用花括号指明变量名的边界
 
 ```bash
 # 命令替换：将命令的结果赋给变量
-var=`cat log.txt` # 多个命令之间以分号 ; 分隔
+var=`cat log.txt`  # 多个命令之间以分号 ; 分隔
 var=$(cat log.txt) # 推荐，并且这种方式最常见
 Fir_File_Lines=$(wc -l $(ls | sed -n '1p')) # 两层嵌套
 # 注意，如果被替换的命令的输出内容有换行符，或者含有多个连续的空白符，那么在输出变量时应该将变量用双引号包围，否则系统会使用默认的空白符来填充。
@@ -782,7 +782,7 @@ Shell 中的函数返回值是一个介于 0~255 的整数，用来表示函数�
 - 在函数内部使用 echo，printf 命令将结果输出，并在函数外部使用 <code>$()</code> 或 <code>` `</code> 捕获结果。（推荐）
 - 将处理结果赋给全局变量
 
-## Shell [[&nbsp;&nbsp;]] 关键字
+## Shell [\[ &nbsp;&nbsp;\]] 关键字
 
 `[[  ]]` 用来检测某个条件是否成立。
 
@@ -815,7 +815,7 @@ Shell 中的函数返回值是一个介于 0~255 的整数，用来表示函数�
 read fileName
 read msg
 
-if [ -w $fileName ] && [ -n $msg ]; then
+if [[ -w $fileName ]] && [[ -n $msg ]]; then
   echo $msg >$fileName
   echo "写入成功"
 else
@@ -830,8 +830,11 @@ fi
 | -z str                        | 判断 str 是否为空          |
 | -n str                        | 判断 str 是否非空          |
 | str1 = str2<br />str1 == str2 | 判断 str1 是否和 str2 相等 |
+| str1 != str2                  | 判断 str1 是否和 str2 不相等   |
 | str1 > str2                   | 判断 str1 是否大于 str2    |
 | str1 < str2                   | 判断 str1 是否小于 str2    |
+
+> :bulb:**注意：**在使用 `=`、`==`、`!=`、`>`、`<` 运算符比较字符串时，运算符与两边的字符串之间一定要有空格！否则可能会出现奇葩问题。
 
 ```bash
 read str1
@@ -848,7 +851,7 @@ else
 fi
 ```
 
-### [[&nbsp;&nbsp;]] 支持正则表达式
+### [\[&nbsp;&nbsp;\]] 支持正则表达式
 
 可以使用 `=~` 来检测字符串是否符合某个正则表达式：
 
@@ -943,7 +946,7 @@ bash 拒绝这么做，说是权限不够。这是因为重定向符号 `>` 和 
 ## 常用命令
 
 ```bash
-open <dir/file>     # 在访达中打开 dir 目录
+open <dir/file>     # 在访达中打开 dir/file
 start <dir/file>    # cmd 中的 open
 explorer <dir>      # 在资源管理器中打开 dir 目录
 nautilus <dit>      # ubuntu 中的 open
@@ -958,7 +961,7 @@ mv <name1> <name2> # 重命名
 
 rm <file> # 删除文件
 rm -rf    # 强制递归删除
-rmdir     # 删除目录
+rmdir     # 删除空目录
 del       # DOS 删除命令
 
 cat <file>    # 查看文件内容
