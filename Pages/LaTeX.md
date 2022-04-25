@@ -6,30 +6,30 @@
 
 #### 希腊字母
 
-| 字母名称 | 大写 |  命令   | 小写 |    命令     |
-| :------: | :--: | :-----: | :--: | :---------: |
-|  alpha   |  A   |    A    |  α   |   \alpha    |
-|   beta   |  B   |    B    |  β   |    \beta    |
-|  gamma   |  Γ   | \Gamma  |  γ   |   \gamma    |
-|  delta   |  Δ   | \Delta  |  δ   |   \delta    |
-| epsilon  |  E   |    E    |  ϵ   |  \epsilon   |
-|          |      |         |  ε   | \varepsilon |
-|   eta    |  E   |    E    |  η   |    \eta     |
-|  theta   |  Θ   | \Theta  |  θ   |   \theta    |
-|  lambda  |  Λ   | \Lambda |  λ   |   \lambda   |
-|    Mu    |  M   |    M    |  μ   |     \mu     |
-|    nu    |  N   |    N    |  ν   |     \nu     |
-|    xi    |  Ξ   |   \Xi   |  ξ   |     \xi     |
-| omicron  |  O   |    O    |  ο   |  \omicron   |
-|  omega   |  Ω   | \Omega  |  ω   |   \omega    |
-|    pi    |  Π   |   \Pi   |  π   |     \pi     |
-|   rho    |  P   |    P    |  ρ   |    \rho     |
-|  sigma   |  Σ   | \Sigma  |  σ   |   \sigma    |
-|   tau    |  T   |    T    |  τ   |    \tau     |
-|   phi    |  Φ   |  \Phi   |  ϕ   |    \phi     |
-|          |      |         |  φ   |   \varphi   |
-|   chi    |  X   |    X    |  χ   |    \chi     |
-|   psi    |  Ψ   |  \Psi   |  ψ   |    \psi     |
+| 字母名称 | 大写  |  命令   | 小写  |    命令     |
+| :------: | :---: | :-----: | :---: | :---------: |
+|  alpha   |   A   |    A    |   α   |   \alpha    |
+|   beta   |   B   |    B    |   β   |    \beta    |
+|  gamma   |   Γ   | \Gamma  |   γ   |   \gamma    |
+|  delta   |   Δ   | \Delta  |   δ   |   \delta    |
+| epsilon  |   E   |    E    |   ϵ   |  \epsilon   |
+|          |       |         |   ε   | \varepsilon |
+|   eta    |   E   |    E    |   η   |    \eta     |
+|  theta   |   Θ   | \Theta  |   θ   |   \theta    |
+|  lambda  |   Λ   | \Lambda |   λ   |   \lambda   |
+|    Mu    |   M   |    M    |   μ   |     \mu     |
+|    nu    |   N   |    N    |   ν   |     \nu     |
+|    xi    |   Ξ   |   \Xi   |   ξ   |     \xi     |
+| omicron  |   O   |    O    |   ο   |  \omicron   |
+|  omega   |   Ω   | \Omega  |   ω   |   \omega    |
+|    pi    |   Π   |   \Pi   |   π   |     \pi     |
+|   rho    |   P   |    P    |   ρ   |    \rho     |
+|  sigma   |   Σ   | \Sigma  |   σ   |   \sigma    |
+|   tau    |   T   |    T    |   τ   |    \tau     |
+|   phi    |   Φ   |  \Phi   |   ϕ   |    \phi     |
+|          |       |         |   φ   |   \varphi   |
+|   chi    |   X   |    X    |   χ   |    \chi     |
+|   psi    |   Ψ   |  \Psi   |   ψ   |    \psi     |
 
 1. 若要大写希腊字母，将命令首字母大写即可。
 2. 若要希腊字母的变体形式，在名字前加上 `var` 前缀即可，如 $\varepsilon$。
@@ -537,3 +537,5 @@ $\P\ \copyright\ \bigstar\ \clubsuit\ \diamondsuit\ \heartsuit\ \spadesuit$
 > [科技论文书写规范之正斜体问题](https://blog.csdn.net/wanjiac/article/details/106085105)
 >
 > [数学研发论坛：数学公式教程](https://bbs.emath.ac.cn/thread-5237-1-1.html)
+>
+> [强迫症的 LaTeX 学习笔记](https://ridiqulous.com/latex-notes-details/)
