@@ -980,6 +980,9 @@ read VAR # 从终端读取用户输入，并赋值给 VAR 变量。
          # 按下 Ctrl + D 表示读取到文件流的末尾
 
 gedit [file] # 在 Linux 打开文本编辑器
+
+basename /bin/zsh # 获取 zsh
+dirname /bin/zsh  # 获取 /bin
 ```
 
 ### Linux 多命令顺序执行连接符
