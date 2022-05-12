@@ -188,6 +188,12 @@ const fs = require("fs");
   });
 ```
 
+### npm
+
+[npm install 安装的四种用法 --save 和 --save-dev](https://blog.csdn.net/weixin_42260975/article/details/106253250?spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1-106253250-blog-121209404.pc_relevant_default&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1-106253250-blog-121209404.pc_relevant_default&utm_relevant_index=2)
+
+[node 安装依赖时带 --save-exact 是为什么](https://blog.csdn.net/aaqingying/article/details/121209404)
+
 ## 常用语句
 
 ```js
@@ -203,7 +209,7 @@ localStorage.setItem("name", "value");
 elem.addEventListener('click', func); // 为元素添加事件监听器
 ```
 
-## console
+### console
 
 ```js
 console.table(arr);       // 以表格的形式输出数组和对象
@@ -212,4 +218,29 @@ console.time("label");
 console.timeEnd("lebel"); // 计算过程用时
 
 console.dir(elem);        // 输出 HTML 元素
+```
+
+#### console.log 输出颜色
+
+`npm install colors`
+
+```js
+const colors = require("colors");
+
+console.log("hello".green);
+console.log("I like cake and pies".underline.red);
+console.log("Inverse the color".inverse);
+console.log("OMG Rainbows!".rainbow);
+console.log("Run the trap".trap);
+```
+
+## Troubleshooting
+
+### npm install Error: rollbackFailedOptional
+
+```sh
+npm config rm proxy
+npm config rm https_proxy
+
+npm config set registry https://registry.npmjs.org/
 ```
