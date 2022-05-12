@@ -1,5 +1,7 @@
 # Vim
 
+[阮一峰](https://www.ruanyifeng.com/blog/2018/09/vimrc.html)
+
 ![Graphical cheat sheet](../assets/vi-vim-cheat-sheet-sch.gif)
 
 ## vim 选项
@@ -130,7 +132,14 @@ vim -c command file # 在对文件进行编辑前，先执行指定的命令。
 | `:set mouse=a`<br>`:set selection=exclusive`<br>`:set selectmode=mouse,key` | 启用鼠标             |
 |                              `set autoindent`                               | 自动缩进             |
 |                               `set tabstop=4`                               | 设置 Tab 键宽度      |
+|`:set expandtab`|自动将 Tab 转为空格|
+|`:syntax on`|开启语法高亮|
+|`:set fileencoding=gbk`|转换文件编码|
 |                                 `:set all`                                  | 查看所有的设置参数   |
+|`:help nu`|查看帮助|
+
+可以在开关类配置项的后面加 `?` 来查看配置项的值：`:set nu?`  
+可以在开关类配置项的后面加 `!` 来切换配置项的值：`:set nu!`
 
 > `:set nu` 也可以写作 `:set number`
 >

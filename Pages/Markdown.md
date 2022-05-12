@@ -307,6 +307,8 @@ GFM: GitHub Flavored Markdown
 
 :joy: :tada: 
 
+[GitHub Markdown Emoji 标记列表](https://gist.github.com/rxaviers/7360908)
+
 #### Callouts
 
 > :bulb: **Tip:** Here's an important tip to remember!

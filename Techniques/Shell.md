@@ -67,6 +67,8 @@ echo $author
 echo "作者是${author}。" # 用花括号指明变量名的边界
 ```
 
+> :warning:**注意：** 不要使用 `path` 作为变量名，在大小写不敏感的系统中 `path` 等价于环境变量 `PATH` 。
+
 ### 命令替换
 
 ```bash
@@ -983,6 +985,10 @@ gedit [file] # 在 Linux 打开文本编辑器
 
 basename /bin/zsh # 获取 zsh
 dirname /bin/zsh  # 获取 /bin
+
+file --mime-encoding <file> # 获取 file 的编码方式 (GBK 会被当作 iso-8859-1)
+
+iconv -f gbk -t utf-8 <file> # 将 file 以 GBK 编码打开，并以 UTF-8 编码输出到 stdin
 ```
 
 ### Linux 多命令顺序执行连接符
