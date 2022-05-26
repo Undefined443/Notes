@@ -392,6 +392,8 @@ int putchar();
 get();
 ```
 
+[EOF 是什么](http://www.ruanyifeng.com/blog/2011/11/eof.html)
+
 #### 输入/输出一行
 
 ```c
