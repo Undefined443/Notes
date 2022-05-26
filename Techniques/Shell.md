@@ -948,47 +948,49 @@ bash 拒绝这么做，说是权限不够。这是因为重定向符号 `>` 和 
 ## 常用命令
 
 ```bash
-open <dir/file>     # 在访达中打开 dir/file
-start <dir/file>    # cmd 中的 open
-explorer <dir>      # 在资源管理器中打开 dir 目录
-nautilus <dit>      # ubuntu 中的 open
+open <dir/file>   # 在访达中打开 dir/file
+start <dir/file>  # cmd 中的 open
+explorer <dir>    # 在资源管理器中打开 dir 目录
+nautilus <dit>    # ubuntu 中的 open
 
-clear # 清屏
-cls   # cmd 清屏
+clear  # 清屏
+cls    # cmd 清屏
 
-ls -a # 查看当前目录所有文件（包括隐藏文件）
+ls -a  # 查看当前目录所有文件（包括隐藏文件）
 
-mv <file> <dir>    # 将 file 移动到 dir
-mv <name1> <name2> # 重命名
+mv <file> <dir>     # 将 file 移动到 dir
+mv <name1> <name2>  # 重命名
 
-rm <file> # 删除文件
-rm -rf    # 强制递归删除
-rmdir     # 删除空目录
-del       # DOS 删除命令
+rm <file>  # 删除文件
+rm -rf     # 强制递归删除
+rmdir      # 删除空目录
+del        # DOS 删除命令
 
-cat <file>    # 查看文件内容
-cat -n <file> # 显示行号
-type <file>   # cmd 中的 cat
+cat <file>     # 查看文件内容
+cat -n <file>  # 显示行号
+type <file>    # cmd 中的 cat
 
-head -n 5 <file> # 显示 file 前 5 行内容
-tail -n 5 <file> # 显示 file 后 5 行内容
+head -n 5 <file>  # 显示 file 前 5 行内容
+tail -n 5 <file>  # 显示 file 后 5 行内容
 
-touch <file> # 创建文件
+touch <file>  # 创建文件
 
-echo -e # 使用转义字符
-echo -n # 关闭自动换行
+echo -e  # 使用转义字符
+echo -n  # 关闭自动换行
 
-read VAR # 从终端读取用户输入，并赋值给 VAR 变量。
-         # 按下 Ctrl + D 表示读取到文件流的末尾
+read VAR  # 从终端读取用户输入，并赋值给 VAR 变量。
+          # 按下 Ctrl + D 表示读取到文件流的末尾
 
-gedit [file] # 在 Linux 打开文本编辑器
+gedit [file]  # 在 Linux 打开文本编辑器
 
-basename /bin/zsh # 获取 zsh
-dirname /bin/zsh  # 获取 /bin
+basename /bin/zsh  # 获取 zsh
+dirname /bin/zsh   # 获取 /bin
 
-file --mime-encoding <file> # 获取 file 的编码方式 (GBK 会被当作 iso-8859-1)
+file --mime-encoding <file>  # 获取 file 的编码方式 (GBK 会被当作 iso-8859-1)
 
-iconv -f gbk -t utf-8 <file> # 将 file 以 GBK 编码打开，并以 UTF-8 编码输出到 stdin
+iconv -f gbk -t utf-8 <file>  # 将 file 以 GBK 编码打开，并以 UTF-8 编码输出到 stdin
+
+ps  # process status，显示进程状态
 ```
 
 ### Linux 多命令顺序执行连接符

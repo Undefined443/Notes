@@ -2774,27 +2774,25 @@ class NoCopy {
 
 `<unistd.h>`：提供访问 POSIX 操作系统的 API ，类似 Windows 下的 `<windows.h>` 。
 
-```cpp
-pid_t fork(); // 创建一个当前程序的副本进程，该进程和原进程一起运行 fork() 调用后面的语句。fork() 在原进程中返回副本进程的 PID ，在副本进程中返回 0 。
-pid_t vfork(); // 创建子进程但子进程共享父进程的地址空间
-int execve(char *file, char *argv[], char *envp[]); // 将当前程序替换成要执行的程序，file 是程序名，args[] 是命令行参数数组，envp[] 是环境变量数组。两个数组都以空指针元素结尾。
+```c
+pid_t fork();  // 创建一个当前程序的副本进程，该进程和原进程一起运行 fork() 调用后面的语句。fork() 在原进程中返回副本进程的 PID ，在副本进程中返回 0 。
+pid_t vfork();  // 创建子进程但子进程共享父进程的地址空间
+
+int execl(char *path, char *arg0, ...);  // 将当前程序替换成要执行的程序，file 是程序名，argn 是第 n 个参数，以空指针 NULL 结尾。程序的第 0 个参数应为程序名
+int execv(char *path, char *arg[]);  // 与 execl 功能相同。args[] 是参数数组，数组以空指针元素结尾
+int execve(char *path, char *arg[], char *envp[]);  // 与 execv 功能相同。envp[] 是环境变量数组，数组以空指针元素结尾
+int execlp(char *file, char *arg *arg, ...);  // 如果 file 包含 / ，那么 file 就被视为文件路径直接执行；否则系统将从环境变量 PATH 中查找 file 
 ```
 
-[exec 函数族](https://baike.baidu.com/item/exec函数族/3489348)
+[百度百科：exec 函数族](https://baike.baidu.com/item/exec函数族/3489348)
 
-```cpp
-pid_t pid = fork();
-if (pid > 0) { // 原进程
-  cout << "Parent process" << endl;
-} else if (pid == 0) {
-  cout << "Son process" << endl;
-  execve("prog", nullptr, nullptr); // 子进程执行新的程序，不传入参数，不传入环境变量。
-}
-```
+[博客园：exec 系列函数使用](https://www.cnblogs.com/mickole/p/3187409.html)
 
 #### 进程间的通信
 
 ##### 匿名管道
+
+###### 同一文件父子进程的匿名管道通信
 
 ```cpp
 int fd[2];  // 创建文件描述符 (file descriptor)
@@ -2814,6 +2812,60 @@ else if (pid == 0) {
   read(fd[0], buf, 10);
 }
 ```
+
+###### 不同文件父子进程的匿名管道通信
+
+Parent.cpp
+
+```cpp
+int fd[2];
+if (pipe(fd) == -1) {  // 创建管道
+  cerr << "创建管道失败" << endl;
+  exit(1);
+}
+pid_t pid = fork();  // 创建子进程
+if (pid == -1) {
+  cerr << "创建子进程失败" << endl;
+  exit(1);
+}
+
+// 父进程
+else if (pid > 0) {
+  close(fd[0]);  // 关闭读端
+
+  // 父进程向管道写数据
+  cout << "Parent process " << getpid() << " send: ";
+  string input;
+  cin >> input;
+  write(fd[1], input.c_str(), input.size());
+  close(fd[1]);
+}
+
+// 子进程
+else {
+  close(0);      // 关闭标准输入
+  dup(fd[0]);    //  为管道读端复制一个文件描述符，新的文件描述符值为 0
+  close(fd[0]);  // 关闭管道读端和写端的文件描述符
+  close(fd[1]);
+  execl("Child", "Child", NULL);  // 子进程执行 Child 程序
+  exit(1);  // 如果执行到这里，说明 execl 执行失败
+}
+return 0;
+```
+
+Child.cpp
+
+```cpp
+string message;
+cin >> message;  // 从文件描述符 0 读取信息，实际上文件描述符 0 已经指向了管道读端
+cout << "Child process " << getpid() << " receive: " << message << endl;
+```
+
+`int dup(int fd)` 函数：给 fd 所指定的文件复制一个新的文件描述符，该描述符为当前可用的最小描述符；`dup2(int oldfd, int newfd)` 执行同样的功能，但可以自己指定新描述符。
+
+[CSDN: Linux 进程间通信——使用匿名管道](https://blog.csdn.net/ljianhui/article/details/10168031)
+
+[多个文件描述符指向一个文件](https://blog.csdn.net/xiaocaichonga/article/details/7767384)
 
 ### 等待
 
