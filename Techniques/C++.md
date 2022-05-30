@@ -5,7 +5,7 @@
 以 `\u` 开头的数字表示 Unicode
 
 ```bash
-gcc file1.c file2.c -o outpur # 编译 file1.c，file2.c，并生成文件 output 。
+gcc file1.c file2.c -o output # 编译 file1.c，file2.c，并生成文件 output 。
 g++ file1.cpp file2.cpp -o output
 
 clang file1.c file2.c -o output
@@ -150,7 +150,7 @@ main 函数可以无返回值类型（不是 `void`）
 为了使自己的程序有很好的移植性，C++ 程序员应该尽量使用 `size_t` 和 `size_type` 而不是 `int`，`unsigned`。
 
 1. `size_t` 是全局定义的类型；`size_type` 是 STL 类中定义的类型属性，用以保存任意 string，vector 的长度。
-2. `size_t` 使用时需要 `<cstddef>` 头文件。`size_type` 在其所属类的头文件中。
+2. `size_t` 使用时需要 `<stddef.h>` 头文件。`size_type` 在其所属类的头文件中。
 3. 在用下标访问元素时，vector 使用 `vector::size_type` 作为下标类型，而数组下标的正确类型是 `size_t`。
 
 > `size_t` 表示一个平台上最大可能出现的对象大小
@@ -2076,7 +2076,7 @@ cout << setw(10) << setiosflags（ios::left) << "message"; // 设置位宽 10 �
 
 #### 设置 cout 输出颜色
 
-#### POSIX
+##### POSIX
 
 参见 [Shell: echo 输出彩色字符](Shell.md#echo-输出彩色字符)
 
@@ -2148,6 +2148,9 @@ fstream fstrm("文件名", int mode);  // 创建一个 fstream 并以 mode 模�
 
 fstrm.open("文件名");               // 打开文件。要求没有已打开的文件，否则流的 failbit 会被置位。
 fstrm.open("文件名", int mode);
+
+// 文件流的使用方法和标准输入输出流一样
+fstrm << "message" << endl;
 
 // 读写二进制文件
 fstrm.read(char *buffer, int count);
