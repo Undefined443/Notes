@@ -428,27 +428,27 @@ istream &getline(istream, string&, char);
 
 #### printf 与 scanf
 
-|格式字符|说明|
-|:--:|:--|
-|d|有符号十进制数|
-|u|无符号十进制数|
-|f|单双精度浮点数|
-|e|科学计数法浮点数|
-|g|自动选取 f 和 e 中宽度较小的一种使用|
-|o|八进制|
-|x|十六进制|
-|c|字符|
-|s|字符串|
+| 格式字符 | 说明                                 |
+| :------: | :----------------------------------- |
+|    d     | 有符号十进制数                       |
+|    u     | 无符号十进制数                       |
+|    f     | 单双精度浮点数                       |
+|    e     | 科学计数法浮点数                     |
+|    g     | 自动选取 f 和 e 中宽度较小的一种使用 |
+|    o     | 八进制                               |
+|    x     | 十六进制                             |
+|    c     | 字符                                 |
+|    s     | 字符串                               |
 
-|格式修饰符|说明|
-|:--:|:--|
-|l|修饰 d、u、o、x，输出/入 long|
-|h|修饰 d、o、x，输出/入 short|
-|L|修饰 f、e、g，输出/入 long double|
-|m|指定宽度|
-|.n|指定精度|
-|-|左对齐|
-|*|忽略输入项|
+| 格式修饰符 | 说明                              |
+| :--------: | :-------------------------------- |
+|     l      | 修饰 d、u、o、x，输出/入 long     |
+|     h      | 修饰 d、o、x，输出/入 short       |
+|     L      | 修饰 f、e、g，输出/入 long double |
+|     m      | 指定宽度                          |
+|     .n     | 指定精度                          |
+|     -      | 左对齐                            |
+|     *      | 忽略输入项                        |
 
 ```c
 printf("%-10.6f", a); // 输出浮点数，- 左对齐，宽度 10 ，精度 6 。
@@ -2724,7 +2724,7 @@ class Foo {
 }
 ```
 
-在一个析构函数中，首先执行函数体，然后销毁成员。成员按初始化顺序的逆序销毁。**析构函数自身并不直接销毁成员。**成员是在析构函数体之后隐含的析构阶段中被销毁的。在整个对象销毁过程中，析构函数体是作为成员销毁步骤之外的另一部分而进行的。
+在一个析构函数中，首先执行函数体，然后销毁成员。成员按初始化顺序的逆序销毁。**析构函数自身并不直接销毁成员。** 成员是在析构函数体之后隐含的析构阶段中被销毁的。在整个对象销毁过程中，析构函数体是作为成员销毁步骤之外的另一部分而进行的。
 
 > 合成析构函数的函数体为空
 
@@ -2733,9 +2733,9 @@ class Foo {
 1. 如果一个类需要自定义析构函数，几乎可以肯定它也需要自定义拷贝赋值运算符和拷贝构造函数。
 2. 如果一个类需要一个拷贝构造函数，几乎可以肯定它也需要一个拷贝赋值运算符。反之亦然。然而，无论是需要拷贝构造函数还是需要拷贝赋值运算符都不必然意味着也需要析构函数。
 
-### 使用 =default
+### 使用 = default
 
-我们可以将拷贝控制成员定义为 `=default` 来显式地要求编译器生成合成的版本：
+我们可以将拷贝控制成员定义为 `= default` 来显式地要求编译器生成合成的版本：
 
 ```cpp
 class Demo {
@@ -2749,11 +2749,11 @@ class Demo {
 Demo &Demo::operator=(const Demo&) = default; // 合成的成员是非内联的
 ```
 
-当我们在类内用 `=default` 修饰成员的声明时，合成的函数将隐式地声明为内联的。如果我们不希望合成的成员是内联函数，应该只对成员的类外定义使用 `=default`。
+当我们在类内用 `= default` 修饰成员的声明时，合成的函数将隐式地声明为内联的。如果我们不希望合成的成员是内联函数，应该只对成员的类外定义使用 `= default`。
 
 ### 阻止拷贝
 
-我们可以使用 `=delete` 将拷贝构造函数和拷贝赋值运算符定义为**删除的函数**来阻止拷贝。
+我们可以使用 `= delete` 将拷贝构造函数和拷贝赋值运算符定义为**删除的函数**来阻止拷贝。
 
 ```cpp
 class NoCopy {
@@ -2765,7 +2765,7 @@ class NoCopy {
 }
 ```
 
-> 与 `=default` 不同，我们可以对任何函数使用 `=delete`。虽然删除函数的主要用途是禁止拷贝控制成员，但当我们希望引导函数匹配过程时，删除函数有时也是有用的。
+> 与 `= default` 不同，我们可以对任何函数使用 `= delete`。虽然删除函数的主要用途是禁止拷贝控制成员，但当我们希望引导函数匹配过程时，删除函数有时也是有用的。
 >
 > 在 C++11 之前，类是通过将其拷贝控制成员声明为 private 来阻止拷贝的。
 
@@ -2780,13 +2780,13 @@ class NoCopy {
 `<unistd.h>`：提供访问 POSIX 操作系统的 API ，类似 Windows 下的 `<windows.h>` 。
 
 ```c
-pid_t fork();  // 创建一个当前程序的副本进程，该进程和原进程一起运行 fork() 调用后面的语句。fork() 在原进程中返回副本进程的 PID ，在副本进程中返回 0 。
+pid_t fork();   // 创建一个当前程序的副本进程，该进程和原进程一起运行 fork() 调用后面的语句。fork() 在原进程中返回副本进程的 PID ，在副本进程中返回 0 。
 pid_t vfork();  // 创建子进程但子进程共享父进程的地址空间
 
 int execl(char *path, char *arg0, ...);  // 将当前程序替换成要执行的程序，file 是程序名，argn 是第 n 个参数，以空指针 NULL 结尾。程序的第 0 个参数应为程序名
-int execv(char *path, char *arg[]);  // 与 execl 功能相同。args[] 是参数数组，数组以空指针元素结尾
+int execv(char *path, char *arg[]);      // 与 execl 功能相同。args[] 是参数数组，数组以空指针元素结尾
 int execve(char *path, char *arg[], char *envp[]);  // 与 execv 功能相同。envp[] 是环境变量数组，数组以空指针元素结尾
-int execlp(char *file, char *arg *arg, ...);  // 如果 file 包含 / ，那么 file 就被视为文件路径直接执行；否则系统将从环境变量 PATH 中查找 file 
+int execlp(char *file, char *arg *arg, ...);        // 如果 file 包含 / ，那么 file 就被视为文件路径直接执行；否则系统将从环境变量 PATH 中查找 file 
 ```
 
 [百度百科：exec 函数族](https://baike.baidu.com/item/exec函数族/3489348)
@@ -2885,6 +2885,63 @@ waitpid(pid_t pid, int *status, int options); // 等待指定的进程。options
 // pid = -1：等待任何子进程，相当于 wait()
 // pid < -1：等待进程组识别码为 |pid| 的任何子进程
 ```
+
+### 信号量同步
+
+[博客园：有名信号量](https://www.cnblogs.com/Suzkfly/p/14351449.html)
+
+```cpp
+#include <semaphore.h>
+#include <unistd.h>
+
+#include <csignal>
+#include <iostream>
+
+using namespace std;
+
+int main() {
+  int stop = 5;
+  sem_t *driver, *conductor;
+  driver = sem_open("/driver", O_CREAT, 0666, 1);
+  conductor = sem_open("/conductor", O_CREAT, 0666, 0);
+  if (driver == SEM_FAILED || conductor == SEM_FAILED) {
+    cerr << "sem_open failed" << endl;
+    return 1;
+  }
+  pid_t pid = fork();
+  if (pid < 0) {
+    cerr << "fork error" << endl;
+  }
+  // 父进程，司机
+  else if (pid > 0) {
+    while (stop--) {
+      sem_wait(driver);
+      cout << "\e[31m司机开车\e[0m" << endl;
+      cout << "\e[31m司机停车\e[0m" << endl;
+      sem_post(conductor);
+    }
+    kill(pid, SIGKILL);
+  }
+  // 子进程，售票员
+  else {
+    --stop;
+    while (stop--) {
+      sem_wait(conductor);
+      cout << "\e[34m售票员开门\e[0m" << endl;
+      cout << "\e[34m售票员关门\e[0m" << endl;
+      sem_post(driver);
+    }
+  }
+  // 关闭信号量
+  sem_close(driver);
+  sem_close(conductor);
+  // 删除信号量文件
+  sem_unlink("/driver");
+  sem_unlink("/conductor");
+}
+```
+
+[sem_open()](https://www.ibm.com/docs/en/i/7.1?topic=ssw_ibm_i_71/apis/ipcsemo.htm)
 
 ## 常见错误代码
 
