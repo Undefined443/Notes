@@ -1,5 +1,7 @@
 # JSON
 
+JavaScript Object Notation
+
 ## 表示数据的方式
 
 Object: 键值对的集合，使用花括号 `{}` 来定义。键值对之间用逗号分隔。

@@ -1,18 +1,23 @@
 # Markdown
 
+[Microsoft Learn: Learn Markdown reference](https://learn.microsoft.com/en-us/contribute/markdown-reference)
+
+[GitHub Docs: Basic Writing and Formatting on GitHub](https://docs.github.com/zh/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
+
 ## VS Code 插件
 
-VSCode 原生 Markdown 渲染器不完全支持 GFM 语法。这里有一些好用的 Markdown 插件可以让你在使用 VSCode 编辑 Markdown 时获得更好的体验。
+VS Code 原生 Markdown 渲染器不完全支持 GFM 语法。这里有一些好用的 Markdown 插件可以让你在使用 VS Code 编辑 Markdown 时获得更好的体验。
 
 **Essential**
 
-- GitHub Markdown Preview：该插件包包含 GitHub 风格 Preview 以及 Emoji 支持，Checkbox 支持等
-- Markdown Preview VS Code Highlighting：使 Preview 中的代码颜色与编辑器中的颜色匹配
-- Markdown Footnotes：支持脚注语法
-- Markdown Image Size：支持图片大小语法
-- Markdown Preview Mermaid Support：Mermaid 图表支持
-- Mermaid Markdown Syntax Highlighting：Mermaid 代码高亮
-- Markdown All in One：数学符号，GFM 支持，自动补全等。在插入图片时非常好用。
+- GitHub Markdown Preview: 该插件包包含 GitHub 风格 Preview 以及 Emoji 支持，Checkbox 支持等
+- Markdown Preview VS Code Highlighting: 使 Preview 中的代码颜色与编辑器中的颜色匹配
+- Markdown Footnotes: 支持脚注语法
+- Markdown Image Size: 支持图片大小语法
+- Markdown Preview Mermaid Support: Mermaid 图表支持
+- Mermaid Markdown Syntax Highlighting: Mermaid 代码高亮
+- Markdown All in One: 数学符号，GFM 支持，自动补全等。在插入图片时非常好用。
+- Learn Authoring Pack: 由 Microsoft 提供的 Markdown 插件包，提供了代码预测等功能。其自带的 Preview 功能非常丑陋，并且会影响 Tab 键接受 GitHub Copilot 建议的功能。
 
 **Optional**
 
@@ -242,7 +247,8 @@ int main() {
 }
 ```
 
-语言指示：小写语言名，如 html, css, javascript(js), shell, bash(sh), java, python(py), csharp(cs), c, cpp, arduino, cmake。[查看所有支持的语言][supported languages]
+语言指示：小写语言名，如 html, css, javascript(js), shell, bash(sh), java, python(py), csharp(cs), c, cpp, matlab, sql, arduino, cmake, powershell, batch(~~bat~~), ~~cmd~~。[查看所有支持的语言][supported languages]
+
 
 **使用规范**
 
@@ -305,7 +311,7 @@ GFM: GitHub Flavored Markdown
 
 ### Emoji
 
-:joy: :tada: 
+:joy: :tada:
 
 [GitHub Markdown Emoji 标记列表](https://gist.github.com/rxaviers/7360908)
 
@@ -332,7 +338,7 @@ GFM: GitHub Flavored Markdown
 ### 表格
 
 | 表头 1 | 表头 2 | 表头 3 |
-| ----- | ------ | ----- |
+| ------ | ------ | ------ |
 | 内容 1 | 内容 2 | 内容 3 |
 | 内容 1 | 内容 2 | 内容 3 |
 

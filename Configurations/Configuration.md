@@ -31,9 +31,12 @@ wsl -l -v
 
 ### PowerShell 7
 
-1. 进入官网，安装 MSI 包。
+1. 安装 PowerShell
 
-[在 Windows 上安装 PowerShell](https://docs.microsoft.com/zh-cn/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.2#msi>)
+```powershell
+winget search Microsoft.PowerShell
+winget install --id Microsoft.Powershell --source winget
+```
 
 2. 配置 PowerShell 7
 
@@ -57,7 +60,44 @@ Windows Boot Manager 不会显示 Ubuntu 选项，因此需要在 BIOS 的 `Boot
 
 ### SSH
 
-[安装 OpenSSH](https://docs.microsoft.com/zh-cn/windows-server/administration/openssh/openssh_install_firstuse#start-and-configure-openssh-server)
+#### 命令行安装
+
+在管理员模式下运行以下命令：
+
+```powershell
+# 检查 OpenSSH 可用性
+Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH*'
+
+# Install the OpenSSH Client
+Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0
+
+# Install the OpenSSH Server
+Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+
+# Start the sshd service
+Start-Service sshd
+
+# OPTIONAL but recommended:
+Set-Service -Name sshd -StartupType 'Automatic'
+
+# Confirm the Firewall rule is configured. It should be created automatically by setup. Run the following to verify
+if (!(Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyContinue | Select-Object Name, Enabled)) {
+    Write-Output "Firewall Rule 'OpenSSH-Server-In-TCP' does not exist, creating it..."
+    New-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
+} else {
+    Write-Output "Firewall rule 'OpenSSH-Server-In-TCP' has been created and exists."
+}
+```
+
+也可以使用如下命令启动 OpenSSH（在管理员模式下运行）：
+
+```batch
+net start sshd
+```
+
+[MS Docs: 安装 OpenSSH](https://docs.microsoft.com/zh-cn/windows-server/administration/openssh/openssh_install_firstuse#start-and-configure-openssh-server)
+
+#### GUI 安装
 
 1. 搜索 “可选功能” 。
 2. 添加可选功能 > 搜索 “SSH” ，并安装所有出现的选项。
@@ -65,8 +105,16 @@ Windows Boot Manager 不会显示 Ubuntu 选项，因此需要在 BIOS 的 `Boot
 4. 接下来便可以使用 `ssh username@address` 命令来连接到此计算机。
 
 > 照理说应该是可以使用微软账户的用户名和密码来登录，并且在我的笔记本上确实可以。然而在 PC 上却不行，最后我使用了 设置 > 账户 > 家庭和其他用户 下的一个其他用户才登陆成功。
+>
+> 2023.4.11 补充：可能还是用户名填错了，用 `whoami` 看下。命令输出为 `domain\username`。[whoami](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/whoami)
+
+用户名就是 Windows 命令行里显示的用户名，密码是 Microsoft 帐户密码。
 
 ![](../assets/登陆SSH时使用的用户.png)
+
+[[Shell Tools]]
+
+[远程登录 VMware 虚拟机](https://cloud.tencent.com/developer/article/1679861)
 
 ## MacOS
 
@@ -75,6 +123,10 @@ Windows Boot Manager 不会显示 Ubuntu 选项，因此需要在 BIOS 的 `Boot
 ## Ubuntu
 
 [snap](https://cn.ubuntu.com/blog/what-is-snap-application)
+
+```sh
+snap install code --classic
+```
 
 ### deb 安装包
 
@@ -191,23 +243,26 @@ sudo apt install terminator
 ```sh
 sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
 
-# 自动补全，启用后终端可能会变卡
+# 自动补全，启用后终端可能会变慢，不建议使用
 git clone git://github.com/makeitjoe/incr.zsh $ZSH_CUSTOM/plugins/incr
 
-# autojump，使用 z 命令必须要这个
-sudo apt install autojump -y
-
-# syntax hightlighting
+# syntax highlighting
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
+# Using Homebrew
+brew install zsh-syntax-highlighting
 
 # zsh-suggestions
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+# Using Homebrew
+brew install zsh-autosuggestions
 ```
 
 进入 `~/.zshrc`，将 plugins 改为：
 
-```
-plugins=(git extract z zsh-autosuggestions zsh-syntax-highlighting)
+```sh
+plugins=(git extract z zsh-autosuggestions zsh-syntax-highlighting)  # 用 Homebrew 安装的插件不需要添加，跟着安装提示操作
 ```
 
 extract 用法：`x <file>` 自动解压文件
@@ -254,151 +309,48 @@ z 会记录你曾经进入过的目录，用模糊匹配快速进入想要的目
 
 [CSDN: Could not get lock /var/lib/dpkg/lock-frontend](https://blog.csdn.net/lun55423/article/details/108907779)
 
-### npm 代理问题
+### Ubuntu 22.04 安装 libwebkitgtk-1.0-0
 
-设置 npm 代理：
+在 Ubuntu 上安装完 PDI 后总是提示安装这个插件，然后因为在 Ubuntu 22.04 的 apt 中没有包含此插件的源，因此要新添加一个源，然后这个源还要再添加什么 key 验证。
 
-```sh
-npm config set proxy=http://127.0.0.1:7890
-npm config set registry=http://registry.npmjs.org
-```
-
-### apt
-
-|     apt 命令     | 功能                           |
-| :--------------: | :----------------------------- |
-|   apt install    | 安装软件包                     |
-|    apt remove    | 移除软件包                     |
-|    apt purge     | 移除软件包及配置文件           |
-|    apt update    | 刷新存储库索引                 |
-|   apt upgrade    | 升级所有可升级的软件包         |
-|  apt autoremove  | 自动删除不需要的包             |
-| apt full-upgrade | 在升级软件包时自动处理依赖关系 |
-|    apt search    | 搜索应用程序                   |
-|     apt show     | 显示安装细节                   |
-
-
-### chmod
-
-u 表示该文件的拥有者，g 表示该文件的拥有者所属的组，o 表示其他人，a 表示所有人。
-
-|  数字   | 权限  |
-| :-----: | :---: |
-| 4 (100) |  读   |
-| 2 (010) |  写   |
-| 1 (001) | 执行  |
-
-![](https://www.runoob.com/wp-content/uploads/2014/08/rwx-standard-unix-permission-bits.png)
-
-e.g.
-
-```bash
-# 数字表示法
-chmod 777 file # 为所有用户开放 file 的全部权限
-chmod 744 file # 只有拥有者有全部权限，其他人只读。
-
-# 字母表示法
-chmod o+w file # 为其他人增加写权限
-chmod a+x file # 为所有人增加执行权限
-chmod a-x file # 为所有人移除执行权限
-chmod u=rwx,g=rx,o=r file
-chmod u=rwx,og=rx file
-```
-
-#### 查看文件权限
-
-```bash
-$ ls -l
-total 16
-drwxr-xr-x  13 p6  staff  416  4  8 11:00 Courses
-drwxr-xr-x  10 p6  staff  320  4  8 15:37 Notes
--rw-rw-rw-@  2 p6  staff   28  4  8 15:41 file.txt
--rw-rw-rw-@  2 p6  staff   28  4  8 15:41 fileLink.txt
-lrwxr-xr-x   1 p6  staff    8  4  8 15:42 fileSoftLink -> file.txt
-```
-
-> 访问目录必须拥有执行权限
-
-[`ls -l` 输出内容详解](https://www.cnblogs.com/justmine/p/9053419.html)
-
-[Linux 文件权限查看及修改](https://www.cnblogs.com/cb0327/p/6189586.html)
-
-[CSDN：「复制、拷贝、替身、软连接、硬连接」区别详解](https://blog.csdn.net/woodpeck/article/details/78761219)
-
-### 校验和检验
-
-#### MacOS
-
-##### 计算校验和
+#### 添加新源
 
 ```sh
-md5 <file>           # MD5
-shasum -a 1 <file>   # SHA-1
-shasum -a 256 <file> # SHA-256
+sudo vim /etc/apt/sources.list
 ```
 
-[如何在苹果Mac系统上使用MD5\SHA1\SHA256\SHA512等方式生成并验证下载文件签名](https://www.bootschool.net/article/5dda0d9af60a310558a7f070)
+Add this entry to the file and save:
 
-##### 检验校验和
+```
+deb http://cz.archive.ubuntu.com/ubuntu bionic main universe
+```
 
-校验和文件示例：
-
-[Checksums.txt](../assets/Checksums.txt)
-
-> 注意，在校验码和文件名之间有**两个**空格。
-
-在开始检验前，终端先进入要检验的文件所在的目录。
+添加 key
 
 ```sh
-shasum -a 512 -c Checksums.txt # 使用 SHA-512 算法逐个检验 Checksums.txt 中的文件
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 40976EAF437D05B5
+
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3B4FE6ACC0B21F32
+
+
+sudo apt-get update
 ```
 
-#### Linux
+[Chris Jean: Fix apt-get update “the following signatures couldn’t be verified because the public key is not available”](https://community.hitachivantara.com/discussion/libwebkitgtk-10-0-on-ubuntu-2204-lts)
 
-```sh
-md5sum <file>
-sha1sum <file>
-sha256sum <file>
-```
+[Pentaho Community: LIBWEBKITGTK-1.0-0 ON UBUNTU 22.04 LTS](https://chrisjean.com/fix-apt-get-update-the-following-signatures-couldnt-be-verified-because-the-public-key-is-not-available/)
 
-#### Windows
+## 软件安装
 
-```bat
-CertUtil -hashfile <file> MD5
-CertUtil -hashfile <file> SHA1
-CertUtil -hashfile <file> SHA256
-```
+### MacOS 安装 Kettle
 
-```ps1
-Get-FileHash <file> -Algorithm MD5
-```
+[关于在 M1 Mac 上安装部署 PDI (kettle)](https://blog.csdn.net/ColeMEI/article/details/118616719)
 
-#checksum
+[Pentaho 9.3 支持 Java 11](https://help.hitachivantara.com/Documentation/Pentaho/9.3/What's_new_in_Pentaho_9.3)
 
-## 包管理器
+> 截至 2022.10.13，Pentaho 9.3 仍不支持 AArch64 架构，必须在 x86_64 模式的终端中运行，并且依赖 **x86_64** 的 Java 11 运行环境。
 
-### MacOS
+### Apple Silicon Mac 安装 Intel Homebrew
 
-```sh
-brew install
-brew uninstall|remove|rm
-brew list           # 显示已安装软件列表
-brew upgrade        # 更新 Homebrew
-brew search         # 搜索软件
-brew info           # 显示软件详细信息
-brew help [COMMAND] # 显示命令帮助
-man brew            # 显示帮助手册
-```
-
-### Windows
-
-```ps1
-winget install
-winget uninstall
-winget list
-winget upgrade
-winget search
-winget show         # 显示软件详细信息
-```
-
-[winget](https://docs.microsoft.com/zh-cn/windows/package-manager/winget/)
+1. 配置 Rosetta Shell（见 [How To Run Legacy Command Line Apps On Apple Silicon](https://indiespark.top/software/run-command-line-apple-silicon/)）
+2. 在 Rosetta Shell 中运行 Homebrew 安装命令

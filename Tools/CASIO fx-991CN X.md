@@ -1,5 +1,4 @@
-CASIO fx-991CN X 常用功能
-------
+# CASIO fx-991CN X 常用功能
 
 ### 复数转换 $a+b\,{\rm i}\leftrightarrow r\angle\theta$：
 

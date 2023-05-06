@@ -4,8 +4,8 @@
 
 以 `\u` 开头的数字表示 Unicode
 
-```bash
-gcc file1.c file2.c -o output # 编译 file1.c，file2.c，并生成文件 output 。
+```sh
+gcc file1.c file2.c -o output  # 编译 file1.c，file2.c，并生成文件 output 。
 g++ file1.cpp file2.cpp -o output
 
 clang file1.c file2.c -o output
@@ -76,6 +76,15 @@ string s2(10, 'A');
 #### 列表初始化
 
 用花括号 `{}` 括起来的初始化器
+
+```cpp
+int i = 0;
+int i{0};
+int i = {0}; // 等价于 int i{0}
+int i(0);
+```
+
+**当出现丢失精度的赋值时，列表初始化会报错**
 
 ### 自动类型判断
 
@@ -190,17 +199,6 @@ extern char *a;  // 错误
 ### 且和或
 
 `&&` 的优先级大于 `||`，因此当 `&&` 和 `||` 并存时，先计算 `&&`，再计算 `||`。
-
-### 列表初始化
-
-```cpp
-int i = 0;
-int i{0};
-int i = {0}; // 等价于 int i{0}
-int i(0);
-```
-
-**当出现丢失精度的赋值时，列表初始化会报错**
 
 ### 左值和右值
 
@@ -322,6 +320,8 @@ using SI = Sales_item; // SI 是 Sales_item 的别名
 | 静态内部（局部）变量 | 函数或复合语句内定义 |       `static int i;`       | 从定义处到函数（或复合语句）结束 |            程序运行期            |
 |       内部函数       |       函数之外       |      `static int f();`      |        从定义处到文件结束        |            程序运行期            |
 |       外部函数       |       函数之外       | `int f(); extern int f();`  |        从定义处到程序结束        |            程序运行期            |
+
+可以使用未命名的 namespace 来使其中的名字的作用域局限于该文件内。使用 `static` 声明文件作用域是老式的做法，不推荐使用。
 
 ### 头文件与源文件
 
@@ -813,6 +813,12 @@ int (*pf)(double, int);
 
 顶层 const 指变量本身的 const，底层 const 是指针、引用所指向对象的 const 。
 
+```c
+int i = 0;
+int *const cpi = &i; // cpi 是一个顶层 const
+const int *pci = &i; // pci 是一个底层 const
+```
+
 #### constexpr
 
 用于声明指针、引用时，其所指对象的地址必须固定（比如全局变量）。
@@ -917,10 +923,10 @@ struct Demo {
 ```c
 typedef struct {
   // TO DO
-} STUDENT; // typedef 后面一般用大写
+} STUDENT;  // typedef 后面一般用大写
 
-//声明链表结点
-typedef struct Node { // 这里 struct 和 Node 组合成一个类型名，而 typedef 将下面的 Node 声明为 struct Node 的别名。
+// 声明链表结点
+typedef struct Node {  // 这里 struct 和 Node 组合成一个类型名，而 typedef 将下面的 Node 声明为 struct Node 的别名。
   // TO DO
 } Node;
 ```
@@ -940,11 +946,37 @@ typedef struct {
 // 使用时：STUDENT.birthday.year
 ```
 
-### 用初始化列表初始化成员变量
+### 结构体的初始化
+
+#### 用初始化列表初始化成员变量
 
 ```cpp
-STUDENT stu = {"20009200401", "LiXiao", 98.5}; // 缺省值为 0
+STUDENT stu = {"20009200401", "LiXiao", 98.5};  // 缺省值为 0
 ```
+
+#### 定义时乱序赋值
+
+##### C 风格
+
+```c
+STUDENT stu = {
+  .name = "LiXiao",
+  .id = "20009200401",
+  .score = 98.5
+};
+```
+
+##### C++ 风格
+
+```cpp
+STUDENT stu = {
+  name: "LiXiao",
+  id: "20009200401",
+  score: 98.5
+};
+```
+
+> 貌似 C 也可以这样写
 
 ### 结构体的空间分配
 
@@ -1800,6 +1832,33 @@ for (auto e : vec) {
 
 ==`#pragma pack(n)` 在结构体的定义附近使用，若结构体定义在头文件，则 `pragma pack(n)` 和 `#pragma pack ()` 在头文件首尾。==
 
+### 宏
+
+用户可以将一组符号 (名字、表达式、语句、程序等) 定义成一个名字或带有一组参数的名字，编译程序自动地将这样的名字替换成原来的符号，这就是宏 (Macro)。
+
+C++ 淡化 Macros，并认为它可被 template 等取代。
+
+```c
+#define MAX(a, b) (a > b) ? a : b
+#define MIN(a, b) (a < b) ? a : b
+
+void foo() {
+int m = MAX(1, 100);       // m = (1 > 100) ? 1 : 100;
+double n = MIN(10.123, 6); // n = (10.123 < 6) ? 10.123 : 6;
+```
+
+> 宏名不能重载，宏预处理器也不能处理递归调用。
+
+宏的重要用途之一是规定条件编译：
+
+```c
+#ifdef UNIX_VERSION
+#include <sys/times.h>
+#else
+#include <time.h>
+#endif
+```
+
 ## stdlib.h
 
 ```c
@@ -2069,7 +2128,7 @@ cout (console output)
 `<iomanip>`
 
 ```cpp
-cout << setw(10) << setiosflags（ios::left) << "message"; // 设置位宽 10 ，左对齐。
+cout << setw(10) << setiosflags(ios::left) << "message"; // 设置位宽 10 ，左对齐。
 ```
 
 [C 语言中文网：cout 格式化输出完全攻略](http://c.biancheng.net/view/275.html)
@@ -2077,6 +2136,8 @@ cout << setw(10) << setiosflags（ios::left) << "message"; // 设置位宽 10 �
 #### 设置 cout 输出颜色
 
 ##### POSIX
+
+StackOverflow: [How do I output coloured text to a Linux terminal?](https://stackoverflow.com/questions/2616906/how-do-i-output-coloured-text-to-a-linux-terminal)
 
 参见 [Shell: echo 输出彩色字符](Shell.md#echo-输出彩色字符)
 
@@ -2709,7 +2770,7 @@ class Foo {
 ```cpp
 class Foo {
  public:
-  Foo &operator=(const Foo&); // 赋值运算符，接受一个与其所在类相同类型的参数，必须定义为成员函数。
+  Foo &operator=(const Foo&);  // 赋值运算符，接受一个与其所在类相同类型的参数，必须定义为成员函数。
 }
 ```
 
@@ -2772,6 +2833,30 @@ class NoCopy {
 #### 合成的拷贝控制成员可能是删除的
 
 当不可能拷贝、赋值或销毁类的成员时，类的合成拷贝控制成员就被定义为删除的。
+
+## namespace
+
+```cpp
+// 定义 namespace
+namespace Foo1 {
+  int a;
+  void bar();
+}
+
+namespace Foo2 {
+  using Foo1:bar();  // bar 在该 namespace 的所有实现内可用
+  int a;
+  void stick();
+}
+
+void Foo::bar() {
+  using Foo2::stick();  // stack 在该实现内可用
+}
+
+
+```
+
+# 实验部分
 
 ## 多进程、多线程
 
@@ -2945,4 +3030,48 @@ int main() {
 
 ## 常见错误代码
 
+### Visual Studio
+
 0xC0000005: 检查空指针访问
+
+### CLion
+
+Process finished with exit code 139 (interrupted by signal 11: SIGSEGV): 检查空指针访问
+
+error: unknown type name 'xxx': 可能是头文件循环引用/类循环依赖问题。尝试调整头文件包含顺序，或者使用前向声明并使用指针，或者设计合理的头文件依赖关系。
+
+[StackOverflow](https://stackoverflow.com/questions/18903300/c-unknown-type-name-my-structure)
+
+### Terminal.app
+
+segmentation fault: 检查空指针访问
+
+## 灵异现象
+
+### CLion 无法识别构造函数
+
+passenger.h:
+
+```cpp
+class floor {
+public:
+  floor(building *b, int id);
+  // ...
+};
+```
+
+building.cpp:
+
+```cpp
+#include "building.h"
+#include "floor.h"
+// ...
+
+building::building() {
+  for (int i = bottom_floor; i < top_floor; ++i) {
+    floors.push_back(new class floor(this, i + 1));  // CLion 报错，Clion 认为 floor 没有这样的构造函数，floor 的构造函数是自动生成的默认构造函数
+  }
+}
+```
+
+必须将 passenger 的构造函数签名改为 `(class building &b, class floor &f, const nlohmann::json &conf)` 才可以正确识别期望的构造函数。

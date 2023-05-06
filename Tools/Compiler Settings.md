@@ -6,7 +6,6 @@
 
 cmd 命令：`gcc -v`
 
-
 ### JDK
 
 #### 新建系统变量
@@ -100,3 +99,12 @@ cmd 命令：`java -version`, `java`, `javac`
 ![图片](../assets/IMG_19.png)
 
 [IntelliJ IDEA java项目导入jar包，打jar包](https://www.cnblogs.com/yulia/p/6824058.html)
+
+#### 运行 JAR 包
+
+```sh
+java -jar <jar包名>  # 使用默认主类
+java -classpath <jar包名> <主类名>  # 指定主类
+```
+
+> 主类名要写全限定类名，如 `com.example.Main`

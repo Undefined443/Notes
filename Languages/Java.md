@@ -1,5 +1,13 @@
 # Java
 
+[Java specification versus implementation](https://stackoverflow.com/questions/61335109/what-is-the-difference-between-azul-openjdk-zulu-openjdk-and-openjdk)
+
+[macOS 应该安装哪个 JDK](https://whichjdk.com)
+
+## Maven
+
+[Maven 换源](https://juejin.cn/post/6984347166860918792)
+
 ## 杂项
 
 *[NaN]: Not a Number
@@ -255,9 +263,9 @@ class Demo {
 
 ### 内存空间
 
-|      栈      |       堆       |              数据区              | 代码区 |
-|:--------:|:---------:|:----------------------:|:-------:|
-|存储变量|存储对象|存储字符串和静态变量|               |
+|    栈    |    堆    |        数据区        | 代码区 |
+| :------: | :------: | :------------------: | :----: |
+| 存储变量 | 存储对象 | 存储字符串和静态变量 |        |
 
 ### 多态
 
@@ -269,17 +277,17 @@ class Demo {
 
 ### Object 类
 
-|                 方法                |                                         说明                                        |
-|:-----------------------|:---------------------------------------------------|
-|Object clone()                |创建与该对象的类相同的新对象                                  |
-|boolean equals(Object)|比较两对象是否相等（这里使用的是使用 == 判断）|
-|void finalize()                  |当垃圾回收器确定不存在对该对象的更多引用时，对象垃圾回收器调用该方法|
-|Class getClass()             |返回一个对象运行时的实例类                                     |
-|int hashCode()               |返回该对象的散列码值                                                 |
-|void notify()                    |激活等待在该对象的监视器上的一个线程                  |
-|void notifyAll()                |激活等待在该对象的监视器上的全部线程                  |
-|String toString()             |返回该对象的字符串表示<br>类名@十六进制哈希码<br>很多类重写了该方法，返回可以表述对象信息的字符串|
-|void wait()                       |在其他线程调用此对象的 notify() 方法或 notifyAll() 方法前，导致当前线程等待|
+| 方法                   | 说明                                                                                              |
+| :--------------------- | :------------------------------------------------------------------------------------------------ |
+| Object clone()         | 创建与该对象的类相同的新对象                                                                      |
+| boolean equals(Object) | 比较两对象是否相等（这里使用的是使用 == 判断）                                                    |
+| void finalize()        | 当垃圾回收器确定不存在对该对象的更多引用时，对象垃圾回收器调用该方法                              |
+| Class getClass()       | 返回一个对象运行时的实例类                                                                        |
+| int hashCode()         | 返回该对象的散列码值                                                                              |
+| void notify()          | 激活等待在该对象的监视器上的一个线程                                                              |
+| void notifyAll()       | 激活等待在该对象的监视器上的全部线程                                                              |
+| String toString()      | 返回该对象的字符串表示<br>类名@十六进制哈希码<br>很多类重写了该方法，返回可以表述对象信息的字符串 |
+| void wait()            | 在其他线程调用此对象的 notify() 方法或 notifyAll() 方法前，导致当前线程等待                       |
 
 > Object 变量相当于 void 指针，可以用 == 运算符确定指向的对象是否相同
 >

@@ -528,7 +528,7 @@ background-image: url(star.png);
 /* 默认值是 repeat */
 background-repeat: repeat-x;
 background-repeat: repeat-y;
-background-repeat: norepeat;
+background-repeat: no-repeat;
 ```
 
 

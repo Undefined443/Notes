@@ -1,5 +1,192 @@
 # Python
 
+## 开发
+
+[PyCharm Docs](https://www.jetbrains.com/help/pycharm/2022.2/installation-guide.html)
+
+[腾讯云：Python 虚拟环境（pipenv、vnev、conda）一网打尽](https://cloud.tencent.com/developer/article/2124483)
+
+### poetry
+
+poetry 是当下热门的 Python 包管理器。Poetry 注重为项目提供完整的生命周期管理，包括构建、打包、发布和依赖管理。它的目标是成为 Python 项目的唯一工具。
+
+```sh
+brew install poetry
+```
+
+#### Project setup
+
+```sh
+poetry new poetry-demo
+cd poetry-demo
+poetry shell
+exit
+```
+
+#### Initialising a pre-existing project
+
+```sh
+cd pre-existing-project
+poetry init
+```
+
+#### Installing dependencies
+
+```sh
+poetry install
+```
+
+#### Using your virtual environment
+
+```sh
+poetry shell
+$ exit
+```
+
+#### Removing virtual environments
+
+```sh
+poetry env remove
+```
+
+[Poetry Docs: Basic Usage](https://python-poetry.org/docs/basic-usage/)
+
+### pipenv
+
+pipenv 是 Python 官方推荐的依赖管理工具，旨在简化 pip 和 virtualenv 的使用。
+
+```sh
+# macOS
+brew install pipenv
+
+# Others
+pip3 install --user pipenv  # 如果当前用户不是 root，就使用 --user 选项
+```
+
+```sh
+pipenv install  # 为目录创建新的虚拟环境，并使用目录中的 Pipfile 或 requirements.txt 安装依赖
+
+PIPENV_VENV_IN_PROJECT=1 pipenv install --deploy  # deploy 会验证 Pipfile.lock 是不是由对应的 Pipfile 生成的
+
+# 使用镜像源安装
+pipenv install -i https://pypi.tuna.tsinghua.edu.cn/simple numpy
+
+pipenv --venv  # 查看当前虚拟环境的信息
+
+pipenv shell  # 激活虚拟环境
+
+pipenv run python main.py  # 直接在外部运行虚拟环境命令
+
+exit  # 退出虚拟环境
+
+pipenv --rm  # 删除虚拟环境
+
+# 更改镜像源
+pipenv --pypi-mirror https://pypi.tuna.tsinghua.edu.cn/simple
+
+pipenv lock    # 生成 Pipfile.lock
+pipenv sync    # 安装 Pipfile.lock 中的依赖
+pipenv update  # pipenv lock && pipenv sync
+
+pipenv requirements > requirements.txt  # 生成 requirements.txt
+```
+
+常用命令一览：
+
+```sh
+pipenv --where                 # 列出本地工程路径
+pipenv --venv                  # 列出虚拟环境路径
+pipenv --py                    # 列出虚拟环境的 Python 可执行文件
+pipenv install                 # 创建虚拟环境
+pipenv install [moduel]        # 安装包
+pipenv install [moduel] --dev  # 安装包到开发环境
+pipenv uninstall[module]       # 卸载包
+pipenv uninstall --all         # 卸载所有包
+pipenv graph                   # 查看包依赖
+pipenv lock                    # 生成 lockfile
+pipenv run python [pyfile]     # 运行 py 文件
+pipenv --rm                    # 删除虚拟环境
+```
+
+[Official Website](https://pipenv.pypa.io/en/latest/)
+
+[Python Guide CN](https://pythonguidecn.readthedocs.io/zh/latest/dev/virtualenvs.html)
+
+[掘金: Python——pipenv 精心整理教程](https://juejin.cn/post/6844904202737713160)
+
+[简书: 拥抱 pipenv - ThomasYoungK](https://www.jianshu.com/p/d08a4aa0008e)
+
+[Pipenv environment variable LANG is not set! | neldeles's personal blog/portfolio](https://www.neldeles.com/blog/posts/20200903-pipenv-environment-variable-lang-is-not-set)
+
+### pip
+
+#### [Remove the pip search command](https://github.com/pypa/pip/issues/5216)
+
+由于自 2020 年 11 月 14 日以来，PyPI XMLRPC API 持续收到过量的搜索调用，因此 `pip search` 命令将在不久的将来（撰稿日期 2022.9.26）弃用。目前要想使用 `pip search` 功能，可以在 [PyPI 官网](https://pypi.org) 进行搜索。
+
+```sh
+pip3 venv .venv
+.venv/bin/activate
+# activate.bat for CMD, activate.ps1 for PowerShell
+```
+
+> 即使没有激活虚拟环境，只要运行的是虚拟环境的 `Scripts` 目录下的 python 或 pip 可执行程序，依然能达到进入虚拟环境的效果。
+>
+> 在 PyCharm 中指定 Python 解释器为虚拟环境中的解释器即可进入虚拟环境。
+
+### 换源
+
+#### 临时更换镜像源
+
+```sh
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple/ some-package
+```
+
+#### 永久更换镜像源
+
+```sh
+vim ~/.pip/pip.conf
+```
+
+填入以下内容
+
+```ini
+[global]
+index-url = https://pypi.tuna.tsinghua.edu.cn/simple
+[install]
+trusted-host = https://pypi.tuna.tsinghua.edu.cn
+```
+
+Windows 上的配置文件路径为 `%HOMEPATH%\pip\pip.ini`
+
+[PIP 配置文件参考文档](https://pip.pypa.io/en/stable/topics/configuration/)
+
+### requirements.txt
+
+`pipreqs` 工具可以通过扫描项目目录帮助我们生成项目的依赖清单：
+
+```sh
+pip3 install pipreqs
+pipreqs .  # 为当前项目生成依赖清单
+```
+
+也可以使用 `pip3 freeze`，该命令将当前虚拟环境中安装的所有包及其版本号写入 `requirements.txt` 文件。（需要在 venv 环境下执行）
+
+```sh
+pip3 freeze > requirements.txt # 也可以使用 pip freeze 生成当前环境的依赖清单
+```
+
+### pipinstaller
+
+Installs pip packages on all your installed Python versions (Windows only)
+
+[官方文档](https://pipinstaller.readthedocs.io/en/latest/)
+
+```sh
+# 打包项目
+pipinstaller -p . -o ./dist 
+```
+
 ## 杂项
 
 [Python 标识符命名规范](http://c.biancheng.net/view/4186.html)
@@ -46,8 +233,8 @@ print(Fraction(10, 3))
 ### 原生字符串
 
 ```py
-r'row string'
-r"row string"
+r'raw string'
+r"raw string"
 ```
 
 ### 长字符串
@@ -55,7 +242,7 @@ r"row string"
 ```py
 '''long string'''
 """long string"""
-r'''row long string'''
+r'''raw long string'''
 ```
 
 ### 字符串换行
@@ -701,4 +888,25 @@ class Student:
 stu = Student("Li Xiao")
 stu.money = 999_999_999 # 可以给类对象动态添加/删除变量
 del stu.money
+```
+
+## 实际应用
+
+为 Python 项目独立地配置虚拟环境：[Virtual Environments and Packages](https://docs.python.org/3/tutorial/venv.html)
+
+```py
+python3 -m venv .venv  # 在当前项目下新建一个 .venv 文件夹，用于存放虚拟环境
+source .venv/bin/activate  # 进入虚拟环境
+deactivate  # 退出虚拟环境
+```
+
+### 进度条
+
+```py
+from tqdm import tqdm
+
+progress_bar = tqdm(total=total_num, desc='Progress', unit='kb', unit_scale=True)
+for i in range(total_num):
+    progress_bar.update(1)
+progress_bar.close()
 ```
