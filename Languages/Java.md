@@ -4,6 +4,17 @@
 
 [macOS 应该安装哪个 JDK](https://whichjdk.com)
 
+## Ubuntu 安装 java
+
+```sh
+sudo apt install -y openjdk-8-jdk
+# 或者
+sudo apt install -y default-jdk
+
+sudo update-alternatives --config java  # 选择 java 版本
+sudo update-alternatives --config javac # 选择 javac 版本
+```
+
 ## Maven
 
 [Maven 换源](https://juejin.cn/post/6984347166860918792)

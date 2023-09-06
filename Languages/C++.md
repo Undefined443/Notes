@@ -448,7 +448,7 @@ istream &getline(istream, string&, char);
 |     m      | 指定宽度                          |
 |     .n     | 指定精度                          |
 |     -      | 左对齐                            |
-|     *      | 忽略输入项                        |
+|     *      | 赋值抑制符，例如：`%*d`，忽略一个整形数                        |
 
 ```c
 printf("%-10.6f", a); // 输出浮点数，- 左对齐，宽度 10 ，精度 6 。
@@ -484,6 +484,15 @@ system("chcp 65001 > nul"); // 让控制台使用 UTF-8 编码页，并丢弃编
 > UTF-8 编码页对应 65001，GBK 编码页对应 936。可以使用 chcp 命令查看当前编码页或更改编码页。(在 MacOS 上通过 `locale` 命令打印 `LC_CTYPE` 变量可以确认系统缺省编码格式)
 
 [Windows 修改控制台编码为 UTF-8](https://mxy493.xyz/2021052715441/)
+
+#### 其他相关函数
+
+```c
+printk();  // 内核输出函数，用法和 printf 相同，在终端输入 dmesg 命令查看函数输出
+sprintf(target, "%x", num);  // 将格式化的数据写入字符串
+snprintf();  // 与 sprintf 相同，但是可以指定写入的字符数
+perror("popen");  // 打印错误信息
+```
 
 ## 函数
 
@@ -921,14 +930,29 @@ struct Demo {
 #### 声明时使用 typedef
 
 ```c
+// 没有标签的结构体
 typedef struct {
   // TO DO
 } STUDENT;  // typedef 后面一般用大写
 
 // 声明链表结点
-typedef struct Node {  // 这里 struct 和 Node 组合成一个类型名，而 typedef 将下面的 Node 声明为 struct Node 的别名。
+// 有标签的结构体
+typedef struct Node {  // typedef 为 struct Node 起了一个别名 Node
   // TO DO
 } Node;
+```
+
+#### 声明的同时赋值
+
+```c
+struct file_operations rwbuf_fops = {
+    open : rwbuf_open,
+    release : rwbuf_release,
+    read : rwbuf_read,
+    write : rwbuf_write,
+    unlocked_ioctl : rwbuf_ioctl,
+    mmap : rwbuf_mmap
+};
 ```
 
 **结构体的成员默认是 public 的**
@@ -1892,6 +1916,7 @@ system("HELP");      // 获取 system 参数
 
 FILE *popen("command", "mode"); // 建立管道 I/O
 // popen 作用和 system 类似，但 popen 可以返回命令运行的结果，而 system 只返回命令运行是否成功。
+pclose(FILE *fp);               // 关闭管道 I/O
 
 // 例
 #include <stdio.h>
@@ -3028,6 +3053,17 @@ int main() {
 
 [sem_open()](https://www.ibm.com/docs/en/i/7.1?topic=ssw_ibm_i_71/apis/ipcsemo.htm)
 
+### 共享内存
+
+```c
+mmap();
+munmap();
+
+int shmid = shmget(0x123456, 4096, IPC_CREAT | IPC_EXCL | 0600);
+int shmid = shmget(0x123456, 4096, 0);
+int *p = (int *)shmat(shmid, NULL, 0);
+```
+
 ## 常见错误代码
 
 ### Visual Studio
@@ -3036,7 +3072,7 @@ int main() {
 
 ### CLion
 
-Process finished with exit code 139 (interrupted by signal 11: SIGSEGV): 检查空指针访问
+Process finished with exit code 139 (interrupted by signal 11: SIGSEGV): 检查野指针访问
 
 error: unknown type name 'xxx': 可能是头文件循环引用/类循环依赖问题。尝试调整头文件包含顺序，或者使用前向声明并使用指针，或者设计合理的头文件依赖关系。
 
@@ -3044,7 +3080,22 @@ error: unknown type name 'xxx': 可能是头文件循环引用/类循环依赖�
 
 ### Terminal.app
 
-segmentation fault: 检查空指针访问
+segmentation fault: 检查野指针访问
+
+### Linux Terminal
+
+```output
+Segmentation fault (core dumped)
+```
+
+检查野指针访问
+
+```output
+7fbebdc25000***stack smashing detected***: terminated
+[1]    3922 abort (core dumped)  ./myprog
+```
+
+检查数组越界
 
 ## 灵异现象
 

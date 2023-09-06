@@ -26,8 +26,6 @@ rm -rf <dir>    # 强制递归删除
 rmdir      # 删除空目录
 del        # DOS 删除命令
 
-ln -s <file1> <file2>  # 创建软链接
-
 cat <file>     # 查看文件内容
 cat -n <file>  # 显示行号
 type <file>    # DOS 中的 cat
@@ -49,7 +47,8 @@ cmp file1 file2  # 显示两个文件的不同
 sudo reboot  # 重启
 sudo shutdown -h now  # 关机
 
-sudo systemctl start sshd.service  # Linux 启动 sshd 服务；比 service 命令好
+sudo systemctl start sshd  # Linux 启动 sshd 服务；比 service 命令好
+sudo systemctl daemon-reload  # 重新加载配置文件
 ```
 
 > `abc/` 表示目录，`abc` 表示文件或目录。当目录存在时就是目录，目录不存在就是文件。
@@ -57,22 +56,26 @@ sudo systemctl start sshd.service  # Linux 启动 sshd 服务；比 service 命�
 ### Advanced
 
 ```sh
+ln -s <source_file> <target_file>  # 创建软链接
+
 head -n 5 <file>  # 显示 file 前 5 行内容
 tail -n 5 <file>  # 显示 file 后 5 行内容
+
 tail -f <file>    # 根据文件描述符实时监控文件内容
 tail -F <file>    # 根据文件名实时监控文件内容
 
 read VAR  # 从终端读取用户输入，并赋值给 VAR 变量。
           # 按下 Ctrl + D 表示读取到文件流的末尾
 
-basename /bin/zsh  # 获取 zsh
-dirname /bin/zsh   # 获取 /bin
+basename /bin/zsh  # 获取文件名 (zsh)
+dirname /bin/zsh   # 获取目录名 (/bin)
 
 file --mime-encoding <file>  # 获取 file 的编码方式 (GBK 会被当作 iso-8859-1)
 
 iconv -f gbk -t utf-8 <file>  # 将 file 以 GBK 编码打开，并以 UTF-8 编码输出到 stdin
 
-find <file>
+find <file>  # 在当前目录下查找文件
+
 which -a <prog>  # 找到 <prog> 的所有文件
 whereis <prog>   # 找到 <prog> 的所有文件及 man 文件
 
@@ -80,9 +83,6 @@ tr -d '\r' <file>  # 删除文件中的 \r
 echo $PATH | tr ':' '\n'  # 将 PATH 中的 : 替换为换行符
 
 python3 --help | grep -C 2 pip  # -C 2 表示显示匹配行的上下 2 行
-python3 --help | vim -  # 用 vim 打开说明文档，"-" 选项要求 vim 从标准输入读取内容
-
-nmap -sn 192.168.1.0/24  # 扫描网络 192.168.1.0 中的设备
 
 pbpaste  # 从剪贴板中读取内容，还有 pbcopy
 # npm start sf 5-2 $(pbpaste)
@@ -92,6 +92,10 @@ pbpaste  # 从剪贴板中读取内容，还有 pbcopy
 sed -i.bak "s/hello/world/g" <file>  # 将 file 中的 "hello" 替换为 "world"，并将原文件备份为 file.bak
 
 tree  # 显示目录结构
+
+arch  # 显示系统架构
+
+nohup <prog> &  # & 用于将命令作为后台进程运行，nohup 会忽略 SIGHUP 信号，避免进程因终端被关闭发出的 SIGHUP 信号导致进程终止
 ```
 
 [sed: Command-Line Options](https://www.gnu.org/software/sed/manual/sed.html#Command_002dLine-Options)
@@ -1139,23 +1143,40 @@ bash 报错说权限不够，是因为重定向符号 `>` 和 `>>` 也是 bash �
 
 ### su 和 sudo
 
-sudo: 使用提升的权限运行单个命令。
+#### sudo
 
-su: 切换用户，默认切换到 root。
+execute a command as another user
+
+##### DESCRIPTION
+
+sudo allows a permitted user to execute a command as the superuser or another user, as specified by the security policy. The invoking user's real (not effective) user-ID is used to determine the user name with which to query the security policy.
+
+使用提升的权限运行单个命令。
 
 #### su
 
-切换用户
+substitute user identity
 
-`su -`: 切换用户的同时，工作环境也切换为对应用户的工作环境。
+##### DESCRIPTION
 
-`su -c`: 仅切换用户执行一次命令，执行后自动切换回来。
+The su utility requests appropriate user credentials via PAM and switches to that user ID (the default user is the superuser). A shell is then executed.
+
+切换用户，默认切换到 root。
 
 ```sh
-sudo -i                       # 提升权限，且不会自动恢复。
+sudo su  # 切换到 root 用户，且工作环境也切换为 root 的工作环境。
 
-su - root                     # 登录到指定用户，同时工作环境也切换为此用户的环境。需要输入该用户的密码。
-su - -c "useradd user1" root  # 以 root 的身份添加用户
+sudo su -l  # 切换用户的同时，工作环境也切换为对应用户的工作环境。
+
+sudo su -   # 同上
+
+sudo su -c  # 仅切换用户执行一次命令，执行后自动切换回来。
+
+sudo su - root                     # 登录到指定用户，同时工作环境也切换为此用户的环境。需要输入该用户的密码。
+
+sudo su - -c "useradd user1" root  # 以 root 的身份添加用户
+
+sudo sudo -i                       # 提升权限，且不会自动恢复。
 
 # 退回原用户
 exit
@@ -1191,11 +1212,11 @@ uname -o  # 显示操作系统名称
 ### 用户帐户管理
 
 ```sh
-adduser username  # 添加用户
-passwd username  # 修改用户密码
-userdel -r username  # 删除用户，-r 选项会删除用户的主目录
-usermod -L username  # 锁定用户禁止登录
-usermod -U username  # 解锁用户允许登录
+adduser <username>  # 添加用户
+passwd <username>  # 修改用户密码
+userdel -r <username>  # 删除用户，-r 选项会删除用户的主目录
+usermod -L <username>  # 锁定用户禁止登录
+usermod -U <username>  # 解锁用户允许登录
 ```
 
 #### 用户组管理
@@ -1278,7 +1299,18 @@ chown :group file  # 修改 file 的所属组为 group
 chown user:group file  # 同时修改文件的拥有者和所属组
 ```
 
-## Linux Specific
+## Linux 目录约定
+
+```sh
+/usr/bin  # 二进制程序
+/etc  # 各类程序的配置文件
+/var/log  # 各类程序的日志文件
+/usr/lib/systemd/system  # 服务脚本
+```
+
+## 操作系统课程设计
+
+### 查看 Linux 发行版信息
 
 ```sh
 lsb_release -a  # 查看 Linux 发行版信息
@@ -1289,4 +1321,25 @@ lsb_release -a  # 查看 Linux 发行版信息
 ```sh
 xrandr  # 查看可用分辨率
 xrandr -s 1920x1080  # 设置分辨率
+```
+
+### 其他
+
+```sh
+ipcs  # 查看共享内存
+
+dmesg  # 显示内核消息
+sudo dmesg -c  # 清空内核消息
+
+sudo mknod /dev/rwbuf c 60 0
+
+sudo insmod rwbuf.ko  # 加载内核模块
+sudo rmmod rwbuf.ko  # 卸载内核模块
+lsmod  # 显示已加载的内核模块
+modinfo module_name  # 显示模块信息 
+```
+
+```c
+perror("In test.c")  // 根据错误码显示错误信息：In test.c: No such file or directory
+printk("My name is %s", name);  // 内核中的 printf，打印的信息可以用 dmesg 查看
 ```

@@ -15,7 +15,9 @@ Get-Command <string>  # sh 中的 which
 Get-Command pwsh | Select-Object Source  # 只输出 Get-Command 返回对象的 Source 属性；Select-Object 也可以用 select 代替
 Get-Service sshd
 Start-Service sshd
+Set-Service -StartupType Automatic sshd
 Update-Help -UICulture en-US  # 更新 PowerShell 帮助文档
+Unblock-File course.ps1  # 取消阻止从 Internet 下载的文件
 ```
 
 > `Get-Content` 命令也可以显示变量值：`Get-Content Env:PATH`

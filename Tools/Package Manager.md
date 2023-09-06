@@ -151,7 +151,7 @@ winget show         # 显示软件详细信息
 sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak  # 备份原始文件
 sudo sed -i -r 's/([a-z]{2}\.)?archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list
 sudo sed -i -r 's/security.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list
-sudo apt-get update
+sudo apt update
 ```
 
 #### EOL 发行版换源为 old-releases.ubuntu.com 源

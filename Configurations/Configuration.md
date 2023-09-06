@@ -116,7 +116,7 @@ net start sshd
 
 [远程登录 VMware 虚拟机](https://cloud.tencent.com/developer/article/1679861)
 
-## MacOS
+## macOS
 
 安装 VS Code 后配置环境变量：<kbd>⌘</kbd> + <kbd>⇧</kbd> + <kbd>P</kbd> 打开 Command Palette，输入 `Shell Command` ，选择 `Install 'code' command in PATH` 。
 

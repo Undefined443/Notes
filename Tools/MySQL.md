@@ -13,7 +13,7 @@ mysql -u debian-sys-maint -p
 ```
 
 ```sql
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';  # 修改密码为 password
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';  -- 修改密码为 password
 ```
 
 [博客园: ubuntu 系统下 mysql 重置密码和修改密码操作](https://www.cnblogs.com/it-tsz/p/10206008.html)

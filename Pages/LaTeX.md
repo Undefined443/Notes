@@ -578,6 +578,8 @@ ${\Huge  \int_a^b\!f(x){\rm d}x}\\
 
 #### 颜色
 
+${\red 给你点颜色看看}$
+
 ${\color{red}给你点颜色看看}$
 
 $\colorbox{red}{给你点颜色看看}$

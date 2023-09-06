@@ -62,9 +62,15 @@ tar -xJvf archive.tar.xz
 
 > 也可以使用 `-a` 选项让 tar 自动检测压缩格式
 
-### unzip
+### zip
 
-使用 `unzip` 解压 zip 文件
+#### 创建一个 zip 文件
+
+```sh
+zip -r xxx.zip file1 file2 dir1
+```
+
+#### 解压一个 zip 文件
 
 ```sh
 unzip xxx.zip
@@ -117,6 +123,30 @@ scp <file> xiao@192.168.162.132:<dir> # 使用 scp -r 递归复制整个目录
 
 sudo service ssh restart  # Linux 的重启 SSH 服务
 ```
+
+### SSH Config 文件：可以简化连接命令
+
+```config
+Host remote-ubuntu
+  HostName 118.195.247.228
+  User xiao
+  Port 6000
+
+Host ali
+  HostName 116.62.133.78
+  User root
+
+Host ubuntu
+  HostName 192.168.1.210
+  User xiao
+
+Host github.com
+  HostName ssh.github.com
+  User git
+  Port 443
+```
+
+登录时可以使用 `ssh remote-ubuntu` 代替 `ssh xiao118.195.247.228 -p 6000`
 
 > 可以提前将常用的主机记录到 `/etc/hosts`: `192.168.162.131 hostname` 下次登录 SSH 时可以使用主机名代替 IP 地址
 >
@@ -199,6 +229,34 @@ Connection to localhost closed.
 
 公钥由密钥类型 (`ssh-rsa`)、Base64 编码的密钥主题和 comment（如果有的话）组成，用空格分隔。Comment 用于帮助用户识别和管理不同的公钥，对密钥功能本身没有影响。因此可以手动删除 comment 及其前面的空格。
 
+### 以 root 身份登录
+
+```sh
+sudo vim /etc/ssh/sshd_config
+```
+
+找到这两条命令
+
+```config
+#PermitRootLogin prohibit-password
+
+#PermitEmptyPasswords no
+```
+
+改成这两条
+
+```config
+PermitRootLogin yes
+
+PermitEmptyPasswords yes
+```
+
+最后重启 `sshd` 服务
+
+```sh
+sudo systemctl restart sshd
+```
+
 ## nslookup
 
 测试 DNS 服务器是否正常工作
@@ -268,4 +326,32 @@ CertUtil -hashfile <file> SHA256
 
 ```ps1
 Get-FileHash <file> -Algorithm MD5
+```
+
+## GDB
+
+只有使用 `-g` 选项编译的程序才能使用 GDB 调试。
+
+```powershell
+gcc -g hello.c -o hello
+```
+
+```sh
+gdb <executable>
+b main  # 在 main 函数上打断点
+r       # 运行程序
+n       # 单步调试
+q       # 退出
+```
+
+## Network
+
+```sh
+ping 192.168.1.2  # 测试主机连通性
+ping6 2400:3200:baba::1  # ping ipv6
+curl google.com  # 在应用层测试主机连通性
+nmap -sn 192.168.1.0/24  # 扫描网络 192.168.1.0 中的设备
+telnet 192.168.1.2 6000  # 测试目的主机的 6000 端口是否开启
+sudo netstat -tunlp | grep 7000  # 检查 7000 端口是否开启
+dig alidns.com  # 查询域名解析
 ```

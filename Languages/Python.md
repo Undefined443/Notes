@@ -14,7 +14,7 @@ poetry 是当下热门的 Python 包管理器。Poetry 注重为项目提供完�
 brew install poetry
 ```
 
-#### Project setup
+#### 创建新项目
 
 ```sh
 poetry new poetry-demo
@@ -23,27 +23,27 @@ poetry shell
 exit
 ```
 
-#### Initialising a pre-existing project
+#### 初始化已经存在的项目
 
 ```sh
 cd pre-existing-project
 poetry init
 ```
 
-#### Installing dependencies
+#### 安装依赖
 
 ```sh
 poetry install
 ```
 
-#### Using your virtual environment
+#### 激活虚拟环境
 
 ```sh
 poetry shell
 $ exit
 ```
 
-#### Removing virtual environments
+#### 移除虚拟环境
 
 ```sh
 poetry env remove

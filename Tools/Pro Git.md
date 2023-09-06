@@ -12,6 +12,14 @@
 
 ## Practice
 
+```sh
+# 要求 git 使用 vim 作为编辑器
+git config --global core.editor "vim"
+
+# 修改默认分支名为 main
+git config --global init.defaultBranch main
+```
+
 如果你在 `push` 后，再使用 `commit --amend` 重新提交，然后再 `push` 就会产生提交冲突：
 
 ```sh
@@ -116,6 +124,8 @@ git log --pretty=oneline  # 单行模式：只显示 commit-id 和 commit-messag
 git log --abbrev-commit   # 只显示前 7 位 commit-id
 ```
 
+> `git diff` 后面两个参数的顺序对输出是有影响的。习惯上应该这样使用：`git diff <old> <new>`
+
 #### 操作符 \^ 与 \~
 
 `HEAD^`：HEAD 的上一个结点
@@ -202,7 +212,7 @@ git rm <file>  # 从工作区中删除 file 并将修改提交到暂存区
 ```
 
 > 等效于 `rm <file> && git add <file>`
-> 
+>
 > 删除也是一种修改操作
 
 ### 分支管理
@@ -289,11 +299,11 @@ git push <remote> <ref>:<branch>  # 将 ref 的内容推送到远程库的 branc
 ```
 
 > 远程分支 remote/branch 也是存储在本地的，它记录了上次和远程库通信时远程库的状态。
-
+>
 > 如果不提供 remote 参数的话，Git 会将 branch 的内容推送到其 track 的分支。
-> 
+>
 > 如果使用 `git push`，若当前分支没有 track 任何分支，或当前处于 Detached Head 状态的话 push 会失败。
-
+>
 > 如果不提供 ref 的话，Git 会删除远程库的 branch。
 
 #### fetch
@@ -351,7 +361,7 @@ git push <remote> :refs/tags/<tag_name>  # 删除远程标签
 ```
 
 > 标签相当于一个锚点，可以用它来为一些里程碑式的修改进行标记。
-
+>
 > 标签中不允许有空格。
 
 ##### describe 命令
@@ -435,10 +445,8 @@ git push -u origin main      # 将 main 分支推送到远程库 origin 并将 m
 ```
 
 > 新创建的分支并不会自动关联到远程库，因此在 push 新分支时需要使用 `git push <remote> [<branch>]` 命令指定要将 branch 推送到哪个远程库。
-> 
+>
 > `-u | --set-upstream` 选项可以在推送完成后设置 branch 与远程库的 remote/branch 相关联。这样以后在 push 和 pull 时可以省略 remote 参数。
-
-> 当我们第一次使用 Git 的 `push` 或者 `clone` 命令连接 GitHub 时，会得到一个警告，该警告要求我们确认 GitHub 的 Key 的指纹信息确实来自 GitHub 的服务器。我们只需输入 yes 回车即可。
 
 ### 关联分支（track）
 
@@ -451,7 +459,7 @@ git branch -u <remote>/<branch> [<branch>]  # 设置 branch 同步 remote/branch
 ```
 
 > :bulb: **Tip:** 只有在远程分支 remote/branch 已经存在的情况下才能设置 branch 同步 remote/branch。
-> 
+>
 > 查看所有远程分支：`git branch -r`
 
 ### 关联多个远程库

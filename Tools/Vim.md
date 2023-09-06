@@ -4,6 +4,66 @@
 
 ![Graphical cheat sheet](../assets/vi-vim-cheat-sheet-sch.gif)
 
+## Practice
+
+### 翻页
+
+向下翻页：`Ctrl + D` (half page down), `Ctrl + F` (full page down)
+
+向上翻页：`Ctrl + U` (half page up), `Ctrl + B` (full page up)
+
+### 编辑
+
+- `i`(insert): 光标处输入
+- `a`(append): 光标下一个字符处输入
+- `o`(open a line below): 光标下一行输入
+
+- `I`: 光标行第一个非空白符处输入
+- `A`: 光标行最后一个字符处输入
+- `O`: 光标上一行输入
+
+### 复制、粘贴和删除
+
+复制：`y` (yank)
+
+复制当前行：`yy`
+
+粘贴：`p` (paste)
+
+删除当前行：`dd`
+
+重做：`Ctrl` + `r`
+
+### 查找和替换
+
+向后查找：`/word`
+
+向前查找：`?word`
+
+重复查找：`n` (next), `N` (previous)
+
+替换：
+
+- `:%s/old/new/g` (全局替换)
+- `:%s/old/new/gc` (全局替换，每次替换前询问)
+- `:1,9s/old/new/g` (替换 1 到 9 行)
+- `:.,$s/old/new/g` (替换当前行到最后一行)
+- `:%s/old/new/gi` (忽略大小写替换)
+- `:%s#old#new#g` (自定义间隔符替换)
+
+### 移动光标
+
+移动光标到行首：`0` 或 `^` (`0` 是移到行的绝对开头，`^` 是移到第一个非空白字符)
+
+移动光标到行尾：`$`
+
+移动光标到文件开头：`gg`
+
+移动光标到文件结尾：`G`
+
+移动光标到指定行：`行号 + G`
+
+
 ## vim 选项
 
 ```vim
@@ -132,6 +192,7 @@ Vim 允许自定义间隔符，比如：`:s#dir1/#dir2#g`
 | `:set mouse=a`<br>`:set selection=exclusive`<br>`:set selectmode=mouse,key` | 启用鼠标            |
 |                              `:set autoindent`                              | 自动缩进            |
 |                              `:set tabstop=4`                               | 设置 Tab 键宽度     |
+|`:set shiftwidth=4`|设置自动换行缩进长度|
 |                              `:set expandtab`                               | 自动将 Tab 转为空格 |
 |                                `:syntax on`                                 | 开启语法高亮        |
 |                           `:set fileencoding=gbk`                           | 转换文件编码        |

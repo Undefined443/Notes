@@ -20,13 +20,21 @@ docker run -v "${PWD}":/app img
 
 在 git BASH 中可能会产生意料之外的绑定挂载。
 
-另外，在 PowerShell 中进行绑定时出现过另一种奇怪现象，在使用上面的命令挂载时，可能会出现奇怪的报错，这时将命令改成如下：（改变引号的位置）
+另外，在 PowerShell 中进行绑定时出现过另一种奇怪现象，在使用上面的命令挂载时，可能会出现奇怪的报错，这时将命令改成如下（改变引号的位置）：
 
 ```powershell
 docker run -v "${PWD}:/app" img
 ```
 
 就能正常运行。
+
+这样的命令也会出现报错：目录格式不正确
+
+```powershell
+docker run -v $(pwd)\frpc.ini:/etc/frp/frpc.ini frp
+```
+
+然而如果把 `$(pwd)` 换成 `$PWD` 就不会报错。两条命令 echo 出来的内容却是一样的。
 
 ### 保持容器运行的小技巧
 
@@ -475,6 +483,8 @@ apk add --repository http://mirrors.aliyun.com/alpine/v3.14/main/ --allow-untrus
 ```sh
 sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 ```
+
+在 `Dockerfile` 中有些命令写在一个 `RUN` 命令中会导致奇怪问题发生。
 
 ### 在 Alpine 中使用 Python 安装依赖时，在安装 cffi 时报错：
 
