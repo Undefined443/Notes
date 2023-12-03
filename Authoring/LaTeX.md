@@ -71,7 +71,7 @@ $\biggl(\sum\limits_{i=1}^n a_i\biggr)$
 
 $\left.\dfrac{\partial z}{\partial x}\right|_{y=1}$
 
-连分式：
+##### 连分式：
 
 $x = a_0 +\cfrac{1^2}{a_1+\cfrac{2^2}{a_2\cfrac{3^2}{a_3+\cfrac{4^2}{a_4+\cdots}}}}$
 
@@ -104,7 +104,10 @@ $\infty$
 
 #### 换行
 
-`\\`
+$
+line 1\\
+line 2
+$
 
 #### 上下标
 
@@ -172,7 +175,7 @@ $\div$
 
 #### 省略号
 
-$\cdots\ \ldots\ \vdots\ \ddots$
+$\ldots\ \cdots\ \vdots\ \ddots$
 
 > c: central  
 > d: diagonal

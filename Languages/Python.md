@@ -6,9 +6,9 @@
 
 [腾讯云：Python 虚拟环境（pipenv、vnev、conda）一网打尽](https://cloud.tencent.com/developer/article/2124483)
 
-### poetry
+### Poetry
 
-poetry 是当下热门的 Python 包管理器。Poetry 注重为项目提供完整的生命周期管理，包括构建、打包、发布和依赖管理。它的目标是成为 Python 项目的唯一工具。
+Poetry 是当下热门的 Python 包管理器。Poetry 注重为项目提供完整的生命周期管理，包括构建、打包、发布和依赖管理。它的目标是成为 Python 项目的唯一工具。其使用 `pyproject.toml` 文件来管理项目的依赖和构建配置。
 
 ```sh
 brew install poetry
@@ -40,7 +40,7 @@ poetry install
 
 ```sh
 poetry shell
-$ exit
+$ exit  # 退出虚拟环境
 ```
 
 #### 移除虚拟环境
@@ -51,17 +51,18 @@ poetry env remove
 
 [Poetry Docs: Basic Usage](https://python-poetry.org/docs/basic-usage/)
 
-### pipenv
+### Pipenv
 
-pipenv 是 Python 官方推荐的依赖管理工具，旨在简化 pip 和 virtualenv 的使用。
+Pipenv 是 Python 官方推荐的依赖管理工具，旨在简化 pip 和 virtualenv 的使用。其使用 `Pipfile` 和 `Pipfile.lock` 来管理项目的依赖和虚拟环境。
 
 ```sh
-# macOS
-brew install pipenv
-
-# Others
+# 安装
 pip3 install --user pipenv  # 如果当前用户不是 root，就使用 --user 选项
 ```
+
+不要使用 `brew` 安装 `pipenv`:
+
+> Homebrew installation is discouraged because it works better to install pipenv using pip on macOS.
 
 ```sh
 pipenv install  # 为目录创建新的虚拟环境，并使用目录中的 Pipfile 或 requirements.txt 安装依赖
@@ -125,7 +126,8 @@ pipenv --rm                    # 删除虚拟环境
 由于自 2020 年 11 月 14 日以来，PyPI XMLRPC API 持续收到过量的搜索调用，因此 `pip search` 命令将在不久的将来（撰稿日期 2022.9.26）弃用。目前要想使用 `pip search` 功能，可以在 [PyPI 官网](https://pypi.org) 进行搜索。
 
 ```sh
-pip3 venv .venv
+pip3 venv .venv  # 在目录 .vnev 中创建虚拟环境
+# 如果提示找不到 venv 命令，可以使用 python3 -m venv .venv
 .venv/bin/activate
 # activate.bat for CMD, activate.ps1 for PowerShell
 ```
@@ -173,8 +175,11 @@ pipreqs .  # 为当前项目生成依赖清单
 也可以使用 `pip3 freeze`，该命令将当前虚拟环境中安装的所有包及其版本号写入 `requirements.txt` 文件。（需要在 venv 环境下执行）
 
 ```sh
-pip3 freeze > requirements.txt # 也可以使用 pip freeze 生成当前环境的依赖清单
+pip3 freeze > requirements.txt  # 生成当前环境的依赖清单
+pip install -r requirements.txt  # 安装依赖
 ```
+
+可以在 `requirements.txt` 顶部添加 `-i https://pypi.tuna.tsinghua.edu.cn/simple` 来指定镜像源。
 
 ### pipinstaller
 

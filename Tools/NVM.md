@@ -88,7 +88,7 @@ npm config set registry http://registry.npmjs.org/
 
 ### 常用命令
 
-生成 package.json 文件
+新建项目，生成 package.json 文件
 
 ```sh
 npm init

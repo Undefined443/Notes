@@ -10,20 +10,24 @@ VS Code 原生 Markdown 渲染器不完全支持 GFM 语法。这里有一些好
 
 **Essential**
 
-- GitHub Markdown Preview: 该插件包包含 GitHub 风格 Preview 以及 Emoji 支持，Checkbox 支持等
-- Markdown Preview VS Code Highlighting: 使 Preview 中的代码颜色与编辑器中的颜色匹配
-- Markdown Footnotes: 支持脚注语法
-- Markdown Image Size: 支持图片大小语法
-- Markdown Preview Mermaid Support: Mermaid 图表支持
-- Mermaid Markdown Syntax Highlighting: Mermaid 代码高亮
-- Markdown All in One: 数学符号，GFM 支持，自动补全等。在插入图片时非常好用。
-- Learn Authoring Pack: 由 Microsoft 提供的 Markdown 插件包，提供了代码预测等功能。其自带的 Preview 功能非常丑陋，并且会影响 Tab 键接受 GitHub Copilot 建议的功能。
+| 插件名称                               | 描述                                                   |
+|----------------------------------------|--------------------------------------------------------|
+| GitHub Markdown Preview                | GitHub 风格 Preview，Emoji 支持，Checkbox 支持等           |
+| Markdown Preview VS Code Highlighting   | 使 Preview 中的代码颜色与编辑器中的颜色匹配                |
+| Markdown Footnotes                     | 支持脚注语法                                             |
+| Markdown Image Size                    | 支持图片大小语法                                           |
+| Markdown Preview Mermaid Support        | Mermaid 图表支持                                          |
+| Mermaid Markdown Syntax Highlighting   | Mermaid 代码高亮                                         |
+| Markdown All in One                     | 数学符号，GFM 支持，自动补全等。在插入图片时非常好用        |
+| Learn Authoring Pack                   | 由 Microsoft 提供的 Markdown 插件包，提供了代码预测等功能。其自带的 Preview 功能非常丑陋，并且会影响 Tab 键接受 GitHub Copilot 建议的功能。 |
 
 **Optional**
 
-- Markdown+Math：支持更多 Latex 符号；该插件渲染的符号比 Markdown All in One 的小一些
-- Markdown Preview Enhanced：支持最全的 Markdown Preview，但是打开速度稍慢
-- vscode all markdown：提供类似 Typora 的即时渲染功能
+| 插件名称                             | 描述                                               |
+|--------------------------------------|----------------------------------------------------|
+| Markdown+Math                         | 支持更多 Latex 符号；渲染的符号比 Markdown All in One 的小一些 |
+| Markdown Preview Enhanced             | 支持最全的 Markdown Preview，但是打开速度稍慢                |
+| vscode all markdown                   | 提供类似 Typora 的即时渲染功能                         |
 
 ## 基础语法
 
@@ -247,18 +251,17 @@ int main() {
 }
 ```
 
-语言指示：小写语言名，如 html, css, javascript(js), shell, bash(sh), java, python(py), csharp(cs), c, cpp, matlab, sql, arduino, cmake, powershell, batch(~~bat~~), ~~cmd~~。[查看所有支持的语言][supported languages]
-
+语言指示：小写语言名，如 html, css, javascript(js), shell, bash(sh), java, python(py), csharp(cs), c, cpp, matlab, sql, arduino, cmake, powershell, batch(~~bat~~), ~~cmd~~, plaintext。[查看所有支持的语言][supported languages]
 
 **使用规范**
 
-1.  很多 Shell 命令都要粘贴到终端中去执行，因此最好避免在 Shell 命令中使用任何换行操作；可以在行尾使用一个反斜杠 `\` 将换行转义，这样既能避免命令换行，又能提高源码的可读性。
-2.  建议不要在没有输出内容的 Shell 命令前加 `$`。在命令没有输出内容的情况下，`$` 是没有必要的，因为内容全是命令，我们不会把命令和输出的内容混淆。
-3.  内容占位符用 `<>` 包裹，可选参数用 `[]` 包裹。
+1. 很多 Shell 命令都要粘贴到终端中去执行，因此最好避免在 Shell 命令中使用任何换行操作；可以在行尾使用一个反斜杠 `\` 将换行转义，这样既能避免命令换行，又能提高源码的可读性。
+2. 建议不要在没有输出内容的 Shell 命令前加 `$`。在命令没有输出内容的情况下，`$` 是没有必要的，因为内容全是命令，我们不会把命令和输出的内容混淆。
+3. 内容占位符用 `<>` 包裹，可选参数用 `[]` 包裹。
 
 ```bash
-mkdir Demo;\ # 一定要加分号
-cd Demo;\
+mkdir Demo; \  # 一定要加分号
+cd Demo; \
 touch file
 ```
 

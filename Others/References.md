@@ -1,4 +1,4 @@
-#  References
+# References
 
 [设置域名服务器](https://ubuntu.com/server/docs/service-domain-name-service-dns)
 

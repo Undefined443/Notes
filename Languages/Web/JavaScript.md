@@ -26,6 +26,19 @@ window.onload = function() {
 }
 ```
 
+## 导入导出
+
+```js
+import something from '@/path_to_something'  // 如果 path 是目录，则会自动导入目录下的 index.js
+import { some_method } from 'some_package'  // 从 some_package 中解构出 some_method 函数
+```
+
+```js
+export default {
+  // 要向其他包暴露的信息
+}
+```
+
 ## 变量
 
 使用关键字 `let` 或 `var` 声明变量。

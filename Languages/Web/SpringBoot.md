@@ -157,11 +157,15 @@ public class HelloDao {
 ```java
 package com.hello.entity;
 
+// 可以使用 lombok 插件自动生成 get 和 set 方法，以及 toString 方法
+@Getter
+@Setter
+@ToString
 // 实体类，封装和保存表数据
 public class User {  // 封装 User 表
   // id, uname, pass, addr
   //为了安全，字段必须为 private
-  @TableId(type = IdType.AUTO)  // 设置 id 的属性为自增
+  @TableId(type = IdType.AUTO)  // 指定主键以及主键生成策略
   private Integer id;
   private String uname;
   private String pass;
@@ -211,16 +215,16 @@ public class DemoApplication {
 ```
 
 > 业务层接口继承 `IService<T>` 类
-> 
+>
 > 业务层实现类继承 `ServiceImpl<M, T>` 类
-> 
+>
 > 持久层接口继承 `BaseMapper<T>` 类
 
-> 数据库：first_name
-> 
-> Java: FirstName
-> 
-> MyBatis 会自动对应。 
+> 数据库表名、列名：first_name
+>
+> Java 类名、变量名: FirstName
+>
+> MyBatis 会自动对应。
 
 ## resources 文件夹
 
@@ -301,6 +305,17 @@ public String deleteUser(Integer id) {
 public User getById(Integer id) {  // 测试时在浏览器中访问 /get_by_id?id=1
   return mybatisService.getById(id);
 }
+
+// 使用 POST 方法
+@PostMapping("/login")
+    public User login(@RequestBody User user) {  // 要求从请求体中寻找参数
+        String uname = user.getUname();
+        String pass = user.getPass();
+        QueryWrapper<User> wrapper = new QueryWrapper<>();  // 获取一个查询包装器
+        wrapper.eq("uname", uname);  // 设置一个查询条件：数据库的 username 与参数 uname 的值相等
+        wrapper.eq("pass", pass);
+        return testService.getOne(wrapper);  // 查询并返回一条数据
+    }
 ```
 
 测试可以使用 `Apifox`
@@ -329,3 +344,74 @@ public IPage<User> selectPage(Integer current, Integer size) {
   return testService.page(page);
 }
 ```
+
+## 案例
+
+### 登陆
+
+```js
+// 校验请求参数
+if (uname === '' || pass === '') {
+  this.msg = '用户名或密码不能为空';
+  return;
+}
+axios.get("http://localhost:8081/login"), {
+        params: {  // 请求参数
+          uname: this.uname,
+          pass: this.pass
+        }
+      .then(response => {
+        if (response.data) {
+          this.$router.push("/home");  // 跳转到 home 页面
+        } else {
+          alert("用户名或密码错误");
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      })
+}
+
+```
+
+```java
+// 动作类
+@RequestMapping("/login")
+public User login(String uname, String pass) {  // /login?uname=xxx&pass=xxx
+  QueryWrapper<User> wrapper = new QueryWrapper<>();  // 获取一个查询包装器
+  wrapper.eq("username", uname);  // 设置一个查询条件：数据库的 username 与参数 uname 的值相等
+  wrapper.eq("password", pass);
+  return userService.getOne(wrapper);  // 查询并返回一条数据
+}
+```
+
+### 上传文件
+
+使用 `MultipartFile` 类型对象接收上传的文件。
+
+```java
+@PostMapping("/upload")
+public String upload(String uname, MultipartFile head, HttpRequest request) throws IOException {
+  String fileNmae = head.getOriginalFilename();  // 获取文件名
+  request.getServletContext().getRealPath("/image");  // 获取上传路径
+  
+  // 确保上传目录存在
+  if (!new File(path).exists()) {
+    new File(path).mkdirs();
+  }
+  File file = new File(path, fileName);
+  head.transferTo(file);  // 将上传的字节流传入文件
+  return "success";
+}
+```
+
+`application.properties`
+
+```properties
+spring.servlet.multipart.max-file-size=1MB
+spring.servlet.multipart.max-file-size=10MB
+```
+
+## 实用插件
+
+MyBatisX：自动生成实体层、业务层、持久层代码

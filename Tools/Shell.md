@@ -1213,10 +1213,15 @@ uname -o  # 显示操作系统名称
 
 ```sh
 adduser <username>  # 添加用户
+adduser -g <groupname> <username>  # 添加用户并指定用户组
 passwd <username>  # 修改用户密码
 userdel -r <username>  # 删除用户，-r 选项会删除用户的主目录
 usermod -L <username>  # 锁定用户禁止登录
 usermod -U <username>  # 解锁用户允许登录
+
+cat /etc/passwd | cut -d ":" -f 1  # 查看所有用户
+cat /etc/group | cut -d ":" -f 1  # 查看用户组
+id <username>  # 查看用户信息
 ```
 
 #### 用户组管理

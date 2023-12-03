@@ -136,7 +136,9 @@ sudo apt install /tmp/file.deb
 rm /tmp/file.deb
 ```
 
-### Clash for Linux
+### ~~Clash for Linux~~
+
+> Linux 建议使用 `Clash for Windows`
 
 在 [GitHub](https://github.com/Dreamacro/clash/releases) 下载 clash-linux-amd64 最新版本
 
